@@ -3,6 +3,7 @@ import { Conference } from "../get-conferences/conference.js";
 import { Speaker } from "../get-all-speakers/speaker.js";
 import { Speak } from "../get-speaks/speak.js";
 import { stripHtml } from "../../html.functions.js";
+import { normalizeForMatch } from "../../string.functions.js";
 import { findMentionedSpeakers } from "./findMentionedSpeakers.js";
 import { extractContextWindows } from "./extractContextWindows.js";
 import { findSpeakerProfileLinks } from "./findSpeakerProfileLinks.js";
@@ -84,6 +85,15 @@ export async function extractSpeaksFromConference(
   }
   const html = await pageResponse.text();
   const pageText = stripHtml(html);
+
+  // Garde déterministe : une page qui ne mentionne même pas le nom de l'événement
+  // n'est presque certainement pas sa page de programme (observé en pratique : le
+  // balayage multi-années de find-conference-editions remonte parfois une page sans
+  // rapport pour un nom d'événement trop générique, ex. "Human Talks Nantes" trouvant
+  // une page de formation listant des avis clients — un prénom+nom de speaker connu
+  // peut s'y retrouver par pure coïncidence). On l'ignore avant même de chercher des
+  // speakers, sans attendre un faux positif de findMentionedSpeakers.
+  if (!normalizeForMatch(pageText).includes(normalizeForMatch(conference.name))) return [];
 
   // Filtrage déterministe d'abord : qui est vraiment sur la page (pas de LLM,
   // pas d'hallucination possible). S'il n'y a personne, pas d'appel Ollama du tout.

@@ -1,51 +1,110 @@
 [
   {
     "name": "Devoxx France",
-    "url": "https://m.devoxx.com/events/devoxxfr2026"
+    "url": "https://m.devoxx.com/events/devoxxfr2026",
+    "pastEditionUrls": [
+      "https://www.devoxx.fr/2024/10/03/information-billetterie-2025",
+      "https://www.devoxx.fr/2024/03/08/le-programme-devoxx-france-2024",
+      "https://www.devoxx.fr/2023/03/29/comment-bien-preparer-devoxx-france-2023",
+      "https://www.devoxx.fr/2022/02/17/lagenda-2022"
+    ]
   },
   {
     "name": "BreizhCamp",
-    "url": "https://www.breizhcamp.org/programme"
+    "url": "https://www.breizhcamp.org/programme",
+    "pastEditionUrls": [
+      "https://2025.breizhcamp.org/conference/programme/",
+      "https://2024.breizhcamp.org/",
+      "https://2023.breizhcamp.org/",
+      "https://2022.breizhcamp.org/"
+    ]
   },
   {
     "name": "BDX I/O",
-    "url": "https://bdxio.fr/"
+    "url": "https://bdxio.fr/",
+    "pastEditionUrls": [
+      "https://bdxio.fr/schedule/",
+      "https://bdxio.fr/2023/"
+    ]
   },
   {
     "name": "Sunny Tech",
-    "url": "https://sunny-tech.io/"
+    "url": "https://sunny-tech.io/",
+    "pastEditionUrls": [
+      "https://sunny-tech.io/schedule/day-1",
+      "https://2025.sunny-tech.io/",
+      "https://sunny-tech.io/schedule/day-favorite",
+      "https://2023.sunny-tech.io/",
+      "https://2022.sunny-tech.io/schedule/"
+    ]
   },
   {
     "name": "Human Talks Nantes",
-    "url": "https://labo-llm.fr/agenda-ia/"
+    "url": "https://labo-llm.fr/agenda-ia/",
+    "pastEditionUrls": [
+      "https://www.humancoders.com/formations/windows-server-2025",
+      "https://www.humancoders.com/formations/typescript",
+      "https://louisbourgarel.com/evenements/"
+    ]
   },
   {
     "name": "Nantes JUG",
-    "url": "https://www.clever.cloud/blog/event/2026/09/02/upcoming-events-2026/"
+    "url": "https://www.clever.cloud/blog/event/2026/09/02/upcoming-events-2026/",
+    "pastEditionUrls": [
+      "https://www.meetup.com/fr-FR/nantes-java-user-group/",
+      "https://nantes.tribunal-administratif.fr/decisions-de-justice/calendrier-des-audiences",
+      "https://www.serli.com/lucille-moise-sera-au-nantes-jug-mardi-4-octobre/"
+    ]
   },
   {
     "name": "Codeurs en Seine",
-    "url": "https://www.codeursenseine.com/"
+    "url": "https://www.codeursenseine.com/",
+    "pastEditionUrls": [
+      "https://archives-codeurs-en-seine.netlify.app/archive-2025/2025",
+      "https://archives-codeurs-en-seine.netlify.app/archive-2023/2023/infos"
+    ]
   },
   {
     "name": "Touraine Tech",
-    "url": "https://touraine.tech/"
+    "url": "https://touraine.tech/",
+    "pastEditionUrls": [
+      "https://2025.touraine.tech/",
+      "https://2024.touraine.tech/",
+      "https://2023.touraine.tech/"
+    ]
   },
   {
     "name": "SnowCamp",
-    "url": "https://snowcamp.io/schedule-wait/"
+    "url": "https://snowcamp.io/schedule-wait/",
+    "pastEditionUrls": [
+      "https://snowcamp.io/"
+    ]
   },
   {
     "name": "MixIT",
-    "url": "https://mixitconf.org/schedule"
+    "url": "https://mixitconf.org/schedule",
+    "pastEditionUrls": [
+      "https://mixitconf.org/2025"
+    ]
   },
   {
     "name": "DevFest Nantes",
-    "url": "https://devfest2027.gdgnantes.com/"
+    "url": "https://devfest2027.gdgnantes.com/",
+    "pastEditionUrls": [
+      "https://devfest2024.gdgnantes.com/",
+      "https://devfest2023.gdgnantes.com/index.html",
+      "https://devfest2022.gdgnantes.com/"
+    ]
   },
   {
     "name": "Agile Tour Bordeaux",
-    "url": "https://agiletourbordeaux.fr/evenements/atbdx-edition-2026/"
+    "url": "https://agiletourbordeaux.fr/evenements/atbdx-edition-2026/",
+    "pastEditionUrls": [
+      "https://agiletourbordeaux.fr/evenements/atbdx-edition-2025/",
+      "https://agiletourbordeaux.fr/evenements/atbdx-edition-2024/",
+      "https://agiletourbordeaux.fr/evenements/atbdx-edition-2023/",
+      "https://agiletourbordeaux.fr/archives/editions/2022/index.html"
+    ]
   },
   {
     "name": "Riviera DEV",

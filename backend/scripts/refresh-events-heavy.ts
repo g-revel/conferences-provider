@@ -1,22 +1,21 @@
 import { Conference } from "../src/collects/get-conferences/conference.js";
-import { findConferenceEditionUrl } from "../src/collects/find-conference-editions/find-conference-editions.js";
+import { findConferenceEditionUrls } from "../src/collects/find-conference-editions/find-conference-editions.js";
 import { updateEventUrls } from "../src/collects/find-conference-editions/updateEventUrls.js";
 import { readJson, writeJson } from "../src/data/jsonStore.js";
 import { EVENTS_PATH } from "../src/data/paths.js";
 
 async function main(): Promise<void> {
   const events = await readJson<Conference[]>(EVENTS_PATH, []);
-  const eventsWithoutUrl = events.filter((e) => !e.url);
-  console.log(`${eventsWithoutUrl.length}/${events.length} événements sans URL connue.`);
+  console.log(`Recherche des éditions (courante + jusqu'à 4 ans en arrière) pour ${events.length} événement(s).`);
 
-  const foundUrls = new Map<string, string>();
-  for (const event of eventsWithoutUrl) {
+  const foundEditionsByName = new Map<string, string[]>();
+  for (const event of events) {
     console.log(`→ recherche pour ${event.name}...`);
     try {
-      const url = await findConferenceEditionUrl(event.name);
-      if (url) {
-        console.log(`  trouvé : ${url}`);
-        foundUrls.set(event.name, url);
+      const urls = await findConferenceEditionUrls(event.name);
+      if (urls.length > 0) {
+        console.log(`  ${urls.length} édition(s) trouvée(s)`);
+        foundEditionsByName.set(event.name, urls);
       } else {
         console.log("  rien trouvé");
       }
@@ -25,9 +24,9 @@ async function main(): Promise<void> {
     }
   }
 
-  const updated = updateEventUrls(events, foundUrls);
+  const updated = updateEventUrls(events, foundEditionsByName);
   await writeJson(EVENTS_PATH, updated);
-  console.log(`${foundUrls.size} URL(s) mise(s) à jour.`);
+  console.log(`${foundEditionsByName.size} événement(s) mis à jour.`);
 }
 
 main();

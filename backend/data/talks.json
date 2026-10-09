@@ -92,5 +92,211 @@
       }
     ],
     "title": "Orchestrez vos agents IA pour organiser un dîner presque parfait"
+  },
+  {
+    "conference": {
+      "name": "Sunny Tech",
+      "url": "https://sunny-tech.io/schedule/day-1"
+    },
+    "speakers": [
+      {
+        "firstname": "Benjamin",
+        "lastname": "Lacroix",
+        "company": "Shodo Studio"
+      },
+      {
+        "firstname": "Jordan",
+        "lastname": "Nourry",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Notre IA et nous contre le legacy : REX d'une reprise de contrôle assistée"
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Florent",
+        "lastname": "Albert",
+        "company": "Shodo Nantes"
+      },
+      {
+        "firstname": "Jeremy",
+        "lastname": "Chauvin",
+        "company": "Shodo Lyon"
+      }
+    ],
+    "title": "Devenez un Astronaute : Découvrez le Framework Astro"
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes"
+      }
+    ],
+    "title": "Mais qu'est ce qu'on va devenir ?"
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Le pattern Hive : une stratégie de modularisation pour votre monolithe modulaire ou vos microservice"
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Philippe",
+        "lastname": "Bourgau",
+        "company": "Shodo"
+      }
+    ],
+    "title": "La Simplicité, l'art de maximiser le travail non-fait, est essentielle!"
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2025.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2025.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2025.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2024.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2024.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Jeremy",
+        "lastname": "Chauvin",
+        "company": "Shodo Lyon"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2024.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Gaubert",
+        "company": "Shodo Boost"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2023.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Guibert",
+        "company": "Shodo"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Clement",
+        "lastname": "Juste",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": null
   }
 ]
