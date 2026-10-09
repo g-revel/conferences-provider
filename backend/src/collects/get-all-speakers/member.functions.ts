@@ -25,15 +25,17 @@ function extractByName(m: MemberWithNameHolder): Speaker | null {
   });
 }
 function hasValidRealname(m: Member): m is MemberWithRealnameHolder {
-  return !!m.real_name 
-    && m.real_name.split(" ").length === 2;
+  return !!m.real_name
+    && m.real_name.split(" ").length === 2
+    && !!m.profile?.email;
 }
 
 
 function hasValidName(m: Member): m is MemberWithNameHolder {
-  return !!m.name 
-    && m.name.split(".").length === 2 
-    && !/\d/.test(m.name);
+  return !!m.name
+    && m.name.split(".").length === 2
+    && !/\d/.test(m.name)
+    && !!m.profile?.email;
 }
 
 function extractByRealName(m: MemberWithRealnameHolder): Speaker | null {

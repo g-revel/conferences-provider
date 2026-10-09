@@ -20,14 +20,6 @@ npx promptfoo view # Ouvrir l'UI web des résultats (http://localhost:15500)
 - Toujours enregistrer les nouvelles routes dans `src/app.ts`
 - Ne pas lire `process.env` hors de `src/index.ts` et `src/app.ts`
 
-## Mistral SDK
-
-```ts
-import { Mistral } from "@mistralai/mistralai"; // export nommé, pas default
-```
-
-Le package est ESM-only — l'import par défaut (`import Mistral from ...`) ne compile pas.
-
 ## ESM
 
 Le projet est en mode ESM (`"type": "module"`). Toujours mettre l'extension `.js` sur les imports relatifs :
@@ -43,10 +35,10 @@ Chaque collect = un dossier `src/collects/<nom>/` avec un fichier TypeScript.
 
 | Collect | Fichier | Pattern |
 |---|---|---|
-| `getConferences()` | `get-conferences/get-conferences.ts` | Appel LLM simple, JSON |
+| `getConferences()` | `get-conferences/get-conferences.ts` | Liste statique codée en dur, pas de LLM |
 | `getAllSpeakers()` | `get-all-speakers/get-all-speakers.ts` | Lookup Slack (`@slack/web-api`), pas de LLM |
 
-**Pattern collect simple (LLM) :** appel Mistral avec `responseFormat: { type: "json_object" }`, `temperature: 0.2`, parser la réponse. Voir `get-conferences.ts`.
+**Pattern collect statique :** `getConferences()` retourne une liste connue (connaissance interne fixe : les conférences où Shodo a effectivement parlé), pas une donnée à faire deviner par un LLM. ⚠️ Un essai précédent avec un LLM local (Ollama + `llama3.1:8b`) a montré que ce modèle ne connaît pas les noms spécifiques des conférences régionales françaises (BreizhCamp, SnowCamp, MixIT...) et en invente des génériques plausibles à la place — limite de connaissance factuelle d'un petit modèle, pas un bug de prompt.
 
 **Pattern collect Slack :** `client.users.list()` du SDK `@slack/web-api` (token `SLACK_TOKEN`) récupère les membres du workspace, puis pipeline pur : filtrer les membres invalides (bot, `deleted`, `USLACKBOT`), puis `extractSpeakerOrUndefined` (`member.functions.ts`) extrait `{ firstname, lastname, company }` depuis `name` ("prenom.nom") ou en fallback `real_name` ("Prenom Nom") + domaine de l'email, **et** normalise en pascal case via `toPascalCase` (`string.functions.ts`) avant de retourner le `Speaker`. Voir `get-all-speakers.ts` comme référence — toute la logique après l'appel Slack est pure et déterministe, donc testable sans LLM ni eval.
 
@@ -54,7 +46,7 @@ Chaque collect = un dossier `src/collects/<nom>/` avec un fichier TypeScript.
 
 ## Tests unitaires (Vitest)
 
-Les TU testent la logique déterministe (fonctions pures, pipeline de filtrage/transformation), pas les appels LLM (ça reste le rôle des evals promptfoo ci-dessous).
+Les TU testent la logique déterministe (fonctions pures, pipeline de filtrage/transformation). `getConferences()` est maintenant purement déterministe (liste statique) et couvert par un TU plutôt qu'un eval — voir `get-conferences.test.ts`. Les evals promptfoo restent le rôle des collects qui appellent réellement un LLM (aucun actuellement dans ce repo).
 
 **Convention** : fichier de test **co-localisé** avec la source, suffixe `.test.ts` — ex. `src/string.functions.ts` → `src/string.functions.test.ts`.
 
@@ -104,21 +96,21 @@ Les evals sont dans `tests/evals/` et utilisent [promptfoo](https://promptfoo.de
 
 ```
 tests/evals/
-├── get-all-conferences.yaml
-├── get-all-conferences-provider.ts
 ├── get-all-speakers.yaml
-└── get-all-speakers-provider.ts
+├── get-all-speakers-provider.ts
+├── get-speaks.yaml
+└── get-speaks-provider.ts
 ```
 
 **Provider** : doit être une **classe** (pas un objet littéral) car promptfoo l'instancie avec `new`.
 
 **Assertions** : utiliser `throw new Error(message)` pour afficher la raison d'échec dans le terminal. `return { reason }` n'est pas affiché.
 
-**LLM judge** : `mistral:mistral-large-latest` — nécessite `MISTRAL_API_KEY` dans `.env`.
+Aucun de ces evals n'utilise de LLM judge actuellement (assertions JS pures sur la sortie) — pas de clé API ni de serveur LLM requis pour `npm run eval`.
 
 **Rate limit** : `getAllSpeakers` appelle l'API Slack (`users.list`), sujette au rate limit. Toujours tester cet eval avec `--max-concurrency 1` :
 ```bash
 npx promptfoo eval --config tests/evals/get-all-speakers.yaml --max-concurrency 1
 ```
 
-La CI (`/.github/workflows/evals.yml`) tourne les evals sur chaque push/PR sur `main`. Le secret `MISTRAL_API_KEY` doit être configuré dans GitHub → Settings → Secrets.
+La CI (`/.github/workflows/evals.yml`) tourne les evals sur chaque push/PR sur `main`. Aucun secret requis actuellement (⚠️ `get-all-speakers.yaml` a quand même besoin de `SLACK_TOKEN` pour fonctionner réellement, non configuré dans le workflow — gap préexistant).
