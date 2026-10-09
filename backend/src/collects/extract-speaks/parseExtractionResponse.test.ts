@@ -106,6 +106,15 @@ describe("parseExtractionResponse", () => {
     ]);
   });
 
+  it("discards a hashtag mistaken for a title (site theme, not a real talk title)", () => {
+    const raw = JSON.stringify({ matches: [{ firstname: "Alice", lastname: "Martin", title: "#BackToSchool" }] });
+    const pageText = "BreizhCamp 2026 - Alice Martin #BackToSchool";
+
+    expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
+      { conference, speakers: [knownSpeakers[0]], title: null },
+    ]);
+  });
+
   it("salvages complete match objects from a truncated JSON response", () => {
     const raw = '{"matches": [{"firstname": "Alice", "lastname": "Martin", "title": "Intro TDD"}, {"firstname": "Bob",';
     const pageText = "9h00 Intro TDD par Alice Martin";

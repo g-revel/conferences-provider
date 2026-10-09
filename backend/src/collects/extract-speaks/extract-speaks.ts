@@ -103,7 +103,8 @@ export async function extractSpeaksFromConference(
   // Certains sites ont une page dédiée par speaker (liée depuis le programme) —
   // bien plus fiable pour le titre qu'une fenêtre de texte dans la grosse page
   // programme (page courte, entièrement consacrée à cette personne). Fallback sur
-  // la fenêtre de contexte habituelle quand aucune page dédiée n'est trouvée.
+  // la fenêtre de contexte habituelle quand aucune page dédiée n'est trouvée, ou
+  // quand la page dédiée existe mais ne donne quand même aucun titre (voir plus bas).
   const profileLinks = findSpeakerProfileLinks(html, candidates);
   const windows = new Map(extractContextWindows(pageText, candidates).map((c) => [c.speaker, c.context]));
 
@@ -114,10 +115,23 @@ export async function extractSpeaksFromConference(
       ? await fetchStrippedText(new URL(profileHref, conference.url).toString(), MAX_PROFILE_TEXT_CHARS)
       : null;
 
-    const context = profileText ?? windows.get(speaker) ?? "";
-    const verificationText = profileText ?? pageText;
+    let result = profileText ? await extractTitleFor(speaker, profileText, conference, profileText) : [];
 
-    speaks.push(...(await extractTitleFor(speaker, context, conference, verificationText)));
+    // Une page profil dédiée peut exister sans jamais mentionner le titre du talk
+    // (observé sur touraine.tech : juste une bio, le titre n'est que dans le bloc
+    // programme) — retente alors avec la fenêtre de contexte avant d'abandonner,
+    // plutôt que de s'arrêter au premier essai juste parce qu'une page profil existe.
+    if (!result.some((speak) => speak.title != null)) {
+      const windowContext = windows.get(speaker);
+      if (windowContext) {
+        const windowResult = await extractTitleFor(speaker, windowContext, conference, pageText);
+        if (windowResult.some((speak) => speak.title != null) || result.length === 0) {
+          result = windowResult;
+        }
+      }
+    }
+
+    speaks.push(...result);
   }
   // fillMissingCoPresenterTitles compare des entrées à un seul speaker chacune
   // (il lui faut un "voisin" distinct pour détecter la proximité) : le regroupement

@@ -25,6 +25,15 @@ describe("findSpeakerProfileLinks", () => {
     expect(findSpeakerProfileLinks(html, [aboaf]).has(aboaf)).toBe(false);
   });
 
+  it("finds the profile link when the name is nested in child elements, not direct anchor text", () => {
+    const castelein = { firstname: "Nathan", lastname: "Castelein", company: "Shodo Lille" };
+    const html =
+      '<a href="/speaker/Nathan_Castelein"><div class="speaker--bloc"><div class="container--image">' +
+      '<img src="/_nuxt/img/x.png" alt="Nathan Castelein"></div> <h3>Nathan Castelein</h3></div></a>';
+
+    expect(findSpeakerProfileLinks(html, [castelein]).get(castelein)).toBe("/speaker/Nathan_Castelein");
+  });
+
   it("ignores links unrelated to any candidate", () => {
     const html = '<a href="/about">À propos</a><a href="/speakers/julien.topcu">Julien Topçu</a>';
 

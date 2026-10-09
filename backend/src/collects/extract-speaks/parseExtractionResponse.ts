@@ -14,6 +14,15 @@ function speakerIdentity(firstname: string, lastname: string): string {
   return `${normalizeForMatch(firstname)}|${normalizeForMatch(lastname)}`;
 }
 
+// Garde-fou anti-hallucination supplémentaire : un hashtag de thème du site n'est
+// jamais un titre de talk. Observé en pratique sur touraine.tech, dont le header de
+// CHAQUE page (y compris les pages profil speaker, qui n'ont sinon qu'une bio sans
+// aucun titre) affiche "Touraine Tech 2025 - <Nom> #BackToSchool" — le modèle a
+// confondu ce hashtag de thème annuel avec le titre du talk.
+function isPlausibleTitle(title: string): boolean {
+  return !title.trim().startsWith("#");
+}
+
 // La génération peut s'arrêter en plein milieu du JSON (num_predict atteint),
 // ce qui casse JSON.parse sur la réponse entière. Comme chaque match est un objet
 // plat sans accolade imbriquée, on peut récupérer les objets déjà complets avant
@@ -71,7 +80,8 @@ export function parseExtractionResponse(
       !containsWholeWord(normalizedPageText, normalizeForMatch(speaker.lastname))
     ) continue; // prénom ou nom absent du texte réel
 
-    const title = typeof match.title === "string" ? sanitizeLlmText(match.title) : null;
+    const rawTitle = typeof match.title === "string" ? sanitizeLlmText(match.title) : null;
+    const title = rawTitle != null && isPlausibleTitle(rawTitle) ? rawTitle : null;
     const existing = speaksByIdentity.get(identity);
     if (!existing || (existing.title == null && title != null)) {
       speaksByIdentity.set(identity, { conference, speakers: [speaker], title });

@@ -36,4 +36,41 @@ describe("extractSpeaksFromConference", () => {
 
     expect(result).toEqual([]);
   });
+
+  it("falls back to the context window when the dedicated profile page has no title", async () => {
+    const castelein = { firstname: "Nathan", lastname: "Castelein", company: "Shodo Lille" };
+    const conference = { name: "Touraine Tech", url: "https://touraine.tech/" };
+
+    const mainPageHtml =
+      "<html><body>Touraine Tech - Nos speakers " +
+      '<a href="/speaker/Nathan_Castelein"><h3>Nathan Castelein</h3></a>' +
+      " Le programme : Le DDD c'est compliqué Nathan Castelein</body></html>";
+    const profilePageHtml = "<html><body>Touraine Tech - Nathan Castelein bio only, no talk title here</body></html>";
+
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({ ok: true, text: async () => mainPageHtml } as Response)
+      .mockResolvedValueOnce({ ok: true, text: async () => profilePageHtml } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          message: {
+            content: JSON.stringify({ matches: [{ firstname: "Nathan", lastname: "Castelein", title: null }] }),
+          },
+        }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          message: {
+            content: JSON.stringify({
+              matches: [{ firstname: "Nathan", lastname: "Castelein", title: "Le DDD c'est compliqué" }],
+            }),
+          },
+        }),
+      } as Response);
+
+    const result = await extractSpeaksFromConference(conference, [castelein]);
+
+    expect(result).toEqual([{ conference, speakers: [castelein], title: "Le DDD c'est compliqué" }]);
+  });
 });
