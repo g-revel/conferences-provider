@@ -61,6 +61,51 @@ describe("parseExtractionResponse", () => {
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([]);
   });
 
+  it("deduplicates a person cited twice, preferring the non-null title regardless of order", () => {
+    const rawTitleFirst = JSON.stringify({
+      matches: [
+        { firstname: "Alice", lastname: "Martin", title: null },
+        { firstname: "Alice", lastname: "Martin", title: "Orchestrez vos agents IA" },
+      ],
+    });
+    const rawTitleLast = JSON.stringify({
+      matches: [
+        { firstname: "Alice", lastname: "Martin", title: "Orchestrez vos agents IA" },
+        { firstname: "Alice", lastname: "Martin", title: null },
+      ],
+    });
+    const pageTextWithName = "9h00 Orchestrez vos agents IA par Alice Martin";
+
+    expect(parseExtractionResponse(rawTitleFirst, conference, knownSpeakers, pageTextWithName)).toEqual([
+      { conference, speaker: knownSpeakers[0], title: "Orchestrez vos agents IA" },
+    ]);
+    expect(parseExtractionResponse(rawTitleLast, conference, knownSpeakers, pageTextWithName)).toEqual([
+      { conference, speaker: knownSpeakers[0], title: "Orchestrez vos agents IA" },
+    ]);
+  });
+
+  it("decodes a literal \\u0027 escape artifact left in the title by the model", () => {
+    const raw = JSON.stringify({
+      matches: [{ firstname: "Alice", lastname: "Martin", title: "l\\u0027architecture hexagonale" }],
+    });
+    const pageText = "9h00 l'architecture hexagonale par Alice Martin";
+
+    expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
+      { conference, speaker: knownSpeakers[0], title: "l'architecture hexagonale" },
+    ]);
+  });
+
+  it("decodes a literal HTML entity left in the title by the model", () => {
+    const raw = JSON.stringify({
+      matches: [{ firstname: "Alice", lastname: "Martin", title: "l&#39;architecture hexagonale" }],
+    });
+    const pageText = "9h00 l'architecture hexagonale par Alice Martin";
+
+    expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
+      { conference, speaker: knownSpeakers[0], title: "l'architecture hexagonale" },
+    ]);
+  });
+
   it("salvages complete match objects from a truncated JSON response", () => {
     const raw = '{"matches": [{"firstname": "Alice", "lastname": "Martin", "title": "Intro TDD"}, {"firstname": "Bob",';
     const pageText = "9h00 Intro TDD par Alice Martin";

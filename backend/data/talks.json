@@ -5,9 +5,9 @@
       "url": "https://www.breizhcamp.org/programme"
     },
     "speaker": {
-      "firstname": "Emmanuelle",
-      "lastname": "Aboaf",
-      "company": "Shodo"
+      "firstname": "Manon",
+      "lastname": "Carbonnel",
+      "company": "Shodo Rennes"
     },
     "title": "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble"
   },
@@ -17,9 +17,9 @@
       "url": "https://www.breizhcamp.org/programme"
     },
     "speaker": {
-      "firstname": "Manon",
-      "lastname": "Carbonnel",
-      "company": "Shodo Rennes"
+      "firstname": "Emmanuelle",
+      "lastname": "Aboaf",
+      "company": "Shodo"
     },
     "title": "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble"
   },
@@ -33,7 +33,7 @@
       "lastname": "Yan",
       "company": "Shodo Rennes"
     },
-    "title": "Atelier Micronaut : on code, on compare, on décortique"
+    "title": "Introduction Sécurité"
   },
   {
     "conference": {
@@ -57,7 +57,7 @@
       "lastname": "Aboaf",
       "company": "Shodo"
     },
-    "title": "Comment concevoir et tester un site accessible ?"
+    "title": null
   },
   {
     "conference": {
@@ -69,7 +69,7 @@
       "lastname": "Castelein",
       "company": "Shodo Lille"
     },
-    "title": null
+    "title": "concepts fondamentaux de l'architecture hexagonale"
   },
   {
     "conference": {
@@ -81,7 +81,7 @@
       "lastname": "Lacroix",
       "company": "Shodo Studio"
     },
-    "title": null
+    "title": "Orchestrez vos agents IA pour organiser un dîner presque parfait"
   },
   {
     "conference": {
@@ -93,6 +93,6 @@
       "lastname": "Nourry",
       "company": "Shodo"
     },
-    "title": null
+    "title": "Orchestrez vos agents IA pour organiser un dîner presque parfait"
   }
 ]

@@ -14,3 +14,11 @@ export function normalizeForMatch(str: string): string {
     .toLowerCase()
     .trim();
 }
+
+// Les deux arguments doivent déjà être passés par normalizeForMatch. `\b` seul
+// évite les faux positifs en sous-chaîne (ex. "Vo" dans "avoir").
+export function containsWholeWord(normalizedText: string, normalizedWord: string): boolean {
+  if (!normalizedWord) return false;
+  const escaped = normalizedWord.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`\\b${escaped}\\b`).test(normalizedText);
+}

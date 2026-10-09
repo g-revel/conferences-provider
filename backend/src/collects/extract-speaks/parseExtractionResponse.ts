@@ -1,7 +1,8 @@
 import { Conference } from "../get-conferences/conference.js";
 import { Speaker } from "../get-all-speakers/speaker.js";
 import { Speak } from "../get-speaks/speak.js";
-import { normalizeForMatch } from "../../string.functions.js";
+import { normalizeForMatch, containsWholeWord } from "../../string.functions.js";
+import { decodeHtmlEntities } from "../../html.functions.js";
 
 interface RawMatch {
   firstname?: unknown;
@@ -13,14 +14,16 @@ function speakerIdentity(firstname: string, lastname: string): string {
   return `${normalizeForMatch(firstname)}|${normalizeForMatch(lastname)}`;
 }
 
-// `.includes()` seul est trop permissif sur un nom de famille court (ex. "Vo" matche
-// à l'intérieur d'"avoir") : on exige une correspondance mot entier (`\b`), sur les
-// deux noms — un nom de famille seul (même en mot entier) peut rester un homonyme
-// courant, le prénom réduit nettement ce risque de faux positif.
-function containsWholeWord(normalizedText: string, word: string): boolean {
-  if (!word) return false;
-  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`\\b${escaped}\\b`).test(normalizedText);
+// Le modèle sur-échappe parfois la ponctuation au lieu de recopier le caractère
+// réel : séquence \uXXXX littérale (ex. "l\\u0027architecture") que JSON.parse
+// laisse telle quelle puisque c'est un JSON valide, pas un \uXXXX à décoder, ou
+// entité HTML littérale (ex. "l&#39;architecture") recopiée depuis la page source.
+function sanitizeTitle(title: string): string {
+  const withoutUnicodeEscapes = title.replace(
+    /\\u([0-9a-fA-F]{4})/g,
+    (_, hex: string) => String.fromCharCode(parseInt(hex, 16)),
+  );
+  return decodeHtmlEntities(withoutUnicodeEscapes);
 }
 
 // La génération peut s'arrêter en plein milieu du JSON (num_predict atteint),
@@ -63,11 +66,16 @@ export function parseExtractionResponse(
   );
   const normalizedPageText = normalizeForMatch(pageText);
 
-  const speaks: Speak[] = [];
+  // Le modèle peut citer la même personne plusieurs fois dans une même réponse
+  // (ex. une fois avec `title: null`, une fois avec le vrai titre, sur un talk à
+  // plusieurs co-intervenants) — on dédoublonne en préférant un titre non-null,
+  // plutôt que de dépendre de l'ordre d'apparition dans la réponse du modèle.
+  const speaksByIdentity = new Map<string, Speak>();
   for (const match of matches) {
     if (typeof match.firstname !== "string" || typeof match.lastname !== "string") continue;
 
-    const speaker = speakersByIdentity.get(speakerIdentity(match.firstname, match.lastname));
+    const identity = speakerIdentity(match.firstname, match.lastname);
+    const speaker = speakersByIdentity.get(identity);
     if (!speaker) continue; // nom hors de la liste fournie : on l'ignore (anti-hallucination)
 
     if (
@@ -75,11 +83,11 @@ export function parseExtractionResponse(
       !containsWholeWord(normalizedPageText, normalizeForMatch(speaker.lastname))
     ) continue; // prénom ou nom absent du texte réel
 
-    speaks.push({
-      conference,
-      speaker,
-      title: typeof match.title === "string" ? match.title : null,
-    });
+    const title = typeof match.title === "string" ? sanitizeTitle(match.title) : null;
+    const existing = speaksByIdentity.get(identity);
+    if (!existing || (existing.title == null && title != null)) {
+      speaksByIdentity.set(identity, { conference, speaker, title });
+    }
   }
-  return speaks;
+  return [...speaksByIdentity.values()];
 }

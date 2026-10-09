@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { toPascalCase, normalizeForMatch } from "./string.functions.js";
+import { toPascalCase, normalizeForMatch, containsWholeWord } from "./string.functions.js";
 
 describe("toPascalCase", () => {
   it("capitalizes a single lowercase word", () => {
@@ -42,5 +42,23 @@ describe("normalizeForMatch", () => {
 
   it("trims surrounding whitespace", () => {
     expect(normalizeForMatch("  Alice  ")).toBe("alice");
+  });
+});
+
+describe("containsWholeWord", () => {
+  it("finds a word surrounded by other words", () => {
+    expect(containsWholeWord("il faut avoir confiance", "avoir")).toBe(true);
+  });
+
+  it("does not match a word that only appears as a substring of another word", () => {
+    expect(containsWholeWord("il faut avoir confiance", "vo")).toBe(false);
+  });
+
+  it("returns false for an empty word", () => {
+    expect(containsWholeWord("il faut avoir confiance", "")).toBe(false);
+  });
+
+  it("does not crash on regex special characters", () => {
+    expect(containsWholeWord("v-vignon est la", "v-vignon")).toBe(true);
   });
 });

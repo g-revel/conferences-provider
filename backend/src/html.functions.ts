@@ -8,6 +8,12 @@ const HTML_ENTITIES: Record<string, string> = {
   "&nbsp;": " ",
 };
 
+const HTML_ENTITY_PATTERN = /&amp;|&lt;|&gt;|&quot;|&#39;|&apos;|&nbsp;/g;
+
+export function decodeHtmlEntities(text: string): string {
+  return text.replace(HTML_ENTITY_PATTERN, (entity) => HTML_ENTITIES[entity] ?? entity);
+}
+
 export function stripHtml(html: string): string {
   const withoutScripts = html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -15,10 +21,5 @@ export function stripHtml(html: string): string {
 
   const withoutTags = withoutScripts.replace(/<[^>]+>/g, " ");
 
-  const withEntitiesDecoded = withoutTags.replace(
-    /&amp;|&lt;|&gt;|&quot;|&#39;|&apos;|&nbsp;/g,
-    (entity) => HTML_ENTITIES[entity] ?? entity,
-  );
-
-  return withEntitiesDecoded.replace(/\s+/g, " ").trim();
+  return decodeHtmlEntities(withoutTags).replace(/\s+/g, " ").trim();
 }
