@@ -13,7 +13,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 Intro TDD par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speaker: knownSpeakers[0], title: "Intro TDD" },
+      { conference, speakers: [knownSpeakers[0]], title: "Intro TDD" },
     ]);
   });
 
@@ -22,7 +22,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "alice martin donnera un talk";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speaker: knownSpeakers[0], title: null },
+      { conference, speakers: [knownSpeakers[0]], title: null },
     ]);
   });
 
@@ -77,10 +77,10 @@ describe("parseExtractionResponse", () => {
     const pageTextWithName = "9h00 Orchestrez vos agents IA par Alice Martin";
 
     expect(parseExtractionResponse(rawTitleFirst, conference, knownSpeakers, pageTextWithName)).toEqual([
-      { conference, speaker: knownSpeakers[0], title: "Orchestrez vos agents IA" },
+      { conference, speakers: [knownSpeakers[0]], title: "Orchestrez vos agents IA" },
     ]);
     expect(parseExtractionResponse(rawTitleLast, conference, knownSpeakers, pageTextWithName)).toEqual([
-      { conference, speaker: knownSpeakers[0], title: "Orchestrez vos agents IA" },
+      { conference, speakers: [knownSpeakers[0]], title: "Orchestrez vos agents IA" },
     ]);
   });
 
@@ -91,7 +91,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 l'architecture hexagonale par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speaker: knownSpeakers[0], title: "l'architecture hexagonale" },
+      { conference, speakers: [knownSpeakers[0]], title: "l'architecture hexagonale" },
     ]);
   });
 
@@ -102,7 +102,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 l'architecture hexagonale par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speaker: knownSpeakers[0], title: "l'architecture hexagonale" },
+      { conference, speakers: [knownSpeakers[0]], title: "l'architecture hexagonale" },
     ]);
   });
 
@@ -111,7 +111,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 Intro TDD par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speaker: knownSpeakers[0], title: "Intro TDD" },
+      { conference, speakers: [knownSpeakers[0]], title: "Intro TDD" },
     ]);
   });
 });

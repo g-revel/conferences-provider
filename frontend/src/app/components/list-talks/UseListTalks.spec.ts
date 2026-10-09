@@ -9,7 +9,7 @@ import type { Talk } from '../../../domain/talks/Talk'
 const fakeTalks: Talk[] = [
   {
     conference: { name: 'BreizhCamp', url: 'https://www.breizhcamp.org/programme' },
-    speaker: { firstname: 'Alice', lastname: 'Martin', company: 'Shodo' },
+    speakers: [{ firstname: 'Alice', lastname: 'Martin', company: 'Shodo' }],
     title: 'Intro TDD',
   },
 ]

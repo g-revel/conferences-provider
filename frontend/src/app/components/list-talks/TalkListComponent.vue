@@ -4,7 +4,11 @@ import type { Talk } from '../../../domain/talks/Talk'
 defineProps<{ talks: Talk[] }>()
 
 function talkKey(talk: Talk): string {
-  return `${talk.conference.name}-${talk.speaker.firstname}-${talk.speaker.lastname}`
+  return [talk.conference.name, ...talk.speakers.map((s) => `${s.firstname}-${s.lastname}`)].join('-')
+}
+
+function speakerNames(talk: Talk): string {
+  return talk.speakers.map((s) => `${s.firstname} ${s.lastname}`).join(', ')
 }
 </script>
 
@@ -23,7 +27,7 @@ function talkKey(talk: Talk): string {
         class="font-medium text-blue-600 hover:underline"
       >{{ talk.conference.name }}</a>
       <span v-else class="font-medium">{{ talk.conference.name }}</span>
-      — {{ talk.speaker.firstname }} {{ talk.speaker.lastname }}
+      — {{ speakerNames(talk) }}
       <span v-if="talk.title" class="text-gray-500"> : {{ talk.title }}</span>
     </li>
   </ul>

@@ -7,13 +7,21 @@ import type { Talk } from '../../../domain/talks/Talk'
 const talks: Talk[] = [
   {
     conference: { name: 'BreizhCamp', url: 'https://www.breizhcamp.org/programme' },
-    speaker: { firstname: 'Alice', lastname: 'Martin', company: 'Shodo' },
+    speakers: [{ firstname: 'Alice', lastname: 'Martin', company: 'Shodo' }],
     title: 'Intro TDD',
   },
   {
     conference: { name: 'SnowCamp', url: null },
-    speaker: { firstname: 'Bob', lastname: 'Dupont', company: 'Shodo' },
+    speakers: [{ firstname: 'Bob', lastname: 'Dupont', company: 'Shodo' }],
     title: null,
+  },
+  {
+    conference: { name: 'MixIT', url: 'https://mixitconf.org/schedule' },
+    speakers: [
+      { firstname: 'Carol', lastname: 'Lenoir', company: 'Shodo' },
+      { firstname: 'Dan', lastname: 'Petit', company: 'Shodo' },
+    ],
+    title: 'Talk co-animé',
   },
 ]
 
@@ -21,7 +29,7 @@ describe('TalkListComponent', () => {
   it('should render one item per talk', () => {
     const wrapper = mount(TalkListComponent, { props: { talks } })
 
-    expect(wrapper.findAll('li')).toHaveLength(2)
+    expect(wrapper.findAll('li')).toHaveLength(3)
   })
 
   it('should render a clickable link to the conference when a url is known', () => {
@@ -45,6 +53,14 @@ describe('TalkListComponent', () => {
 
     expect(wrapper.text()).toContain('Alice Martin')
     expect(wrapper.text()).toContain('Intro TDD')
+  })
+
+  it('should display every co-presenter of a co-animated talk as a single item', () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[2]] } })
+
+    expect(wrapper.findAll('li')).toHaveLength(1)
+    expect(wrapper.text()).toContain('Carol Lenoir, Dan Petit')
+    expect(wrapper.text()).toContain('Talk co-animé')
   })
 
   it('should render an empty list when there are no talks', () => {

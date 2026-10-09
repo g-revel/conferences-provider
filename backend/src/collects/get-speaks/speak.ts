@@ -3,6 +3,6 @@ import { Speaker } from "../get-all-speakers/speaker.js";
 
 export interface Speak {
   conference: Conference;
-  speaker: Speaker;
+  speakers: Speaker[];
   title?: string | null;
 }

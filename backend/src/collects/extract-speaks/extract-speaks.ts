@@ -9,6 +9,7 @@ import { findSpeakerProfileLinks } from "./findSpeakerProfileLinks.js";
 import { buildExtractionPrompt } from "./buildExtractionPrompt.js";
 import { parseExtractionResponse } from "./parseExtractionResponse.js";
 import { fillMissingCoPresenterTitles } from "./fillMissingCoPresenterTitles.js";
+import { groupCoPresentedTalks } from "./groupCoPresentedTalks.js";
 
 const OLLAMA_HOST = process.env.OLLAMA_HOST ?? "http://localhost:11434";
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL ?? "llama3.1:8b";
@@ -108,5 +109,8 @@ export async function extractSpeaksFromConference(
 
     speaks.push(...(await extractTitleFor(speaker, context, conference, verificationText)));
   }
-  return fillMissingCoPresenterTitles(speaks, pageText);
+  // fillMissingCoPresenterTitles compare des entrées à un seul speaker chacune
+  // (il lui faut un "voisin" distinct pour détecter la proximité) : le regroupement
+  // en entrées multi-speakers doit donc venir après, pas avant.
+  return groupCoPresentedTalks(fillMissingCoPresenterTitles(speaks, pageText));
 }

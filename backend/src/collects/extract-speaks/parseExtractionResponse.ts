@@ -86,7 +86,7 @@ export function parseExtractionResponse(
     const title = typeof match.title === "string" ? sanitizeTitle(match.title) : null;
     const existing = speaksByIdentity.get(identity);
     if (!existing || (existing.title == null && title != null)) {
-      speaksByIdentity.set(identity, { conference, speaker, title });
+      speaksByIdentity.set(identity, { conference, speakers: [speaker], title });
     }
   }
   return [...speaksByIdentity.values()];

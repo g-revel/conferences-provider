@@ -15,7 +15,7 @@ describe("GET /api/talks", () => {
     const talks = [
       {
         conference: { name: "BreizhCamp", url: "https://www.breizhcamp.org/programme" },
-        speaker: { firstname: "Alice", lastname: "Martin", company: "Shodo" },
+        speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
         title: "Intro TDD",
       },
     ];

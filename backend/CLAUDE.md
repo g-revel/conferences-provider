@@ -42,11 +42,13 @@ Le but du projet : pour chaque événement connu (ex. "BreizhCamp"), retrouver l
 
 - **`data/events.json`** — événements connus, avec `url` (nullable tant qu'elle n'a pas été trouvée). Saisi/complété manuellement + par `refresh:events:heavy`.
 - **`data/speakers.json`** — cache des membres Shodo (sortie de `getAllSpeakers()`), rempli par `refresh:speakers`.
-- **`data/talks.json`** — talks trouvés `{ conference, speaker, title }`, rempli par `refresh:events:light`. Sert directement la route `GET /api/talks`.
+- **`data/talks.json`** — talks trouvés `{ conference, speakers: Speaker[], title }`, rempli par `refresh:events:light`. Sert directement la route `GET /api/talks`. `speakers` est un tableau (pas un singulier) : un talk co-animé par deux membres Shodo est **une seule entrée** avec les deux dans `speakers`, pas deux entrées dupliquées — voir `groupCoPresentedTalks.ts` ci-dessous.
 
 Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/paths.ts` (chemins absolus vers `data/`, résolus via `import.meta.url` donc valides en dev (`src/`) comme en build (`dist/`)).
 
 **Tous les runs sont additifs** (jamais de réécriture totale) : chaque `merge*` (`mergeSpeakers.ts`, `mergeSpeaks.ts`, `updateEventUrls.ts`) ne fait qu'ajouter/mettre à jour des entrées sur une clé d'identité, jamais en supprimer. Aucune automatisation CI — ces scripts (`scripts/refresh-*.ts`, lancés via `tsx`) sont exécutés manuellement par l'utilisateur.
+
+`mergeSpeaks.ts` (persistance entre runs) a une clé d'identité à deux niveaux à cause du regroupement multi-speakers : un talk **titré** s'identifie par `conference.name + titre` (les speakers s'ajoutent/s'unissent sur cette clé au fil des runs) ; un talk **sans titre connu** s'identifie par `conference.name + speaker` (un titre non trouvé ne permet pas de savoir si deux talks sans titre sont le même talk). Quand un run ultérieur trouve enfin le titre d'un speaker jusque-là sans titre, son ancienne entrée `title: null` est supprimée (remplacée par/fusionnée dans l'entrée titrée) plutôt que de laisser un doublon.
 
 ### Collects (src/collects/)
 
@@ -68,7 +70,8 @@ Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/pat
 3. **`extractContextWindows.ts`** — *fallback* quand aucune page dédiée n'existe : pour chaque candidat, une fenêtre de ±400 caractères autour de son nom dans la page programme (pas la page entière, pas juste la liste des speakers connus).
 4. **`buildExtractionPrompt.ts` + un appel Ollama *par candidat*** (pas un seul appel groupé pour tous les candidats d'une conférence) — le modèle ne reçoit que le contexte de ce candidat (page profil tronquée ou fenêtre), avec la seule tâche de retrouver son titre de talk.
 5. **`parseExtractionResponse.ts`** — reconstruit un garde-fou déterministe en sortie (même si (1) est déjà censé être vrai par construction, défense en profondeur ; la vérification mot-entier se fait contre le texte réellement montré au modèle — page profil si utilisée, sinon page programme), dédoublonne les éventuelles entrées répétées du modèle pour une même personne en préférant un titre non-null, et sanitize le titre (voir plus bas).
-6. **`fillMissingCoPresenterTitles.ts`** — filet de sécurité déterministe final : si un speaker connu reste sans titre mais qu'un autre speaker connu de la même conférence, avec titre, a son nom à moins de 60 caractères dans la page programme, lui attribue le même titre (cas des co-intervenants).
+6. **`fillMissingCoPresenterTitles.ts`** — filet de sécurité déterministe : si un speaker connu reste sans titre mais qu'un autre speaker connu de la même conférence, avec titre, a son nom à moins de 60 caractères dans la page programme, lui attribue le même titre (cas des co-intervenants). Opère encore sur des entrées à un seul speaker chacune — la comparaison "voisin avec/sans titre" a besoin de cette granularité.
+7. **`groupCoPresentedTalks.ts`** — dernière étape, *après* (6) : fusionne les entrées de la même conférence partageant le même intitulé (non-null) en une seule entrée `speakers: [...]` multi-speakers, au lieu de garder un doublon par intervenant. Un titre `null` n'est jamais une clé de regroupement (deux talks sans titre connu ne peuvent pas être prouvés identiques).
 
 ⚠️ **Plusieurs hallucinations réelles ont motivé cette architecture, pas une anticipation théorique :**
 - Avec la liste complète des 219 speakers dans le prompt, `llama3.1:8b` a halluciné des matches sur une page sans contenu pertinent (`sunny-tech.io`, landing page) en "recopiant" des noms de la liste fournie plutôt que de renvoyer `{ "matches": [] }`. → étape 1 (filtrage déterministe en amont, le LLM ne voit jamais la liste complète).
