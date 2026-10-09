@@ -5,4 +5,5 @@ export interface Talk {
   conference: Conference
   speakers: Speaker[]
   title?: string | null
+  videoUrl?: string | null
 }

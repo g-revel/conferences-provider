@@ -29,6 +29,13 @@ function speakerNames(talk: Talk): string {
       <span v-else class="font-medium">{{ talk.conference.name }}</span>
       — {{ speakerNames(talk) }}
       <span v-if="talk.title" class="text-gray-500"> : {{ talk.title }}</span>
+      <a
+        v-if="talk.videoUrl"
+        :href="talk.videoUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="ml-2 text-red-600 hover:underline whitespace-nowrap"
+      >▶ Vidéo</a>
     </li>
   </ul>
 </template>

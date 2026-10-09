@@ -9,6 +9,7 @@ const TALKS: Talk[] = [
       { firstname: 'Manon', lastname: 'Carbonnel', company: 'Shodo Rennes' },
     ],
     title: "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble",
+    videoUrl: 'https://www.youtube.com/watch?v=n6BSMASkoWw',
   },
   {
     conference: { name: 'BreizhCamp', url: 'https://www.breizhcamp.org/programme' },

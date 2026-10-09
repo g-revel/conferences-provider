@@ -23,13 +23,19 @@ const talks: Talk[] = [
     ],
     title: 'Talk co-animé',
   },
+  {
+    conference: { name: 'DevFest Nantes', url: 'https://devfest.gdgnantes.com' },
+    speakers: [{ firstname: 'Eve', lastname: 'Durand', company: 'Shodo' }],
+    title: 'Talk avec vidéo',
+    videoUrl: 'https://www.youtube.com/watch?v=abc123',
+  },
 ]
 
 describe('TalkListComponent', () => {
   it('should render one item per talk', () => {
     const wrapper = mount(TalkListComponent, { props: { talks } })
 
-    expect(wrapper.findAll('li')).toHaveLength(3)
+    expect(wrapper.findAll('li')).toHaveLength(4)
   })
 
   it('should render a clickable link to the conference when a url is known', () => {
@@ -61,6 +67,21 @@ describe('TalkListComponent', () => {
     expect(wrapper.findAll('li')).toHaveLength(1)
     expect(wrapper.text()).toContain('Carol Lenoir, Dan Petit')
     expect(wrapper.text()).toContain('Talk co-animé')
+  })
+
+  it('should render a clickable link to the video when a videoUrl is known', () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[3]] } })
+
+    const links = wrapper.findAll('a')
+    const videoLink = links.find((link) => link.text().includes('Vidéo'))
+    expect(videoLink).toBeDefined()
+    expect(videoLink?.attributes('href')).toBe('https://www.youtube.com/watch?v=abc123')
+  })
+
+  it('should not render a video link when no videoUrl is known', () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
+
+    expect(wrapper.text()).not.toContain('Vidéo')
   })
 
   it('should render an empty list when there are no talks', () => {
