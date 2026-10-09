@@ -9,7 +9,10 @@
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "eval": "promptfoo eval --config tests/evals/get-all-speakers.yaml && promptfoo eval --config tests/evals/get-speaks.yaml --max-concurrency 1"
+    "eval": "promptfoo eval --config tests/evals/get-all-speakers.yaml && promptfoo eval --config tests/evals/get-speaks.yaml --max-concurrency 1",
+    "refresh:speakers": "tsx scripts/refresh-speakers.ts",
+    "refresh:events:light": "tsx scripts/refresh-events-light.ts",
+    "refresh:events:heavy": "tsx scripts/refresh-events-heavy.ts"
   },
   "engines": {
     "node": ">=20"
@@ -22,7 +25,8 @@
     "@fastify/sensible": "^6.0.4",
     "@slack/web-api": "^7.16.0",
     "fastify": "^5.8.5",
-    "fastify-plugin": "^5.1.0"
+    "fastify-plugin": "^5.1.0",
+    "undici": "^8.11.2"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",

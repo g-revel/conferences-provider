@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { toPascalCase } from "./string.functions.js";
+import { toPascalCase, normalizeForMatch } from "./string.functions.js";
 
 describe("toPascalCase", () => {
   it("capitalizes a single lowercase word", () => {
@@ -28,5 +28,19 @@ describe("toPascalCase", () => {
 
   it("capitalizes a single character", () => {
     expect(toPascalCase("a")).toBe("A");
+  });
+});
+
+describe("normalizeForMatch", () => {
+  it("ignores case", () => {
+    expect(normalizeForMatch("Alice")).toBe(normalizeForMatch("alice"));
+  });
+
+  it("ignores accents", () => {
+    expect(normalizeForMatch("Hélène")).toBe(normalizeForMatch("Helene"));
+  });
+
+  it("trims surrounding whitespace", () => {
+    expect(normalizeForMatch("  Alice  ")).toBe("alice");
   });
 });

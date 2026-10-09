@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Devoxx France",
+    "url": "https://m.devoxx.com/events/devoxxfr2026"
+  },
+  {
+    "name": "BreizhCamp",
+    "url": "https://www.breizhcamp.org/programme"
+  },
+  {
+    "name": "BDX I/O",
+    "url": "https://bdxio.fr/"
+  },
+  {
+    "name": "Sunny Tech",
+    "url": "https://sunny-tech.io/"
+  },
+  {
+    "name": "Human Talks Nantes",
+    "url": "https://labo-llm.fr/agenda-ia/"
+  },
+  {
+    "name": "Nantes JUG",
+    "url": "https://www.clever.cloud/blog/event/2026/09/02/upcoming-events-2026/"
+  },
+  {
+    "name": "Codeurs en Seine",
+    "url": "https://www.codeursenseine.com/"
+  },
+  {
+    "name": "Touraine Tech",
+    "url": "https://touraine.tech/"
+  },
+  {
+    "name": "SnowCamp",
+    "url": "https://snowcamp.io/schedule-wait/"
+  },
+  {
+    "name": "MixIT",
+    "url": "https://mixitconf.org/schedule"
+  },
+  {
+    "name": "DevFest Nantes",
+    "url": "https://devfest2027.gdgnantes.com/"
+  },
+  {
+    "name": "Agile Tour Bordeaux",
+    "url": "https://agiletourbordeaux.fr/evenements/atbdx-edition-2026/"
+  },
+  {
+    "name": "Riviera DEV",
+    "url": "https://rivieradev.fr/schedule"
+  },
+  {
+    "name": "Voxxed",
+    "url": "https://vdc26.voxxeddays.ch/schedule/"
+  }
+]

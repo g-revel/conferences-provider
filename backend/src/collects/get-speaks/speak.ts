@@ -4,4 +4,5 @@ import { Speaker } from "../get-all-speakers/speaker.js";
 export interface Speak {
   conference: Conference;
   speaker: Speaker;
+  title?: string | null;
 }

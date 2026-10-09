@@ -1,0 +1,98 @@
+[
+  {
+    "conference": {
+      "name": "BreizhCamp",
+      "url": "https://www.breizhcamp.org/programme"
+    },
+    "speaker": {
+      "firstname": "Emmanuelle",
+      "lastname": "Aboaf",
+      "company": "Shodo"
+    },
+    "title": "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble"
+  },
+  {
+    "conference": {
+      "name": "BreizhCamp",
+      "url": "https://www.breizhcamp.org/programme"
+    },
+    "speaker": {
+      "firstname": "Manon",
+      "lastname": "Carbonnel",
+      "company": "Shodo Rennes"
+    },
+    "title": "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble"
+  },
+  {
+    "conference": {
+      "name": "BreizhCamp",
+      "url": "https://www.breizhcamp.org/programme"
+    },
+    "speaker": {
+      "firstname": "Guillaume",
+      "lastname": "Yan",
+      "company": "Shodo Rennes"
+    },
+    "title": "Atelier Micronaut : on code, on compare, on décortique"
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/schedule"
+    },
+    "speaker": {
+      "firstname": "Julien",
+      "lastname": "Topcu",
+      "company": "Shodo"
+    },
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/schedule"
+    },
+    "speaker": {
+      "firstname": "Emmanuelle",
+      "lastname": "Aboaf",
+      "company": "Shodo"
+    },
+    "title": "Comment concevoir et tester un site accessible ?"
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/schedule"
+    },
+    "speaker": {
+      "firstname": "Nathan",
+      "lastname": "Castelein",
+      "company": "Shodo Lille"
+    },
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Riviera DEV",
+      "url": "https://rivieradev.fr/schedule"
+    },
+    "speaker": {
+      "firstname": "Benjamin",
+      "lastname": "Lacroix",
+      "company": "Shodo Studio"
+    },
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "Riviera DEV",
+      "url": "https://rivieradev.fr/schedule"
+    },
+    "speaker": {
+      "firstname": "Jordan",
+      "lastname": "Nourry",
+      "company": "Shodo"
+    },
+    "title": null
+  }
+]

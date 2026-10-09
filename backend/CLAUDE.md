@@ -11,6 +11,11 @@ npm run build      # Compiler vers dist/
 npm run test       # Lancer les tests unitaires (Vitest)
 npm run eval       # Lancer les evals promptfoo
 npx promptfoo view # Ouvrir l'UI web des résultats (http://localhost:15500)
+
+# Pipeline de découverte des talks (exécution manuelle, pas de CI) :
+npm run refresh:speakers      # Slack -> data/speakers.json (additif)
+npm run refresh:events:heavy  # SearXNG -> url des events dans data/events.json (serveur local requis, voir ci-dessous)
+npm run refresh:events:light  # fetch + Ollama -> data/talks.json (additif, events avec url uniquement)
 ```
 
 ## Conventions
@@ -29,20 +34,64 @@ import { buildApp } from './app.js'       // ✅
 import { buildApp } from './app'          // ❌ erreur Node16
 ```
 
-## Collects (src/collects/)
+## Pipeline de découverte des talks
 
-Chaque collect = un dossier `src/collects/<nom>/` avec un fichier TypeScript.
+Le but du projet : pour chaque événement connu (ex. "BreizhCamp"), retrouver la page de l'édition en cours, en extraire les speakers, et croiser avec les membres Shodo (Slack) pour lister tous les talks donnés par des membres Shodo. Le résultat alimente le portail frontend (lien cliquable vers chaque conférence).
+
+### Stockage : `data/` (fichiers JSON statiques, suivis par git)
+
+- **`data/events.json`** — événements connus, avec `url` (nullable tant qu'elle n'a pas été trouvée). Saisi/complété manuellement + par `refresh:events:heavy`.
+- **`data/speakers.json`** — cache des membres Shodo (sortie de `getAllSpeakers()`), rempli par `refresh:speakers`.
+- **`data/talks.json`** — talks trouvés `{ conference, speaker, title }`, rempli par `refresh:events:light`. Sert directement la route `GET /api/talks`.
+
+Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/paths.ts` (chemins absolus vers `data/`, résolus via `import.meta.url` donc valides en dev (`src/`) comme en build (`dist/`)).
+
+**Tous les runs sont additifs** (jamais de réécriture totale) : chaque `merge*` (`mergeSpeakers.ts`, `mergeSpeaks.ts`, `updateEventUrls.ts`) ne fait qu'ajouter/mettre à jour des entrées sur une clé d'identité, jamais en supprimer. Aucune automatisation CI — ces scripts (`scripts/refresh-*.ts`, lancés via `tsx`) sont exécutés manuellement par l'utilisateur.
+
+### Collects (src/collects/)
 
 | Collect | Fichier | Pattern |
 |---|---|---|
-| `getConferences()` | `get-conferences/get-conferences.ts` | Liste statique codée en dur, pas de LLM |
+| `getConferences()` | `get-conferences/get-conferences.ts` | Lit `data/events.json`, pas de LLM |
 | `getAllSpeakers()` | `get-all-speakers/get-all-speakers.ts` | Lookup Slack (`@slack/web-api`), pas de LLM |
+| `extractSpeaksFromConference()` | `extract-speaks/extract-speaks.ts` | **Run léger** : fetch l'url connue d'un event, extrait le texte (`html.functions.ts`), appelle Ollama local avec la liste des speakers Shodo connus pour trouver les mentions + titres |
+| `findConferenceEditionUrl()` | `find-conference-editions/find-conference-editions.ts` | **Run lourd** : SearXNG local pour trouver l'url de l'édition en cours d'un event |
 
-**Pattern collect statique :** `getConferences()` retourne une liste connue (connaissance interne fixe : les conférences où Shodo a effectivement parlé), pas une donnée à faire deviner par un LLM. ⚠️ Un essai précédent avec un LLM local (Ollama + `llama3.1:8b`) a montré que ce modèle ne connaît pas les noms spécifiques des conférences régionales françaises (BreizhCamp, SnowCamp, MixIT...) et en invente des génériques plausibles à la place — limite de connaissance factuelle d'un petit modèle, pas un bug de prompt.
+⚠️ `get-speaks/get-speaks.ts` (ancienne signature `getSpeaks(conferences, speakers) => Speak[]`, jamais implémentée — `throw new Error("not implemented")`) est **superseded** par `extract-speaks.ts` : le rapprochement conférence↔speaker se fait maintenant via fetch+Ollama plutôt qu'en mémoire à partir des deux listes complètes. L'eval `tests/evals/get-speaks.yaml` qui ciblait ce stub échouera donc toujours — à supprimer avec le stub si l'occasion se présente.
+
+**Pourquoi pas un LLM pour `getConferences()` ?** Historique de cette session : Mistral (payant/bloqué), Claude (payant), puis Ollama local (`llama3.1:8b`) ont été essayés pour *générer* la liste depuis la connaissance du modèle — tous insuffisants (rate limit, coût, ou absence de connaissance factuelle des conférences régionales françaises, remplacées par des noms génériques inventés). D'où la liste statique. Ollama reste pertinent pour une tâche différente dans `extract-speaks.ts` : **extraire** des noms déjà connus depuis le texte d'une page fournie (pas du recall).
+
+⚠️ **`extract-speaks.ts` a quand même halluciné en situation réelle**, même pour une tâche d'extraction (pas de recall) : sur une page sans contenu pertinent (ex. landing page sans programme), `llama3.1:8b` a parfois "rempli" `matches` avec des noms piochés dans la liste des 219 speakers fournie plutôt que de renvoyer `{ "matches": [] }` — observé concrètement sur `sunny-tech.io` (aucun des noms renvoyés n'apparaissait sur la page). Renforcer le *prompt* seul a été contre-productif (le modèle est devenu trop timide et a cessé de trouver les vrais matches). La solution retenue : **vérification déterministe indépendante du LLM** dans `parseExtractionResponse.ts` — un match n'est accepté que si (1) il existe dans la liste des speakers connus **et** (2) le prénom **et** le nom apparaissent chacun comme mot entier (`\b`) dans le texte réel de la page. Un simple `.includes()` sur le seul nom de famille s'est révélé insuffisant : un nom court comme "Vo" matche à l'intérieur d'"avoir" en sous-chaîne — d'où l'exigence de mot entier sur les deux noms. Ce filtre est la garantie réelle, pas le prompt — ne pas retirer cette vérification même si le prompt semble suffire sur un cas de test donné.
+
+⚠️ **Les pages web changent entre deux fetchs** (programme mis à jour, contenu dynamique/aléatoire) : un match validé pendant un run peut ne plus être reproductible sur un re-fetch ultérieur de la même URL. Ce n'est pas un bug du filtre, c'est une limite inhérente au scraping — les données de `talks.json` reflètent l'état de la page *au moment du run*, pas une vérité permanente.
 
 **Pattern collect Slack :** `client.users.list()` du SDK `@slack/web-api` (token `SLACK_TOKEN`) récupère les membres du workspace, puis pipeline pur : filtrer les membres invalides (bot, `deleted`, `USLACKBOT`), puis `extractSpeakerOrUndefined` (`member.functions.ts`) extrait `{ firstname, lastname, company }` depuis `name` ("prenom.nom") ou en fallback `real_name` ("Prenom Nom") + domaine de l'email, **et** normalise en pascal case via `toPascalCase` (`string.functions.ts`) avant de retourner le `Speaker`. Voir `get-all-speakers.ts` comme référence — toute la logique après l'appel Slack est pure et déterministe, donc testable sans LLM ni eval.
 
 ⚠️ `get-all-speakers.ts` réapplique actuellement `applyPascalCaseInSpeaker` après `extractSpeakerOrUndefined`, qui normalise déjà en pascal case — double normalisation redondante (sans impact, `toPascalCase` est idempotent) à nettoyer si l'occasion se présente.
+
+### SearXNG (recherche web, run lourd)
+
+Méta-moteur de recherche open source auto-hébergé via Docker — gratuit, pas de clé API, pas de carte bancaire.
+
+```bash
+cd searxng && docker compose up -d   # démarre sur http://localhost:8080
+```
+
+`searxng/settings.yml` active le format `json` (désactivé par défaut dans l'image officielle pour raisons de sécurité) — `search.formats: [html, json]`. Sans ça, `GET /search?...&format=json` renvoie une erreur. Variable d'env optionnelle : `SEARXNG_HOST` (défaut `http://localhost:8080`).
+
+⚠️ **Historique** : Brave Search API a d'abord été utilisé ici (clé gratuite, ~2000 req/mois, pas de CB) — supprimé le 12 février 2026 (toutes les clés nécessitent désormais une CB). SearXNG le remplace : même esprit "gratuit et local" que l'approche Ollama. Les résultats dépendent des moteurs upstream agrégés par SearXNG (Google, Bing, DuckDuckGo, etc. selon la config par défaut) — peuvent parfois retourner une page non pertinente pour une requête ambiguë (observé sur "Nantes JUG" → un blog sans rapport) ; le garde-fou anti-hallucination d'`extract-speaks.ts` absorbe ce bruit (aucun speaker trouvé sur une page non pertinente = 0 talk, pas d'erreur).
+
+### Ollama (extraction, pas génération)
+
+```bash
+brew install ollama
+brew services start ollama   # http://localhost:11434
+ollama pull llama3.1:8b
+```
+
+`extract-speaks.ts` utilise le `fetch` du package `undici` (dépendance directe) avec un `Agent` custom (`headersTimeout`/`bodyTimeout` étendus à 10 min) passé en `dispatcher` — **pas** le `fetch` global, qui vient d'une instance undici différente et rejette un dispatcher externe (`TypeError: fetch failed` immédiat). `options: { temperature: 0.2, repeat_penalty: 1.15, num_predict }` évite les boucles de répétition déjà observées sur `llama3.1:8b` sans ces réglages.
+
+Variables d'env (optionnelles, défauts dans le code) : `OLLAMA_HOST` (`http://localhost:11434`), `OLLAMA_MODEL` (`llama3.1:8b`).
 
 ## Tests unitaires (Vitest)
 
