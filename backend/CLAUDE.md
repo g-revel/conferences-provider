@@ -13,9 +13,11 @@ npm run eval       # Lancer les evals promptfoo
 npx promptfoo view # Ouvrir l'UI web des résultats (http://localhost:15500)
 
 # Pipeline de découverte des talks (exécution manuelle, pas de CI) :
-npm run refresh:speakers      # Slack -> data/speakers.json (additif)
-npm run refresh:events:heavy  # SearXNG -> url des events dans data/events.json (serveur local requis, voir ci-dessous)
-npm run refresh:events:light  # fetch + Ollama -> data/talks.json (additif, events avec url uniquement)
+npm run refresh:speakers           # Slack -> data/speakers.json (additif)
+npm run refresh:events:heavy       # SearXNG -> url + pastEditionUrls (5 éditions) dans data/events.json
+npm run refresh:events:light       # fetch + Ollama -> data/talks.json (additif, toutes les éditions connues de chaque event)
+npm run refresh:videos             # SearXNG (youtube) -> videoUrl sur les talks déjà connus sans lien vidéo
+npm run refresh:priority-speakers  # SearXNG (youtube) + Ollama -> nouveaux talks pour Topcu/Pierrain/Castelein
 ```
 
 ## Conventions
@@ -40,9 +42,9 @@ Le but du projet : pour chaque événement connu (ex. "BreizhCamp"), retrouver l
 
 ### Stockage : `data/` (fichiers JSON statiques, suivis par git)
 
-- **`data/events.json`** — événements connus, avec `url` (nullable tant qu'elle n'a pas été trouvée). Saisi/complété manuellement + par `refresh:events:heavy`.
+- **`data/events.json`** — événements connus, avec `url` (édition en cours, nullable tant qu'elle n'a pas été trouvée) et `pastEditionUrls` (éditions antérieures, optionnel). Saisi/complété manuellement + par `refresh:events:heavy`.
 - **`data/speakers.json`** — cache des membres Shodo (sortie de `getAllSpeakers()`), rempli par `refresh:speakers`.
-- **`data/talks.json`** — talks trouvés `{ conference, speakers: Speaker[], title }`, rempli par `refresh:events:light`. Sert directement la route `GET /api/talks`. `speakers` est un tableau (pas un singulier) : un talk co-animé par deux membres Shodo est **une seule entrée** avec les deux dans `speakers`, pas deux entrées dupliquées — voir `groupCoPresentedTalks.ts` ci-dessous.
+- **`data/talks.json`** — talks trouvés `{ conference, speakers: Speaker[], title, videoUrl }`, rempli par `refresh:events:light` (`videoUrl` par `refresh:videos`, de nouveaux talks par `refresh:priority-speakers`). Sert directement la route `GET /api/talks`. `speakers` est un tableau (pas un singulier) : un talk co-animé par deux membres Shodo est **une seule entrée** avec les deux dans `speakers`, pas deux entrées dupliquées — voir `groupCoPresentedTalks.ts` ci-dessous.
 
 Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/paths.ts` (chemins absolus vers `data/`, résolus via `import.meta.url` donc valides en dev (`src/`) comme en build (`dist/`)).
 
@@ -56,8 +58,10 @@ Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/pat
 |---|---|---|
 | `getConferences()` | `get-conferences/get-conferences.ts` | Lit `data/events.json`, pas de LLM |
 | `getAllSpeakers()` | `get-all-speakers/get-all-speakers.ts` | Lookup Slack (`@slack/web-api`), pas de LLM |
-| `extractSpeaksFromConference()` | `extract-speaks/extract-speaks.ts` | **Run léger** : fetch l'url connue d'un event, pipeline déterministe + Ollama (détail ci-dessous) |
-| `findConferenceEditionUrl()` | `find-conference-editions/find-conference-editions.ts` | **Run lourd** : SearXNG local pour trouver l'url de l'édition en cours d'un event |
+| `extractSpeaksFromConference()` | `extract-speaks/extract-speaks.ts` | **Run léger** : fetch l'url d'**une** édition d'un event (appelé une fois par édition connue par le script), pipeline déterministe + Ollama (détail ci-dessous) |
+| `findConferenceEditionUrl(s)()` | `find-conference-editions/find-conference-editions.ts` | **Run lourd** : SearXNG local, `findConferenceEditionUrl(name, year)` pour une année, `findConferenceEditionUrls(name)` balaie 5 éditions (année courante → -4) |
+| `findTalkVideo()` | `find-talk-video/findTalkVideo.ts` | SearXNG (moteur `youtube`) : cherche un lien vidéo pour un talk **déjà connu** (titre déjà trouvé), pas de LLM |
+| `findSpeakerTalksOnYoutube()` | `find-speaker-talks-on-youtube/findSpeakerTalksOnYoutube.ts` | SearXNG (moteur `youtube`) + Ollama : découvre de **nouveaux** talks en cherchant un speaker par nom |
 
 ⚠️ `get-speaks/get-speaks.ts` (ancienne signature `getSpeaks(conferences, speakers) => Speak[]`, jamais implémentée — `throw new Error("not implemented")`) est **superseded** par `extract-speaks.ts` : le rapprochement conférence↔speaker se fait maintenant via fetch+Ollama plutôt qu'en mémoire à partir des deux listes complètes. L'eval `tests/evals/get-speaks.yaml` qui ciblait ce stub échouera donc toujours — à supprimer avec le stub si l'occasion se présente.
 
@@ -65,6 +69,7 @@ Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/pat
 
 #### Pipeline interne d'`extract-speaks.ts` (le détail compte — évolué après plusieurs bugs réels)
 
+0. **Garde conférence** — avant tout : si le texte de la page ne contient même pas le nom de l'événement (`conference.name`, normalisé), on ignore la page entièrement (`return []`). Nécessaire depuis le balayage multi-années (ci-dessous) : une recherche SearXNG pour un nom d'événement générique peut remonter une page totalement sans rapport, et un prénom+nom de speaker connu peut s'y retrouver par pure coïncidence (observé : "Human Talks Nantes" → page de formation TypeScript avec avis clients, où "David" et "Franck" apparaissaient dans deux avis différents sans rapport).
 1. **`findMentionedSpeakers.ts`** — filtrage *déterministe*, pas de LLM : pour chaque speaker connu, prénom **et** nom doivent chacun apparaître comme mot entier (`containsWholeWord`, `string.functions.ts`) dans le texte de la page. S'il n'y a aucun candidat, pas d'appel Ollama du tout.
 2. **`findSpeakerProfileLinks.ts`** — opère sur le **HTML brut** (avant `stripHtml`, les hrefs disparaissent sinon) : certains sites (ex. mixitconf.org) ont une page dédiée par speaker liée depuis le programme (`<a href="/speakers/julien.topcu">Julien Topçu</a>`) — bien plus fiable pour le titre qu'une fenêtre dans la grosse page programme. Si trouvée, cette page est fetchée et utilisée comme contexte à la place de la fenêtre (étape 3).
 3. **`extractContextWindows.ts`** — *fallback* quand aucune page dédiée n'existe : pour chaque candidat, une fenêtre de ±400 caractères autour de son nom dans la page programme (pas la page entière, pas juste la liste des speakers connus).
@@ -77,7 +82,7 @@ Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/pat
 - Avec la liste complète des 219 speakers dans le prompt, `llama3.1:8b` a halluciné des matches sur une page sans contenu pertinent (`sunny-tech.io`, landing page) en "recopiant" des noms de la liste fournie plutôt que de renvoyer `{ "matches": [] }`. → étape 1 (filtrage déterministe en amont, le LLM ne voit jamais la liste complète).
 - Avec tous les candidats d'une conférence dans un seul appel, le modèle n'attribuait le titre qu'au premier nom cité et laissait `title: null` pour un co-intervenant dont la fenêtre de contexte était pourtant identique. → étape 3 (un appel par candidat) + étape 5 (filet de sécurité si l'appel isolé échoue quand même sur ce cas, ex. "TITRE Nom1 Nom2" où le titre précède le groupe).
 - Un simple `.includes()` sur le seul nom de famille est insuffisant : un nom court comme "Vo" matche à l'intérieur d'"avoir" en sous-chaîne — d'où l'exigence de mot entier (`\b`) sur prénom **et** nom partout où une correspondance est vérifiée.
-- Le modèle sur-échappe parfois la ponctuation d'un titre (`'` littéral ou `&#39;` littéral au lieu d'une vraie apostrophe) — `sanitizeTitle()` dans `parseExtractionResponse.ts` nettoie les deux formes.
+- Le modèle sur-échappe parfois la ponctuation d'un titre (`\uXXXX` littéral ou `&#39;` littéral au lieu d'une vraie apostrophe) — `sanitizeLlmText()` (`html.functions.ts`, partagée avec `find-speaker-talks-on-youtube`) nettoie les deux formes.
 - Sur une page profil dédiée d'un speaker qui intervient depuis plusieurs éditions, la bio peut être suivie de **plusieurs** titres (talk courant + anciens talks) sans démarcation claire — le modèle mélangeait les intitulés de différentes années. Le talk courant apparaît en premier : `MAX_PROFILE_TEXT_CHARS` (1800, `extract-speaks.ts`) tronque la page profil avant que le talk suivant ne commence. Si ce chiffre casse sur un autre site (bio plus longue), l'ajuster plutôt que le supprimer.
 - **Résiduel connu, non résolu** : sur un site sans page profil par speaker, un titre peut encore être erroné (attribué à un créneau voisin plutôt qu'au bon, ex. observé sur BreizhCamp, qui n'a pas de page profil dédiée) plutôt que simplement absent — les garde-fous ci-dessus empêchent l'invention de personnes, pas l'attribution incorrecte d'un titre à une personne réellement présente sur la page. Reste une limite de fiabilité d'un petit modèle local sur du texte HTML strippé sans structure claire, quand la seule source est la grosse page programme.
 
@@ -97,7 +102,21 @@ cd searxng && docker compose up -d   # démarre sur http://localhost:8080
 
 `searxng/settings.yml` active le format `json` (désactivé par défaut dans l'image officielle pour raisons de sécurité) — `search.formats: [html, json]`. Sans ça, `GET /search?...&format=json` renvoie une erreur. Variable d'env optionnelle : `SEARXNG_HOST` (défaut `http://localhost:8080`).
 
-⚠️ **Historique** : Brave Search API a d'abord été utilisé ici (clé gratuite, ~2000 req/mois, pas de CB) — supprimé le 12 février 2026 (toutes les clés nécessitent désormais une CB). SearXNG le remplace : même esprit "gratuit et local" que l'approche Ollama. Les résultats dépendent des moteurs upstream agrégés par SearXNG (Google, Bing, DuckDuckGo, etc. selon la config par défaut) — peuvent parfois retourner une page non pertinente pour une requête ambiguë (observé sur "Nantes JUG" → un blog sans rapport) ; le garde-fou anti-hallucination d'`extract-speaks.ts` absorbe ce bruit (aucun speaker trouvé sur une page non pertinente = 0 talk, pas d'erreur).
+⚠️ **Historique** : Brave Search API a d'abord été utilisé ici (clé gratuite, ~2000 req/mois, pas de CB) — supprimé le 12 février 2026 (toutes les clés nécessitent désormais une CB). SearXNG le remplace : même esprit "gratuit et local" que l'approche Ollama. Les résultats dépendent des moteurs upstream agrégés par SearXNG (Google, Bing, DuckDuckGo, etc. selon la config par défaut) — peuvent parfois retourner une page non pertinente pour une requête ambiguë (observé sur "Nantes JUG" → un blog sans rapport, et sur "Human Talks Nantes" → une page de formation, voir la garde conférence ci-dessus) ; les garde-fous anti-hallucination d'`extract-speaks.ts` absorbent ce bruit (aucun speaker trouvé ou page hors-sujet = 0 talk, pas d'erreur).
+
+#### Balayage multi-années (`findConferenceEditionUrls`)
+
+`findConferenceEditionUrl(eventName, year)` cherche "`<event> <year> programme`" pour une seule année ; `findConferenceEditionUrls(eventName)` l'appelle pour 5 années (année courante → -4) et renvoie toutes les URLs distinctes trouvées. `refresh-events-heavy.ts` tourne maintenant sur **tous** les events (pas seulement ceux sans `url`), mais `updateEventUrls` ne réécrit jamais une `url` déjà connue — seules les URLs supplémentaires s'accumulent dans `pastEditionUrls` (fusionnées avec celles déjà connues, dédupliquées). `refresh-events-light.ts` crawle ensuite `[url, ...pastEditionUrls]` de chaque event, pas seulement `url`.
+
+### Moteur YouTube de SearXNG (`youtube.functions.ts`)
+
+`searchYoutube(query)` interroge SearXNG avec `&engines=youtube` (pas la recherche web générale) — résultats nettement plus propres pour cibler des vidéos de conférence. Chaque résultat expose `url`, `title`, `author` (nom de la chaîne YouTube — souvent littéralement le nom de la conférence, ex. "MiXiT", "Touraine Tech") et `length` (durée `mm:ss`/`h:mm:ss`).
+
+- **`find-talk-video/findTalkVideo.ts`** — pour un talk **déjà connu** (titre non-null) : cherche `"<nom de famille>" <titre>`, garde le premier résultat dont le titre contient (mot entier) **prénom et nom** d'au moins un des speakers du talk (`pickBestVideoMatch.ts`). ⚠️ Exiger seulement le nom de famille ne suffit pas : faux positif réel observé où "Introduction Sécurité" de *Guillaume Yan* matchait une vidéo de "*Yan* Rolland" (homonyme, "Yan" étant son prénom) — d'où l'exigence des deux.
+- **`find-speaker-talks-on-youtube/findSpeakerTalksOnYoutube.ts`** — pour un speaker donné, cherche `"<Prénom> <Nom>"` et découvre de **nouveaux** talks (pas forcément liés à un event de `events.json`). Pipeline : `isLikelyFullTalk.ts` élimine d'abord les vidéos de moins de 10 min (trailers/shorts) sans appel LLM ; pour chaque candidat restant, un appel Ollama borné (titre + nom de chaîne seulement, pas de transcript — `buildVideoExtractionPrompt.ts`) décide si c'est un vrai talk de cette personne et extrait `{ conferenceName, title }` (`parseVideoExtractionResponse.ts`) ; `detectCoPresenters.ts` repère en plus, déterministiquement, les autres speakers Shodo connus cités dans le même titre (ex. "Julien Topçu & Thomas Pierrain"), pour construire une entrée multi-speakers dès la découverte sans dépendre d'un titre strictement identique (`groupCoPresentedTalks`).
+- `refresh-priority-speakers.ts` limite volontairement cette recherche à 3 speakers nommés (Julien Topcu, Thomas Pierrain, Nathan Castelein), pas aux ~220 speakers connus — demandé explicitement, plus rapide et moins bruyant que d'ouvrir la recherche à des noms moins "googlables". Canonicalise le nom de conférence deviné par le LLM contre `events.json` avant de merger (`canonicalizeConferenceName`, dans le script) pour limiter les quasi-doublons d'orthographe (ex. "MiXiT" → "MixIT").
+
+⚠️ **Résiduel connu, non résolu, des deux collects ci-dessus** : contrairement à `extract-speaks.ts`, il n'existe pas de "texte source" à comparer pour vérifier objectivement la réponse du LLM — l'extraction depuis un titre de vidéo seul ne peut pas être vérifiée par `containsWholeWord` comme sur une page de programme. Le risque de faux positif est atténué (durée minimale, prénom+nom requis pour les co-présentateurs) mais pas éliminé. Autre limite : un même talk trouvé à la fois par scraping de site (titre en français) et par YouTube (titre en anglais, ou en français mais légèrement reformulé) n'est **pas** dédupliqué par `mergeSpeaks` (clé = titre normalisé exact) — peut produire deux entrées pour le même talk réel. Observé concrètement : le talk "Hive pattern" de Thomas Pierrain existe en double (français, trouvé par scraping de MixIT 2025 ; anglais + Julien Topçu en co-présentateur, trouvé par YouTube).
 
 ### Ollama (extraction, pas génération)
 
