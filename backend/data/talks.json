@@ -45,7 +45,7 @@
       "lastname": "Topcu",
       "company": "Shodo"
     },
-    "title": null
+    "title": "Pourquoi la Tech tient plus de la pop culture que de l'ingénierie?"
   },
   {
     "conference": {
@@ -57,7 +57,7 @@
       "lastname": "Aboaf",
       "company": "Shodo"
     },
-    "title": null
+    "title": "Comment concevoir et tester un site accessible?"
   },
   {
     "conference": {
@@ -69,7 +69,7 @@
       "lastname": "Castelein",
       "company": "Shodo Lille"
     },
-    "title": "concepts fondamentaux de l'architecture hexagonale"
+    "title": "L’architecture hexagonale au pays des irréductibles développeurs"
   },
   {
     "conference": {
