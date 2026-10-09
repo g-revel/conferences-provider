@@ -177,6 +177,539 @@
   },
   {
     "conference": {
+      "name": "Devoxx"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "[VDBUH2026] Hexagonal Architecture in Practice",
+    "videoUrl": "https://www.youtube.com/watch?v=QZrl5tghsTA"
+  },
+  {
+    "conference": {
+      "name": "MixIT"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "The Hive pattern: a modularization strategy",
+    "videoUrl": "https://www.youtube.com/watch?v=TL_nVaOs47g"
+  },
+  {
+    "conference": {
+      "name": "MixIT"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Why Tech is More Pop Culture Than Engineering?",
+    "videoUrl": "https://www.youtube.com/watch?v=1JA3wPw7dsw"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "REST next level : Ecrire des APIs web orientées métier",
+    "videoUrl": "https://www.youtube.com/watch?v=7qqzqse1hgc"
+  },
+  {
+    "conference": {
+      "name": "MixIT"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Conway’s Law: When Product Design Clashes with Organization",
+    "videoUrl": "https://www.youtube.com/watch?v=K-Bke9zm4dg"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "L'Architecture Hexagonale par la pratique, le live coding qui rendra vos applications plus robustes et maintenables",
+    "videoUrl": "https://www.youtube.com/watch?v=-dXN8wkN0yk"
+  },
+  {
+    "conference": {
+      "name": "NewCrafts 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Model Tension Heuristics: Preventing Design Debt",
+    "videoUrl": "https://www.youtube.com/watch?v=bW0d3vDzi8Q"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "OAUTH 2.1 expliqué simplement",
+    "videoUrl": "https://www.youtube.com/watch?v=YdShQveywpo"
+  },
+  {
+    "conference": {
+      "name": "Voxxed Days Luxembourg"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Model Mitosis: stop choosing between microservices and monoliths",
+    "videoUrl": "https://www.youtube.com/watch?v=YzKgDEniFy0"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Vous pensiez que la dette technique était le pire? Voici la dette de conception!",
+    "videoUrl": "https://www.youtube.com/watch?v=lfACSvxl4uY"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "The Hive : coder un monolithe modulaire prét pour les microservices",
+    "videoUrl": "https://www.youtube.com/watch?v=5VDpsY-Eg4Q"
+  },
+  {
+    "conference": {
+      "name": "DDD FR"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Show me your Domain: Train Booking",
+    "videoUrl": "https://www.youtube.com/watch?v=-qMSfJ8mq_k"
+  },
+  {
+    "conference": {
+      "name": "FlowCon France"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Loi de Conway: Lorsque votre conception produit se fache avec votre organisation",
+    "videoUrl": "https://www.youtube.com/watch?v=GyWUN27Ercg"
+  },
+  {
+    "conference": {
+      "name": "Crafts"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Lécosystème des conférences tech en France",
+    "videoUrl": "https://www.youtube.com/watch?v=WrbNeWtn_fY"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Comment se faire hacker bien comme il faut",
+    "videoUrl": "https://www.youtube.com/watch?v=Aa6yeVHs2fI"
+  },
+  {
+    "conference": {
+      "name": "Software Crafters Lyon"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "L'art de survivre aux incidents",
+    "videoUrl": "https://www.youtube.com/watch?v=x5hPojVerPk"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "La scale-up, l’autonomie et le sous-marin nucléaire",
+    "videoUrl": "https://www.youtube.com/watch?v=FPZw6gy04T4"
+  },
+  {
+    "conference": {
+      "name": "IFTTD"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Architecture",
+    "videoUrl": "https://www.youtube.com/watch?v=csXl7wCpmOQ"
+  },
+  {
+    "conference": {
+      "name": "NewCrafts 2016"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Let's reboot DDD!",
+    "videoUrl": "https://www.youtube.com/watch?v=GT0u6iauiaM"
+  },
+  {
+    "conference": {
+      "name": "NewCrafts 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "The DDD Horror Picture Show",
+    "videoUrl": "https://www.youtube.com/watch?v=SZfXmwmyPdI"
+  },
+  {
+    "conference": {
+      "name": "NewCrafts"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "TDD is dead! Let's do an autopsy",
+    "videoUrl": "https://www.youtube.com/watch?v=J5qrAIY0AfU"
+  },
+  {
+    "conference": {
+      "name": "NewCrafts"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "As time goes by (technical challenges bi-temporal Event Sourcing)",
+    "videoUrl": "https://www.youtube.com/watch?v=bheojh2sRmU"
+  },
+  {
+    "conference": {
+      "name": "Agile Tour Bordeaux"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Et si on parlait éthique",
+    "videoUrl": "https://www.youtube.com/watch?v=nV6Fy3EeoQs"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Legacy Club",
+    "videoUrl": "https://www.youtube.com/watch?v=zeogtrxqc38"
+  },
+  {
+    "conference": {
+      "name": "Voxxed Days Luxembourg"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "High-speed DDD",
+    "videoUrl": "https://www.youtube.com/watch?v=tAGG4-UtfGw"
+  },
+  {
+    "conference": {
+      "name": "DDDEU 23"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "The scale-up, the autonomy and the nuclear submarine",
+    "videoUrl": "https://www.youtube.com/watch?v=dAA9rVg6bb8"
+  },
+  {
+    "conference": {
+      "name": "TADx"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "eXtreme",
+    "videoUrl": "https://www.youtube.com/watch?v=AJLL4PZa54g"
+  },
+  {
+    "conference": {
+      "name": "MUGLyon"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Refactoring de code legacy avec des trucs en N",
+    "videoUrl": "https://www.youtube.com/watch?v=I3rNyxnD7as"
+  },
+  {
+    "conference": {
+      "name": "Domain-Driven Design Africa"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Write Antifragile & Domain-Driven tests with ¶Outside-in diamond¶ TDD",
+    "videoUrl": "https://www.youtube.com/watch?v=djdMp9i04Sc"
+  },
+  {
+    "conference": {
+      "name": "Agile Tour Rennes"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "Keynote 2024",
+    "videoUrl": "https://www.youtube.com/watch?v=bP6TMQNfXNY"
+  },
+  {
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "Réinventer les masculinités, un chemin vers plus d’inclusion dans la tech",
+    "videoUrl": "https://www.youtube.com/watch?v=KKkCRtAD2Eg"
+  },
+  {
+    "conference": {
+      "name": "MixIT"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "Réinventer les masculinités, vers plus d’inclusion dans la tech",
+    "videoUrl": "https://www.youtube.com/watch?v=vwm2pGE84sQ"
+  },
+  {
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "Le DDD, c’est compliqué ? Attendez de mal l’appliquer !",
+    "videoUrl": "https://www.youtube.com/watch?v=29EECx9tbW4"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "Go without frills: when standard is enough",
+    "videoUrl": "https://www.youtube.com/watch?v=5zqkv24IdOg"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "Orchestrating business workflows with Temporal",
+    "videoUrl": "https://www.youtube.com/watch?v=2SYlMsQiXpQ"
+  },
+  {
+    "conference": {
+      "name": "DevLille"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "Go sans fioritures : quand le standard suffit",
+    "videoUrl": "https://www.youtube.com/watch?v=rOMFq_CSUEg"
+  },
+  {
+    "conference": {
+      "name": "#OVHMeetup"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": "OpenStack au pays des API",
+    "videoUrl": "https://www.youtube.com/watch?v=nWUTqBmcGuM"
+  },
+  {
+    "conference": {
       "name": "Touraine Tech",
       "url": "https://2025.touraine.tech/"
     },

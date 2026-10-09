@@ -13,7 +13,8 @@
     "refresh:speakers": "tsx scripts/refresh-speakers.ts",
     "refresh:events:light": "tsx scripts/refresh-events-light.ts",
     "refresh:events:heavy": "tsx scripts/refresh-events-heavy.ts",
-    "refresh:videos": "tsx scripts/refresh-videos.ts"
+    "refresh:videos": "tsx scripts/refresh-videos.ts",
+    "refresh:priority-speakers": "tsx scripts/refresh-priority-speakers.ts"
   },
   "engines": {
     "node": ">=20"

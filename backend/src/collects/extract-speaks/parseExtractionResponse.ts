@@ -2,7 +2,7 @@ import { Conference } from "../get-conferences/conference.js";
 import { Speaker } from "../get-all-speakers/speaker.js";
 import { Speak } from "../get-speaks/speak.js";
 import { normalizeForMatch, containsWholeWord } from "../../string.functions.js";
-import { decodeHtmlEntities } from "../../html.functions.js";
+import { sanitizeLlmText } from "../../html.functions.js";
 
 interface RawMatch {
   firstname?: unknown;
@@ -12,18 +12,6 @@ interface RawMatch {
 
 function speakerIdentity(firstname: string, lastname: string): string {
   return `${normalizeForMatch(firstname)}|${normalizeForMatch(lastname)}`;
-}
-
-// Le modèle sur-échappe parfois la ponctuation au lieu de recopier le caractère
-// réel : séquence \uXXXX littérale (ex. "l\\u0027architecture") que JSON.parse
-// laisse telle quelle puisque c'est un JSON valide, pas un \uXXXX à décoder, ou
-// entité HTML littérale (ex. "l&#39;architecture") recopiée depuis la page source.
-function sanitizeTitle(title: string): string {
-  const withoutUnicodeEscapes = title.replace(
-    /\\u([0-9a-fA-F]{4})/g,
-    (_, hex: string) => String.fromCharCode(parseInt(hex, 16)),
-  );
-  return decodeHtmlEntities(withoutUnicodeEscapes);
 }
 
 // La génération peut s'arrêter en plein milieu du JSON (num_predict atteint),
@@ -83,7 +71,7 @@ export function parseExtractionResponse(
       !containsWholeWord(normalizedPageText, normalizeForMatch(speaker.lastname))
     ) continue; // prénom ou nom absent du texte réel
 
-    const title = typeof match.title === "string" ? sanitizeTitle(match.title) : null;
+    const title = typeof match.title === "string" ? sanitizeLlmText(match.title) : null;
     const existing = speaksByIdentity.get(identity);
     if (!existing || (existing.title == null && title != null)) {
       speaksByIdentity.set(identity, { conference, speakers: [speaker], title });
