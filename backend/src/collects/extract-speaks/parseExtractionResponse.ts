@@ -14,13 +14,36 @@ function speakerIdentity(firstname: string, lastname: string): string {
   return `${normalizeForMatch(firstname)}|${normalizeForMatch(lastname)}`;
 }
 
-// Garde-fou anti-hallucination supplémentaire : un hashtag de thème du site n'est
-// jamais un titre de talk. Observé en pratique sur touraine.tech, dont le header de
-// CHAQUE page (y compris les pages profil speaker, qui n'ont sinon qu'une bio sans
-// aucun titre) affiche "Touraine Tech 2025 - <Nom> #BackToSchool" — le modèle a
-// confondu ce hashtag de thème annuel avec le titre du talk.
+// Calé empiriquement sur mixitconf.org : le titre réel le plus long observé fait
+// 115 caractères ; le plus court fragment de description tronqué observé en fait 121
+// ("(kata) de code simple où vous découvrirez..." — reste d'une description longue,
+// capturé par la fenêtre de contexte programme quand ni la page profil ni l'extraction
+// n'ont trouvé le vrai titre, nettement plus court). Si ce chiffre casse sur un titre
+// légitime plus long, l'ajuster plutôt que le supprimer.
+const MAX_TITLE_CHARS = 120;
+
+// Garde-fous anti-hallucination supplémentaires (aucune vérification déterministe
+// possible sur le contenu d'un titre, contrairement au nom d'un speaker) :
+// - un hashtag de thème du site n'est jamais un titre de talk. Observé en pratique sur
+//   touraine.tech, dont le header de CHAQUE page (y compris les pages profil speaker,
+//   qui n'ont sinon qu'une bio sans aucun titre) affiche "Touraine Tech 2025 - <Nom>
+//   #BackToSchool" — le modèle a confondu ce hashtag de thème annuel avec le titre.
+// - un titre réel commence presque toujours par une majuscule (ou un caractère non
+//   alphabétique) ; un fragment de phrase tronqué au milieu d'une description longue
+//   commence par un mot en minuscule, parfois coupé en plein milieu de mot (ex. "re la
+//   tête sur...", reste de "...vous prendre la tête"). Observé en pratique sur
+//   mixitconf.org/2025 quand le modèle, sans titre net à extraire d'une description
+//   de talk longue, en recopie un fragment au lieu de renvoyer `null`.
+// - au-delà de MAX_TITLE_CHARS, même capitalisé, c'est presque certainement le même
+//   type de fragment plutôt qu'un vrai titre (ex. "Moins de dette technique De
+//   meilleures interactions avec vos collègues..." — liste à puces d'une description,
+//   pas un intitulé de talk).
 function isPlausibleTitle(title: string): boolean {
-  return !title.trim().startsWith("#");
+  const trimmed = title.trim();
+  if (trimmed.startsWith("#")) return false;
+  if (trimmed.length > MAX_TITLE_CHARS) return false;
+  if (/^[a-zàâäéèêëïîôöùûüÿçœæ]/.test(trimmed)) return false;
+  return true;
 }
 
 // La génération peut s'arrêter en plein milieu du JSON (num_predict atteint),

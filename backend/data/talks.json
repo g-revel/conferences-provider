@@ -710,6 +710,62 @@
   },
   {
     "conference": {
+      "name": "Sunny Tech",
+      "url": "https://sunny-tech.io/schedule/day-1"
+    },
+    "speakers": [
+      {
+        "firstname": "Jordan",
+        "lastname": "Nourry",
+        "company": "Shodo"
+      }
+    ],
+    "title": "REX d'une reprise de contrôle assistée"
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2024.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes"
+      }
+    ],
+    "title": "Manifeste pour un artisanat logiciel responsable"
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2024.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Jeremy",
+        "lastname": "Chauvin",
+        "company": "Shodo Lyon"
+      }
+    ],
+    "title": "Et pourquoi pas les monorepo ?"
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2023.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Guibert",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Alien"
+  },
+  {
+    "conference": {
       "name": "Touraine Tech",
       "url": "https://2025.touraine.tech/"
     },
@@ -757,65 +813,9 @@
     },
     "speakers": [
       {
-        "firstname": "Cecilia",
-        "lastname": "Bossard",
-        "company": "Shodo Nantes"
-      }
-    ],
-    "title": null
-  },
-  {
-    "conference": {
-      "name": "Touraine Tech",
-      "url": "https://2024.touraine.tech/"
-    },
-    "speakers": [
-      {
-        "firstname": "Jeremy",
-        "lastname": "Chauvin",
-        "company": "Shodo Lyon"
-      }
-    ],
-    "title": null
-  },
-  {
-    "conference": {
-      "name": "Touraine Tech",
-      "url": "https://2024.touraine.tech/"
-    },
-    "speakers": [
-      {
         "firstname": "Julien",
         "lastname": "Gaubert",
         "company": "Shodo Boost"
-      }
-    ],
-    "title": null
-  },
-  {
-    "conference": {
-      "name": "Touraine Tech",
-      "url": "https://2023.touraine.tech/"
-    },
-    "speakers": [
-      {
-        "firstname": "Thomas",
-        "lastname": "Guibert",
-        "company": "Shodo"
-      }
-    ],
-    "title": null
-  },
-  {
-    "conference": {
-      "name": "MixIT",
-      "url": "https://mixitconf.org/2025"
-    },
-    "speakers": [
-      {
-        "firstname": "Manon",
-        "lastname": "Carbonnel",
-        "company": "Shodo Rennes"
       }
     ],
     "title": null

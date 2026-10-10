@@ -86,23 +86,23 @@ describe("parseExtractionResponse", () => {
 
   it("decodes a literal \\u0027 escape artifact left in the title by the model", () => {
     const raw = JSON.stringify({
-      matches: [{ firstname: "Alice", lastname: "Martin", title: "l\\u0027architecture hexagonale" }],
+      matches: [{ firstname: "Alice", lastname: "Martin", title: "L\\u0027architecture hexagonale" }],
     });
-    const pageText = "9h00 l'architecture hexagonale par Alice Martin";
+    const pageText = "9h00 L'architecture hexagonale par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "l'architecture hexagonale" },
+      { conference, speakers: [knownSpeakers[0]], title: "L'architecture hexagonale" },
     ]);
   });
 
   it("decodes a literal HTML entity left in the title by the model", () => {
     const raw = JSON.stringify({
-      matches: [{ firstname: "Alice", lastname: "Martin", title: "l&#39;architecture hexagonale" }],
+      matches: [{ firstname: "Alice", lastname: "Martin", title: "L&#39;architecture hexagonale" }],
     });
-    const pageText = "9h00 l'architecture hexagonale par Alice Martin";
+    const pageText = "9h00 L'architecture hexagonale par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "l'architecture hexagonale" },
+      { conference, speakers: [knownSpeakers[0]], title: "L'architecture hexagonale" },
     ]);
   });
 
@@ -112,6 +112,38 @@ describe("parseExtractionResponse", () => {
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
       { conference, speakers: [knownSpeakers[0]], title: null },
+    ]);
+  });
+
+  it("discards a mid-sentence fragment mistaken for a title (lowercase start, truncated mid-word)", () => {
+    const raw = JSON.stringify({
+      matches: [{ firstname: "Alice", lastname: "Martin", title: "re la tête sur le framework, Alice Martin le dit" }],
+    });
+    const pageText = "re la tête sur le framework, Alice Martin le dit";
+
+    expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
+      { conference, speakers: [knownSpeakers[0]], title: null },
+    ]);
+  });
+
+  it("discards a too-long title (a bullet-point list from a description, not a real title)", () => {
+    const longFragment =
+      "Moins de dette technique De meilleures interactions avec vos collègues De meilleures décisions " +
+      "grâce à plus de clarté sur ce qu'il faut faire De meilleures chances de gérer les défis Alice Martin";
+    const raw = JSON.stringify({ matches: [{ firstname: "Alice", lastname: "Martin", title: longFragment }] });
+
+    expect(parseExtractionResponse(raw, conference, knownSpeakers, longFragment)).toEqual([
+      { conference, speakers: [knownSpeakers[0]], title: null },
+    ]);
+  });
+
+  it("accepts a real title just under the length cap", () => {
+    const realTitle = "L'Architecture Hexagonale par la pratique, le live coding qui rendra vos applications plus robustes";
+    const raw = JSON.stringify({ matches: [{ firstname: "Alice", lastname: "Martin", title: realTitle }] });
+    const pageText = `${realTitle} par Alice Martin`;
+
+    expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
+      { conference, speakers: [knownSpeakers[0]], title: realTitle },
     ]);
   });
 
