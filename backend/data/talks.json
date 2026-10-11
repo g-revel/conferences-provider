@@ -44,7 +44,8 @@
         "company": "Shodo"
       }
     ],
-    "title": "Pourquoi la Tech tient plus de la pop culture que de l'ingénierie?"
+    "title": "Pourquoi la Tech tient plus de la pop culture que de l'ingénierie?",
+    "videoUrl": "https://www.youtube.com/watch?v=1JA3wPw7dsw"
   },
   {
     "conference": {
@@ -157,9 +158,15 @@
         "firstname": "Thomas",
         "lastname": "Pierrain",
         "company": "Shodo"
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
       }
     ],
-    "title": "Le pattern Hive : une stratégie de modularisation pour votre monolithe modulaire ou vos microservice"
+    "title": "Le pattern Hive : une stratégie de modularisation pour votre monolithe modulaire ou vos microservice",
+    "videoUrl": "https://www.youtube.com/watch?v=TL_nVaOs47g"
   },
   {
     "conference": {
@@ -188,39 +195,6 @@
     ],
     "title": "[VDBUH2026] Hexagonal Architecture in Practice",
     "videoUrl": "https://www.youtube.com/watch?v=QZrl5tghsTA"
-  },
-  {
-    "conference": {
-      "name": "MixIT"
-    },
-    "speakers": [
-      {
-        "firstname": "Julien",
-        "lastname": "Topcu",
-        "company": "Shodo"
-      },
-      {
-        "firstname": "Thomas",
-        "lastname": "Pierrain",
-        "company": "Shodo"
-      }
-    ],
-    "title": "The Hive pattern: a modularization strategy",
-    "videoUrl": "https://www.youtube.com/watch?v=TL_nVaOs47g"
-  },
-  {
-    "conference": {
-      "name": "MixIT"
-    },
-    "speakers": [
-      {
-        "firstname": "Julien",
-        "lastname": "Topcu",
-        "company": "Shodo"
-      }
-    ],
-    "title": "Why Tech is More Pop Culture Than Engineering?",
-    "videoUrl": "https://www.youtube.com/watch?v=1JA3wPw7dsw"
   },
   {
     "conference": {
@@ -710,20 +684,6 @@
   },
   {
     "conference": {
-      "name": "Sunny Tech",
-      "url": "https://sunny-tech.io/schedule/day-1"
-    },
-    "speakers": [
-      {
-        "firstname": "Jordan",
-        "lastname": "Nourry",
-        "company": "Shodo"
-      }
-    ],
-    "title": "REX d'une reprise de contrôle assistée"
-  },
-  {
-    "conference": {
       "name": "Touraine Tech",
       "url": "https://2024.touraine.tech/"
     },
@@ -829,6 +789,20 @@
       {
         "firstname": "Clement",
         "lastname": "Juste",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": null
+  },
+  {
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
         "company": "Shodo Rennes"
       }
     ],
