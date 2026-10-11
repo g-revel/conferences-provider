@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: conferences-provider-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: LOG_LEVEL
+        value: info
+
+  - type: web
+    name: conferences-provider-frontend
+    runtime: static
+    rootDir: frontend
+    plan: free
+    buildCommand: npm install && npx vite build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://conferences-provider-backend.onrender.com/api/*
