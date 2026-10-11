@@ -16,7 +16,8 @@
         "company": "Shodo"
       }
     ],
-    "title": "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble"
+    "title": "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble",
+    "category": "Frontend & Accessibilité"
   },
   {
     "conference": {
@@ -30,7 +31,8 @@
         "company": "Shodo Rennes"
       }
     ],
-    "title": "Introduction Sécurité"
+    "title": "Introduction Sécurité",
+    "category": "Sécurité"
   },
   {
     "conference": {
@@ -45,7 +47,8 @@
       }
     ],
     "title": "Pourquoi la Tech tient plus de la pop culture que de l'ingénierie?",
-    "videoUrl": "https://www.youtube.com/watch?v=1JA3wPw7dsw"
+    "videoUrl": "https://www.youtube.com/watch?v=1JA3wPw7dsw",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {
@@ -60,7 +63,8 @@
       }
     ],
     "title": "Comment concevoir et tester un site accessible?",
-    "videoUrl": "https://www.youtube.com/watch?v=n6BSMASkoWw"
+    "videoUrl": "https://www.youtube.com/watch?v=n6BSMASkoWw",
+    "category": "Frontend & Accessibilité"
   },
   {
     "conference": {
@@ -75,7 +79,8 @@
       }
     ],
     "title": "L’architecture hexagonale au pays des irréductibles développeurs",
-    "videoUrl": "https://www.youtube.com/watch?v=ITjJTpGX9HI"
+    "videoUrl": "https://www.youtube.com/watch?v=ITjJTpGX9HI",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -94,7 +99,8 @@
         "company": "Shodo"
       }
     ],
-    "title": "Orchestrez vos agents IA pour organiser un dîner presque parfait"
+    "title": "Orchestrez vos agents IA pour organiser un dîner presque parfait",
+    "category": "IA & Data"
   },
   {
     "conference": {
@@ -113,7 +119,8 @@
         "company": "Shodo"
       }
     ],
-    "title": "Notre IA et nous contre le legacy : REX d'une reprise de contrôle assistée"
+    "title": "Notre IA et nous contre le legacy : REX d'une reprise de contrôle assistée",
+    "category": "IA & Data"
   },
   {
     "conference": {
@@ -132,7 +139,8 @@
         "company": "Shodo Lyon"
       }
     ],
-    "title": "Devenez un Astronaute : Découvrez le Framework Astro"
+    "title": "Devenez un Astronaute : Découvrez le Framework Astro",
+    "category": "Frontend & Accessibilité"
   },
   {
     "conference": {
@@ -146,7 +154,8 @@
         "company": "Shodo Nantes"
       }
     ],
-    "title": "Mais qu'est ce qu'on va devenir ?"
+    "title": "Mais qu'est ce qu'on va devenir ?",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {
@@ -166,7 +175,8 @@
       }
     ],
     "title": "Le pattern Hive : une stratégie de modularisation pour votre monolithe modulaire ou vos microservice",
-    "videoUrl": "https://www.youtube.com/watch?v=TL_nVaOs47g"
+    "videoUrl": "https://www.youtube.com/watch?v=TL_nVaOs47g",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -180,7 +190,8 @@
         "company": "Shodo"
       }
     ],
-    "title": "La Simplicité, l'art de maximiser le travail non-fait, est essentielle!"
+    "title": "La Simplicité, l'art de maximiser le travail non-fait, est essentielle!",
+    "category": "Agilité & Organisation"
   },
   {
     "conference": {
@@ -194,7 +205,8 @@
       }
     ],
     "title": "[VDBUH2026] Hexagonal Architecture in Practice",
-    "videoUrl": "https://www.youtube.com/watch?v=QZrl5tghsTA"
+    "videoUrl": "https://www.youtube.com/watch?v=QZrl5tghsTA",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -208,7 +220,8 @@
       }
     ],
     "title": "REST next level : Ecrire des APIs web orientées métier",
-    "videoUrl": "https://www.youtube.com/watch?v=7qqzqse1hgc"
+    "videoUrl": "https://www.youtube.com/watch?v=7qqzqse1hgc",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -222,7 +235,8 @@
       }
     ],
     "title": "Conway’s Law: When Product Design Clashes with Organization",
-    "videoUrl": "https://www.youtube.com/watch?v=K-Bke9zm4dg"
+    "videoUrl": "https://www.youtube.com/watch?v=K-Bke9zm4dg",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -236,7 +250,8 @@
       }
     ],
     "title": "L'Architecture Hexagonale par la pratique, le live coding qui rendra vos applications plus robustes et maintenables",
-    "videoUrl": "https://www.youtube.com/watch?v=-dXN8wkN0yk"
+    "videoUrl": "https://www.youtube.com/watch?v=-dXN8wkN0yk",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -255,7 +270,8 @@
       }
     ],
     "title": "Model Tension Heuristics: Preventing Design Debt",
-    "videoUrl": "https://www.youtube.com/watch?v=bW0d3vDzi8Q"
+    "videoUrl": "https://www.youtube.com/watch?v=bW0d3vDzi8Q",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -269,7 +285,8 @@
       }
     ],
     "title": "OAUTH 2.1 expliqué simplement",
-    "videoUrl": "https://www.youtube.com/watch?v=YdShQveywpo"
+    "videoUrl": "https://www.youtube.com/watch?v=YdShQveywpo",
+    "category": "Sécurité"
   },
   {
     "conference": {
@@ -288,7 +305,8 @@
       }
     ],
     "title": "Model Mitosis: stop choosing between microservices and monoliths",
-    "videoUrl": "https://www.youtube.com/watch?v=YzKgDEniFy0"
+    "videoUrl": "https://www.youtube.com/watch?v=YzKgDEniFy0",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -302,7 +320,8 @@
       }
     ],
     "title": "Vous pensiez que la dette technique était le pire? Voici la dette de conception!",
-    "videoUrl": "https://www.youtube.com/watch?v=lfACSvxl4uY"
+    "videoUrl": "https://www.youtube.com/watch?v=lfACSvxl4uY",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -316,7 +335,8 @@
       }
     ],
     "title": "The Hive : coder un monolithe modulaire prét pour les microservices",
-    "videoUrl": "https://www.youtube.com/watch?v=5VDpsY-Eg4Q"
+    "videoUrl": "https://www.youtube.com/watch?v=5VDpsY-Eg4Q",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -330,7 +350,8 @@
       }
     ],
     "title": "Show me your Domain: Train Booking",
-    "videoUrl": "https://www.youtube.com/watch?v=-qMSfJ8mq_k"
+    "videoUrl": "https://www.youtube.com/watch?v=-qMSfJ8mq_k",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -344,7 +365,8 @@
       }
     ],
     "title": "Loi de Conway: Lorsque votre conception produit se fache avec votre organisation",
-    "videoUrl": "https://www.youtube.com/watch?v=GyWUN27Ercg"
+    "videoUrl": "https://www.youtube.com/watch?v=GyWUN27Ercg",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -358,7 +380,8 @@
       }
     ],
     "title": "Lécosystème des conférences tech en France",
-    "videoUrl": "https://www.youtube.com/watch?v=WrbNeWtn_fY"
+    "videoUrl": "https://www.youtube.com/watch?v=WrbNeWtn_fY",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {
@@ -372,7 +395,8 @@
       }
     ],
     "title": "Comment se faire hacker bien comme il faut",
-    "videoUrl": "https://www.youtube.com/watch?v=Aa6yeVHs2fI"
+    "videoUrl": "https://www.youtube.com/watch?v=Aa6yeVHs2fI",
+    "category": "Sécurité"
   },
   {
     "conference": {
@@ -386,7 +410,8 @@
       }
     ],
     "title": "L'art de survivre aux incidents",
-    "videoUrl": "https://www.youtube.com/watch?v=x5hPojVerPk"
+    "videoUrl": "https://www.youtube.com/watch?v=x5hPojVerPk",
+    "category": "Agilité & Organisation"
   },
   {
     "conference": {
@@ -400,7 +425,8 @@
       }
     ],
     "title": "La scale-up, l’autonomie et le sous-marin nucléaire",
-    "videoUrl": "https://www.youtube.com/watch?v=FPZw6gy04T4"
+    "videoUrl": "https://www.youtube.com/watch?v=FPZw6gy04T4",
+    "category": "Agilité & Organisation"
   },
   {
     "conference": {
@@ -414,7 +440,8 @@
       }
     ],
     "title": "Architecture",
-    "videoUrl": "https://www.youtube.com/watch?v=csXl7wCpmOQ"
+    "videoUrl": "https://www.youtube.com/watch?v=csXl7wCpmOQ",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -428,7 +455,8 @@
       }
     ],
     "title": "Let's reboot DDD!",
-    "videoUrl": "https://www.youtube.com/watch?v=GT0u6iauiaM"
+    "videoUrl": "https://www.youtube.com/watch?v=GT0u6iauiaM",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -442,7 +470,8 @@
       }
     ],
     "title": "The DDD Horror Picture Show",
-    "videoUrl": "https://www.youtube.com/watch?v=SZfXmwmyPdI"
+    "videoUrl": "https://www.youtube.com/watch?v=SZfXmwmyPdI",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -456,7 +485,8 @@
       }
     ],
     "title": "TDD is dead! Let's do an autopsy",
-    "videoUrl": "https://www.youtube.com/watch?v=J5qrAIY0AfU"
+    "videoUrl": "https://www.youtube.com/watch?v=J5qrAIY0AfU",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -470,7 +500,8 @@
       }
     ],
     "title": "As time goes by (technical challenges bi-temporal Event Sourcing)",
-    "videoUrl": "https://www.youtube.com/watch?v=bheojh2sRmU"
+    "videoUrl": "https://www.youtube.com/watch?v=bheojh2sRmU",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -484,7 +515,8 @@
       }
     ],
     "title": "Et si on parlait éthique",
-    "videoUrl": "https://www.youtube.com/watch?v=nV6Fy3EeoQs"
+    "videoUrl": "https://www.youtube.com/watch?v=nV6Fy3EeoQs",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {
@@ -498,7 +530,8 @@
       }
     ],
     "title": "Legacy Club",
-    "videoUrl": "https://www.youtube.com/watch?v=zeogtrxqc38"
+    "videoUrl": "https://www.youtube.com/watch?v=zeogtrxqc38",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -512,7 +545,8 @@
       }
     ],
     "title": "High-speed DDD",
-    "videoUrl": "https://www.youtube.com/watch?v=tAGG4-UtfGw"
+    "videoUrl": "https://www.youtube.com/watch?v=tAGG4-UtfGw",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -526,7 +560,8 @@
       }
     ],
     "title": "The scale-up, the autonomy and the nuclear submarine",
-    "videoUrl": "https://www.youtube.com/watch?v=dAA9rVg6bb8"
+    "videoUrl": "https://www.youtube.com/watch?v=dAA9rVg6bb8",
+    "category": "Agilité & Organisation"
   },
   {
     "conference": {
@@ -540,7 +575,8 @@
       }
     ],
     "title": "eXtreme",
-    "videoUrl": "https://www.youtube.com/watch?v=AJLL4PZa54g"
+    "videoUrl": "https://www.youtube.com/watch?v=AJLL4PZa54g",
+    "category": "Agilité & Organisation"
   },
   {
     "conference": {
@@ -554,7 +590,8 @@
       }
     ],
     "title": "Refactoring de code legacy avec des trucs en N",
-    "videoUrl": "https://www.youtube.com/watch?v=I3rNyxnD7as"
+    "videoUrl": "https://www.youtube.com/watch?v=I3rNyxnD7as",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -568,7 +605,8 @@
       }
     ],
     "title": "Write Antifragile & Domain-Driven tests with ¶Outside-in diamond¶ TDD",
-    "videoUrl": "https://www.youtube.com/watch?v=djdMp9i04Sc"
+    "videoUrl": "https://www.youtube.com/watch?v=djdMp9i04Sc",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -582,7 +620,8 @@
       }
     ],
     "title": "Keynote 2024",
-    "videoUrl": "https://www.youtube.com/watch?v=bP6TMQNfXNY"
+    "videoUrl": "https://www.youtube.com/watch?v=bP6TMQNfXNY",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {
@@ -596,7 +635,8 @@
       }
     ],
     "title": "Réinventer les masculinités, un chemin vers plus d’inclusion dans la tech",
-    "videoUrl": "https://www.youtube.com/watch?v=KKkCRtAD2Eg"
+    "videoUrl": "https://www.youtube.com/watch?v=KKkCRtAD2Eg",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {
@@ -610,7 +650,8 @@
       }
     ],
     "title": "Réinventer les masculinités, vers plus d’inclusion dans la tech",
-    "videoUrl": "https://www.youtube.com/watch?v=vwm2pGE84sQ"
+    "videoUrl": "https://www.youtube.com/watch?v=vwm2pGE84sQ",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {
@@ -624,7 +665,8 @@
       }
     ],
     "title": "Le DDD, c’est compliqué ? Attendez de mal l’appliquer !",
-    "videoUrl": "https://www.youtube.com/watch?v=29EECx9tbW4"
+    "videoUrl": "https://www.youtube.com/watch?v=29EECx9tbW4",
+    "category": "Architecture & Craft"
   },
   {
     "conference": {
@@ -638,7 +680,8 @@
       }
     ],
     "title": "Go without frills: when standard is enough",
-    "videoUrl": "https://www.youtube.com/watch?v=5zqkv24IdOg"
+    "videoUrl": "https://www.youtube.com/watch?v=5zqkv24IdOg",
+    "category": "Cloud & DevOps"
   },
   {
     "conference": {
@@ -652,7 +695,8 @@
       }
     ],
     "title": "Orchestrating business workflows with Temporal",
-    "videoUrl": "https://www.youtube.com/watch?v=2SYlMsQiXpQ"
+    "videoUrl": "https://www.youtube.com/watch?v=2SYlMsQiXpQ",
+    "category": "Cloud & DevOps"
   },
   {
     "conference": {
@@ -666,7 +710,8 @@
       }
     ],
     "title": "Go sans fioritures : quand le standard suffit",
-    "videoUrl": "https://www.youtube.com/watch?v=rOMFq_CSUEg"
+    "videoUrl": "https://www.youtube.com/watch?v=rOMFq_CSUEg",
+    "category": "Cloud & DevOps"
   },
   {
     "conference": {
@@ -680,7 +725,8 @@
       }
     ],
     "title": "OpenStack au pays des API",
-    "videoUrl": "https://www.youtube.com/watch?v=nWUTqBmcGuM"
+    "videoUrl": "https://www.youtube.com/watch?v=nWUTqBmcGuM",
+    "category": "Cloud & DevOps"
   },
   {
     "conference": {
@@ -694,7 +740,8 @@
         "company": "Shodo Nantes"
       }
     ],
-    "title": "Manifeste pour un artisanat logiciel responsable"
+    "title": "Manifeste pour un artisanat logiciel responsable",
+    "category": "Agilité & Organisation"
   },
   {
     "conference": {
@@ -708,7 +755,8 @@
         "company": "Shodo Lyon"
       }
     ],
-    "title": "Et pourquoi pas les monorepo ?"
+    "title": "Et pourquoi pas les monorepo ?",
+    "category": "Cloud & DevOps"
   },
   {
     "conference": {
@@ -722,7 +770,8 @@
         "company": "Shodo"
       }
     ],
-    "title": "Alien"
+    "title": "Alien",
+    "category": "Culture & Inclusion"
   },
   {
     "conference": {

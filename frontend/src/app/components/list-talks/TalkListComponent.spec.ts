@@ -29,13 +29,19 @@ const talks: Talk[] = [
     title: 'Talk avec vidéo',
     videoUrl: 'https://www.youtube.com/watch?v=abc123',
   },
+  {
+    conference: { name: 'Sunny Tech', url: null },
+    speakers: [{ firstname: 'Finn', lastname: 'Roche', company: 'Shodo' }],
+    title: 'Talk catégorisé',
+    category: 'Sécurité',
+  },
 ]
 
 describe('TalkListComponent', () => {
   it('should render one item per talk', () => {
     const wrapper = mount(TalkListComponent, { props: { talks } })
 
-    expect(wrapper.findAll('li')).toHaveLength(4)
+    expect(wrapper.findAll('li')).toHaveLength(5)
   })
 
   it('should render a clickable link to the conference when a url is known', () => {
@@ -82,6 +88,43 @@ describe('TalkListComponent', () => {
     const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
 
     expect(wrapper.text()).not.toContain('Vidéo')
+  })
+
+  it('should display the category badge when a category is known', () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[4]] } })
+
+    expect(wrapper.text()).toContain('Sécurité')
+  })
+
+  it('should not display a category badge when no category is known', () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
+
+    expect(wrapper.text()).not.toContain('Sécurité')
+  })
+
+  it('should render each talk distinctly after a filter update, even when several talks share the same speaker and conference', async () => {
+    const topcuAtDevoxx = (title: string): Talk => ({
+      conference: { name: 'Devoxx France' },
+      speakers: [{ firstname: 'Julien', lastname: 'Topcu', company: 'Shodo' }],
+      title,
+    })
+    const other: Talk = {
+      conference: { name: 'BreizhCamp' },
+      speakers: [{ firstname: 'Alice', lastname: 'Martin', company: 'Shodo' }],
+      title: 'Unrelated talk',
+    }
+    const fullList = [topcuAtDevoxx('Talk A'), topcuAtDevoxx('Talk B'), topcuAtDevoxx('Talk C'), other]
+    const wrapper = mount(TalkListComponent, { props: { talks: fullList } })
+
+    // Simule le filtre par speaker réduisant la liste à un sous-ensemble qui garde
+    // PLUSIEURS talks avec la même conférence/speakers (reproduit le bug observé en
+    // pratique : filtrer sur "Topcu" faisait apparaître le même intitulé recopié
+    // plusieurs fois à la place des intitulés distincts). Si talkKey() n'est pas
+    // unique par talk, Vue réconcilie mal les nœuds DOM lors de cette mise à jour.
+    await wrapper.setProps({ talks: [topcuAtDevoxx('Talk A'), topcuAtDevoxx('Talk B'), topcuAtDevoxx('Talk C')] })
+
+    expect(wrapper.findAll('li')).toHaveLength(3)
+    expect(wrapper.findAll('h2').map((h) => h.text())).toEqual(['Talk A', 'Talk B', 'Talk C'])
   })
 
   it('should render an empty list when there are no talks', () => {

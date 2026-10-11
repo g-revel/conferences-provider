@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import TalkListComponent from './components/list-talks/TalkListComponent.vue'
+import TalkFiltersComponent from './components/list-talks/TalkFiltersComponent.vue'
 import { useListTalks } from './components/list-talks/UseListTalks.ts'
+import { filterTalksBySpeakerName, filterTalksByCategory, getAvailableCategories } from '../domain/talks/filter/FilterTalksFunctions'
 
-const toto = ref(0)
 const talks = useListTalks()
+const speakerName = ref('')
+const category = ref('')
+
+const categories = computed(() => getAvailableCategories(talks.value))
+const filteredTalks = computed(() =>
+  filterTalksByCategory(filterTalksBySpeakerName(talks.value, speakerName.value), category.value),
+)
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-50">
-    <div class="max-w-2xl mx-auto py-10 px-4">
+    <div class="w-full px-4 py-10 md:px-8">
       <h1 class="text-2xl font-semibold text-gray-900 mb-6">Talks Shodo</h1>
-      <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <TalkListComponent :talks="talks" />
-      </div>
+      <TalkFiltersComponent v-model:speaker-name="speakerName" v-model:category="category" :categories="categories" />
+      <TalkListComponent :talks="filteredTalks" />
     </div>
   </div>
-
-  <button
-    class="fixed bottom-4 right-4 bg-blue-600 text-white rounded-full p-3 shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-    @click="toto++"
-    >
-    ici : {{ toto }}
-    </button>
 </template>

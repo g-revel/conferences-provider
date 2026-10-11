@@ -6,4 +6,5 @@ export interface Speak {
   speakers: Speaker[];
   title?: string | null;
   videoUrl?: string | null;
+  category?: string | null;
 }
