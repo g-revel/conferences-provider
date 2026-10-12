@@ -17,7 +17,7 @@
     "refresh:priority-speakers": "tsx scripts/refresh-priority-speakers.ts"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.19.0"
   },
   "keywords": [],
   "author": "",

@@ -9,6 +9,8 @@ services:
     envVars:
       - key: LOG_LEVEL
         value: info
+      - key: NODE_VERSION
+        value: 22.19.0
 
   - type: web
     name: conferences-provider-frontend
