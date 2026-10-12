@@ -63,7 +63,7 @@ Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/pat
 | `findTalkVideo()` | `find-talk-video/findTalkVideo.ts` | SearXNG (moteur `youtube`) : cherche un lien vidéo pour un talk **déjà connu** (titre déjà trouvé), pas de LLM |
 | `findSpeakerTalksOnYoutube()` | `find-speaker-talks-on-youtube/findSpeakerTalksOnYoutube.ts` | SearXNG (moteur `youtube`) + Ollama : découvre de **nouveaux** talks en cherchant un speaker par nom |
 
-⚠️ `get-speaks/get-speaks.ts` (ancienne signature `getSpeaks(conferences, speakers) => Speak[]`, jamais implémentée — `throw new Error("not implemented")`) est **superseded** par `extract-speaks.ts` : le rapprochement conférence↔speaker se fait maintenant via fetch+Ollama plutôt qu'en mémoire à partir des deux listes complètes. L'eval `tests/evals/get-speaks.yaml` qui ciblait ce stub échouera donc toujours — à supprimer avec le stub si l'occasion se présente.
+`get-speaks/get-speaks.ts` (ancienne signature `getSpeaks(conferences, speakers) => Speak[]`, jamais implémentée) et son eval `tests/evals/get-speaks.yaml` ont été supprimés : le rapprochement conférence↔speaker se fait maintenant via fetch+Ollama (`extract-speaks.ts`) plutôt qu'en mémoire à partir des deux listes complètes.
 
 **Pourquoi pas un LLM pour `getConferences()` ?** Historique de cette session : Mistral (payant/bloqué), Claude (payant), puis Ollama local (`llama3.1:8b`) ont été essayés pour *générer* la liste depuis la connaissance du modèle — tous insuffisants (rate limit, coût, ou absence de connaissance factuelle des conférences régionales françaises, remplacées par des noms génériques inventés). D'où la liste statique. Ollama reste pertinent pour une tâche différente dans `extract-speaks.ts` : **extraire** des noms déjà connus depuis le texte d'une page fournie (pas du recall).
 
@@ -183,9 +183,7 @@ Les evals sont dans `tests/evals/` et utilisent [promptfoo](https://promptfoo.de
 ```
 tests/evals/
 ├── get-all-speakers.yaml
-├── get-all-speakers-provider.ts
-├── get-speaks.yaml
-└── get-speaks-provider.ts
+└── get-all-speakers-provider.ts
 ```
 
 **Provider** : doit être une **classe** (pas un objet littéral) car promptfoo l'instancie avec `new`.
@@ -199,4 +197,4 @@ Aucun de ces evals n'utilise de LLM judge actuellement (assertions JS pures sur 
 npx promptfoo eval --config tests/evals/get-all-speakers.yaml --max-concurrency 1
 ```
 
-La CI (`/.github/workflows/evals.yml`) tourne les evals sur chaque push/PR sur `main`. Aucun secret requis actuellement (⚠️ `get-all-speakers.yaml` a quand même besoin de `SLACK_TOKEN` pour fonctionner réellement, non configuré dans le workflow — gap préexistant).
+⚠️ **`get-all-speakers.yaml` a besoin de `SLACK_TOKEN` pour fonctionner réellement** (appelle l'API Slack). La CI (`/.github/workflows/evals.yml`) le lance sur chaque push/PR sur `main` mais ce secret n'y est pas configuré — gap préexistant, le job échoue tant qu'il n'est pas ajouté dans Settings → Secrets and variables → Actions du repo GitHub.

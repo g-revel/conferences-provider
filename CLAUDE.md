@@ -58,7 +58,6 @@ Data collection lives in `src/collects/<name>/`, one folder per concern:
 - `get-all-speakers/` — Slack `users.list()` lookup, no LLM; pure, deterministic transform/filter pipeline afterward (this is the part that's unit-tested).
 - `find-conference-editions/` — heavy run: a self-hosted SearXNG instance (Docker, `backend/searxng/`) finds each event's current-edition URL. Brave Search was used initially but dropped its free no-card tier on 2026-02-12; SearXNG keeps the "free and local" approach consistent with Ollama.
 - `extract-speaks/` — light run: fetches a known event URL and uses a local Ollama model to find which known Shodo speakers are mentioned on the page (extraction from provided text, not recall — a small local model is reliable here, unlike generating the conference list from the model's own knowledge, which was tried and abandoned). `Speak.speakers` is an array, not a singular — a talk co-presented by two known speakers is one entry, not two duplicates (`groupCoPresentedTalks.ts`).
-- `get-speaks/get-speaks.ts` — the original join-two-lists-in-memory approach; unimplemented and now superseded by `extract-speaks/`, kept around but dead.
 
 `GET /api/talks` (`src/routes/talks.ts`) serves `data/talks.json` to the frontend.
 
@@ -77,4 +76,4 @@ Styling is Tailwind v4 via the `@tailwindcss/vite` plugin (configured in `vite.c
 
 ## CI
 
-`.github/workflows/evals.yml` runs the backend promptfoo evals on every push/PR to `main`. No secrets required currently — none of the active evals use an LLM judge (⚠️ `get-all-speakers.yaml` still needs `SLACK_TOKEN` to actually pass; not configured in the workflow, pre-existing gap).
+`.github/workflows/evals.yml` runs the backend promptfoo evals on every push/PR to `main`. None of the active evals use an LLM judge, but `get-all-speakers.yaml` calls the real Slack API and needs a `SLACK_TOKEN` secret configured on the GitHub repo (Settings → Secrets and variables → Actions) to actually pass — not configured yet, pre-existing gap.
