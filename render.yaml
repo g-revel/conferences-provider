@@ -16,7 +16,6 @@ services:
     name: conferences-provider-frontend
     runtime: static
     rootDir: frontend
-    plan: free
     buildCommand: npm install && npx vite build
     staticPublishPath: dist
     routes:
