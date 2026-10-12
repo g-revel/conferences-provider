@@ -197,4 +197,4 @@ Aucun de ces evals n'utilise de LLM judge actuellement (assertions JS pures sur 
 npx promptfoo eval --config tests/evals/get-all-speakers.yaml --max-concurrency 1
 ```
 
-⚠️ **`get-all-speakers.yaml` a besoin de `SLACK_TOKEN` pour fonctionner réellement** (appelle l'API Slack). La CI (`/.github/workflows/evals.yml`) le lance sur chaque push/PR sur `main` mais ce secret n'y est pas configuré — gap préexistant, le job échoue tant qu'il n'est pas ajouté dans Settings → Secrets and variables → Actions du repo GitHub.
+**`get-all-speakers.yaml` a besoin de `SLACK_TOKEN`** (appelle l'API Slack) — configuré comme secret GitHub du repo et passé à l'étape "Run evals" de `.github/workflows/evals.yml` via `env: SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}`.

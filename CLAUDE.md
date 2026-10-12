@@ -76,4 +76,4 @@ Styling is Tailwind v4 via the `@tailwindcss/vite` plugin (configured in `vite.c
 
 ## CI
 
-`.github/workflows/evals.yml` runs the backend promptfoo evals on every push/PR to `main`. None of the active evals use an LLM judge, but `get-all-speakers.yaml` calls the real Slack API and needs a `SLACK_TOKEN` secret configured on the GitHub repo (Settings → Secrets and variables → Actions) to actually pass — not configured yet, pre-existing gap.
+`.github/workflows/evals.yml` runs the backend promptfoo evals on every push/PR to `main`. None of the active evals use an LLM judge, but `get-all-speakers.yaml` calls the real Slack API — `SLACK_TOKEN` is configured as a GitHub repo secret and passed to the eval step via `env:`.
