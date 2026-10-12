@@ -132,4 +132,21 @@ describe('TalkListComponent', () => {
 
     expect(wrapper.findAll('li')).toHaveLength(0)
   })
+
+  it('should emit select with the talk when a card is clicked', async () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
+
+    await wrapper.find('li').trigger('click')
+
+    expect(wrapper.emitted('select')).toEqual([[talks[0]]])
+  })
+
+  it('should not emit select when clicking the conference or video link', async () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[3]] } })
+
+    const links = wrapper.findAll('a')
+    for (const link of links) await link.trigger('click')
+
+    expect(wrapper.emitted('select')).toBeUndefined()
+  })
 })

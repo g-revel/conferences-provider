@@ -17,7 +17,11 @@
       }
     ],
     "title": "Quand l’accessibilité rencontre le Mob : pratiquer, tester, corriger ensemble",
-    "category": "Frontend & Accessibilité"
+    "category": "Frontend & Accessibilité",
+    "format": "Lab (2h), Université (2-3h)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://github.com/emma11y/mob-a11y/"
   },
   {
     "conference": {
@@ -64,7 +68,11 @@
     ],
     "title": "Comment concevoir et tester un site accessible?",
     "videoUrl": "https://www.youtube.com/watch?v=n6BSMASkoWw",
-    "category": "Frontend & Accessibilité"
+    "category": "Frontend & Accessibilité",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://github.com/emma11y/tester-a11y/"
   },
   {
     "conference": {
@@ -176,7 +184,12 @@
     ],
     "title": "Le pattern Hive : une stratégie de modularisation pour votre monolithe modulaire ou vos microservice",
     "videoUrl": "https://www.youtube.com/watch?v=TL_nVaOs47g",
-    "category": "Architecture & Craft"
+    "category": "Architecture & Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/the-hive-a-scaling-and-supple-architecture-style-for-your-growing-and-complex-domain",
+    "description": "Après une décennie, l'industrie réalise que des microservices mal conçus peuvent facilement se transformer en un monolithe distribué, encore plus problématique que le monolithe en spaghetti qu'ils visaient à résoudre. Pour remédier à ce problème, le concept de monolithe modulaire émerge comme une approche alternative.\n\nCependant, le défi reste de le scinder efficacement sans tomber dans le piège d'un système fortement couplé et rigide. Comment le modulariser correctement tout en gérant la complexité croissante de votre système ? Comment survivre au-delà de notre dette de modélisation et reprendre le contrôle ?\n\nDécouvrez le pattern Hive qui découple votre stratégie de déploiement - monolithe modulaire ou microservices - de la conception de votre logiciel, en adoptant le principe « Model Once, Deploy as you wish ». Ce pattern vous apportera une conception souple et évolutive, résiliente face aux défis changeants pour les produits existants ou en développement."
   },
   {
     "conference": {
@@ -221,7 +234,12 @@
     ],
     "title": "REST next level : Ecrire des APIs web orientées métier",
     "videoUrl": "https://www.youtube.com/watch?v=7qqzqse1hgc",
-    "category": "Architecture & Craft"
+    "category": "Architecture & Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/rest-next-level-ecrire-des-apis-web-orientes-mtier",
+    "description": "Vous venez de coder votre logique métier, et peut-être que vous avez même fait l'effort d'appliquer les principes du Domain-Driven Design !\n\nMais au moment de l'écriture de votre API... Catastrophe ! Toute l'intention et l'expression de votre domaine partent en fumée pour rentrer dans le moule des méthodes GET, POST, etc. Dénaturé par la couche REST, le métier se voit alors en partie réimplémenté côté front pour compenser le vocabulaire limité de ce protocole basé sur un CRUD...\n\nLors de ce talk, nous verrons comment HATEOAS - le dernier niveau de maturité d'une architecture REST - peut nous aider à écrire une API web orientée métier qui aura la puissance de guider vos consommateurs à travers le workflow de votre domaine.\n\n### **Message pour le comité de sélection**\n\nCe talk a recueilli la meilleure note parmi les conférences de Devoxx suite au vote du public : [https://twitter.com/DevoxxFR/status/1446387625745604629?t=_vbXoq5Yua-adNR1mi5Ryw&s=19](https://twitter.com/DevoxxFR/status/1446387625745604629?t=_vbXoq5Yua-adNR1mi5Ryw&s=19)\n\nC'est une technique que j'utilise en prod depuis plus de 3 ans, donc le talk sera agrémenté de retours d'expérience. Vous pouvez avoir ici un exemple de workflow dans la doc de cette application de réservation de train que je leadais lorsque je travaillais chez Egencia : [https://www.egencia.com/rail-service/docs/rest-api.html#_return_trip_complete_flow](https://www.egencia.com/rail-service/docs/rest-api.html#_return_trip_complete_flow)\n\nJ'ai préparé un repository en Kotlin (back) / React (front) [https://gitlab.com/crafts-records/columbiad-express](https://gitlab.com/crafts-records/columbiad-express) et voici mes slides [https://slides.com/julientopcu/rest-next-level-ecrire-des-apis-web-orientes-mtier](https://slides.com/julientopcu/rest-next-level-ecrire-des-apis-web-orientes-mtier)\n\nOutline :\n\nDémonstration de perte de sens métier des API CRUD classiques\n\nEnumération des 4 problématiques qui empêche de créer des API Web Restful et orientées métier\n\n- Fausses croyances liées à la nomenclature de nommage des urls (nom vs verbes)\n- La confusion de l'intention métier et de sa modélisation qui amène à imposer à ses consommateurs une implémentation au lieu de fonctionnalités\n- La désencapsulation des comportements en exposant à la place des états dans l'API REST\n- *La non-exposition dans nos APIs de nos workflows métier (API anémique)\n\nPrésentation d'une implémentation d'hypermédias sur un cas d'utilisation de réservation de train."
   },
   {
     "conference": {
@@ -251,7 +269,12 @@
     ],
     "title": "L'Architecture Hexagonale par la pratique, le live coding qui rendra vos applications plus robustes et maintenables",
     "videoUrl": "https://www.youtube.com/watch?v=-dXN8wkN0yk",
-    "category": "Architecture & Craft"
+    "category": "Architecture & Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/hexagonal-architecture-in-practice-live-coding-that-will-make-your-applications-more-sustainable",
+    "description": "Il arrive toujours un moment où, le logiciel est tellement gros et vieux qu’il devient inmaintenable. Impossible de mettre à jour la stack technique sans tout casser, les nouvelles fonctionnalités deviennent de plus en plus longue à implémenter et la dette technique étant tellement lourde que le refactoring devient exorbitant.\n\nEt si on vous disait que tout ça était plus un problème de pratique qu’un problème de vieillesse du logiciel ?\n\nVenez découvrir par la pratique via ce 100% live coding, comment l’Architecture Hexagonale peut tacler la complexité logicielle en vous permettant d’être évolutif et pérenne tout en vous aidant à mieux gérer votre dette technique."
   },
   {
     "conference": {
@@ -286,7 +309,12 @@
     ],
     "title": "OAUTH 2.1 expliqué simplement",
     "videoUrl": "https://www.youtube.com/watch?v=YdShQveywpo",
-    "category": "Sécurité"
+    "category": "Sécurité",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/concepts-avances-authn-authz",
+    "description": "Il est très difficile aujourd'hui de déployer une application sur le web sans se frotter à OAuth2. Conçu pour mieux protéger les utilisateurs et utilisatrices, ce standard de délégation d'autorisation s'est totalement imposé dans l'industrie.\n\nCependant, n'avez-vous pas pleuré en essayant de comprendre les concepts de OAuth2 ? On ne va pas se mentir, entre les différents rôles et la multitude de flows qui le constituent, il y a vraiment de quoi se perdre et sa complexité en décourage plus d'un ! Et pourtant, on ne peut pas s'en passer, donc on y va et généralement c'est douloureux…\n\nMais ne vous inquiétez pas, que vous ayez un profil tech ou non, ce talk va vous permettre d'enfin comprendre les méandres de OAuth simplement, dont la nouvelle version 2.1, en s'appuyant sur des analogies de la vie courante !"
   },
   {
     "conference": {
@@ -336,7 +364,12 @@
     ],
     "title": "The Hive : coder un monolithe modulaire prét pour les microservices",
     "videoUrl": "https://www.youtube.com/watch?v=5VDpsY-Eg4Q",
-    "category": "Architecture & Craft"
+    "category": "Architecture & Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/live-coding-the-hive",
+    "description": "Après une décennie, notre industrie s’est rendu compte que des microservices mal conçus peuvent très facilement se transformer en un monolithe distribué, encore plus problématique que le monolithe spaghetti qu’il était censé corriger. Pour répondre à ce problème, le concept de monolithe modulaire apparaît aujourd’hui comme une alternative intéressante.\n\nCependant, dans cette approche de monolithe modulaire, la difficulté réside plus que jamais dans la capacité à le découper efficacement sans créer de modules trop fortement couplés. Si cette étape est mal gérée, il peut devenir impossible de le scinder ultérieurement en plusieurs services, lorsque cela s’avèrera indispensable.\n\nLe pattern de la ruche (The Hive) permet construction d’un monolithe modulaire prêt pour pour être découpé en microservices en combinant plusieurs architectures hexagonales au concept du vertical slicing.\n\nLors de cette session de live coding, nous partirons d’une situation de monolithe spaghetti legacy, que nous ferons évoluer étape par étape vers un monolithe modulaire basé sur le pattern Hive, avant de conclure par une démonstration d’extraction et de transformation d’un module en microservice séparé."
   },
   {
     "conference": {
@@ -366,7 +399,12 @@
     ],
     "title": "Loi de Conway: Lorsque votre conception produit se fache avec votre organisation",
     "videoUrl": "https://www.youtube.com/watch?v=GyWUN27Ercg",
-    "category": "Architecture & Craft"
+    "category": "Architecture & Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/loi-de-conway-lorsque-votre-conception-produit-se-fche-avec-votre-organisation",
+    "description": "Des utilisateurs qui ont toujours du mal à récupérer les informations dont ils ont besoin, alors que vous avez mis le paquet sur l'expérience utilisateur ?\nLa frustration de voir qu'une fonctionnalité implémentée est rarement la solution fonctionnelle idéale que vous aviez défini, car il y a toujours un \"mais\" ?\nOu plus techniquement, avez-vous des APIs découpées d'une manière qui semble au final arbitraire et qui ne suit pas le métier ?\nLa sensation que votre organisation est orthogonale à vos objectifs ?\n\nN'avez-vous jamais remarqué, que bien que vous soyez agile et vous suivez les bonnes pratiques, le logiciel qu'on construit s'écarte souvent de la vision produit, technique et parfois même des besoins de l'utilisateur que l'on a pourtant passé du temps à récolter ?\nEt si on vous disait que tout cela est lié, et qu'il existe une force qui a une influence certaine sur votre produit, votre expérience utilisateur et votre architecture ?\n\nLors de ce talk venez découvrir la Loi de Conway, cette force méconnue qui a un pouvoir magique sur ce que vous construisez quel que soit votre métier. Nous verrons ses impacts sur les différents aspects du logiciel et nous apprendrons comment l'apprivoiser.\n\n### **Message pour le comité de sélection**\n\nLa loi de Conway est malheureusement peu connue, pourtant elle impacte grandement tous les aspects du logiciel et ceci bien plus que les bonnes pratiques. Conway explique que la structure de la communication d’une organisation va se refléter dans le système produit par cette organisation.\n\nCe talk s’adresse à un large panel de profil : POs, UX, les devs, architectes et managers. Le but est de démontrer les effets de la loi au travers d’exemples réels actuels ou historiques tels que l’impact sur la user expérience du site de McKinsey France, l’impact sur la qualité de Windows Vista et mon expérience chez Expedia avec l’impact sur l’architecture du système de réservation de train.\n\nJe m’appuie sur et vulgarise plusieurs études scientifiques qui relatent de la loi de Conway : [The Influence of Organizational Structure on Software Quality: An Empirical Case Study](http://www.cs.umd.edu/~basili/publications/proceedings/P125.pdf) , [Exploring the Duality between Product and Organizational Architectures: A Test of the Mirroring Hypothesis](https://dash.harvard.edu/bitstream/handle/1/34403525/maccormack%2Cbaldwin%2Crusnak_exploring-the-duality.pdf).\n\nCe talk est un parcours historique (quasi-epistémologique), qui retrace les réflexions documentées des années 60 (Conway & Brooks) jusqu’à aujourd’hui sur les impacts de cette loi, en passant de l’activité de system design, aux pionniers de la user experience dans les années 90 (Nielsen & Bevan) jusqu’à Team Topologies en 2019.\n\nBien que j'expliquerai les techniques qui permettent de limiter les effets indésirables cités dans la description, ceci n’est pas un autre talk sur Team Topologies. Aujourd’hui on peut voir des talks qui relatent de la manoeuvre de Conway inverse, mais ils ont généralement le défaut de limiter la manoeuvre à simplement de la re-organisation et en limitant le discours à Team Topologies. Or de mon experience, ayant mené ce genre de transformations maintenant quelques fois, l’activité de design est centrale et est le point de départ pour gérer au mieux les effets de la loi de Conway. D’autant plus que ces talks traitent très rarement des limites de la manoeuvre de Conway inverse.\n\nMon talk se découpe en 3 partie: la découverte des effets de la loi sur des exemples réels et appuyés par la science, la démonstration de la loi de Conway, et la mise en musique des outils à notre disposition (et comment ils sont corrélés dans leur réflexions) pour gérer aux mieux ces effets.\n\nCette dernière partie s’articule autour de BAPO (Business, Architecture, Process, Organization de Jan Bosch), avec un exemple de son implémentation via le Domain-Driven Design Stratégique et Team Topologies. En plus des outils, le take-away général de cette conférence est qu’on ne peut plus, quelque soit notre profil, penser à un design (fonctionnel ou technique) sans prendre en compte l’organisation en place et sa capacité d’évolution, comme on ne peut plus définir une organisation sans prendre en considération la manière dont on veut produire notre système.\n\nLe tout scénarisé sous le storytelling de la série the Twilight Zone. Mon intro est disponible sur [youtube](https://youtu.be/Cr6dy_inNwg) et les [slides sont disponibles ici](https://slides.com/julientopcu/loi-de-conway-lorsque-votre-conception-produit-se-fche-avec-votre-organisation).\n\nCe talk a reçu d'excellents [feedbacks](https://twitter.com/VictorLambret/status/1592631640475734016) à la Flowcon\n\n### Notes de travail\n\n[https://miro.com/app/board/o9J_kvVI8WU=/](https://miro.com/app/board/o9J_kvVI8WU=/)"
   },
   {
     "conference": {
@@ -411,7 +449,11 @@
     ],
     "title": "L'art de survivre aux incidents",
     "videoUrl": "https://www.youtube.com/watch?v=x5hPojVerPk",
-    "category": "Agilité & Organisation"
+    "category": "Agilité & Organisation",
+    "format": "Conférence (40-50min)",
+    "level": "Avancé",
+    "language": "Français",
+    "description": "Vos systèmes vont tomber. Ce n'est pas une question de si, mais de quand.  Un vendredi soir, après une longue semaine éreintante. L'incident arrive. Les Slack s'affolent. L'équipe bricole. On appelle ça de la malchance. \n\nMais si c'était tout autre chose ?\n\nLa plupart des architectures sont conçues sur une illusion : celle qu'en assemblant des briques techniques réputées robustes, on sera à l'abri. Or, ce n'est pourtant pas parce qu'un système est populaire qu'il garantit forcément ce que l'on croit.\n\nÀ travers des études de cas réels et interactives, nous explorerons ensemble pourquoi nos systèmes sont souvent plus fragiles qu'on ne le croit, et comment des fondamentaux du system design et de la reliability, trop souvent ignorés, peuvent tout changer. Des fondamentaux que notre industrie a mis des décennies à apprendre à ses dépens.\n\n*On ne peut rendre fiable que ce que l'on comprend.*\n\nVous repartirez avec une autre façon de concevoir vos systèmes : non pas pour éviter les incidents, mais pour les anticiper, les contenir, et en sortir plus forts. \n\n---"
   },
   {
     "conference": {
@@ -856,5 +898,1077 @@
       }
     ],
     "title": null
+  },
+  {
+    "conference": {
+      "name": "NDC Porto"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Crafting domain-driven designed REST APIs",
+    "videoUrl": "https://youtu.be/x3Bf25altb4?si=SdXFLLav1No4QkPn",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/rest-next-level-crafting-business-oriented-web-apis",
+    "description": "You have just coded your business logic by applying the principles of Domain-Driven Design! But when comes the time to write your API, you are facing a serious issue! All the intention and the expression of your domain go up in smoke to fit the blankness methods GET, POST, etc.\n\nDenatured by the REST layer, the business workflow is then deported on the consumer side to compensate for the limited vocabulary of this well-known CRUD protocol...\n\nDuring this talk, we will see how to bring the business intent back inside the REST API by finally being able to expose our domain services and agregates' methods. The business workflow will also be encapsulated in the REST API in order to have the power to guide our consumers through the workflow of our domain.\n\n### **Message pour le comité de sélection**\n\nI also played this talk for Devoxx UK 2022 and Domain-Driven Design Europe 2022 ([https://youtu.be/x3Bf25altb4?si=kmI-Pf2vzh7NutoL](https://youtu.be/x3Bf25altb4?si=kmI-Pf2vzh7NutoL)), Spring IO 2023 and Devoxx Poland 2023.\n\nMy subject has a strong focus on the relationship between the REST's hypermedia and the domain driven design. Most of the people knowing hypermedia don't realise that they are able to expose their domain workflow through this technique. Hence their consumers have no other choice than building themself the domain workflow. By the way usually people have never seen a real live example of a domain-driven designed REST API.\n\nThis is a technique I use in prod with Kotlin and Spring Hateoas for more than 5 years, so the talk will be enhanced with feedbacks. You can have here an example of a workflow in the doc of this train reservation application that I led while working at Egencia: [https://www.egencia.com/rail-service/docs/rest-api.html#_return_trip_complete_flow](https://www.egencia.com/rail-service/docs/rest-api.html#_return_trip_complete_flow)\n\nRepository (Kotlin Hateoas example made for the talk): [https://gitlab.com/crafts-records/columbiad-express](https://gitlab.com/crafts-records/columbiad-express)\n\nI'm also an award winning hackernoon writer (Software Testing Writer 2020[https://2020.noonies.tech/award/software-testing-writer-of-the-year](https://2020.noonies.tech/award/software-testing-writer-of-the-year)), specialized on DDD-related topics : [https://beyondxscratch.com](https://beyondxscratch.com/)"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Sylvain",
+        "lastname": "Decout",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Service Mesh - reprenons les bases",
+    "videoUrl": "https://youtu.be/iA2BbX7WuTw?si=VH21h13TRmkl55Sy",
+    "category": "OPS",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "description": "Le concept de Service Mesh est à la mode depuis quelques années. Et pour cause, il apporte de grands bénéfices dans une architecture en microservices... Mais ça veut dire quoi, tout ça, au juste ?\n\nCette présentation repart des bases pour vous donner une vision claire de ce qu'est un Service Mesh et de ce que ça peut vous apporter concrètement."
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Bien se lancer dans le Domain Driven Design sans se tromper de combat",
+    "videoUrl": "https://youtu.be/I7DawnCS4PQ?si=34vcYScCDFqqg87B",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "description": "Le Domain Driven Design est sur toutes les lèvres. Silver bullet ultime, distributeur à buzzwords, à croire que si à ta troisième levée de fonds tu ne fais pas du DDD, t’as raté ta start up. Mais par quoi commencer pour en tirer de la valeur rapidement ?\n\nEt si la réponse n’était pas dans ses agrégats, value-objects, domain events et autres patterns tactiques populaires mais plutôt dans compréhension du métier ? Cela tombe bien car le DDD offre des outils qui permettent de s’approprier le métier afin de le modéliser correctement.\n\nDécouvrons ensemble les patterns stratégiques - la partie la plus importante du Domain-Driven Design - qui vous offriront de meilleurs retours sur investissement. Cela vous permettra d’adopter en douceur cette philosophie, loin de la hype et des difficultés techniques."
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Comment m̶a̶l̶ communiquer avec ses collègues 🫢",
+    "videoUrl": "https://youtu.be/QGdUXehGJYM",
+    "category": "Autre",
+    "format": "Quickie (15-20min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://docs.google.com/presentation/d/1oSAZXxsnhRySdcjyeO3hud3VQSdKvePVjs_coxMDhQk/",
+    "description": "Retour d'expérience de boulettes que j'ai commises au sein d'une ancienne équipe + pourquoi & comment éviter les conséquences néfastes qui s'en suivent.\n\nRedite d’un talk que j’avais donné chez Algolia en Janvier 2020.\n\n## Abstract\n\nÇa vous est déjà arrivé de vous énerver sur vos collègues ? Ou d'arriver au boulot avec une boule dans la gorge ?\n\nQuand on travaille avec d'autres humains, on est forcément confrontés à nos différences de caractère, d'opinions et manières de communiquer. Dans ces conditions, comment s'affirmer sans se mettre en conflit avec son équipe ?\n\nPour y répondre, analysons trois situations conflictuelles que j'ai vécues personnellement en entreprise, puis les clés qui nous ont aidé à en sortir la tête haute.\n\n## Slides\n\n[https://docs.google.com/presentation/d/1oSAZXxsnhRySdcjyeO3hud3VQSdKvePVjs_coxMDhQk/](https://docs.google.com/presentation/d/1oSAZXxsnhRySdcjyeO3hud3VQSdKvePVjs_coxMDhQk/)\n\n[https://www.youtube.com/watch?v=QGdUXehGJYM](https://www.youtube.com/watch?v=QGdUXehGJYM)"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Sylvain",
+        "lastname": "Decout",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Un code à l'épreuve du temps avec le Supple Design",
+    "videoUrl": "https://www.youtube.com/watch?v=ZEcJEhgoi1E",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "description": "Avec le temps, beaucoup d’applications ont tendance à devenir de plus en plus lourdes, jusqu’à atteindre un point où tout changement devient si coûteux qu'il vous sera impossible de vous adapter aux besoins de vos utilisateurs. C'est le signe d'une conception rigide. L'adoption de Clean Code et des patterns tactiques de DDD peut rendre la situation supportable, mais on reste en surface ; le problème sous-jacent reste présent.\n\nÇa tombe bien, le Domain-Driven Design propose toute une section, trop souvent oubliée, sur le « Supple Design ». Elle fournit des techniques pour tendre vers une conception flexible, qui pourra s'adapter simplement aux évolutions futures. En somme, un code sur lequel il est, et sur lequel il restera, un plaisir de travailler.\n\nCes principes qui datent de plus de 20 ans sont-ils toujours d'actualité ? Comment s'articulent-ils avec d'autres concepts qui ont émergé depuis ? En quoi constituent-ils un ensemble cohérent ? Afin de répondre à ces questions, je vous propose un live coding au cours duquel nous passerons en revue chacun des principes du Supple Design en nous appuyant sur des exemples concrets.\n\n### **Message pour le comité de sélection**\n\nCette présentation comporte des parties de live coding qui se basent sur ce repository : [https://github.com/sylvaindecout/supple-design-sandbox](https://github.com/sylvaindecout/supple-design-sandbox).\n\nElle a déjà été donnée en Mars 2023 lors d'une journée de partage Shodo consacrée au DDD, ainsi qu'à l'édition 2024 de Breizhcamp."
+  },
+  {
+    "conference": {
+      "name": "MenderCon 2023"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Decommissioning a legacy module progressively, using AST traversal",
+    "videoUrl": "https://youtu.be/gN9RAE7vCzo?si=npCCAzLZbt3T8K9b",
+    "category": "Legacy Remediation",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": "https://docs.google.com/presentation/d/18p0eQfEF2WhMH0NFf8bTX7hn0TLb6FcJDX_gDuU39as/edit#slide=id.p"
+  },
+  {
+    "conference": {
+      "name": "NewCrafts"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "The Hive: a scaling and supple architecture style for your growing and complex domain",
+    "videoUrl": "https://www.youtube.com/watch?v=JZBsy6PsCRY&ab_channel=KanDDDinsky",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/the-hive-a-scaling-and-supple-architecture-style-for-your-growing-and-complex-domain",
+    "description": "After a decade, the industry is realizing that poorly designed microservices can easily transform into a distributed monolith, even more problematic than the spaghetti monolith they aimed to address. To tackle this issue, the concept of a modular monolith is emerging as an alternative approach.\n\nHowever, the challenge still lies in effectively splitting it without falling into the pitfall of a tightly coupled and rigid system. How to modularize it right while dealing with the growing complexity of your system? How to survive beyond our modeling debt and take control back?\n\nDiscover the Hive architecture style which decouples your deployment strategy - modular monolith or microservices - from the design of your software, embracing the “Build once, Deploy as you wish” principle. The Hive pattern will bring you a supple and scalable design that stands resilient in the face of evolving challenges for brown or greenfield products."
+  },
+  {
+    "conference": {
+      "name": "DDD EU 2022"
+    },
+    "speakers": [
+      {
+        "firstname": "Sepehr",
+        "lastname": "Namdar",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Naming in DDD",
+    "videoUrl": "https://youtu.be/KHgftXIlGsY?si=h_n9dR1b1AcU2TOF",
+    "category": "Domain-Driven Design",
+    "format": "Tool In Action (25-30 min)",
+    "level": "Débutant",
+    "language": "English",
+    "description": "Naming is one of the hardest things to do when coding. It helps us to make the code more readable and comprehensible. When you try to make code readable there are some existing rules but are they compatible with DDD ?DDD and Naming share a common goal of helping communication between team members. In this Lighting Talk we will explain some concepts like Supple Design and Naming as a Process (@arlobelshee) to achieve this goal.\n\n### Notes and comments\n\nSupple Design- Intention-Revealing Interfaces- Conceptual Contours- Declarative Style of DesignNaming as a Process (@arlobelshee)- [https://twitter.com/arlobelshee/status/636605852984545280/photo/1](https://twitter.com/arlobelshee/status/636605852984545280/photo/1)- [https://www.digdeeproots.com/articles/naming-as-a-process/](https://www.digdeeproots.com/articles/naming-as-a-process/)"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Coder seul·e == vélocité optimale ?",
+    "videoUrl": "https://www.youtube.com/watch?v=gjXk7VP1fuw",
+    "category": "Excellence Opérationnelle",
+    "format": "Quickie (15-20min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://docs.google.com/presentation/d/1GXerr8gctcschmjjLmogmWS_cYnbwRMFlijx_JcqoSw/edit?usp=sharing"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Code legacy: les clés pour s'en sortir !",
+    "videoUrl": "https://www.youtube.com/watch?v=sS-MtGklxFU",
+    "category": "Legacy Remediation",
+    "format": "Quickie (15-20min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://adrienjoly.com/slides-legacy-humantalks/"
+  },
+  {
+    "conference": {
+      "name": "CodeMotion Madrid"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Model Mitosis: a dynamic pattern to deal with model tensions",
+    "videoUrl": "https://youtu.be/VO6BSb52K5g?si=nmbTsBDawplgix2h",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/model-mitosis-a-dynamic-pattern-to-deal-with-model-tensions"
+  },
+  {
+    "conference": {
+      "name": "Cheerz Meetup Tech"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Co-conception pérenne avec Domain Driven Design, retour d’expérience",
+    "videoUrl": "https://www.youtube.com/watch?v=7zvDQ8QA1Vk",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://docs.google.com/presentation/d/1CF5Zey05pb7q6Cm4W73Py6aWypbHreMKnbovBzsCOSQ/"
+  },
+  {
+    "conference": {
+      "name": "Sunny Tech"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Décommissionnement progressif de code legacy à l’aide d’AST",
+    "videoUrl": "https://youtu.be/QzN29TM4s2o?si=P8F0p9UgehrAQQn-",
+    "category": "Legacy Remediation",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://docs.google.com/presentation/d/15zbXI01k1km-u3g4GfE29baJjgtXoFuNKYJ_XnG_OQw/edit#slide=id.p"
+  },
+  {
+    "conference": {
+      "name": "DDD Europe"
+    },
+    "speakers": [
+      {
+        "firstname": "Sylvain",
+        "lastname": "Decout",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Supple Design - Aiming for code meant to age well",
+    "videoUrl": "https://www.youtube.com/watch?v=ZEcJEhgoi1E",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "description": "As time goes by, most applications tend to grow heavier and heavier. At some point, any change becomes so expensive that you may not be able to adapt to the needs of your users anymore. This is the sign of a rigid design. Techniques from tactical DDD or clean code do help make your code easier to maintain. However, they only address the surface, not the underlying model.\n\nThankfully, DDD happens to include a whole section, often overlooked, called \"Supple Design\". It provides techniques to reach for a design that can easily adapt to future needs. To put it simply: code that is -and will remain- a pleasure to work with.\n\nAre these techniques from 20 years ago still relevant? How do they articulate with other concepts that have appeared since then? In order to answer these questions, let us review each of the principles of Supple Design, illustrate them with some live coding, and see how they make sense as a whole."
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Composer de la musique 8-bit en JavaScript, avec WebAudio",
+    "category": "Autre",
+    "format": "Quickie (15-20min)",
+    "level": "Débutant",
+    "language": "Français",
+    "description": "Saviez-vous que votre navigateur web était capable de jouer la musique du jeu \"Tetris\", moyennant quelques lignes de JavaScript ?\n\nAccessible dans tous les navigateurs modernes, l'API WebAudio permet de synthétiser simplement plusieurs types d'ondes dont la sonorité rappelle étrangement celle de la première console portable de Nintendo: la Game Boy.\n\nLors de ce talk, nous allons découvrir ce qui rend cette sonorité \"chip tune\" si caractéristique, puis nous allons recréer ensemble la musique de Tetris à l'aide de WebAudio !\n\n### **Message pour le comité de sélection**\n\nLe but de cette présentation est triple:\n\n- technique: montrer comment faire jouer des notes de musiques à un navigateur\n- découverte: un peu de théorie sur les ondes musicales 8-bit\n- ludique: un talk fun sur le retro-gaming\n\nPlan:\n\n- Pour se mettre dans le bain: lancer le talk avec un extrait de la musique de Tetris\n- Visualisation des 2 types d'ondes employées dans la musique de Tetris: carrée et \"bruit\"\n- Montrer comment coder une onde carrée avec WebAudio\n- Montrer comment faire jouer plusieurs notes à cette onde => jouer la mélodie de Tetris\n- Compléter la musique de Tetris: deuxième onde carrée + percussion\n\nJe compte jouer plusieurs vidéos YouTube, pour visualiser les différentes ondes employées dans la musique de Tetris.\n\nJ'aurai besoin que le son venant de mon navigateur soit audible par le public et par moi-même, avec le moins de latence possible."
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Yann",
+        "lastname": "Danot",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Y’en a marre du software craftsmanship",
+    "videoUrl": "https://youtu.be/Rwbhq8T4RDo?si=Qp7tcZoEXfZVLRxH",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/yen-a-marre-du-software-craftsmanship",
+    "description": "Vous en avez assez qu’on vous dise de faire des katas. Vous ne voyez pas le rapport avec vos problématiques de tous les jours. Soyons sérieux : on doit délivrer, on n’a pas forcément le temps de s'entraîner sur de la théorie. Et puis les coachs craft débarquent souvent avec un rôle prédicateur, ont de grands principes, c’est beau, mais imposent des méthodes sans chercher à comprendre vos peines, ce n'est pas le TDD qui va résoudre vos irritants.… Bref y’en a marre du craft.\n\nMais est-ce le software craftsmanship le problème, ou bien la communauté qui n’est pas à la hauteur de ses ambitions ?\n\nDans ce talk, 2 coachs craft lancent un signal d’alarme sur les dérives d’un mouvement qui commencent à écoeurer les gens.Nous verrons les défauts de postures - souvent élitistes et dogmatiques - les croyances et les problèmes d’implémentation qui sont les causes de la fatigue et de la défiance grandissante envers le craft."
+  },
+  {
+    "conference": {
+      "name": "NewCrafts"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Model Tension Heuristics: Preventing Accidental Design Debt",
+    "videoUrl": "https://youtu.be/EZTl9FH5AFQ?si=3HY3AMfY1pMlrOlU",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Avancé",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/model-tension-heuristics-preventing-accidental-design-debt?token=mFfelQ52",
+    "description": "”All models are wrong, but some are useful.” This insight from George Box has become a cornerstone of software modeling. While exploration and experimentation are essential for shaping models, it is often challenging to know when a model is wrong or, worse, when an existing model has become obsolete and is no longer as useful.\n\nAs a result, unsuitable models may be still used for a long time, leading to different issues not always identified as forms of design debt. These include the spork effect (intrinsic coupling), model fragmentation (extrinsic coupling), and model sclerosis, which ultimately contribute to entropy or the \"Big Ball of Mud\" phenomenon. These problems arise from undetected and unresolved model tensions.\n\nIn this talk, we will explore what model tensions are, the complications they cause and why they occur. We will also present a set of heuristics to identify and address different kind of model tensions."
+  },
+  {
+    "conference": {
+      "name": "ParisJS"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Des tests unitaires plus rapides et faciles à écrire, grâce à l'Inversion de Dépendance",
+    "videoUrl": "https://youtu.be/-UvsPx2KC1k",
+    "category": "Craft",
+    "format": "Tool In Action (25-30 min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://docs.google.com/presentation/d/19ur2jkmcYm9xzPEuyqakjrSRZj3HTilOjIp5G78V3fo/edit#slide=id.p"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Sepehr",
+        "lastname": "Namdar",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Strategic Design : Let Me Be Free",
+    "category": "Domain-Driven Design",
+    "format": "Lab (2h)",
+    "level": "Débutant",
+    "language": "English",
+    "description": "Everyone of us has already worked on a new app connected to a legacy app and encountered challenging ways to preserve the new app autonomy.The Workshop is a Refactoring Kata that tries to resolve this problem by using some DDD Strategic Pattern and OOP.We work on a new app (Notification) which is dependent on an old app (Contract).The Notification app is Downstream of the old app.The Notification app depends on the Contract app and we can not modify it.So, The Notification app is polluted by the Contract app.The aim of this Kata is to get freedom back to the Notification app.We start by isolating the logic of the Contract app (ACL Pattern) and at some point we discover that another team is working on another app (Other App) which depends on the Contract app.In a second time, we discover that they share some logic in how they call the Contract app and that’s where we introduce the Open Host Service pattern.\n\n### Notes and comments\n\nTo ensure that all participants can follow the exercises, we guide them step by step proposing a possible solution for each step. Not all attendees may finish all the steps. That will not be a problem.Attendees will be dispatched in groups of 3 to mob-program.In between exercises, we'll discuss :Object Oriented Programming conceptsContext MappingAnti Corruption LayerOpen Host ServiceHere are the Hands-on steps :Let’s get to know (5') - Ice Breaker (to be defined)Take your time to discover the code and understand the business rules (10')Identify how your code could be more OO (5')Get rid of the Contract system dependency (10')Refactor your code to be more OO (20')Identify the data that you really need (10')Protect your domain from any corruption : Anti Corruption Layer (20')Identify the duplication code in different layers (10')Get rid of duplication : Open Host Service (25’)Return On Time Invested (5’)"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Getting started with Domain Driven Design without fighting the wrong battles",
+    "videoUrl": "https://youtu.be/w91JHUyRGRc?si=qXjK-eAEKuoyKdCt",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "English",
+    "description": "Domain Driven Design is in every mouth. Ultimate silver bullet, buzzword machine, it’s starting to sound like a must do for every start-ups. But how do you get started to generate value quickly?\n\nWhat if the answer wasn’t the aggregates, value-objects, domain events and other popular tactical patterns, but rather in understanding the domain? That would be convenient, as DDD offers tools allowing us to grasp the domain and modelize it correctly.\n\nLet us discover together the strategic patterns - the most important part of Domain Driven Design - that will offer the best returns on investment. This will help you adopt this philosophy smoothly, far from the hype and technical difficulties.\n\n### **Message pour le comité de sélection**"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Salim",
+        "lastname": "Chami",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Audit applicatif : Comment le réaliser quel que soit le contexte !",
+    "videoUrl": "https://youtu.be/jhZ61vavOgE?si=mTxl6vkK6WR4MCRE",
+    "category": "Craft",
+    "format": "Quickie (15-20min)",
+    "level": "Débutant",
+    "language": "Français",
+    "description": "Vous avez certainement été amenés à réaliser un audit applicatif et vous savez donc peut-être à quel point c'est difficile.\nCertains audits échouent parce qu'ils ne sont pas réalistes ou ne répondent pas aux attentes des commanditaires.\n\nIl existe plusieurs raisons pour lesquelles on nous demande de réaliser un audit :\nUn nombre important de bugs, un Time To Market trop long, une vélocité trop faible, un changement d'équipe, une reprise sur panne trop longue ou même une stack trop vétuste.\n\nToutes ces raisons font qu'il est difficile de savoir par quoi commencer, comment le mener, quoi vérifier et comment le restituer.\n\nLors de la phase d'analyse et de rédaction du rapport d'audit, quels sont donc les éléments à prendre en compte ?\nComment les analyser ?\nEnfin, comment rédiger le rapport d'audit pour qu'il soit pertinent et apporte une réelle valeur ajoutée aux\néquipes de management et business, mais aussi aux équipes de développement ?\n\nDans cette présentation, nous découvrirons ensemble comment construire une stratégie d'analyse efficace et adaptée ; Comment rédiger le rapport d'audit quel que soit le contexte et sans frustration pour les commanditaires ou de la population cible.\n\n### **Message pour le comité de sélection**"
+  },
+  {
+    "conference": {
+      "name": "CraftConf"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Conway's Law: When Best Practices Are Not Enough",
+    "videoUrl": "https://youtu.be/si2amEqforU?feature=shared",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/conways-law-when-your-design-falls-out-with-your-organization"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Model Mitosis : ne plus se tromper entre les microservices et le monolithe",
+    "videoUrl": "https://youtu.be/HNQJW5iMZgQ?si=duhGUfhIuFF63Zmx",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/model-mitosis-ne-plus-se-tromper-entre-les-microservices-et-le-monolithe",
+    "description": "Tout comme le développement doit être itératif, le design du logiciel doit changer lorsque le contexte et notre compréhension du problème évoluent. Au fur et à mesure qu'un logiciel se développe pour résoudre plus de problèmes, il devient moins souple dans sa capacité à évoluer. Des tensions apparaissent au sein du modèle métier du logiciel qui peine à rester cohérent.\n\nFinalement, il atteint une masse critique et devient un monolithe de code en spaghetti...Comment pouvons nous déterminer quand il est temps de modulariser notre logiciel ? Comment prendre la décision de le scinder en plusieurs modules ou services ? Comment gérer la différenciation progressive de nos modèles métiers tout en évitant les couplages inutiles ? Il n'est pas facile de découper son logiciel en deux car déterminer les bonnes frontières peut s'avérer être compliqué.\n\nDécouvrez avec nous le Model Mitosis, une approche dynamique utilisée pour diviser un modèle métier en plusieurs modèles qui seront façonnés et découplés de manière itérative. Gagnez en flexibilité afin de mieux déterminer quand diviser votre logiciel en plusieurs services tout en évitant de payer les coût d'échelle des microservices ou bien de devenir un monolithe distribué.\n\n## Message aux organisateurs\n\nSlides: [https://slides.com/julientopcu/model-mitosis-ne-plus-se-tromper-entre-les-microservices-et-le-monolithe](https://slides.com/julientopcu/model-mitosis-ne-plus-se-tromper-entre-les-microservices-et-le-monolithe) \n\nVideo: [https://youtu.be/HNQJW5iMZgQ?si=duhGUfhIuFF63Zmx](https://youtu.be/HNQJW5iMZgQ?si=duhGUfhIuFF63Zmx)\n\nRepository: [https://gitlab.com/beyondxscratch/model-mitosis](https://gitlab.com/beyondxscratch/model-mitosis)\n\nLa tendance des microservices a poussé de nombreuses personnes à diviser trop rapidement leurs logiciels en plusieurs services, créant ainsi des monolithes distribués. Après une décennie de microservices en production, l'industrie prend du recul et se rend compte qu'un découpage trop précoce engendrera des coûts d'échelle importants.\n\nD'autre part, sous-découper le logiciel en empilant les évolutions sans stratégie de modularisation finira par créer un couplage entre toutes les fonctionnalités du logiciel, transformant le système en un monolithe legacy.\n\nMême si ces problèmes semblent différents, ils sont les deux faces d'une même médaille : le modèle métier doit diriger la stratégies de découpage de nos logiciels.\n\nIl est assez compliqué de trouver un pattern qui aide les gens à scinder un modèle in situ alors qu'ils doivent assurer la stabilité et l'évolution de l'application en même temps. On manque cruellement d'heuristiques dans l'industrie nous permettant de mieux prendre la décision d'introduire un nouveau modèle métier dans leur application ainsi que de patterns permettant de déterminer les frontières à l'intérieur de notre système.\n\nAux premiers stades du découpage en plusieurs modules/services, la complexité n'est généralement pas suffisante pour tracer des frontières claires entre ces modules/services sans qu'ils ne se chevauchement.\n\nJulien a rencontré ce problème en production alors qu'il leader le système de réservation de trains d'Expedia en 2016 et Josian travaille sur ces problèmes depuis 2021 chez EDF.\n\nAprès plusieurs années d'expérimentation, nous avons trouvé un pattern dynamique permettant de se scinder progressivement un logiciel tout en limitant le couplage entre les modèles métiers émergents. En combinant les patterns de stratégique du Domain-Driven Design, nous avons inventé le Model Mitosis (comme analogie d'une mitose cellulaire).\n\nIl est mis en œuvre en 4 étapes :\n\n- étape 1 : le modèle du système grossi, le besoin d'un nouveau modèle métier émerge\n- étape 2 : les modèles sont scindés tout en partageant certains concepts dans un Shared-Kernel. Mais Il y a quelques règles à respecter afin de le garder sous contrôle.\n- étape 3 : au fur et à mesure que les modèles se séparent et se spécialisent, leurs frontières deviennent plus claires et le Shared-Kernel se réduit au minimum (comme un strangler fig pattern).\n- étape 4 : deux modèles isolés l'un de l'autre, éventuellement avec un anti-corruption layer\n\nCette présentation est un livecode, avec un storytelling et une esthétique inspirés de la série le Mandalorien.\n\nAvec l'essor récent de l'I.A., nous avons décidé d'entamer la réflexion sur ce que pourrait être notre relation avec celles-ci dans le futur en filigrane du talk. Avec l'aide de plusieurs IA, comme MidJourney 5 et ChatGTP, nous avons créé des illustrations pour notre intro et un faux assistant de vocal et d'écriture de code, pour illustrer cette réflexion.\n\nNous aurons besoin de son tout au long de la présentation. Pour notre intro qui est un film qui se lancera automatiquement lorsque vous allez sur la deuxième slides si vous voulez la voir (il faut attendre un peu sur la slide). Et aussi pour notre droïde Chat3PO qui va parler et coder tout au long du talk ;)"
+  },
+  {
+    "conference": {
+      "name": "Transmission Craft"
+    },
+    "speakers": [
+      {
+        "firstname": "Sepehr",
+        "lastname": "Namdar",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Approval Testing",
+    "videoUrl": "https://youtu.be/XlJXcZ6xkkY?si=5aZ69qWTAuT4HUDL",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "description": "Vous faites face à un code que vous ne connaissez pas - illisible, incompréhensible - et vous n’avez même pas d’expert métier pour vous expliquer le domaine ? Pour autant, en tout bon crafter que vous êtes, vous souhaitez “refactorer” ce code “legacy” ? Mais comment faire ?\n\nDécouvrez l’Approval Testing en live !\n\nGrâce à cette méthode, sécurisez la refonte de votre application au moyen d'un code couvert par des tests plus fiables et plus sûrs.\n\nPar Sepehr Namdar - Développeur Techno-Agnostic chez Shodo.\n\nDe la maintenance au le suivi complet d’un projet, Sepher a une forte expertise sur toutes les phases du développement logiciel. Pour lui, l’Agilité, le Pragmatic-Driven Design/Development et le Clean Code sont la clé de la réussite de la réalisation d'un produit logiciel."
+  },
+  {
+    "conference": {
+      "name": "Agile Tour Bordeaux"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Aurore",
+        "lastname": "Jeremie",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Bien répondre aux besoins utilisateur, c'est surtout une histoire de comportement (logiciel) !",
+    "videoUrl": "https://www.youtube.com/watch?v=3JF2ztnvKok&ab_channel=AgileTourBordeaux",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/bien-rpondre-aux-besoins-utilisateur-cest-surtout-une-histoire-de-comportement-logiciel",
+    "description": "C'est super, tu arrives sur un nouveau projet ! Mais très vite, tu te rends compte que le seul moyen de comprendre ce qu'il fait, est d'aller faire de l'archéologie dans le code. Niveau user stories, elles sont bien définies... pourtant tu ne sais jamais jusqu’où tu dois aller pour les implémenter ! D'ailleurs à chaque fois que tu en livres, tu es a côté du besoin métier...\n\nEt si on te disait que le Behavior-Driven Development pouvait t'aider à résoudre tes problèmes !!\n\nEn partant d'une user story, nous allons voir comment en faire émerger les comportements attendus du logiciel. Puis lors de la phase de développement, nous aborderons les pratiques qui permettent d'implémenter et vérifier automatiquement les attentes des utilisateurs."
+  },
+  {
+    "conference": {
+      "name": "CodeMotion Madrid"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Hexagonal Architecture in Practice, Live Coding That Will Make Your Applications More Sustainable",
+    "videoUrl": "https://youtu.be/YPmKHm7G19Q?si=lIrqTy1vCLXj3ZQK",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/hexagonal-architecture-in-practice-live-coding-that-will-make-your-applications-more-sustainable"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "OAUTH 2.1 explained simply (even if you are not a developer) !",
+    "videoUrl": "https://youtu.be/4ZzRCHFBpPM?si=f0wrEAqOAXytitT0",
+    "category": "Sécurité",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/oauth-21-explained-simply-even-if-you-are-not-a-developer"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Osez Devenir Speaker !",
+    "videoUrl": "https://youtu.be/278MbzdJ_Gg?si=9Xqv1ewP3C2E7NkN",
+    "category": "Public Speaking",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/osez-devenir-speaker",
+    "description": "Devenir Speaker, c’est peut-être quelque chose qui vous fait envie. Mais qu’est ce qui vous empêche d’aller plus loin ?\n\nSûrement cette petite voix qui vous dit qu’il y a beaucoup de gens plus qualifiés que vous pour parler d’un sujet. Qu’est ce que vous avez à partager de toute manière ? Et puis parler devant une centaine de personnes ce n’est pas pour vous, les gens qui arrivent à faire ça ont certaines prédispositions…\n\nLors de cette session, nous verrons ensemble que cette petite voix a tort. Vous pouvez le faire ! Et pour bien se lancer, nous verrons les bonnes pratiques de la création d'un talk jusqu'à la réalisation de celui-ci: le choix du sujet, la création du talk et la candidature aux conférences."
+  },
+  {
+    "conference": {
+      "name": "BDX I/O"
+    },
+    "speakers": [
+      {
+        "firstname": "Jordan",
+        "lastname": "Nourry",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Architecture Hexagonale Level 2 : Comment bien écrire ses tests ?",
+    "videoUrl": "https://youtu.be/v--zkIEciq4?si=Tb0OpgZ6-lpyX-Yj",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/architecture-hexagonale-level-2-comment-bien-ecrire-ses-tests",
+    "description": "De plus en plus d’équipes adoptent l’architecture hexagonale comme structure de prédilection pour leurs applications métiers, mais peu d’entre elles savent réellement bien les tester. Et malheureusement lorsque l’on se plante sur ce point, la maintenance de notre architecture hexa devient un véritable calvaire!\n\nLors de ce talk, nous allons aborder les 5 niveaux de tests préconisés pour les microservices adaptés à l'architecture héxagonale. Et en prime comment avoir une documentation drivée par les tests.\n\nVenez découvrir à côté de quoi vous êtes peut-être passés dans le développement de vos tests! Ceci est une live coding session en Java/Kotlin SpringBoot."
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Sylvain",
+        "lastname": "Decout",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Enforcing architecture decisions with ArchUnit",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "description": "Qu'elles soient prises par des comités d'architectes ou par les équipes directement en contact avec le code, le suivi des décisions d'architecture est souvent problématique. Pour des contextes Java, ArchUnit propose une solution par la formalisation de ces décisions sous la forme de tests intégrés à l'application.\n\nCette présentation vous donnera les éléments pour décider de la pertinence d'ArchUnit dans votre contexte et pour le mettre en place en toute simplicité."
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Sylvain",
+        "lastname": "Decout",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Hands on Property-Based Testing in Java",
+    "category": "Craft",
+    "format": "Lab (2h)",
+    "level": "Avancé",
+    "language": "English"
+  },
+  {
+    "conference": {
+      "name": "ParisTestConf"
+    },
+    "speakers": [
+      {
+        "firstname": "Emmanuelle",
+        "lastname": "Aboaf",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Comment tester l'accessibilité d'un site internet ?",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "Lyon Craft"
+    },
+    "speakers": [
+      {
+        "firstname": "Jeremy",
+        "lastname": "Sorant",
+        "company": "Shodo Lyon"
+      }
+    ],
+    "title": "J’écris des tests sans pleurer maintenant",
+    "videoUrl": "https://www.youtube.com/watch?v=2S9TxoTE8BA",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://github.com/jsorant/talk-j-ecris-des-tests-sans-pleurer-maintenant/blob/main/slides.pdf",
+    "description": "On nous dit que les tests automatisés, c’est la clé de la qualité et de la sérénité.\n\nMais dans les faits ?\n\nC’est souvent lent, fragile, illisible… et franchement pénible à maintenir. On fait un petit changement, pour avoir une dizaine de tests à réparer.\n\nRésultat : on les subit plus qu’on ne les utilise.\n\nSi, comme moi, vous avez déjà perdu un temps fou à essayer de dompter un code non testable ou à traîner vos suites de tests comme des boulets, ce talk pourrait bien vous parler. Je partagerai les déclics et les pratiques concrètes qui ont radicalement changé mon rapport aux tests, pour les transformer en un véritable levier de productivité."
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": "Redécouvrir la coopération : Atelier de Mob Programming",
+    "videoUrl": "https://www.youtube.com/watch?v=4Cx5wjm-3Cs&t=12s",
+    "category": "Craft",
+    "format": "Lab (2h)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://manoncarbonnel.github.io/workshop-mob/1"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      },
+      {
+        "firstname": "Gaël",
+        "lastname": "Salaün",
+        "company": "Shodo"
+      }
+    ],
+    "title": "“Make the change easy” : Apprivoiser le legacy avec les Object Calisthenics",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": "Crafter de meilleures UI, en pensant le DOM comme une API",
+    "videoUrl": "https://youtu.be/ufdjnMGGYbk?si=ZCzyxMmTGMuqGtw3",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": "HTML et CSS : des algorithmes ? Un kata ? Sans JS ? Vraiment ?",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "DevLille"
+    },
+    "speakers": [
+      {
+        "firstname": "Juliette",
+        "lastname": "Derancourt",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Rendre ses tests concis et évolutifs grâce à JUnit 5 & cie",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "DevLille"
+    },
+    "speakers": [
+      {
+        "firstname": "Arnaud",
+        "lastname": "Thiefaine",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Rendons le DDD aux devs",
+    "category": "Domain-Driven Design"
+  },
+  {
+    "conference": {
+      "name": "DevLille"
+    },
+    "speakers": [
+      {
+        "firstname": "Arnaud",
+        "lastname": "Thiefaine",
+        "company": "Shodo"
+      }
+    ],
+    "title": "'Tidy First?' de Kent Beck, un guide pratique pour un code durable et rentable",
+    "category": "Craft",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "NewCrafts"
+    },
+    "speakers": [
+      {
+        "firstname": "Arnaud",
+        "lastname": "Thiefaine",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Lessons from Tidy First?: Crafting Sustainable Code, Tiny Step by Tiny Step",
+    "category": "Craft",
+    "language": "English"
+  },
+  {
+    "conference": {
+      "name": "DevLille"
+    },
+    "speakers": [
+      {
+        "firstname": "Hafsa",
+        "lastname": "Elmaizi",
+        "company": "Shodo Nantes"
+      }
+    ],
+    "title": "Onboarding 2.0 : Réinventer l’intégration des devs",
+    "category": "Excellence Opérationnelle",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Yann",
+        "lastname": "Bouvet",
+        "company": "Shodo Lyon"
+      },
+      {
+        "firstname": "Jeremy",
+        "lastname": "Chauvin",
+        "company": "Shodo Lyon"
+      }
+    ],
+    "title": "(Re)Découvrir le front par les tests",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Hafsa",
+        "lastname": "Elmaizi",
+        "company": "Shodo Nantes"
+      }
+    ],
+    "title": "Décodons nos pipelines : comprendre pour mieux déployer",
+    "category": "OPS",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Yann",
+        "lastname": "Bouvet",
+        "company": "Shodo Lyon"
+      },
+      {
+        "firstname": "Jeremy",
+        "lastname": "Chauvin",
+        "company": "Shodo Lyon"
+      }
+    ],
+    "title": "Des Objets Élégants dans votre code",
+    "category": "Craft",
+    "format": "Lab (2h)",
+    "level": "Intermédiaire",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "DevFest Paris"
+    },
+    "speakers": [
+      {
+        "firstname": "Guillaume",
+        "lastname": "Albini",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Laurent",
+        "lastname": "Archimède",
+        "company": "Shodops"
+      }
+    ],
+    "title": "Platform Engineering & Craft: Et si moderniser son infrastructure, c’était d’abord changer ses pratiques ?",
+    "category": "Platform Engineering",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      },
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Live Coding The Hive: building a microservices-ready modular monolith",
+    "videoUrl": "https://youtu.be/VKcRNtj0tzc?si=aUoEX_eKmoOZkbVJ",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/live-coding-the-hive"
+  },
+  {
+    "conference": {
+      "name": "DevLille"
+    },
+    "speakers": [
+      {
+        "firstname": "Sylvain",
+        "lastname": "Decout",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Le pattern Repository, Chat Potté du DDD",
+    "videoUrl": "https://www.youtube.com/watch?v=aCA9ouraKwY",
+    "category": "Craft",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "description": "Attendrissant, son chapeau pressé contre le menton, le pattern Repository vous fend le cœur. Comme tant d’autres avant vous, vous le recueillez et le nourrissez de ce qui vous tombe sous la main, faute de réellement savoir comment vous en occuper.\n\nIl adopte de mauvaises habitudes, prend de l’embonpoint, fait des bêtises dans votre dos et l’emmener chez le vétérinaire tourne à l’opération de manutention. Bref, vous ne reconnaissez plus votre félin aux réflexes aiguisés et vous vous demandez bien ce que vous avez pu lui trouver.\n\nAu travers de cette présentation, nous revenons sur ce que l’expérience nous a enseigné sur l’élevage de Repositories :\n\n- Qui ils sont, quand les adopter et quand vaudrait-il mieux les laisser sur le bas-côté ;\n- Les écueils à éviter et les risques qu’il existe à en perdre le contrôle ;\n- Comment en tirer le meilleur parti pour absorber un maximum de complexité accidentelle de votre code métier, y compris dans vos tests.\n\nTout cela, nous vous le montrons par le code, dans l’objectif que vous sortiez prêts à améliorer vos applications dès demain."
+  },
+  {
+    "conference": {
+      "name": "Touraine Tech"
+    },
+    "speakers": [
+      {
+        "firstname": "Benjamin",
+        "lastname": "Lacroix",
+        "company": "Shodo Studio"
+      },
+      {
+        "firstname": "Jordan",
+        "lastname": "Nourry",
+        "company": "Shodo"
+      }
+    ],
+    "title": "REX : Notre IA et nous contre le legacy : REX d'une reprise de contrôle assistée",
+    "category": "AI",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://www.figma.com/design/k4XXp2dbF25UIQSnxuIAVq/2026---Touraine-Tech---2-approches-de-l-IA?node-id=92-1778&p=f&t=wpkPS2ZdVtRwbAP2-0",
+    "description": "Ce projet legacy. Vous savez, celui que personne ne veut toucher. Celui où chaque commit est une prière et où l'on vous dit : \"Surtout, ne casse rien, mais ajoute-moi cette feature pour demain.\"\n\nLe rêve ? Tout jeter et repartir de zéro.\n\nLa réalité ? On *doit* faire avec. Stabiliser, et vite.\n\nMais comment s'attaquer à une base de code tentaculaire sans y perdre sa santé mentale ? Et si l'IA, loin d'être un simple gadget, devenait votre co-pilote le plus précieux pour cette mission ?\n\nÀ travers ce Retour d'Expérience (REX) pragmatique, nous partageons notre journal de bord. Oubliez le \"hands-on\" théorique : ici, on vous montre les cicatrices et les victoires d'une aventure bien réelle pour :\n\n- **Plonger dans l'inconnu :** Cartographier et comprendre des pans entiers de code \"spaghetti\" grâce à l'IA.\n- **Éteindre les incendies :** Générer des tests et ajouter des garde-fous (sécurité, validation) pour stabiliser l'existant avant de le modifier.\n- **Dresser l'assistant :** Configurer et \"prompter\" notre IA pour qu'elle devienne une experte de *notre* code, pas juste un générateur de snippets.\n- **Construire l'avenir :** Démarrer un refactoring stratégique (extraire un service, moderniser une brique) en tandem avec l'IA, sans paralyser le produit.\n\nLoin du discours marketing, on vous montre comment garder la maîtrise, éviter les hallucinations de l'IA, et transformer une corvée en un défi technique stimulant.\n\n*Ce talk est animé par deux développeurs : le \"Prudent\" (qui craint l'effet \"boîte noire\") et \"l'Enthousiaste\" (prêt à tout automatiser). Une dynamique qui reflète les débats de votre propre équipe !*"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Sepehr",
+        "lastname": "Namdar",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Refactoring with the Sandwich pattern",
+    "format": "Lab (2h)",
+    "level": "Débutant",
+    "language": "English"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Sepehr",
+        "lastname": "Namdar",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Testing Domain Invariants with Property-Based Testing",
+    "format": "Lab (2h)",
+    "level": "Débutant",
+    "language": "English"
+  },
+  {
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Sepehr",
+        "lastname": "Namdar",
+        "company": "Shodo"
+      }
+    ],
+    "title": "DDD kills your project",
+    "videoUrl": "https://youtu.be/9_FlAsS3Ejw?si=ZadaS3MOYPj7A1tA",
+    "format": "Université (2-3h)",
+    "level": "Débutant",
+    "language": "English"
+  },
+  {
+    "conference": {
+      "name": "DevFest Perros Guirec"
+    },
+    "speakers": [
+      {
+        "firstname": "Clement",
+        "lastname": "Juste",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": "Sobriété agentique  - Réduire l’usage de tokens",
+    "videoUrl": "https://www.youtube.com/watch?v=Mz8IXKggDMc",
+    "category": "AI",
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": "https://github.com/cjuste/sobriete-agentique",
+    "description": "Entre l'explosion du volume de tokens nécessaires aux agents et l'empreinte carbone associée, le mirage de l'IA \"gratuite et infinie\" s'estompe. Alors, comment tirer parti de la puissance des agents sans faire exploser la facture (économique et écologique) ?\n\nDans cette conférence, nous explorerons les stratégies concrètes pour réduire drastiquement votre consommation de tokens au quotidien.\n\n**Au programme :**\n\n- **L'anatomie du coût agentique :** Comprendre pourquoi et comment les agents consomment nos tokens de manière exponentielle.\n- **Le toolkit de l'optimisation :** Découvrez des outils, plugins et *skills* pour économiser vos tokens au quotidien, du couplage technique au \"retour à l'homme des cavernes\".\n- **L'architecture de l'efficience :** Pourquoi l'intégration de *Language Server Protocol* (LSP) ou de graphes de connaissances est une arme secrète.\n- **Comment mieux gérer son contexte :** un contexte grossissant fait exploser les coûts. Comment limiter sa taille et suivre son évolution pour éviter de déborder ?\n\nNous prendrons comme fil rouge **Claude Code**, l’outil en CLI d'Anthropic, mais la majorité des concepts et bonnes pratiques partagés est transposable à d'autres écosystèmes."
+  },
+  {
+    "conference": {
+      "name": "Groupama Stadium"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Le plus dur commence quand ça fonctionne.",
+    "category": "AI",
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français"
+  },
+  {
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo"
+      }
+    ],
+    "title": "High Speed DDD",
+    "videoUrl": "https://www.youtube.com/watch?v=chOTMfhiNgs",
+    "category": "Domain-Driven Design",
+    "format": "Conférence (40-50min)",
+    "level": "Avancé",
+    "language": "Français"
   }
 ]

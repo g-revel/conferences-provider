@@ -2,6 +2,7 @@
 import type { Talk } from '../../../domain/talks/Talk'
 
 defineProps<{ talks: Talk[] }>()
+const emit = defineEmits<{ select: [talk: Talk] }>()
 
 // Le titre doit faire partie de la clé : un même speaker donne souvent plusieurs
 // talks différents à la même conférence (ex. Julien Topcu à Devoxx France), donc
@@ -22,7 +23,8 @@ function speakerNames(talk: Talk): string {
     <li
       v-for="talk in talks"
       :key="talkKey(talk)"
-      class="flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md transition-shadow"
+      class="flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+      @click="emit('select', talk)"
     >
       <span
         v-if="talk.category"
@@ -40,6 +42,7 @@ function speakerNames(talk: Talk): string {
           target="_blank"
           rel="noopener noreferrer"
           class="font-medium text-blue-600 hover:underline"
+          @click.stop
         >{{ talk.conference.name }}</a>
         <span v-else class="font-medium text-gray-700">{{ talk.conference.name }}</span>
 
@@ -49,6 +52,7 @@ function speakerNames(talk: Talk): string {
           target="_blank"
           rel="noopener noreferrer"
           class="whitespace-nowrap text-red-600 hover:underline"
+          @click.stop
         >▶ Vidéo</a>
       </div>
     </li>

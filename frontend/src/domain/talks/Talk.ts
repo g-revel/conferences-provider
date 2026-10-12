@@ -7,4 +7,9 @@ export interface Talk {
   title?: string | null
   videoUrl?: string | null
   category?: string | null
+  format?: string | null
+  level?: string | null
+  language?: string | null
+  slidesUrl?: string | null
+  description?: string | null
 }
