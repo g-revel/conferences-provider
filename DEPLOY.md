@@ -31,4 +31,6 @@ Render redéploie automatiquement les deux services à chaque push sur `main` (a
 
 ## ⚠️ Plan gratuit Render
 
-Le plan `free` met le service en veille après ~15 min sans trafic — la première requête qui le réveille peut prendre 30 à 50 secondes (le backend et le frontend sont deux services indépendants, chacun peut être en veille séparément). Normal, pas un bug.
+Le plan `free` met le service en veille après ~15 min sans trafic — la première requête qui le réveille peut prendre 30 à 50 secondes (le backend et le frontend sont deux services indépendants ; le frontend, en `runtime: static`, ne se met pas en veille — seul le backend Node le peut).
+
+**Mitigé par `.github/workflows/keep-warm.yml`** : un ping GitHub Actions toutes les 10 min sur `/health` du backend l'empêche d'atteindre le seuil d'inactivité de 15 min. Ne résout pas un cold start après une très longue période sans aucun push/activité sur le repo (GitHub peut retarder ou suspendre les crons de repos vraiment inactifs), mais couvre l'usage normal.
