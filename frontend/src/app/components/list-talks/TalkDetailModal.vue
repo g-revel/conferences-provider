@@ -36,14 +36,17 @@ function speakerNames(talk: Talk): string {
       </div>
 
       <div class="mt-4 flex flex-wrap items-center gap-4 text-sm">
-        <a
-          v-if="talk.conference.url"
-          :href="talk.conference.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-bold text-shodo-rose hover:underline"
-        >{{ talk.conference.name }}</a>
-        <span v-else class="font-bold text-shodo-taupe">{{ talk.conference.name }}</span>
+        <span>
+          <a
+            v-if="talk.conference.url"
+            :href="talk.conference.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-bold text-shodo-rose hover:underline"
+          >{{ talk.conference.name }}</a>
+          <span v-else class="font-bold text-shodo-taupe">{{ talk.conference.name }}</span>
+          <span v-if="talk.year" class="text-shodo-taupe"> · {{ talk.year }}</span>
+        </span>
 
         <a
           v-if="talk.videoUrl"

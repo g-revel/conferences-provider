@@ -13,5 +13,6 @@ export interface Speak {
   language?: string | null;
   slidesUrl?: string | null;
   description?: string | null;
+  year?: number | null;
   deletedAt?: string | null;
 }

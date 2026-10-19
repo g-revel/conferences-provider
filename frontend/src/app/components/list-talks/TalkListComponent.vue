@@ -43,15 +43,18 @@ function speakerNames(talk: Talk): string {
       <p class="text-sm text-shodo-ink">{{ speakerNames(talk) }}</p>
 
       <div class="mt-auto flex items-center justify-between gap-2 pt-2 text-sm">
-        <a
-          v-if="talk.conference.url"
-          :href="talk.conference.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-bold text-shodo-rose hover:underline"
-          @click.stop
-        >{{ talk.conference.name }}</a>
-        <span v-else class="font-bold text-shodo-taupe">{{ talk.conference.name }}</span>
+        <span class="min-w-0">
+          <a
+            v-if="talk.conference.url"
+            :href="talk.conference.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-bold text-shodo-rose hover:underline"
+            @click.stop
+          >{{ talk.conference.name }}</a>
+          <span v-else class="font-bold text-shodo-taupe">{{ talk.conference.name }}</span>
+          <span v-if="talk.year" class="text-shodo-taupe"> · {{ talk.year }}</span>
+        </span>
 
         <a
           v-if="talk.videoUrl"
