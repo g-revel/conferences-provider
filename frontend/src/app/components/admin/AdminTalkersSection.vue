@@ -33,7 +33,7 @@ function save(talker: Talker): void {
 <template>
   <table class="w-full text-sm">
     <thead>
-      <tr class="text-left text-gray-500">
+      <tr class="text-left text-shodo-taupe">
         <th class="py-2 pr-4">Nom</th>
         <th class="py-2 pr-4">Société (Slack)</th>
         <th class="py-2 pr-4">Ville</th>
@@ -41,20 +41,20 @@ function save(talker: Talker): void {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="talker in talkers" :key="talkerKey(talker)" class="border-t border-gray-100">
-        <td class="py-2 pr-4 font-medium text-gray-900">{{ talker.firstname }} {{ talker.lastname }}</td>
-        <td class="py-2 pr-4 text-gray-500">{{ talker.company }}</td>
+      <tr v-for="talker in talkers" :key="talkerKey(talker)" class="border-t border-shodo-marron/15">
+        <td class="py-2 pr-4 font-medium text-shodo-noir">{{ talker.firstname }} {{ talker.lastname }}</td>
+        <td class="py-2 pr-4 text-shodo-taupe">{{ talker.company }}</td>
         <td class="py-2 pr-4">
           <input
             v-model="drafts[talkerKey(talker)]"
             type="text"
             placeholder="(aucune)"
-            class="w-32 rounded border border-gray-300 px-2 py-1 text-sm"
+            class="w-32 rounded border border-shodo-marron/30 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-shodo-rose"
           />
         </td>
         <td class="py-2">
           <button
-            class="rounded bg-blue-600 px-2 py-1 text-xs font-medium text-white hover:bg-blue-700"
+            class="rounded bg-shodo-rose px-2 py-1 text-xs font-medium text-white hover:opacity-90"
             @click="save(talker)"
           >Enregistrer</button>
         </td>

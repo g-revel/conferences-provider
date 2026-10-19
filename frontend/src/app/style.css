@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('/fonts/figtree.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans JP';
+  src: url('/fonts/notojp-shodo.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@theme {
+  --color-shodo-noir: #0b0b0b;
+  --color-shodo-creme: #ffefd5;
+  --color-shodo-creme-watermark: #f4efe8;
+  --color-shodo-rose: #ff1a5a;
+  --color-shodo-taupe: #6b5e4e;
+  --color-shodo-marron: #4a4036;
+  --color-shodo-ink: #2e2a25;
+  --font-display: 'Avantt', 'Figtree', sans-serif;
+  --font-sans: 'Figtree', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+}

@@ -43,25 +43,25 @@ async function onRestore(talk: Talk): Promise<void> {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-shodo-creme font-sans">
     <div class="w-full px-4 py-10 md:px-8">
       <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-2xl font-semibold text-gray-900">Admin</h1>
+        <h1 class="font-display text-2xl font-extrabold text-shodo-noir">Admin</h1>
         <button
-          class="rounded-lg bg-gray-800 px-3 py-1.5 text-sm font-medium text-white hover:bg-gray-700"
+          class="rounded-lg bg-shodo-noir px-3 py-1.5 text-sm font-medium text-shodo-creme hover:bg-shodo-ink"
           @click="emit('close')"
         >Retour au site</button>
       </div>
 
-      <div class="mb-4 flex gap-4 border-b border-gray-200">
+      <div class="mb-4 flex gap-4 border-b border-shodo-marron/20">
         <button
           class="px-1 pb-2 text-sm font-medium"
-          :class="tab === 'talkers' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'"
+          :class="tab === 'talkers' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
           @click="tab = 'talkers'"
         >Talkers ({{ talkers.length }})</button>
         <button
           class="px-1 pb-2 text-sm font-medium"
-          :class="tab === 'talks' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500'"
+          :class="tab === 'talks' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
           @click="tab = 'talks'"
         >Talks ({{ activeTalks.length }}) · Corbeille ({{ deletedTalks.length }})</button>
       </div>
@@ -69,10 +69,10 @@ async function onRestore(talk: Talk): Promise<void> {
       <AdminTalkersSection v-if="tab === 'talkers'" :talkers="talkers" @update-city="onUpdateCity" />
 
       <div v-else>
-        <h2 class="mb-2 text-sm font-semibold text-gray-700">Talks actifs</h2>
+        <h2 class="mb-2 text-sm font-semibold text-shodo-ink">Talks actifs</h2>
         <AdminTalksSection :talks="activeTalks" @delete="onDelete" @restore="onRestore" />
 
-        <h2 class="mt-8 mb-2 text-sm font-semibold text-gray-700">Corbeille</h2>
+        <h2 class="mt-8 mb-2 text-sm font-semibold text-shodo-ink">Corbeille</h2>
         <AdminTalksSection :talks="deletedTalks" @delete="onDelete" @restore="onRestore" />
       </div>
     </div>

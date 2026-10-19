@@ -14,11 +14,11 @@ function confirmDelete(talk: Talk): void {
 </script>
 
 <template>
-  <ul class="divide-y divide-gray-100">
+  <ul class="divide-y divide-shodo-marron/15">
     <li v-for="talk in talks" :key="talk.id" class="flex items-center justify-between gap-4 py-2 text-sm">
       <div>
-        <p class="font-medium text-gray-900">{{ talk.title ?? '(sans titre)' }}</p>
-        <p class="text-gray-500">{{ talk.conference.name }} — {{ speakerNames(talk) }}</p>
+        <p class="font-medium text-shodo-noir">{{ talk.title ?? '(sans titre)' }}</p>
+        <p class="text-shodo-taupe">{{ talk.conference.name }} — {{ speakerNames(talk) }}</p>
       </div>
       <button
         v-if="!talk.deletedAt"

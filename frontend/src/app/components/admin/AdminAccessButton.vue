@@ -4,7 +4,7 @@ const emit = defineEmits<{ click: [] }>()
 
 <template>
   <button
-    class="fixed top-4 right-4 z-40 rounded-lg bg-gray-800 px-3 py-1.5 text-sm font-medium text-white shadow hover:bg-gray-700"
+    class="fixed top-4 right-4 z-40 rounded-lg bg-shodo-noir px-3 py-1.5 text-sm font-medium text-shodo-creme shadow hover:bg-shodo-ink"
     @click="emit('click')"
   >Admin</button>
 </template>

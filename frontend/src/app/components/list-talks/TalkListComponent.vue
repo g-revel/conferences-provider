@@ -24,23 +24,23 @@ function speakerNames(talk: Talk): string {
     <li
       v-for="talk in talks"
       :key="talkKey(talk)"
-      class="flex flex-col gap-2 rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+      class="flex cursor-pointer flex-col gap-2 rounded-xl border border-shodo-marron/15 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
       @click="emit('select', talk)"
     >
       <div class="flex flex-wrap gap-1">
         <span
           v-if="talk.category"
-          class="self-start rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700"
+          class="self-start rounded-full border border-shodo-rose px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-shodo-rose"
         >{{ talk.category }}</span>
         <span
           v-if="getTalkCity(talk)"
-          class="self-start rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600"
+          class="self-start rounded-full border border-shodo-marron/35 px-2 py-0.5 text-[10px] font-semibold text-shodo-marron"
         >📍 {{ getTalkCity(talk) }}</span>
       </div>
 
-      <h2 v-if="talk.title" class="font-semibold text-gray-900">{{ talk.title }}</h2>
+      <h2 v-if="talk.title" class="font-display font-extrabold tracking-tight text-shodo-noir">{{ talk.title }}</h2>
 
-      <p class="text-sm text-gray-600">{{ speakerNames(talk) }}</p>
+      <p class="text-sm text-shodo-ink">{{ speakerNames(talk) }}</p>
 
       <div class="mt-auto flex items-center justify-between gap-2 pt-2 text-sm">
         <a
@@ -48,10 +48,10 @@ function speakerNames(talk: Talk): string {
           :href="talk.conference.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="font-medium text-blue-600 hover:underline"
+          class="font-bold text-shodo-rose hover:underline"
           @click.stop
         >{{ talk.conference.name }}</a>
-        <span v-else class="font-medium text-gray-700">{{ talk.conference.name }}</span>
+        <span v-else class="font-bold text-shodo-taupe">{{ talk.conference.name }}</span>
 
         <a
           v-if="talk.videoUrl"

@@ -55,16 +55,23 @@ async function handleLoginSubmit(password: string): Promise<void> {
   <AdminPanel v-if="adminPassword" :password="adminPassword" @close="adminPassword = null" />
 
   <template v-else>
-    <div class="min-h-screen bg-gray-50">
-      <div class="w-full px-4 py-10 md:px-8">
-        <h1 class="text-2xl font-semibold text-gray-900 mb-6">Talks Shodo</h1>
+    <div class="min-h-screen bg-shodo-creme font-sans">
+      <header class="bg-shodo-noir text-shodo-creme">
+        <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-6 md:px-8">
+          <img src="/shodo-logo.svg" alt="Shodo" class="h-9 w-9 rounded-md" />
+          <h1 class="font-display text-2xl font-black uppercase tracking-tight sm:text-3xl">
+            Talks <span class="text-shodo-rose">Shodo</span>
+          </h1>
+        </div>
+      </header>
 
-        <div v-if="isLoading" class="flex flex-col items-center gap-3 py-20 text-gray-500">
-          <div class="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
+      <div class="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
+        <div v-if="isLoading" class="flex flex-col items-center gap-3 py-20 text-shodo-taupe">
+          <div class="h-8 w-8 animate-spin rounded-full border-4 border-shodo-creme-watermark border-t-shodo-rose"></div>
           <p class="text-sm">Chargement des talks… le service peut mettre jusqu'à 50 secondes à se réveiller après une période d'inactivité.</p>
         </div>
 
-        <div v-else-if="error" class="py-20 text-center text-sm text-red-600">
+        <div v-else-if="error" class="py-20 text-center text-sm font-medium text-shodo-rose">
           Impossible de charger les talks pour le moment. Réessaie dans quelques instants.
         </div>
 
