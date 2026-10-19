@@ -107,7 +107,7 @@ export function parseExtractionResponse(
     const title = rawTitle != null && isPlausibleTitle(rawTitle) ? rawTitle : null;
     const existing = speaksByIdentity.get(identity);
     if (!existing || (existing.title == null && title != null)) {
-      speaksByIdentity.set(identity, { conference, speakers: [speaker], title });
+      speaksByIdentity.set(identity, { id: crypto.randomUUID(), conference, speakers: [speaker], title });
     }
   }
   return [...speaksByIdentity.values()];

@@ -71,6 +71,8 @@ describe("extractSpeaksFromConference", () => {
 
     const result = await extractSpeaksFromConference(conference, [castelein]);
 
-    expect(result).toEqual([{ conference, speakers: [castelein], title: "Le DDD c'est compliqué" }]);
+    expect(result).toEqual([
+      { id: expect.any(String), conference, speakers: [castelein], title: "Le DDD c'est compliqué" },
+    ]);
   });
 });

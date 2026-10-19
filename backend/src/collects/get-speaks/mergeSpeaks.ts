@@ -65,5 +65,12 @@ export function mergeSpeaks(existing: Speak[], found: Speak[]): Speak[] {
   for (const speak of existing) ingest(speak);
   for (const speak of found) ingest(speak);
 
-  return [...titledByKey.values(), ...nullTitledBySpeakerKey.values()];
+  // Un id stable par talk est nécessaire pour cibler une suppression/restauration
+  // côté admin — assigné ici une seule fois, pas dans chaque collect, pour couvrir
+  // tous les points d'entrée (extraction de site, découverte YouTube, import Notion...)
+  // qui finissent tous par passer par ce merge avant d'être persistés.
+  return [...titledByKey.values(), ...nullTitledBySpeakerKey.values()].map((speak) => ({
+    ...speak,
+    id: speak.id ?? crypto.randomUUID(),
+  }));
 }

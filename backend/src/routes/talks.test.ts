@@ -5,6 +5,17 @@ const { readJsonMock } = vi.hoisted(() => ({ readJsonMock: vi.fn() }));
 vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock }));
 
 import { buildApp } from "../app.js";
+import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH } from "../data/paths.js";
+
+// readJson est appelé pour deux fichiers différents dans cette route (talks.json et
+// les overrides de ville) : on distingue par chemin plutôt qu'un mock global unique.
+function mockReadJson(talks: unknown[], overrides: unknown[] = []): void {
+  readJsonMock.mockImplementation(async (path: string) => {
+    if (path === TALKS_PATH) return talks;
+    if (path === SPEAKER_CITY_OVERRIDES_PATH) return overrides;
+    return [];
+  });
+}
 
 beforeEach(() => {
   readJsonMock.mockReset();
@@ -19,7 +30,7 @@ describe("GET /api/talks", () => {
         title: "Intro TDD",
       },
     ];
-    readJsonMock.mockResolvedValue(talks);
+    mockReadJson(talks);
 
     const app = await buildApp();
     const response = await app.inject({ method: "GET", url: "/api/talks" });
@@ -39,11 +50,45 @@ describe("GET /api/talks", () => {
       speakers: [{ firstname: "Bob", lastname: "Dupont", company: "Shodo" }],
       title: null,
     };
-    readJsonMock.mockResolvedValue([titled, untitled]);
+    mockReadJson([titled, untitled]);
 
     const app = await buildApp();
     const response = await app.inject({ method: "GET", url: "/api/talks" });
 
     expect(response.json()).toEqual([titled]);
+  });
+
+  it("never serves a deleted talk", async () => {
+    const active = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Intro TDD",
+    };
+    const deleted = {
+      conference: { name: "MixIT" },
+      speakers: [{ firstname: "Bob", lastname: "Dupont", company: "Shodo" }],
+      title: "Supprimé",
+      deletedAt: "2026-01-01T00:00:00.000Z",
+    };
+    mockReadJson([active, deleted]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([active]);
+  });
+
+  it("overlays an admin-set city override onto the matching speaker", async () => {
+    const talk = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Intro TDD",
+    };
+    mockReadJson([talk], [{ firstname: "Alice", lastname: "Martin", city: "Rennes" }]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()[0].speakers[0].city).toBe("Rennes");
   });
 });

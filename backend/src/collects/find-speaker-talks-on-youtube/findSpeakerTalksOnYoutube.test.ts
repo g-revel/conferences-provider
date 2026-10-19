@@ -54,6 +54,7 @@ describe("findSpeakerTalksOnYoutube", () => {
 
     expect(result).toEqual([
       {
+        id: expect.any(String),
         conference: { name: "MiXiT" },
         speakers: [topcu, pierrain],
         title: "The Hive pattern",

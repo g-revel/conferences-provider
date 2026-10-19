@@ -36,4 +36,12 @@ describe('speakerCity', () => {
   it('returns null when the speaker has no determinable city', () => {
     expect(speakerCity({ firstname: 'Julien', lastname: 'Topcu', company: 'Shodo' })).toBeNull()
   })
+
+  it('prefers an admin-set city override over the company-derived guess', () => {
+    expect(speakerCity({ firstname: 'Julien', lastname: 'Topcu', company: 'Shodo', city: 'Paris' })).toBe('Paris')
+  })
+
+  it('an explicit null override means "no city", even if company would suggest one', () => {
+    expect(speakerCity({ firstname: 'Manon', lastname: 'Carbonnel', company: 'Shodo Rennes', city: null })).toBeNull()
+  })
 })

@@ -17,6 +17,11 @@ export function extractCityFromCompany(company: string): string | null {
   return suffix
 }
 
+// `speaker.city`, quand défini, vient d'un override saisi côté admin (voir
+// backend/src/collects/get-speaks/applyCityOverrides.ts) — prioritaire sur la
+// dérivation automatique depuis `company`, qui reste la valeur par défaut tant
+// qu'aucun admin n'a corrigé/précisé la ville pour cette personne.
 export function speakerCity(speaker: Speaker): string | null {
+  if (speaker.city !== undefined) return speaker.city
   return extractCityFromCompany(speaker.company)
 }

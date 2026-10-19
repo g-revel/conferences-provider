@@ -1,0 +1,11 @@
+import type { Talker } from '../domain/admin/Talker'
+import type { Talk } from '../domain/talks/Talk'
+
+export interface IAdminClient {
+  login(password: string): Promise<boolean>
+  getTalkers(password: string): Promise<Talker[]>
+  setTalkerCity(password: string, firstname: string, lastname: string, city: string | null): Promise<void>
+  getAllTalks(password: string): Promise<Talk[]>
+  deleteTalk(password: string, id: string): Promise<void>
+  restoreTalk(password: string, id: string): Promise<void>
+}

@@ -20,6 +20,8 @@ npm run refresh:videos             # SearXNG (youtube) -> videoUrl sur les talks
 npm run refresh:priority-speakers  # SearXNG (youtube) + Ollama -> nouveaux talks pour Topcu/Pierrain/Castelein
 ```
 
+Accès admin (routes `/api/admin/*`, bouton en haut à droite du frontend) : mot de passe `Shodo` par défaut, override via la variable d'env `ADMIN_PASSWORD`.
+
 ## Conventions
 
 - Chaque domaine fonctionnel = un fichier dans `src/routes/`
@@ -35,6 +37,18 @@ Le projet est en mode ESM (`"type": "module"`). Toujours mettre l'extension `.js
 import { buildApp } from './app.js'       // ✅
 import { buildApp } from './app'          // ❌ erreur Node16
 ```
+
+## Accès admin (`src/routes/admin.ts`)
+
+Routes `/api/admin/*` : liste des talkers (ville éditable), liste de tous les talks (actifs + supprimés), suppression/restauration de talk. Protégées par un hook `preHandler` qui compare le header `x-admin-password` à `ADMIN_PASSWORD` (`src/admin/adminAuth.ts`), défaut `"Shodo"` codé en dur — mot de passe volontairement faible et partagé, sécurité à renforcer plus tard (demande explicite). `/api/admin/login` est exclue du hook pour servir de endpoint de vérification au frontend.
+
+⚠️ Contrairement à toutes les autres routes du projet, `admin.ts` **n'est pas enveloppé avec `fp()`** — volontairement : `fp()` casse l'encapsulation Fastify et rendrait le hook d'auth global (il s'appliquerait aussi à `/api/talks`). Sans `fp()`, le hook reste scopé aux seules routes enregistrées dans cette même fonction de plugin.
+
+**Suppression = soft delete.** `Speak.deletedAt?: string | null` (timestamp ISO, `null`/absent = actif). `DELETE /api/admin/talks/:id` pose le timestamp, `POST /api/admin/talks/:id/restore` le remet à `null` — jamais de suppression physique, cohérent avec la philosophie additive du reste du pipeline (`mergeSpeaks`/`mergeSpeakers`). `GET /api/talks` (route publique) filtre les talks avec `deletedAt` non-null ; `GET /api/admin/talks` les renvoie tous, pour afficher la corbeille côté admin.
+
+**Ville éditée côté admin** : stockée dans `data/speaker-city-overrides.json`, un fichier **séparé** de `speakers.json` — volontairement, car `speakers.json` est intégralement régénéré par `refresh:speakers`/`mergeSpeakers.ts` et écraserait silencieusement une ville éditée manuellement au run suivant. La fonction pure `applyCityOverrides()` (`src/collects/get-speaks/applyCityOverrides.ts`) surcharge `Speak.speakers[].city` à partir de ces overrides, appliquée à la volée par `/api/talks` et `/api/admin/talks` (jamais persistée dans `talks.json`).
+
+**`Speak.id`** (UUID, `crypto.randomUUID()`) identifie chaque talk pour cibler suppression/restauration — assigné une seule fois, dans le mapping final de `mergeSpeaks.ts` (`id: speak.id ?? crypto.randomUUID()`), pour couvrir tous les points d'entrée du pipeline (scraping, YouTube, import Notion) sans avoir à toucher chaque collect individuellement.
 
 ## Pipeline de découverte des talks
 

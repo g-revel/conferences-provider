@@ -54,6 +54,7 @@ export async function findSpeakerTalksOnYoutube(speaker: Speaker, knownSpeakers:
 
     const coPresenters = detectCoPresenters(video.title, speaker, knownSpeakers);
     speaks.push({
+      id: crypto.randomUUID(),
       conference: { name: extraction.conferenceName },
       speakers: [speaker, ...coPresenters],
       title: extraction.title,

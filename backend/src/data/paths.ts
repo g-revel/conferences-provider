@@ -8,3 +8,6 @@ const dataDir = fileURLToPath(new URL("../../data", import.meta.url));
 export const EVENTS_PATH = path.join(dataDir, "events.json");
 export const SPEAKERS_PATH = path.join(dataDir, "speakers.json");
 export const TALKS_PATH = path.join(dataDir, "talks.json");
+// Séparé de speakers.json (régénéré en entier par refresh:speakers) : un override
+// de ville saisi côté admin serait perdu au prochain refresh Slack s'il vivait là.
+export const SPEAKER_CITY_OVERRIDES_PATH = path.join(dataDir, "speaker-city-overrides.json");

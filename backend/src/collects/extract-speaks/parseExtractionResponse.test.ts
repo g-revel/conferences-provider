@@ -13,7 +13,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 Intro TDD par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "Intro TDD" },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: "Intro TDD" },
     ]);
   });
 
@@ -22,7 +22,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "alice martin donnera un talk";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: null },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: null },
     ]);
   });
 
@@ -77,10 +77,10 @@ describe("parseExtractionResponse", () => {
     const pageTextWithName = "9h00 Orchestrez vos agents IA par Alice Martin";
 
     expect(parseExtractionResponse(rawTitleFirst, conference, knownSpeakers, pageTextWithName)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "Orchestrez vos agents IA" },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: "Orchestrez vos agents IA" },
     ]);
     expect(parseExtractionResponse(rawTitleLast, conference, knownSpeakers, pageTextWithName)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "Orchestrez vos agents IA" },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: "Orchestrez vos agents IA" },
     ]);
   });
 
@@ -91,7 +91,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 L'architecture hexagonale par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "L'architecture hexagonale" },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: "L'architecture hexagonale" },
     ]);
   });
 
@@ -102,7 +102,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 L'architecture hexagonale par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "L'architecture hexagonale" },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: "L'architecture hexagonale" },
     ]);
   });
 
@@ -111,7 +111,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "BreizhCamp 2026 - Alice Martin #BackToSchool";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: null },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: null },
     ]);
   });
 
@@ -122,7 +122,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "re la tête sur le framework, Alice Martin le dit";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: null },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: null },
     ]);
   });
 
@@ -133,7 +133,7 @@ describe("parseExtractionResponse", () => {
     const raw = JSON.stringify({ matches: [{ firstname: "Alice", lastname: "Martin", title: longFragment }] });
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, longFragment)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: null },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: null },
     ]);
   });
 
@@ -143,7 +143,7 @@ describe("parseExtractionResponse", () => {
     const pageText = `${realTitle} par Alice Martin`;
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: realTitle },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: realTitle },
     ]);
   });
 
@@ -152,7 +152,7 @@ describe("parseExtractionResponse", () => {
     const pageText = "9h00 Intro TDD par Alice Martin";
 
     expect(parseExtractionResponse(raw, conference, knownSpeakers, pageText)).toEqual([
-      { conference, speakers: [knownSpeakers[0]], title: "Intro TDD" },
+      { id: expect.any(String), conference, speakers: [knownSpeakers[0]], title: "Intro TDD" },
     ]);
   });
 });

@@ -2,6 +2,7 @@ import Fastify, { FastifyInstance } from 'fastify'
 import sensiblePlugin from './plugins/sensible.js'
 import healthRoute from './routes/health.js'
 import talksRoute from './routes/talks.js'
+import adminRoutes from './routes/admin.js'
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -13,6 +14,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(sensiblePlugin)
   await app.register(healthRoute)
   await app.register(talksRoute)
+  await app.register(adminRoutes)
 
   return app
 }
