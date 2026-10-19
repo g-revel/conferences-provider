@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Talk } from '../../../domain/talks/Talk'
+import { getTalkCity } from '../../../domain/talks/filter/FilterTalksFunctions'
 
 defineProps<{ talk: Talk }>()
 const emit = defineEmits<{ close: [] }>()
@@ -31,6 +32,7 @@ function speakerNames(talk: Talk): string {
         <span v-if="talk.format" class="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">{{ talk.format }}</span>
         <span v-if="talk.level" class="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">{{ talk.level }}</span>
         <span v-if="talk.language" class="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">{{ talk.language }}</span>
+        <span v-if="getTalkCity(talk)" class="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">📍 {{ getTalkCity(talk) }}</span>
       </div>
 
       <div class="mt-4 flex flex-wrap items-center gap-4 text-sm">

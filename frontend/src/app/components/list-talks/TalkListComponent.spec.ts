@@ -35,13 +35,18 @@ const talks: Talk[] = [
     title: 'Talk catégorisé',
     category: 'Sécurité',
   },
+  {
+    conference: { name: 'Paris Web' },
+    speakers: [{ firstname: 'Gaëlle', lastname: 'Nord', company: 'Shodo Rennes' }],
+    title: 'Talk avec ville',
+  },
 ]
 
 describe('TalkListComponent', () => {
   it('should render one item per talk', () => {
     const wrapper = mount(TalkListComponent, { props: { talks } })
 
-    expect(wrapper.findAll('li')).toHaveLength(5)
+    expect(wrapper.findAll('li')).toHaveLength(6)
   })
 
   it('should render a clickable link to the conference when a url is known', () => {
@@ -100,6 +105,18 @@ describe('TalkListComponent', () => {
     const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
 
     expect(wrapper.text()).not.toContain('Sécurité')
+  })
+
+  it("should display the speaker's city badge (not the conference location)", () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[5]] } })
+
+    expect(wrapper.text()).toContain('Rennes')
+  })
+
+  it('should not display a city badge when no speaker has a determinable city', () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
+
+    expect(wrapper.text()).not.toContain('📍')
   })
 
   it('should render each talk distinctly after a filter update, even when several talks share the same speaker and conference', async () => {

@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest'
-import { filterTalksBySpeakerName, filterTalksByCategory, getAvailableCategories } from './FilterTalksFunctions'
+import {
+  filterTalksBySpeakerName,
+  filterTalksByCategory,
+  getAvailableCategories,
+  getTalkCity,
+  getAvailableCities,
+  filterTalksByCity,
+} from './FilterTalksFunctions'
 import type { Talk } from '../Talk'
 
 const talks: Talk[] = [
@@ -23,6 +30,11 @@ const talks: Talk[] = [
     ],
     title: 'Talk co-animé',
     category: 'Architecture & Craft',
+  },
+  {
+    conference: { name: 'Paris Web', url: 'https://paris-web.fr' },
+    speakers: [{ firstname: 'Manon', lastname: 'Carbonnel', company: 'Shodo Rennes' }],
+    title: 'Un talk parisien donné par une Rennaise',
   },
 ]
 
@@ -78,5 +90,40 @@ describe('getAvailableCategories', () => {
 
   it('returns an empty array when there are no talks', () => {
     expect(getAvailableCategories([])).toEqual([])
+  })
+})
+
+describe('getTalkCity', () => {
+  it('returns the city of the speaker, regardless of the conference location', () => {
+    // le talk a lieu "Paris Web" mais la speakeuse est de Rennes -> ville = Rennes
+    expect(getTalkCity(talks[3])).toBe('Rennes')
+  })
+
+  it('returns null when no speaker has a determinable city', () => {
+    expect(getTalkCity(talks[0])).toBeNull()
+  })
+})
+
+describe('getAvailableCities', () => {
+  it('returns the distinct cities present in the talks, sorted', () => {
+    expect(getAvailableCities(talks)).toEqual(['Rennes'])
+  })
+
+  it('returns an empty array when no talk has a determinable city', () => {
+    expect(getAvailableCities(talks.slice(0, 3))).toEqual([])
+  })
+})
+
+describe('filterTalksByCity', () => {
+  it('returns every talk when the city is empty', () => {
+    expect(filterTalksByCity(talks, '')).toEqual(talks)
+  })
+
+  it('returns only talks whose speaker is from the given city', () => {
+    expect(filterTalksByCity(talks, 'Rennes')).toEqual([talks[3]])
+  })
+
+  it('returns an empty array when no talk matches the city', () => {
+    expect(filterTalksByCity(talks, 'Lyon')).toEqual([])
   })
 })

@@ -4,17 +4,28 @@ import TalkListComponent from './components/list-talks/TalkListComponent.vue'
 import TalkFiltersComponent from './components/list-talks/TalkFiltersComponent.vue'
 import TalkDetailModal from './components/list-talks/TalkDetailModal.vue'
 import { useListTalks } from './components/list-talks/UseListTalks.ts'
-import { filterTalksBySpeakerName, filterTalksByCategory, getAvailableCategories } from '../domain/talks/filter/FilterTalksFunctions'
+import {
+  filterTalksBySpeakerName,
+  filterTalksByCategory,
+  filterTalksByCity,
+  getAvailableCategories,
+  getAvailableCities,
+} from '../domain/talks/filter/FilterTalksFunctions'
 import type { Talk } from '../domain/talks/Talk'
 
 const { talks, isLoading, error } = useListTalks()
 const speakerName = ref('')
 const category = ref('')
+const city = ref('')
 const selectedTalk = ref<Talk | null>(null)
 
 const categories = computed(() => getAvailableCategories(talks.value))
+const cities = computed(() => getAvailableCities(talks.value))
 const filteredTalks = computed(() =>
-  filterTalksByCategory(filterTalksBySpeakerName(talks.value, speakerName.value), category.value),
+  filterTalksByCity(
+    filterTalksByCategory(filterTalksBySpeakerName(talks.value, speakerName.value), category.value),
+    city.value,
+  ),
 )
 </script>
 
@@ -33,7 +44,13 @@ const filteredTalks = computed(() =>
       </div>
 
       <template v-else>
-        <TalkFiltersComponent v-model:speaker-name="speakerName" v-model:category="category" :categories="categories" />
+        <TalkFiltersComponent
+          v-model:speaker-name="speakerName"
+          v-model:category="category"
+          v-model:city="city"
+          :categories="categories"
+          :cities="cities"
+        />
         <TalkListComponent :talks="filteredTalks" @select="selectedTalk = $event" />
       </template>
     </div>

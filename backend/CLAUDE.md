@@ -94,6 +94,8 @@ Module partagé `src/data/jsonStore.ts` (`readJson`/`writeJson`) + `src/data/pat
 
 ⚠️ `get-all-speakers.ts` réapplique actuellement `applyPascalCaseInSpeaker` après `extractSpeakerOrUndefined`, qui normalise déjà en pascal case — double normalisation redondante (sans impact, `toPascalCase` est idempotent) à nettoyer si l'occasion se présente.
 
+**Ville du speaker (filtre frontend)** : pas de champ Slack dédié — vérifié en pratique en appelant `team.profile.get()` (nécessite le scope `users.profile:read`, absent par défaut du token actuel) : le workspace a bien un champ profil personnalisé "Ville", mais il n'est rempli par **aucun** des 222 membres. `company` (ci-dessus, dérivé du domaine email) encode la ville dans la plupart des cas et sert de source à la place — voir `frontend/src/domain/speakers/SpeakerCity.ts` (`extractCityFromCompany`). Exclut explicitement les suffixes qui ne sont pas des villes ("Studio", "Boost", "Apps") ; "Shodo" seul (le plus gros groupe, HQ/non précisé) ne donne aucune ville plutôt qu'une supposition.
+
 ### SearXNG (recherche web, run lourd)
 
 Méta-moteur de recherche open source auto-hébergé via Docker — gratuit, pas de clé API, pas de carte bancaire.

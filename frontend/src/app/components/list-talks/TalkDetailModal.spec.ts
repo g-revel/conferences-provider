@@ -39,6 +39,13 @@ describe('TalkDetailModal', () => {
     expect(hrefs).toContain('https://slides.com/julientopcu/hive')
   })
 
+  it("displays the speaker's city when determinable", () => {
+    const talkFromRennes: Talk = { ...fullTalk, speakers: [{ firstname: 'Manon', lastname: 'Carbonnel', company: 'Shodo Rennes' }] }
+    const wrapper = mount(TalkDetailModal, { props: { talk: talkFromRennes } })
+
+    expect(wrapper.text()).toContain('Rennes')
+  })
+
   it('does not render optional fields that are absent', () => {
     const minimalTalk: Talk = {
       conference: { name: 'BreizhCamp' },
