@@ -870,7 +870,8 @@
       }
     ],
     "title": "Manifeste pour un artisanat logiciel responsable",
-    "category": "Agilité & Organisation"
+    "category": "Agilité & Organisation",
+    "videoUrl": "https://www.youtube.com/watch?v=yhwFDGP6NZk"
   },
   {
     "id": "000a2264-1670-4ada-8983-69fa3e427f72",
@@ -886,7 +887,8 @@
       }
     ],
     "title": "Et pourquoi pas les monorepo ?",
-    "category": "Cloud & DevOps"
+    "category": "Cloud & DevOps",
+    "videoUrl": "https://www.youtube.com/watch?v=jjFDlwHa4PQ"
   },
   {
     "id": "4f123a31-0960-46ec-a8eb-ed2ed4344e08",
@@ -1318,7 +1320,8 @@
     "format": "Quickie (15-20min)",
     "level": "Débutant",
     "language": "Français",
-    "description": "Saviez-vous que votre navigateur web était capable de jouer la musique du jeu \"Tetris\", moyennant quelques lignes de JavaScript ?\n\nAccessible dans tous les navigateurs modernes, l'API WebAudio permet de synthétiser simplement plusieurs types d'ondes dont la sonorité rappelle étrangement celle de la première console portable de Nintendo: la Game Boy.\n\nLors de ce talk, nous allons découvrir ce qui rend cette sonorité \"chip tune\" si caractéristique, puis nous allons recréer ensemble la musique de Tetris à l'aide de WebAudio !\n\n### **Message pour le comité de sélection**\n\nLe but de cette présentation est triple:\n\n- technique: montrer comment faire jouer des notes de musiques à un navigateur\n- découverte: un peu de théorie sur les ondes musicales 8-bit\n- ludique: un talk fun sur le retro-gaming\n\nPlan:\n\n- Pour se mettre dans le bain: lancer le talk avec un extrait de la musique de Tetris\n- Visualisation des 2 types d'ondes employées dans la musique de Tetris: carrée et \"bruit\"\n- Montrer comment coder une onde carrée avec WebAudio\n- Montrer comment faire jouer plusieurs notes à cette onde => jouer la mélodie de Tetris\n- Compléter la musique de Tetris: deuxième onde carrée + percussion\n\nJe compte jouer plusieurs vidéos YouTube, pour visualiser les différentes ondes employées dans la musique de Tetris.\n\nJ'aurai besoin que le son venant de mon navigateur soit audible par le public et par moi-même, avec le moins de latence possible."
+    "description": "Saviez-vous que votre navigateur web était capable de jouer la musique du jeu \"Tetris\", moyennant quelques lignes de JavaScript ?\n\nAccessible dans tous les navigateurs modernes, l'API WebAudio permet de synthétiser simplement plusieurs types d'ondes dont la sonorité rappelle étrangement celle de la première console portable de Nintendo: la Game Boy.\n\nLors de ce talk, nous allons découvrir ce qui rend cette sonorité \"chip tune\" si caractéristique, puis nous allons recréer ensemble la musique de Tetris à l'aide de WebAudio !\n\n### **Message pour le comité de sélection**\n\nLe but de cette présentation est triple:\n\n- technique: montrer comment faire jouer des notes de musiques à un navigateur\n- découverte: un peu de théorie sur les ondes musicales 8-bit\n- ludique: un talk fun sur le retro-gaming\n\nPlan:\n\n- Pour se mettre dans le bain: lancer le talk avec un extrait de la musique de Tetris\n- Visualisation des 2 types d'ondes employées dans la musique de Tetris: carrée et \"bruit\"\n- Montrer comment coder une onde carrée avec WebAudio\n- Montrer comment faire jouer plusieurs notes à cette onde => jouer la mélodie de Tetris\n- Compléter la musique de Tetris: deuxième onde carrée + percussion\n\nJe compte jouer plusieurs vidéos YouTube, pour visualiser les différentes ondes employées dans la musique de Tetris.\n\nJ'aurai besoin que le son venant de mon navigateur soit audible par le public et par moi-même, avec le moins de latence possible.",
+    "videoUrl": "https://www.youtube.com/watch?v=jSr0_PUMSqI"
   },
   {
     "id": "0b322fbd-b69f-4c48-b01e-a255088426c1",
@@ -1696,7 +1699,8 @@
     "category": "Craft",
     "format": "Conférence (40-50min)",
     "level": "Débutant",
-    "language": "Français"
+    "language": "Français",
+    "videoUrl": "https://www.youtube.com/watch?v=fPVREUmH0i0"
   },
   {
     "id": "1264ead9-c401-4b19-be00-17aaa327ae3b",
@@ -1762,7 +1766,8 @@
     "category": "Craft",
     "format": "Conférence (40-50min)",
     "level": "Débutant",
-    "language": "Français"
+    "language": "Français",
+    "videoUrl": "https://www.youtube.com/watch?v=BGZXNJ8t61c"
   },
   {
     "id": "5275c312-a724-4e9c-8889-f259443855f1",
@@ -1833,7 +1838,8 @@
       }
     ],
     "title": "Rendons le DDD aux devs",
-    "category": "Domain-Driven Design"
+    "category": "Domain-Driven Design",
+    "videoUrl": "https://www.youtube.com/watch?v=7wVA9wwumS0"
   },
   {
     "id": "0dbc3f18-f572-421b-904b-7b8e9b18eb15",
@@ -1882,7 +1888,8 @@
     "title": "Onboarding 2.0 : Réinventer l’intégration des devs",
     "category": "Excellence Opérationnelle",
     "format": "Conférence (40-50min)",
-    "level": "Débutant"
+    "level": "Débutant",
+    "videoUrl": "https://www.youtube.com/watch?v=N8qQHo6He4g"
   },
   {
     "id": "f45f270b-fbe7-4608-9f88-295f378664eb",
@@ -2058,7 +2065,8 @@
     "title": "Refactoring with the Sandwich pattern",
     "format": "Lab (2h)",
     "level": "Débutant",
-    "language": "English"
+    "language": "English",
+    "videoUrl": "https://www.youtube.com/watch?v=1zZcXdJJzZU"
   },
   {
     "id": "3973a4fb-65a6-4a1d-bec2-df81494f96f5",
