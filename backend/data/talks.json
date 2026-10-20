@@ -911,96 +911,6 @@
     "category": "Culture & Inclusion"
   },
   {
-    "id": "ebd0845c-3f43-4964-a932-f21cc8496070",
-    "conference": {
-      "name": "Touraine Tech",
-      "url": "https://2025.touraine.tech/"
-    },
-    "speakers": [
-      {
-        "firstname": "Manon",
-        "lastname": "Carbonnel",
-        "company": "Shodo Rennes"
-      }
-    ],
-    "title": null
-  },
-  {
-    "id": "55a8cb02-9454-4e9b-b513-19b7cb9516f8",
-    "conference": {
-      "name": "Touraine Tech",
-      "url": "https://2025.touraine.tech/"
-    },
-    "speakers": [
-      {
-        "firstname": "Julien",
-        "lastname": "Topcu",
-        "company": "Shodo"
-      }
-    ],
-    "title": null
-  },
-  {
-    "id": "02442ea2-d373-4932-9ece-52f897cea97f",
-    "conference": {
-      "name": "Touraine Tech",
-      "url": "https://2025.touraine.tech/"
-    },
-    "speakers": [
-      {
-        "firstname": "Nathan",
-        "lastname": "Castelein",
-        "company": "Shodo Lille"
-      }
-    ],
-    "title": null
-  },
-  {
-    "id": "7e69330b-657e-4445-b19e-51b223ddd0b0",
-    "conference": {
-      "name": "Touraine Tech",
-      "url": "https://2024.touraine.tech/"
-    },
-    "speakers": [
-      {
-        "firstname": "Julien",
-        "lastname": "Gaubert",
-        "company": "Shodo Boost"
-      }
-    ],
-    "title": null
-  },
-  {
-    "id": "9b9b9950-a41e-4c9d-bbc6-4232c7c289f9",
-    "conference": {
-      "name": "MixIT",
-      "url": "https://mixitconf.org/2025"
-    },
-    "speakers": [
-      {
-        "firstname": "Clement",
-        "lastname": "Juste",
-        "company": "Shodo Rennes"
-      }
-    ],
-    "title": null
-  },
-  {
-    "id": "54339a09-217f-45ed-b510-a35f360f65f0",
-    "conference": {
-      "name": "MixIT",
-      "url": "https://mixitconf.org/2025"
-    },
-    "speakers": [
-      {
-        "firstname": "Manon",
-        "lastname": "Carbonnel",
-        "company": "Shodo Rennes"
-      }
-    ],
-    "title": null
-  },
-  {
     "id": "1bea83f0-24a3-4e88-a706-33db34a1392d",
     "conference": {
       "name": "NDC Porto"
@@ -2167,5 +2077,779 @@
     "level": "Avancé",
     "language": "Français",
     "year": 2024
+  },
+  {
+    "id": "44476eca-bc20-4eea-9260-ad3e9427fc9c",
+    "conference": {
+      "name": "XebiCon"
+    },
+    "speakers": [
+      {
+        "firstname": "Guillaume",
+        "lastname": "Albini",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Les frameworks sont ils des êtes vivants ?",
+    "videoUrl": "https://www.youtube.com/watch?v=hZm4kYOceDk"
+  },
+  {
+    "id": "51210db4-7ac6-4597-a30e-88e9668dcf10",
+    "conference": {
+      "name": "XebiCon"
+    },
+    "speakers": [
+      {
+        "firstname": "Guillaume",
+        "lastname": "Albini",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Spark On K8S with S3? How we made it work!",
+    "videoUrl": "https://www.youtube.com/watch?v=6iDGfiPW1fE"
+  },
+  {
+    "id": "0542336a-c783-46e6-933c-0ef71ea8b870",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "You thought technical debt was the worst?",
+    "videoUrl": "https://www.youtube.com/watch?v=8oOzf13Tw_U"
+  },
+  {
+    "id": "63e185d6-4ab2-4cef-a74c-553addffc089",
+    "conference": {
+      "name": "Voxxed Days Luxembourg"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Getting started with Domain Driven Design without fighting the wrong battles",
+    "videoUrl": "https://www.youtube.com/watch?v=I7DawnCS4PQ"
+  },
+  {
+    "id": "85284157-2762-4bb2-ae7e-90d99a1b0eed",
+    "conference": {
+      "name": "Craft"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Model Mitosis: a dynamic pattern to deal with model tensions",
+    "videoUrl": "https://www.youtube.com/watch?v=g6_-p-Bpy-E"
+  },
+  {
+    "id": "c6110068-bcbf-43ef-b46a-0c76c009daec",
+    "conference": {
+      "name": "GeeCON"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Mitosis Pattern",
+    "videoUrl": "https://www.youtube.com/watch?v=HPNR6CYwt2k"
+  },
+  {
+    "id": "ab6ef9f7-b613-4a1a-a819-f9b45c4f642f",
+    "conference": {
+      "name": "MixIT"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Model Mitosis : les microservices et le monolithe",
+    "videoUrl": "https://www.youtube.com/watch?v=vBmMsN83ZTk"
+  },
+  {
+    "id": "6714a748-79c4-4af3-8548-a19cfd164f02",
+    "conference": {
+      "name": "DDD Europe"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Heuristique de tension de modèle",
+    "videoUrl": "https://www.youtube.com/watch?v=EZTl9FH5AFQ"
+  },
+  {
+    "id": "10aa7c45-ee30-40f7-ba65-10b45c167290",
+    "conference": {
+      "name": "DevFest Nantes 2022"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Bien se lancer dans le Domain Driven Design sans se tromper de combat",
+    "videoUrl": "https://www.youtube.com/watch?v=jAl3c_zo71w"
+  },
+  {
+    "id": "5aa96f00-1c68-453e-9cdd-907c4826e782",
+    "conference": {
+      "name": "Agile Tour Bordeaux"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Model Mitosis: ne plus se tromper entre les microservices et le monolithe",
+    "videoUrl": "https://www.youtube.com/watch?v=F28vNyAQBQM"
+  },
+  {
+    "id": "d8084ee5-21b1-4033-b527-62f36e3b17f7",
+    "conference": {
+      "name": "Devfest Lille 2024"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Model Mitosis : ne plus se tromper entre les microservices et le monolithe",
+    "videoUrl": "https://www.youtube.com/watch?v=EY6Bg80UDHA"
+  },
+  {
+    "id": "c8919ad5-119f-43ac-acad-1e5fdec5c69a",
+    "conference": {
+      "name": "Devoxx"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Getting started with Domain Driven Design without fighting the wrong battles",
+    "videoUrl": "https://www.youtube.com/watch?v=w91JHUyRGRc"
+  },
+  {
+    "id": "28ee20c6-ad7b-4ea5-9e1f-d7f29b22ec4a",
+    "conference": {
+      "name": "Devoxx"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "You thought technical debt was bad? Meet design debt!",
+    "videoUrl": "https://www.youtube.com/watch?v=SoWgxHeAPGU"
+  },
+  {
+    "id": "f36fd7f4-e259-4dd7-9957-c06b2b0d08b3",
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Model Mitosis : ne plus se tromper entre les microservices et le monolithe",
+    "videoUrl": "https://www.youtube.com/watch?v=HNQJW5iMZgQ"
+  },
+  {
+    "id": "94dbaf60-e948-4d85-b551-4d5a4a75e626",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Model Mitosis : ne plus se tromper entre les microservices et le monolith",
+    "videoUrl": "https://www.youtube.com/watch?v=57AQRHo3HEw"
+  },
+  {
+    "id": "7fe6b7ae-aaf0-41c8-8519-5e7058189617",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes",
+        "active": true
+      }
+    ],
+    "title": "UI Testing: Making Quality Accessible to the Whole Team",
+    "videoUrl": "https://www.youtube.com/watch?v=ZHIdUIWkEfQ"
+  },
+  {
+    "id": "74a2731e-a36d-45a7-957e-b94fd5f6e65c",
+    "conference": {
+      "name": "LyonJS"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes",
+        "active": true
+      }
+    ],
+    "title": "Crafter de meilleures UI, en pensant le DOM comme une API",
+    "videoUrl": "https://www.youtube.com/watch?v=jZGWoGgeeJ0"
+  },
+  {
+    "id": "5d01aaa0-5b03-4e08-b606-33f17efb06f2",
+    "conference": {
+      "name": "ESTIMnumérique"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes",
+        "active": true
+      }
+    ],
+    "title": "Redécouvrir la coopération : Atelier de Mob Programming",
+    "videoUrl": "https://www.youtube.com/watch?v=4Cx5wjm-3Cs"
+  },
+  {
+    "id": "89a90081-e7fe-4aab-92ac-db47a9159291",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes",
+        "active": true
+      }
+    ],
+    "title": "Redécouvrir la coopération : Atelier de Mob Programming",
+    "videoUrl": "https://www.youtube.com/watch?v=b18s-OYZA_0"
+  },
+  {
+    "id": "bcc7e217-50c7-4b74-8643-320086f867b2",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Sylvain",
+        "lastname": "Decout",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Samuel",
+        "lastname": "Lefebvre",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Sortir des ORMs avec jOOQ",
+    "videoUrl": "https://www.youtube.com/watch?v=6TJNfVzMRWk"
+  },
+  {
+    "id": "37fdac56-c16a-4444-b60b-d71b73ebe9f5",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Yann",
+        "lastname": "Danot",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "[SC] Enough with software craftsmanship!",
+    "videoUrl": "https://www.youtube.com/watch?v=KpQ-t9wWU3k"
+  },
+  {
+    "id": "30eda2e7-5675-4b37-a4d3-07f72fd7f853",
+    "conference": {
+      "name": "MixIT"
+    },
+    "speakers": [
+      {
+        "firstname": "Yann",
+        "lastname": "Danot",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Software Craftsmanship : Le début de la fin",
+    "videoUrl": "https://www.youtube.com/watch?v=hfYabISDh3o"
+  },
+  {
+    "id": "b2ca38ac-f745-483a-982d-26f95780d1f2",
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Fabien",
+        "lastname": "Hiegel",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Voyage au centre de la Veille : Apprendre en continu avec sa veille technologique",
+    "videoUrl": "https://www.youtube.com/watch?v=AMOXbT4xVjk"
+  },
+  {
+    "id": "185fa687-e607-49ca-8e7e-03bf1d67e25c",
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Guibert",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Rendu 3D, la grande illusion expliquée",
+    "videoUrl": "https://www.youtube.com/watch?v=0vF2G6vRB7M"
+  },
+  {
+    "id": "093d0ea1-3e20-41ae-a384-e90a88771665",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Guibert",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "3D rendering, the great illusion explained",
+    "videoUrl": "https://www.youtube.com/watch?v=tW5zX4e6ZjU"
+  },
+  {
+    "id": "ec8ad4d5-db57-4617-a485-f1999c31cd90",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Keynote · Why Tech is more about pop culture than engineering?",
+    "videoUrl": "https://www.youtube.com/watch?v=MviJcUE7IJg"
+  },
+  {
+    "id": "9fc324ce-650f-4a31-af77-d421125dc145",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Développement durable : et si on développait enfin des logiciels…",
+    "videoUrl": "https://www.youtube.com/watch?v=kn8CRi7VfZI"
+  },
+  {
+    "id": "bc246720-57cf-44b1-81da-35d43035b63e",
+    "conference": {
+      "name": "MixIT"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Développons des logiciels bons pour les gens & la planête",
+    "videoUrl": "https://www.youtube.com/watch?v=CSMDcOVKh6c"
+  },
+  {
+    "id": "0e1efab4-0b94-40ab-a022-db76f8917ff3",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      },
+      {
+        "firstname": "Angi",
+        "lastname": "Guyard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "On nân aurait pas oublié un truc dans le craft !?",
+    "videoUrl": "https://www.youtube.com/watch?v=yVmKkRH60VI"
+  },
+  {
+    "id": "9ae566a6-7716-41a9-8682-e9dd8bf1b94e",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Développeurs et agilité : la guerre est déclarée ?",
+    "videoUrl": "https://www.youtube.com/watch?v=zVbIbqmHU-4"
+  },
+  {
+    "id": "f3d53ad9-d532-47aa-a47c-08c604f7c86b",
+    "conference": {
+      "name": "DevFest Nantes 2018"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Où sont les femmes ?",
+    "videoUrl": "https://www.youtube.com/watch?v=2E2SzUYdlCc"
+  },
+  {
+    "id": "037bdcc6-279b-4e6f-b9ba-5b205f8a356e",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Créer un chatBot en interne sans vendre son êmle au diable",
+    "videoUrl": "https://www.youtube.com/watch?v=KDUvYXauCuc"
+  },
+  {
+    "id": "680d636d-bf56-428a-9385-9a0e04ae6ed3",
+    "conference": {
+      "name": "Volcamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Manifeste pour un artisanat logiciel responsable",
+    "videoUrl": "https://www.youtube.com/watch?v=478TKRDww_U"
+  },
+  {
+    "id": "82395a20-9de2-471a-8262-da49783a95b0",
+    "conference": {
+      "name": "DevFest Nantes 2014"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Et la diversité dans tout §a ?",
+    "videoUrl": "https://www.youtube.com/watch?v=-A5wDLPus5g"
+  },
+  {
+    "id": "70364581-40ef-4e4b-bd8e-dbd392ec6e59",
+    "conference": {
+      "name": "Parleys"
+    },
+    "speakers": [
+      {
+        "firstname": "Cecilia",
+        "lastname": "Bossard",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Gitflow in action",
+    "videoUrl": "https://www.youtube.com/watch?v=HhnQ5W1JFzk"
+  },
+  {
+    "id": "b03d3d9f-8ed6-4401-b1b7-4f9d2d76a24a",
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Clement",
+        "lastname": "Heliou",
+        "company": "Shodo Studio",
+        "active": true
+      }
+    ],
+    "title": "JGiven: enfin une réelle documentation vivante",
+    "videoUrl": "https://www.youtube.com/watch?v=4oFl4nxoshM"
+  },
+  {
+    "id": "0e207c2f-448e-4076-b7f6-a8b7a19d5a25",
+    "conference": {
+      "name": "BreizhCamp"
+    },
+    "speakers": [
+      {
+        "firstname": "Clement",
+        "lastname": "Heliou",
+        "company": "Shodo Studio",
+        "active": true
+      }
+    ],
+    "title": "9 things that will make your Event Sourcing/CQRS journey painful",
+    "videoUrl": "https://www.youtube.com/watch?v=v1RdackDm60"
+  },
+  {
+    "id": "3ee14538-6c0d-46ea-80ee-88be512b0d1d",
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Clement",
+        "lastname": "Heliou",
+        "company": "Shodo Studio",
+        "active": true
+      }
+    ],
+    "title": "CQRS EventSourcing par la pratique",
+    "videoUrl": "https://www.youtube.com/watch?v=zxa4y6eJj_g"
+  },
+  {
+    "id": "e40d51a2-8c38-4ea2-a6d2-62b27b1e16ab",
+    "conference": {
+      "name": "Devoxx France"
+    },
+    "speakers": [
+      {
+        "firstname": "Mialy",
+        "lastname": "Rakotovao",
+        "company": "Shodo Studio",
+        "active": true
+      }
+    ],
+    "title": "De WebFlux en Java aux coroutines en Kotlin",
+    "videoUrl": "https://www.youtube.com/watch?v=5eiaqV6SwAc"
+  },
+  {
+    "id": "ebd0845c-3f43-4964-a932-f21cc8496070",
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2025.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": null
+  },
+  {
+    "id": "55a8cb02-9454-4e9b-b513-19b7cb9516f8",
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2025.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo"
+      }
+    ],
+    "title": null
+  },
+  {
+    "id": "02442ea2-d373-4932-9ece-52f897cea97f",
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2025.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Nathan",
+        "lastname": "Castelein",
+        "company": "Shodo Lille"
+      }
+    ],
+    "title": null
+  },
+  {
+    "id": "7e69330b-657e-4445-b19e-51b223ddd0b0",
+    "conference": {
+      "name": "Touraine Tech",
+      "url": "https://2024.touraine.tech/"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Gaubert",
+        "company": "Shodo Boost"
+      }
+    ],
+    "title": null
+  },
+  {
+    "id": "9b9b9950-a41e-4c9d-bbc6-4232c7c289f9",
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Clement",
+        "lastname": "Juste",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": null
+  },
+  {
+    "id": "54339a09-217f-45ed-b510-a35f360f65f0",
+    "conference": {
+      "name": "MixIT",
+      "url": "https://mixitconf.org/2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Manon",
+        "lastname": "Carbonnel",
+        "company": "Shodo Rennes"
+      }
+    ],
+    "title": null
   }
 ]
