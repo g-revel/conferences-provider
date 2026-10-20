@@ -8,7 +8,7 @@ import AdminLoginModal from './components/admin/AdminLoginModal.vue'
 import AdminPanel from './components/admin/AdminPanel.vue'
 import { useListTalks } from './components/list-talks/UseListTalks.ts'
 import {
-  filterTalksBySpeakerName,
+  filterTalksBySearchTerm,
   filterTalksByCategory,
   filterTalksByCity,
   getAvailableCategories,
@@ -18,7 +18,7 @@ import type { Talk } from '../domain/talks/Talk'
 import { adminClientKey } from './injectionKeys'
 
 const { talks, isLoading, error } = useListTalks()
-const speakerName = ref('')
+const searchTerm = ref('')
 const category = ref('')
 const city = ref('')
 const selectedTalk = ref<Talk | null>(null)
@@ -27,7 +27,7 @@ const categories = computed(() => getAvailableCategories(talks.value))
 const cities = computed(() => getAvailableCities(talks.value))
 const filteredTalks = computed(() =>
   filterTalksByCity(
-    filterTalksByCategory(filterTalksBySpeakerName(talks.value, speakerName.value), category.value),
+    filterTalksByCategory(filterTalksBySearchTerm(talks.value, searchTerm.value), category.value),
     city.value,
   ),
 )
@@ -77,7 +77,7 @@ async function handleLoginSubmit(password: string): Promise<void> {
 
         <template v-else>
           <TalkFiltersComponent
-            v-model:speaker-name="speakerName"
+            v-model:search-term="searchTerm"
             v-model:category="category"
             v-model:city="city"
             :categories="categories"

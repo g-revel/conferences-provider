@@ -1,13 +1,27 @@
 import type { Talk } from '../Talk'
 import { speakerCity } from '../../speakers/SpeakerCity'
 
-export function filterTalksBySpeakerName(talks: Talk[], term: string): Talk[] {
+// Cherche sur tout ce qui peut identifier un talk pour l'utilisateur, pas seulement
+// le nom du speaker : titre, conférence, catégorie, format, niveau, langue,
+// description, entreprise et ville du speaker.
+function searchableFields(talk: Talk): string[] {
+  return [
+    talk.title,
+    talk.conference.name,
+    talk.category,
+    talk.format,
+    talk.level,
+    talk.language,
+    talk.description,
+    ...talk.speakers.flatMap((speaker) => [`${speaker.firstname} ${speaker.lastname}`, speaker.company, speaker.city]),
+  ].filter((field): field is string => !!field)
+}
+
+export function filterTalksBySearchTerm(talks: Talk[], term: string): Talk[] {
   const normalized = term.trim().toLowerCase()
   if (!normalized) return talks
 
-  return talks.filter((talk) =>
-    talk.speakers.some((speaker) => `${speaker.firstname} ${speaker.lastname}`.toLowerCase().includes(normalized)),
-  )
+  return talks.filter((talk) => searchableFields(talk).some((field) => field.toLowerCase().includes(normalized)))
 }
 
 export function filterTalksByCategory(talks: Talk[], category: string): Talk[] {

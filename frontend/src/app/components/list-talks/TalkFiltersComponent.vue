@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{ categories: string[]; cities: string[] }>()
 
-const speakerName = defineModel<string>('speakerName', { required: true })
+const searchTerm = defineModel<string>('searchTerm', { required: true })
 const category = defineModel<string>('category', { required: true })
 const city = defineModel<string>('city', { required: true })
 </script>
@@ -9,11 +9,11 @@ const city = defineModel<string>('city', { required: true })
 <template>
   <div class="mb-6 flex flex-col gap-3 sm:flex-row">
     <div class="flex-1">
-      <div class="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-shodo-rose">Speaker</div>
+      <div class="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-shodo-rose">Recherche</div>
       <input
-        v-model="speakerName"
+        v-model="searchTerm"
         type="text"
-        placeholder="Rechercher un speaker..."
+        placeholder="Rechercher un talk, un speaker, une conférence..."
         class="w-full rounded-lg border border-shodo-marron/30 px-3 py-2 text-sm text-shodo-ink focus:outline-none focus:ring-2 focus:ring-shodo-rose"
       />
     </div>

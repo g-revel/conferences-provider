@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import TalkFiltersComponent from './TalkFiltersComponent.vue'
 
-const baseProps = { categories: [] as string[], cities: [] as string[], speakerName: '', category: '', city: '' }
+const baseProps = { categories: [] as string[], cities: [] as string[], searchTerm: '', category: '', city: '' }
 
 describe('TalkFiltersComponent', () => {
   it('renders a "Toutes les catégories" option plus one per given category', () => {
@@ -24,12 +24,12 @@ describe('TalkFiltersComponent', () => {
     expect(options).toEqual(['Toutes les villes', 'Lyon', 'Rennes'])
   })
 
-  it('emits an update when the speaker name input changes', async () => {
+  it('emits an update when the search input changes', async () => {
     const wrapper = mount(TalkFiltersComponent, { props: baseProps })
 
     await wrapper.find('input').setValue('Topcu')
 
-    expect(wrapper.emitted('update:speakerName')).toEqual([['Topcu']])
+    expect(wrapper.emitted('update:searchTerm')).toEqual([['Topcu']])
   })
 
   it('emits an update when the category select changes', async () => {

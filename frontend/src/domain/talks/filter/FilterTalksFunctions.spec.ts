@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import {
-  filterTalksBySpeakerName,
+  filterTalksBySearchTerm,
   filterTalksByCategory,
   getAvailableCategories,
   getTalkCity,
@@ -38,29 +38,45 @@ const talks: Talk[] = [
   },
 ]
 
-describe('filterTalksBySpeakerName', () => {
+describe('filterTalksBySearchTerm', () => {
   it('returns every talk when the term is empty', () => {
-    expect(filterTalksBySpeakerName(talks, '')).toEqual(talks)
+    expect(filterTalksBySearchTerm(talks, '')).toEqual(talks)
   })
 
   it('matches a speaker by first name, case-insensitively', () => {
-    expect(filterTalksBySpeakerName(talks, 'alice')).toEqual([talks[0], talks[2]])
+    expect(filterTalksBySearchTerm(talks, 'alice')).toEqual([talks[0], talks[2]])
   })
 
   it('matches a speaker by last name', () => {
-    expect(filterTalksBySpeakerName(talks, 'Dupont')).toEqual([talks[1]])
+    expect(filterTalksBySearchTerm(talks, 'Dupont')).toEqual([talks[1]])
   })
 
   it('matches any co-presenter of a co-animated talk', () => {
-    expect(filterTalksBySpeakerName(talks, 'Lenoir')).toEqual([talks[2]])
+    expect(filterTalksBySearchTerm(talks, 'Lenoir')).toEqual([talks[2]])
   })
 
-  it('returns an empty array when no speaker matches', () => {
-    expect(filterTalksBySpeakerName(talks, 'Inconnu')).toEqual([])
+  it('matches the talk title', () => {
+    expect(filterTalksBySearchTerm(talks, 'Sécuriser')).toEqual([talks[1]])
+  })
+
+  it('matches the conference name', () => {
+    expect(filterTalksBySearchTerm(talks, 'MixIT')).toEqual([talks[1]])
+  })
+
+  it('matches the category', () => {
+    expect(filterTalksBySearchTerm(talks, 'Architecture')).toEqual([talks[0], talks[2]])
+  })
+
+  it('matches a speaker company', () => {
+    expect(filterTalksBySearchTerm(talks, 'Shodo Rennes')).toEqual([talks[3]])
+  })
+
+  it('returns an empty array when nothing matches', () => {
+    expect(filterTalksBySearchTerm(talks, 'Inconnu')).toEqual([])
   })
 
   it('ignores surrounding whitespace', () => {
-    expect(filterTalksBySpeakerName(talks, '  alice  ')).toEqual([talks[0], talks[2]])
+    expect(filterTalksBySearchTerm(talks, '  alice  ')).toEqual([talks[0], talks[2]])
   })
 })
 
