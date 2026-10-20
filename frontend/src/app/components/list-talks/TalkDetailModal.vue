@@ -54,7 +54,7 @@ function speakerNames(talk: Talk): string {
           target="_blank"
           rel="noopener noreferrer"
           class="text-red-600 hover:underline"
-        >▶ Vidéo</a>
+        >🔗 Voir le talk</a>
 
         <a
           v-if="talk.slidesUrl"

@@ -84,7 +84,7 @@ describe('TalkListComponent', () => {
     const wrapper = mount(TalkListComponent, { props: { talks: [talks[3]] } })
 
     const links = wrapper.findAll('a')
-    const videoLink = links.find((link) => link.text().includes('Vidéo'))
+    const videoLink = links.find((link) => link.text().includes('Voir le talk'))
     expect(videoLink).toBeDefined()
     expect(videoLink?.attributes('href')).toBe('https://www.youtube.com/watch?v=abc123')
   })
@@ -92,7 +92,7 @@ describe('TalkListComponent', () => {
   it('should not render a video link when no videoUrl is known', () => {
     const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
 
-    expect(wrapper.text()).not.toContain('Vidéo')
+    expect(wrapper.text()).not.toContain('Voir le talk')
   })
 
   it('should display the category badge when a category is known', () => {

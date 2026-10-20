@@ -63,7 +63,7 @@ function speakerNames(talk: Talk): string {
           rel="noopener noreferrer"
           class="whitespace-nowrap text-red-600 hover:underline"
           @click.stop
-        >▶ Vidéo</a>
+        >🔗 Voir le talk</a>
       </div>
     </li>
   </ul>
