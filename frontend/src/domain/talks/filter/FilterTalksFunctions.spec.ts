@@ -6,6 +6,9 @@ import {
   getTalkCity,
   getAvailableCities,
   filterTalksByCity,
+  isFormerMembersTalk,
+  filterCurrentMembersTalks,
+  filterFormerMembersTalks,
 } from './FilterTalksFunctions'
 import type { Talk } from '../Talk'
 
@@ -141,5 +144,49 @@ describe('filterTalksByCity', () => {
 
   it('returns an empty array when no talk matches the city', () => {
     expect(filterTalksByCity(talks, 'Lyon')).toEqual([])
+  })
+})
+
+const formerMembersTalks: Talk[] = [
+  {
+    conference: { name: 'DevFest' },
+    speakers: [{ firstname: 'Dan', lastname: 'Petit', company: 'Shodo', active: false }],
+    title: 'Talk donné avant son départ',
+  },
+  {
+    conference: { name: 'MixIT' },
+    speakers: [
+      { firstname: 'Dan', lastname: 'Petit', company: 'Shodo', active: false },
+      { firstname: 'Alice', lastname: 'Martin', company: 'Shodo', active: true },
+    ],
+    title: 'Talk co-animé avec un membre toujours présent',
+  },
+]
+
+describe('isFormerMembersTalk', () => {
+  it('returns true when every speaker has left', () => {
+    expect(isFormerMembersTalk(formerMembersTalks[0])).toBe(true)
+  })
+
+  it('returns false when at least one speaker is still active', () => {
+    expect(isFormerMembersTalk(formerMembersTalks[1])).toBe(false)
+  })
+
+  it('returns false when active is not set (optimistic default)', () => {
+    expect(isFormerMembersTalk(talks[0])).toBe(false)
+  })
+})
+
+describe('filterCurrentMembersTalks', () => {
+  it('excludes talks where every speaker has left', () => {
+    const all = [...talks, ...formerMembersTalks]
+    expect(filterCurrentMembersTalks(all)).toEqual([...talks, formerMembersTalks[1]])
+  })
+})
+
+describe('filterFormerMembersTalks', () => {
+  it('keeps only talks where every speaker has left', () => {
+    const all = [...talks, ...formerMembersTalks]
+    expect(filterFormerMembersTalks(all)).toEqual([formerMembersTalks[0]])
   })
 })

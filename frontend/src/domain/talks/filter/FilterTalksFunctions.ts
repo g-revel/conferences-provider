@@ -59,3 +59,18 @@ export function filterTalksByCity(talks: Talk[], city: string): Talk[] {
 
   return talks.filter((talk) => talk.speakers.some((speaker) => speakerCity(speaker) === city))
 }
+
+// Un talk n'est "d'anciens membres" que si AUCUN de ses speakers n'est encore chez
+// Shodo (un talk co-animé par un membre actuel et un ancien reste dans la liste
+// principale). `active` absent/true = toujours chez Shodo, par défaut optimiste.
+export function isFormerMembersTalk(talk: Talk): boolean {
+  return talk.speakers.every((speaker) => speaker.active === false)
+}
+
+export function filterCurrentMembersTalks(talks: Talk[]): Talk[] {
+  return talks.filter((talk) => !isFormerMembersTalk(talk))
+}
+
+export function filterFormerMembersTalks(talks: Talk[]): Talk[] {
+  return talks.filter(isFormerMembersTalk)
+}

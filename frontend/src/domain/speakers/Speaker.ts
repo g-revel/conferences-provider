@@ -3,4 +3,6 @@ export interface Speaker {
   lastname: string
   company: string
   city?: string | null
+  // undefined/true = toujours chez Shodo ; false = parti (compte Slack désactivé).
+  active?: boolean
 }

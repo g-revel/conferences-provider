@@ -11,6 +11,8 @@ import {
   filterTalksBySearchTerm,
   filterTalksByCategory,
   filterTalksByCity,
+  filterCurrentMembersTalks,
+  filterFormerMembersTalks,
   getAvailableCategories,
   getAvailableCities,
 } from '../domain/talks/filter/FilterTalksFunctions'
@@ -31,6 +33,10 @@ const filteredTalks = computed(() =>
     city.value,
   ),
 )
+// Un talk donné uniquement par des membres partis de Shodo s'affiche à part plutôt
+// que de disparaître : reste consultable, mais ne pollue pas la liste principale.
+const currentMembersTalks = computed(() => filterCurrentMembersTalks(filteredTalks.value))
+const formerMembersTalks = computed(() => filterFormerMembersTalks(filteredTalks.value))
 
 const adminClient = inject(adminClientKey)!
 const showLoginModal = ref(false)
@@ -83,7 +89,14 @@ async function handleLoginSubmit(password: string): Promise<void> {
             :categories="categories"
             :cities="cities"
           />
-          <TalkListComponent :talks="filteredTalks" @select="selectedTalk = $event" />
+          <TalkListComponent :talks="currentMembersTalks" @select="selectedTalk = $event" />
+
+          <details v-if="formerMembersTalks.length > 0" class="mt-10">
+            <summary class="cursor-pointer font-display text-sm font-extrabold uppercase tracking-widest text-shodo-taupe">
+              Anciens membres de Shodo ({{ formerMembersTalks.length }})
+            </summary>
+            <TalkListComponent class="mt-4" :talks="formerMembersTalks" @select="selectedTalk = $event" />
+          </details>
         </template>
       </div>
     </div>
