@@ -22,7 +22,8 @@
     "format": "Lab (2h), Université (2-3h)",
     "level": "Débutant",
     "language": "Français",
-    "slidesUrl": "https://github.com/emma11y/mob-a11y/"
+    "slidesUrl": "https://github.com/emma11y/mob-a11y/",
+    "videoUrl": "https://www.breizhcamp.org/programme/session/1136323"
   },
   {
     "id": "902ecde1-ab58-416a-930e-c05f00e6f31b",
@@ -178,7 +179,8 @@
       }
     ],
     "title": "Mais qu'est ce qu'on va devenir ?",
-    "category": "Culture & Inclusion"
+    "category": "Culture & Inclusion",
+    "videoUrl": "https://mixitconf.org/speakers/ceciliaBossard"
   },
   {
     "id": "27891919-9a01-47cd-94e6-73246627da6f",
