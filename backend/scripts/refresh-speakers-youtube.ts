@@ -8,23 +8,6 @@ import { readJson, writeJson } from "../src/data/jsonStore.js";
 import { EVENTS_PATH, SPEAKERS_PATH, TALKS_PATH } from "../src/data/paths.js";
 import { normalizeForMatch } from "../src/string.functions.js";
 
-// Demandé explicitement par l'utilisateur, en priorité sur une recherche YouTube
-// par nom ouverte à l'ensemble des ~220 speakers connus (coûteux en appels Ollama,
-// bruit potentiellement plus élevé sur des noms moins "googlables").
-const PRIORITY_SPEAKER_NAMES = [
-  { firstname: "Julien", lastname: "Topcu" },
-  { firstname: "Thomas", lastname: "Pierrain" },
-  { firstname: "Nathan", lastname: "Castelein" },
-];
-
-function findKnownSpeaker(speakers: Speaker[], firstname: string, lastname: string): Speaker | undefined {
-  return speakers.find(
-    (speaker) =>
-      normalizeForMatch(speaker.firstname) === normalizeForMatch(firstname) &&
-      normalizeForMatch(speaker.lastname) === normalizeForMatch(lastname),
-  );
-}
-
 // Le nom de conférence déduit par le LLM depuis un titre/une chaîne YouTube peut
 // différer légèrement de notre orthographe canonique (ex. "MiXiT" vs "MixIT") —
 // sans ça, mergeSpeaks ne dédupliquerait pas un talk déjà connu via le scraping
@@ -42,14 +25,15 @@ async function main(): Promise<void> {
   const existingTalks = await readJson<Speak[]>(TALKS_PATH, []);
   const knownVideoUrls = new Set(existingTalks.map((talk) => talk.videoUrl).filter((url): url is string => !!url));
 
-  let found: Speak[] = [];
-  for (const { firstname, lastname } of PRIORITY_SPEAKER_NAMES) {
-    const speaker = findKnownSpeaker(speakers, firstname, lastname);
-    if (!speaker) {
-      console.error(`Speaker prioritaire introuvable dans speakers.json : ${firstname} ${lastname}`);
-      continue;
-    }
+  // Un membre parti (active: false) n'est volontairement pas cherché ici : on ne
+  // découvre pas de *nouveaux* talks pour quelqu'un qui n'est plus chez Shodo
+  // (demande explicite) — ses talks déjà connus restent affichés, juste dans la
+  // section "anciens membres" du portail plutôt que la liste principale.
+  const activeSpeakers = speakers.filter((speaker) => speaker.active !== false);
+  console.log(`${activeSpeakers.length}/${speakers.length} speaker(s) actif(s) à chercher sur YouTube.`);
 
+  let found: Speak[] = [];
+  for (const speaker of activeSpeakers) {
     console.log(`→ recherche YouTube pour ${speaker.firstname} ${speaker.lastname}...`);
     try {
       const speaks = await findSpeakerTalksOnYoutube(speaker, speakers);
@@ -57,6 +41,14 @@ async function main(): Promise<void> {
         .filter((speak) => !speak.videoUrl || !knownVideoUrls.has(speak.videoUrl))
         .map((speak) => ({ ...speak, conference: { name: canonicalizeConferenceName(speak.conference.name, events) } }));
       console.log(`  ${speaks.length} talk(s) détecté(s), ${newSpeaks.length} nouveau(x)`);
+      // Mis à jour en cours de boucle (pas seulement avant) : un talk co-présenté par
+      // deux speakers actifs peut être retrouvé une seconde fois quand on arrive au
+      // nom du co-présentateur plus loin dans la liste — évite d'ajouter deux fois
+      // la même vidéo à `found` (groupCoPresentedTalks fusionne par titre, pas par
+      // URL, donc ce n'est pas une garantie à 100%, mais réduit le bruit en pratique).
+      for (const speak of newSpeaks) {
+        if (speak.videoUrl) knownVideoUrls.add(speak.videoUrl);
+      }
       found = found.concat(newSpeaks);
     } catch (err) {
       console.error(`  échec pour ${speaker.firstname} ${speaker.lastname} :`, err instanceof Error ? err.message : err);

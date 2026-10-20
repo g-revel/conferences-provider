@@ -14,7 +14,7 @@
     "refresh:events:light": "tsx scripts/refresh-events-light.ts",
     "refresh:events:heavy": "tsx scripts/refresh-events-heavy.ts",
     "refresh:videos": "tsx scripts/refresh-videos.ts",
-    "refresh:priority-speakers": "tsx scripts/refresh-priority-speakers.ts",
+    "refresh:speakers:youtube": "tsx scripts/refresh-speakers-youtube.ts",
     "refresh:years": "tsx scripts/refresh-years.ts"
   },
   "engines": {
