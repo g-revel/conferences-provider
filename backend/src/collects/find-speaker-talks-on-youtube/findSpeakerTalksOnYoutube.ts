@@ -3,6 +3,7 @@ import { Speaker } from "../get-all-speakers/speaker.js";
 import { Speak } from "../get-speaks/speak.js";
 import { searchYoutube, YoutubeResult } from "../../youtube.functions.js";
 import { isLikelyFullTalk } from "./isLikelyFullTalk.js";
+import { mentionsSpeaker } from "./mentionsSpeaker.js";
 import { detectCoPresenters } from "./detectCoPresenters.js";
 import { buildVideoExtractionPrompt } from "./buildVideoExtractionPrompt.js";
 import { parseVideoExtractionResponse } from "./parseVideoExtractionResponse.js";
@@ -45,7 +46,7 @@ async function classifyVideo(speaker: Speaker, video: YoutubeResult): Promise<{ 
 // : source de découverte de *nouveaux* talks non encore répertoriés.
 export async function findSpeakerTalksOnYoutube(speaker: Speaker, knownSpeakers: Speaker[]): Promise<Speak[]> {
   const results = await searchYoutube(`"${speaker.firstname} ${speaker.lastname}"`);
-  const candidates = results.filter(isLikelyFullTalk);
+  const candidates = results.filter(isLikelyFullTalk).filter((video) => mentionsSpeaker(video, speaker));
 
   const speaks: Speak[] = [];
   for (const video of candidates) {

@@ -81,7 +81,9 @@ describe("findSpeakerTalksOnYoutube", () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
       json: async () => ({
-        results: [{ url: "https://youtube.com/watch?v=interview", title: "An interview", author: "X", length: "20:00" }],
+        results: [
+          { url: "https://youtube.com/watch?v=interview", title: "An interview with Julien Topcu", author: "X", length: "20:00" },
+        ],
       }),
     } as Response);
 
@@ -95,5 +97,21 @@ describe("findSpeakerTalksOnYoutube", () => {
     const result = await findSpeakerTalksOnYoutube(topcu, [topcu]);
 
     expect(result).toEqual([]);
+  });
+
+  it("skips a video whose title and channel never mention the speaker, without calling the LLM", async () => {
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        results: [
+          { url: "https://youtube.com/watch?v=homonym", title: "APIs, Microservices et le Service Mesh (J. Gauci)", author: "Devoxx France", length: "45:00" },
+        ],
+      }),
+    } as Response);
+
+    const result = await findSpeakerTalksOnYoutube(topcu, [topcu]);
+
+    expect(result).toEqual([]);
+    expect(undiciFetch).not.toHaveBeenCalled();
   });
 });
