@@ -43,8 +43,13 @@ tests:
 
       - type: javascript
         value: |
-          if (output.some(speaker => speaker.company.toLowerCase().indexOf("shodo") === -1))
-            throw new Error(`un speaker n'est pas lié au groupe Shodo : ${speaker.firstname} ${speaker.lastname} (${speaker.company})`);
+          // Un membre parti (active: false) garde son company tel qu'il était sur son
+          // dernier profil Slack connu, qui peut ne plus être un email de domaine Shodo
+          // (ex. email personnel Gmail restauré après départ) — l'invariant "lié au
+          // groupe Shodo" ne porte donc que sur les membres actifs.
+          const invalidSpeakers = output.filter(u => u.active !== false && u.company.toLowerCase().indexOf("shodo") === -1);
+          if (invalidSpeakers.length > 0)
+            throw new Error(`un speaker actif n'est pas lié au groupe Shodo : ${invalidSpeakers.map(u => `${u.firstname} ${u.lastname} (${u.company})`).join(", ")}`);
           return true;
 
       - type: javascript
