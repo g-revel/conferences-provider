@@ -1,10 +1,12 @@
 import fp from 'fastify-plugin'
 import { FastifyInstance } from 'fastify'
 import { readJson } from '../data/jsonStore.js'
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH } from '../data/paths.js'
+import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKERS_PATH } from '../data/paths.js'
 import { Speak } from '../collects/get-speaks/speak.js'
+import { Speaker } from '../collects/get-all-speakers/speaker.js'
 import { SpeakerCityOverride } from '../collects/get-all-speakers/speakerCityOverride.js'
 import { applyCityOverrides } from '../collects/get-speaks/applyCityOverrides.js'
+import { applySpeakerActiveStatus } from '../collects/get-speaks/applySpeakerActiveStatus.js'
 
 // data/talks.json garde volontairement des entrées sans titre (title: null) : elles
 // servent de repère au pipeline de collecte (mergeSpeaks.ts) pour savoir qu'un speaker
@@ -17,8 +19,9 @@ export default fp(async function (app: FastifyInstance) {
   app.get('/api/talks', async () => {
     const talks = await readJson<Speak[]>(TALKS_PATH, [])
     const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
+    const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
     const visible = talks.filter((talk) => talk.title != null && talk.deletedAt == null)
-    return applyCityOverrides(visible, overrides)
+    return applySpeakerActiveStatus(applyCityOverrides(visible, overrides), speakers)
   })
 }, {
   name: 'talks-route',

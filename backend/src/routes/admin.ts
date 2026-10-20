@@ -1,10 +1,11 @@
 import { FastifyInstance } from 'fastify'
 import { readJson, writeJson } from '../data/jsonStore.js'
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH } from '../data/paths.js'
+import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKERS_PATH } from '../data/paths.js'
 import { Speak } from '../collects/get-speaks/speak.js'
 import { Speaker } from '../collects/get-all-speakers/speaker.js'
 import { SpeakerCityOverride } from '../collects/get-all-speakers/speakerCityOverride.js'
 import { applyCityOverrides } from '../collects/get-speaks/applyCityOverrides.js'
+import { applySpeakerActiveStatus } from '../collects/get-speaks/applySpeakerActiveStatus.js'
 import { isValidAdminPassword } from '../admin/adminAuth.js'
 import { normalizeForMatch } from '../string.functions.js'
 
@@ -77,7 +78,8 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
   app.get('/api/admin/talks', async () => {
     const talks = await readJson<Speak[]>(TALKS_PATH, [])
     const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
-    return applyCityOverrides(talks, overrides)
+    const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
+    return applySpeakerActiveStatus(applyCityOverrides(talks, overrides), speakers)
   })
 
   app.delete('/api/admin/talks/:id', async (request, reply) => {

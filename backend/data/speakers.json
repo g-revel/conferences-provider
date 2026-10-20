@@ -2,1091 +2,1459 @@
   {
     "firstname": "Thomas",
     "lastname": "Carpaye",
-    "company": "Shodo Nantes"
+    "company": "Shodo Rennes",
+    "active": false
   },
   {
     "firstname": "Vartan",
     "lastname": "Kokoghlanian",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Agnes",
     "lastname": "Cardin",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Juliette",
     "lastname": "Derancourt",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Ludovic",
     "lastname": "Meril",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Florent",
     "lastname": "Albert",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Camille",
     "lastname": "Gomes",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Florine",
     "lastname": "Cercle",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Alexandre",
     "lastname": "Mourany",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Florian",
     "lastname": "Carre",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Sebastien",
     "lastname": "Muller",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Bastien",
     "lastname": "Bruant",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Michal",
     "lastname": "Urban",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Christophe",
     "lastname": "Michel",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "David",
     "lastname": "Franck",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Germain",
     "lastname": "Soumier",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Guillaume",
     "lastname": "Albini",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Josian",
     "lastname": "Chevalier",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Manon",
     "lastname": "Carbonnel",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Joel",
     "lastname": "Piazzalungalerat",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Benjamin",
     "lastname": "Lacroix",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Sylvain",
     "lastname": "Decout",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Yann",
     "lastname": "Danot",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Raphael",
     "lastname": "Squelbut",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Fabien",
     "lastname": "Hiegel",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Bilel",
     "lastname": "Dridi",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Zoe",
     "lastname": "Drey",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Romain",
     "lastname": "Charpentier",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Thomas",
     "lastname": "Guibert",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Anas",
     "lastname": "Essaghir",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Julien",
     "lastname": "Topcu",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Cecilia",
     "lastname": "Bossard",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Jeremy",
     "lastname": "Chauvin",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Dimitry",
     "lastname": "Ernot",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Pierre",
     "lastname": "Charles",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Clement",
     "lastname": "Heliou",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Benjamin",
     "lastname": "Hugot",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Salim",
     "lastname": "Chami",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Matthieu",
     "lastname": "Bonnot",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Fabien",
     "lastname": "Giannesini",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Nicolas",
     "lastname": "Chazeaux",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Mialy",
     "lastname": "Rakotovao",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Josquin",
     "lastname": "Cornec",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Mevine",
     "lastname": "Teelokee",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Gilles",
     "lastname": "Ferreira",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Abdessamed",
     "lastname": "Mansouri",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Samuel",
     "lastname": "Dufour",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Guillaume",
     "lastname": "Ferron",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Adrien",
     "lastname": "Cruchon",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Benoit",
     "lastname": "Genevaux",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Reda",
     "lastname": "Eljarrai",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Thierry",
     "lastname": "Lav",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Yoann",
     "lastname": "Lagache",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Thomas",
     "lastname": "Bouriaud",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Cedric",
     "lastname": "Varaire",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Chemseddine",
     "lastname": "Henni",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Noel",
     "lastname": "Dao",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Nabil",
     "lastname": "Choukri",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Jordan",
     "lastname": "Nourry",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Baptiste",
     "lastname": "Gousset",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Romain",
     "lastname": "Cochennec",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Kevin",
     "lastname": "Mauge",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Alexandre",
     "lastname": "Vandensteen",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Mahamoud",
     "lastname": "Saidomar",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Samuel",
     "lastname": "Lefebvre",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Mathieu",
     "lastname": "Lienardmayor",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Alexandre",
     "lastname": "Cantin",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Igor",
     "lastname": "Fonkou-tague",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Emmanuelle",
     "lastname": "Aboaf",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Jeanfrancois",
     "lastname": "Vo",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Mehdi",
     "lastname": "Elkhemiri",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Laury",
     "lastname": "Maurice",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Yann",
     "lastname": "Bellieres",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Benjamin",
     "lastname": "Dupin",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Sinh",
     "lastname": "Bui",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Ange",
     "lastname": "Picard",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Angi",
     "lastname": "Guyard",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Yvan",
     "lastname": "Vu",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Sabine",
     "lastname": "Ferreira",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Rabah",
     "lastname": "Benseghir",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Ubald",
     "lastname": "Debellabre",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Sepehr",
     "lastname": "Namdar",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Clement",
     "lastname": "Vassant",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Bao",
     "lastname": "Vuong",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Antoine",
     "lastname": "Assali",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Jeremy",
     "lastname": "Sorant",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Jessica",
     "lastname": "Nedelec",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Ilies",
     "lastname": "Faddaoui",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Yousra",
     "lastname": "Laribi",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Jonathan",
     "lastname": "Salmona",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Rado",
     "lastname": "Rakotoson",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Gabriel",
     "lastname": "Sainteluce",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Claire",
     "lastname": "Lozano",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Fabien",
     "lastname": "Labrousse",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Tanguy",
     "lastname": "Bernard",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Emilie",
     "lastname": "Fruh",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Rokiatou",
     "lastname": "Diallo",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Nathan",
     "lastname": "Castelein",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Alexandre",
     "lastname": "Ruze",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Loic",
     "lastname": "Noel",
-    "company": "Shodo Reunion"
+    "company": "Shodo Reunion",
+    "active": true
   },
   {
     "firstname": "Guillem",
     "lastname": "Canto",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Romain",
     "lastname": "Lambot",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Dimitri",
     "lastname": "Pommier",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "Quentin",
     "lastname": "Perrier",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Thomas",
     "lastname": "Ployon",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Marion",
     "lastname": "Nicole",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "Jean-marie",
     "lastname": "Triomphe",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Valentin",
     "lastname": "Carriere",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Gautier",
     "lastname": "Vanneste",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Yann",
     "lastname": "Bouvet",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Nabil",
     "lastname": "Benhammou",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Fabien",
     "lastname": "Rouge",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Loic",
     "lastname": "Truchot",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Alexandre",
     "lastname": "Taconet",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Houssam",
     "lastname": "Fakih",
-    "company": "Shodo"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Laurene",
     "lastname": "Jarno",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Alexandre",
     "lastname": "Moevi",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Pierre",
     "lastname": "Vonderscher",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Guillaume",
     "lastname": "Yan",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Christophe",
     "lastname": "Fargeix",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Benjamin",
     "lastname": "Cararo",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Etienne",
     "lastname": "Canet",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Jerome",
     "lastname": "Richard",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Cyril",
     "lastname": "Phamle",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Arnaud",
     "lastname": "Thiefaine",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Kevin",
     "lastname": "Prevost",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Hafsa",
     "lastname": "Elmaizi",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Olivier",
     "lastname": "Massol",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Guillaume",
     "lastname": "Morel",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Rizki",
     "lastname": "Guerbaa",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Ilies",
     "lastname": "Beldjilali",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Christian",
     "lastname": "Finel",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Dorian",
     "lastname": "Terbah",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Ilias",
     "lastname": "Irhboula",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Loic",
     "lastname": "Duchet",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Florian",
     "lastname": "Coudert",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Victor",
     "lastname": "Pigeon",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Fabien",
     "lastname": "Leite",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Audran",
     "lastname": "Landuyt",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Laurent",
     "lastname": "Archimède",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "Gael",
     "lastname": "Neumuller",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Theo",
     "lastname": "Plockyn",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Benjamin",
     "lastname": "Jaud",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Adrien",
     "lastname": "Turmo",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Marc",
     "lastname": "Annezo",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Sergio",
     "lastname": "Dos-santos",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Adrien",
     "lastname": "Saunier",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Emeric",
     "lastname": "Martineau",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Kevin",
     "lastname": "Pham",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Tanguy",
     "lastname": "Sheeren",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Clement",
     "lastname": "Juste",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Alexis",
     "lastname": "Blanchard",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Edouard",
     "lastname": "Corbin",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Thomas",
     "lastname": "Brison",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Guillaume",
     "lastname": "Lasne",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Stephanie",
     "lastname": "Baudelot",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Ilja",
     "lastname": "Kempf",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Tsiorintsoa",
     "lastname": "Andriamih",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "Morgan",
     "lastname": "Lombard",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Marine",
     "lastname": "Loriot",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Isiaka",
     "lastname": "Sanou",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Sebastien",
     "lastname": "Fauvel",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Ulrich",
     "lastname": "Francomme",
-    "company": "Shodo Reunion"
+    "company": "Shodo Reunion",
+    "active": true
   },
   {
     "firstname": "Melanie",
     "lastname": "Bessagnet",
-    "company": "Shodo Apps"
+    "company": "Shodo Apps",
+    "active": true
   },
   {
     "firstname": "Christophe",
     "lastname": "Boue",
-    "company": "Shodo Apps"
+    "company": "Shodo Apps",
+    "active": true
   },
   {
     "firstname": "Fabrice",
     "lastname": "Rakotonarivo",
-    "company": "Shodo Apps"
+    "company": "Shodo Apps",
+    "active": true
   },
   {
     "firstname": "Nicolas",
     "lastname": "Pattyn",
-    "company": "Shodo Apps"
+    "company": "Shodo Apps",
+    "active": true
   },
   {
     "firstname": "Thibault",
     "lastname": "Le-guillou",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Mert",
     "lastname": "Ernez",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Matthieu",
     "lastname": "Sauboua-beneluz",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Thomas",
     "lastname": "Ouvry",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "David",
     "lastname": "Yoteau",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Amine",
     "lastname": "Elyachkouri",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "Axel",
     "lastname": "Ollivier",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Richard",
     "lastname": "Haupais",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Maxime",
     "lastname": "Heurteau",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "David",
     "lastname": "Lang",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Thomas",
     "lastname": "Pierrain",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Gael",
     "lastname": "Bernier",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Laurent",
     "lastname": "Dutheil",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Thomas",
     "lastname": "Jacquet",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Mohamed",
     "lastname": "Aitabderrahma",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Theo",
     "lastname": "Lanord",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Solena",
     "lastname": "Toussaint",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Michelle",
     "lastname": "Avomo",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Nicolas",
     "lastname": "Scherman",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Thibaut",
     "lastname": "Pillon",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Valentin",
     "lastname": "Dumas",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Guillaume",
     "lastname": "Revel",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
   },
   {
     "firstname": "Yue",
     "lastname": "Shigao",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Gauthier",
     "lastname": "Queuniet",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Maxime",
     "lastname": "Bouchee",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Salim",
     "lastname": "Zidane",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Gregory",
     "lastname": "Garbin",
-    "company": "Shodo Apps"
+    "company": "Shodo Apps",
+    "active": true
   },
   {
     "firstname": "Pierre",
     "lastname": "Lukjanenko",
-    "company": "Shodo Apps"
+    "company": "Shodo Apps",
+    "active": true
   },
   {
     "firstname": "Malo",
     "lastname": "Briant",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "Florian",
     "lastname": "Lestienne",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Cedric",
     "lastname": "Dorot",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Florentin",
     "lastname": "Burgeat",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Daniel",
     "lastname": "Fezeu",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Alexandre",
     "lastname": "Tobodelaleu",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Philippe",
     "lastname": "Bourgau",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Brice",
     "lastname": "Leclerc",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Aymeric",
     "lastname": "Vandewoorde",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Oussama",
     "lastname": "Maachou",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Julien",
     "lastname": "Gaubert",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Lilia",
     "lastname": "Bedidi",
-    "company": "Shodo Boost"
+    "company": "Shodo Boost",
+    "active": true
   },
   {
     "firstname": "Theo",
     "lastname": "Delbarre",
-    "company": "Shodo Apps"
+    "company": "Shodo Apps",
+    "active": true
   },
   {
     "firstname": "Kevin",
     "lastname": "Kibongui",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Bastien",
     "lastname": "Coppolino",
-    "company": "Shodo Lyon"
+    "company": "Shodo Lyon",
+    "active": true
   },
   {
     "firstname": "Hannah",
     "lastname": "Saingre",
-    "company": "Shodo Nantes"
+    "company": "Shodo Nantes",
+    "active": true
   },
   {
     "firstname": "Jean-francois",
     "lastname": "Vo",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Cyril",
     "lastname": "Pham-le",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Jeremy",
     "lastname": "Boehm",
-    "company": "Shodo"
+    "company": "Shodo",
+    "active": true
   },
   {
     "firstname": "Dabi",
     "lastname": "Keita",
-    "company": "Shodo Studio"
+    "company": "Shodo Studio",
+    "active": true
   },
   {
     "firstname": "Laurent",
     "lastname": "Perrin",
-    "company": "Shodops"
+    "company": "Shodops",
+    "active": true
   },
   {
     "firstname": "Romain",
     "lastname": "Chambonnier",
-    "company": "Shodo Lille"
+    "company": "Shodo Lille",
+    "active": true
   },
   {
     "firstname": "Emilie",
     "lastname": "Moglia",
-    "company": "Shodo Rennes"
+    "company": "Shodo Rennes",
+    "active": true
+  },
+  {
+    "firstname": "Benjamin",
+    "lastname": "Corre",
+    "company": "Shodo Nantes",
+    "active": false
+  },
+  {
+    "firstname": "Gael",
+    "lastname": "Salaun",
+    "company": "Shodo Rennes",
+    "active": false
+  },
+  {
+    "firstname": "Anuradha",
+    "lastname": "Abhaya",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Armelle",
+    "lastname": "Lelarge",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Adrien",
+    "lastname": "Joly",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Fabien",
+    "lastname": "Maury",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Mohammed",
+    "lastname": "Lamzira",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Stephane",
+    "lastname": "Belkheraz",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Zakariae",
+    "lastname": "Elmerzouki",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Sacha",
+    "lastname": "Bailleul",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Lea",
+    "lastname": "Coston",
+    "company": "Shodo Lyon",
+    "active": false
+  },
+  {
+    "firstname": "Minhtam",
+    "lastname": "Tran",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Jerome",
+    "lastname": "Alincourt",
+    "company": "Shodo Nantes",
+    "active": false
+  },
+  {
+    "firstname": "Etienne",
+    "lastname": "Laskar",
+    "company": "Shodo Lyon",
+    "active": false
+  },
+  {
+    "firstname": "Anthony",
+    "lastname": "Tusithiphonex",
+    "company": "Shodo Studio",
+    "active": false
+  },
+  {
+    "firstname": "Giancarlo",
+    "lastname": "Marzocchi",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Bailleul",
+    "lastname": "Sacha",
+    "company": "Gmail",
+    "active": false
+  },
+  {
+    "firstname": "Ombeline",
+    "lastname": "Gabriel",
+    "company": "Shodo Lyon",
+    "active": false
+  },
+  {
+    "firstname": "Jeanne",
+    "lastname": "Lemiere",
+    "company": "Shodo Lille",
+    "active": false
+  },
+  {
+    "firstname": "Gildas",
+    "lastname": "Quemener",
+    "company": "Shodo Nantes",
+    "active": false
+  },
+  {
+    "firstname": "Florent",
+    "lastname": "Amaridon",
+    "company": "Shodo Lyon",
+    "active": false
+  },
+  {
+    "firstname": "Elie",
+    "lastname": "Guedj",
+    "company": "Shodops",
+    "active": false
+  },
+  {
+    "firstname": "Marwin",
+    "lastname": "Mneuilly",
+    "company": "Shodo",
+    "active": false
+  },
+  {
+    "firstname": "Meriem",
+    "lastname": "Elaaboudi",
+    "company": "Shodo Studio",
+    "active": false
+  },
+  {
+    "firstname": "Tugdual",
+    "lastname": "Ceillier",
+    "company": "Shodo",
+    "active": true
   }
 ]

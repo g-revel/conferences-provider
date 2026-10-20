@@ -5,7 +5,7 @@ import { extractSpeakerOrUndefined } from "./member.functions.js";
 
 
 function isValidMember(m: Member): boolean {
-  return !m.is_bot && !m.deleted && m.id !== "USLACKBOT";
+  return !m.is_bot && m.id !== "USLACKBOT";
 }
 
 async function collectMembersAsync(): Promise<Member[]> {
@@ -20,10 +20,17 @@ export async function getAllSpeakers(): Promise<Speaker[]> {
 
   return mapToValidSpeakers(members);
 }
+// Un compte Slack désactivé (`deleted: true`) correspond à un membre parti de Shodo —
+// toujours inclus ici (pas filtré) pour que ses anciens talks restent rattachables à
+// un speaker connu, mais marqué `active: false` pour que le portail puisse les
+// distinguer des membres actuels (voir applySpeakerActiveStatus.ts côté routes).
 function mapToValidSpeakers(members: Member[]): Speaker[] {
   return members
     .filter((m) => isValidMember(m))
-    .map((m) => extractSpeakerOrUndefined(m))
+    .map((m): Speaker | null => {
+      const speaker = extractSpeakerOrUndefined(m);
+      return speaker ? { ...speaker, active: !m.deleted } : null;
+    })
     .filter((s): s is Speaker => !!s);
 }
 

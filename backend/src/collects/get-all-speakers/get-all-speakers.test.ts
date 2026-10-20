@@ -43,12 +43,14 @@ describe("getAllSpeakers", () => {
     expect(await getAllSpeakers()).toEqual([]);
   });
 
-  it("excludes deleted members", async () => {
+  it("includes a deleted member but marks them inactive", async () => {
     usersListMock.mockResolvedValue({
       members: [buildMember({ deleted: true })],
     });
 
-    expect(await getAllSpeakers()).toEqual([]);
+    expect(await getAllSpeakers()).toEqual([
+      { firstname: "Jean", lastname: "Dupont", company: "Acme", active: false },
+    ]);
   });
 
   it("falls back to real_name when name is not usable", async () => {
@@ -63,7 +65,7 @@ describe("getAllSpeakers", () => {
     });
 
     expect(await getAllSpeakers()).toEqual([
-      { firstname: "Marie", lastname: "Curie", company: "Labo Physique" },
+      { firstname: "Marie", lastname: "Curie", company: "Labo Physique", active: true },
     ]);
   });
 
@@ -112,8 +114,9 @@ describe("getAllSpeakers", () => {
     });
 
     expect(await getAllSpeakers()).toEqual([
-      { firstname: "Alice", lastname: "Martin", company: "Bigco" },
-      { firstname: "Bob", lastname: "Smith", company: "Other Corp" },
+      { firstname: "Jean", lastname: "Dupont", company: "Acme", active: false },
+      { firstname: "Alice", lastname: "Martin", company: "Bigco", active: true },
+      { firstname: "Bob", lastname: "Smith", company: "Other Corp", active: true },
     ]);
   });
 });

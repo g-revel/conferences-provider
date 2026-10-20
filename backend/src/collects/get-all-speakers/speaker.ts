@@ -4,4 +4,7 @@ export interface Speaker {
   lastname: string;
   company: string;
   city?: string | null;
+  // undefined/true = toujours chez Shodo ; false = parti (compte Slack désactivé),
+  // conservé pour l'historique plutôt que supprimé — voir get-all-speakers.ts.
+  active?: boolean;
 }
