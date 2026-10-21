@@ -73,7 +73,7 @@ describe('AdminPanel', () => {
     expect(wrapper.text()).toContain('Corbeille (1)')
   })
 
-  it('switches to the talks tab and shows active vs deleted talks separately', async () => {
+  it('switches to the talks tab and shows only active talks', async () => {
     const wrapper = mountPanel(fakeClient())
     await flushPromises()
 
@@ -81,7 +81,18 @@ describe('AdminPanel', () => {
     await talksTabButton.trigger('click')
 
     expect(wrapper.text()).toContain('Intro TDD')
+    expect(wrapper.text()).not.toContain('Supprimé')
+  })
+
+  it('switches to the trash tab and shows only deleted talks', async () => {
+    const wrapper = mountPanel(fakeClient())
+    await flushPromises()
+
+    const trashTabButton = wrapper.findAll('button').find((b) => b.text().includes('Corbeille ('))!
+    await trashTabButton.trigger('click')
+
     expect(wrapper.text()).toContain('Supprimé')
+    expect(wrapper.text()).not.toContain('Intro TDD')
   })
 
   it('calls setTalkerCity and reloads when a city is saved', async () => {
@@ -117,8 +128,8 @@ describe('AdminPanel', () => {
     const wrapper = mountPanel(client)
     await flushPromises()
 
-    const talksTabButton = wrapper.findAll('button').find((b) => b.text().includes('Talks ('))!
-    await talksTabButton.trigger('click')
+    const trashTabButton = wrapper.findAll('button').find((b) => b.text().includes('Corbeille ('))!
+    await trashTabButton.trigger('click')
     const restoreButton = wrapper.findAll('button').find((b) => b.text() === 'Restaurer')!
     await restoreButton.trigger('click')
     await flushPromises()

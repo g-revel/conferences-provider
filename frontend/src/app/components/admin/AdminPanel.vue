@@ -13,7 +13,7 @@ const emit = defineEmits<{ close: [] }>()
 const client = inject(adminClientKey)!
 const talkers = ref<Talker[]>([])
 const talks = ref<Talk[]>([])
-const tab = ref<'talkers' | 'talks' | 'pending'>('talkers')
+const tab = ref<'talkers' | 'talks' | 'pending' | 'trash'>('talkers')
 
 const activeTalks = computed(() => talks.value.filter((t) => !t.deletedAt))
 const deletedTalks = computed(() => talks.value.filter((t) => t.deletedAt))
@@ -81,31 +81,32 @@ async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void>
           class="px-1 pb-2 text-sm font-medium"
           :class="tab === 'talks' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
           @click="tab = 'talks'"
-        >Talks ({{ activeTalks.length }}) · Corbeille ({{ deletedTalks.length }})</button>
+        >Talks ({{ activeTalks.length }})</button>
         <button
           class="px-1 pb-2 text-sm font-medium"
           :class="tab === 'pending' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
           @click="tab = 'pending'"
         >À valider ({{ pendingValidationTalks.length }})</button>
+        <button
+          class="px-1 pb-2 text-sm font-medium"
+          :class="tab === 'trash' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
+          @click="tab = 'trash'"
+        >Corbeille ({{ deletedTalks.length }})</button>
       </div>
 
       <AdminTalkersSection v-if="tab === 'talkers'" :talkers="talkers" @update-city="onUpdateCity" />
 
-      <div v-else-if="tab === 'talks'">
-        <h2 class="mb-2 text-sm font-semibold text-shodo-ink">Talks actifs</h2>
-        <AdminTalksSection :talks="activeTalks" @delete="onDelete" @restore="onRestore" />
-
-        <h2 class="mt-8 mb-2 text-sm font-semibold text-shodo-ink">Corbeille</h2>
-        <AdminTalksSection :talks="deletedTalks" @delete="onDelete" @restore="onRestore" />
-      </div>
+      <AdminTalksSection v-else-if="tab === 'talks'" :talks="activeTalks" @delete="onDelete" @restore="onRestore" />
 
       <AdminPendingValidationSection
-        v-else
+        v-else-if="tab === 'pending'"
         :talks="pendingValidationTalks"
         @validate="onValidate"
         @toggle-show-without-link="onToggleShowWithoutLink"
         @delete="onDelete"
       />
+
+      <AdminTalksSection v-else :talks="deletedTalks" @delete="onDelete" @restore="onRestore" />
     </div>
   </div>
 </template>
