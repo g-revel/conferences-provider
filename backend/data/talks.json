@@ -224,7 +224,8 @@
       }
     ],
     "title": "La Simplicité, l'art de maximiser le travail non-fait, est essentielle!",
-    "category": "Agilité & Organisation"
+    "category": "Agilité & Organisation",
+    "pendingVideoUrl": "https://mixitconf.org/speakers/philippe.bourgau"
   },
   {
     "id": "07823e6f-5f78-4975-b9d3-f9600dd82b66",
@@ -1329,7 +1330,8 @@
     "format": "Lab (2h)",
     "level": "Débutant",
     "language": "English",
-    "description": "Everyone of us has already worked on a new app connected to a legacy app and encountered challenging ways to preserve the new app autonomy.The Workshop is a Refactoring Kata that tries to resolve this problem by using some DDD Strategic Pattern and OOP.We work on a new app (Notification) which is dependent on an old app (Contract).The Notification app is Downstream of the old app.The Notification app depends on the Contract app and we can not modify it.So, The Notification app is polluted by the Contract app.The aim of this Kata is to get freedom back to the Notification app.We start by isolating the logic of the Contract app (ACL Pattern) and at some point we discover that another team is working on another app (Other App) which depends on the Contract app.In a second time, we discover that they share some logic in how they call the Contract app and that’s where we introduce the Open Host Service pattern.\n\n### Notes and comments\n\nTo ensure that all participants can follow the exercises, we guide them step by step proposing a possible solution for each step. Not all attendees may finish all the steps. That will not be a problem.Attendees will be dispatched in groups of 3 to mob-program.In between exercises, we'll discuss :Object Oriented Programming conceptsContext MappingAnti Corruption LayerOpen Host ServiceHere are the Hands-on steps :Let’s get to know (5') - Ice Breaker (to be defined)Take your time to discover the code and understand the business rules (10')Identify how your code could be more OO (5')Get rid of the Contract system dependency (10')Refactor your code to be more OO (20')Identify the data that you really need (10')Protect your domain from any corruption : Anti Corruption Layer (20')Identify the duplication code in different layers (10')Get rid of duplication : Open Host Service (25’)Return On Time Invested (5’)"
+    "description": "Everyone of us has already worked on a new app connected to a legacy app and encountered challenging ways to preserve the new app autonomy.The Workshop is a Refactoring Kata that tries to resolve this problem by using some DDD Strategic Pattern and OOP.We work on a new app (Notification) which is dependent on an old app (Contract).The Notification app is Downstream of the old app.The Notification app depends on the Contract app and we can not modify it.So, The Notification app is polluted by the Contract app.The aim of this Kata is to get freedom back to the Notification app.We start by isolating the logic of the Contract app (ACL Pattern) and at some point we discover that another team is working on another app (Other App) which depends on the Contract app.In a second time, we discover that they share some logic in how they call the Contract app and that’s where we introduce the Open Host Service pattern.\n\n### Notes and comments\n\nTo ensure that all participants can follow the exercises, we guide them step by step proposing a possible solution for each step. Not all attendees may finish all the steps. That will not be a problem.Attendees will be dispatched in groups of 3 to mob-program.In between exercises, we'll discuss :Object Oriented Programming conceptsContext MappingAnti Corruption LayerOpen Host ServiceHere are the Hands-on steps :Let’s get to know (5') - Ice Breaker (to be defined)Take your time to discover the code and understand the business rules (10')Identify how your code could be more OO (5')Get rid of the Contract system dependency (10')Refactor your code to be more OO (20')Identify the data that you really need (10')Protect your domain from any corruption : Anti Corruption Layer (20')Identify the duplication code in different layers (10')Get rid of duplication : Open Host Service (25’)Return On Time Invested (5’)",
+    "pendingVideoUrl": "https://2022.dddeurope.com/program/let-me-be-free-:-a-use-case-for-anti-corruption-layer-(acl)-and-open-host-service-(ohs)/"
   },
   {
     "id": "54384074-b03e-451a-ba04-2ff45a1444e1",
@@ -1577,7 +1579,8 @@
     "format": "Conférence (40-50min)",
     "level": "Intermédiaire",
     "language": "Français",
-    "description": "Qu'elles soient prises par des comités d'architectes ou par les équipes directement en contact avec le code, le suivi des décisions d'architecture est souvent problématique. Pour des contextes Java, ArchUnit propose une solution par la formalisation de ces décisions sous la forme de tests intégrés à l'application.\n\nCette présentation vous donnera les éléments pour décider de la pertinence d'ArchUnit dans votre contexte et pour le mettre en place en toute simplicité."
+    "description": "Qu'elles soient prises par des comités d'architectes ou par les équipes directement en contact avec le code, le suivi des décisions d'architecture est souvent problématique. Pour des contextes Java, ArchUnit propose une solution par la formalisation de ces décisions sous la forme de tests intégrés à l'application.\n\nCette présentation vous donnera les éléments pour décider de la pertinence d'ArchUnit dans votre contexte et pour le mettre en place en toute simplicité.",
+    "pendingVideoUrl": "https://sessionize.com/s/sylvain-decout/enforcing-architecture-decisions-with-archunit/50461"
   },
   {
     "id": "ac6e92c5-d7f6-44ea-9584-0523c6460aeb",
@@ -1737,7 +1740,8 @@
     "category": "Craft",
     "format": "Conférence (40-50min)",
     "level": "Débutant",
-    "language": "Français"
+    "language": "Français",
+    "pendingVideoUrl": "https://devlille.fr/talk-page-cm8h5zfxt01k8qr3m51zjfzdq/"
   },
   {
     "id": "fb00951d-44aa-474a-86be-b8cf5caa947c",
@@ -1769,7 +1773,8 @@
     ],
     "title": "'Tidy First?' de Kent Beck, un guide pratique pour un code durable et rentable",
     "category": "Craft",
-    "language": "Français"
+    "language": "Français",
+    "pendingVideoUrl": "https://www.slideshare.net/slideshow/tidy-first-de-kent-beck-un-guide-pratique-pour-un-code-durable-et-rentable-pdf/271698451"
   },
   {
     "id": "5ff89406-f15c-4cb3-9ff4-86d47ef7dac4",
@@ -1844,7 +1849,8 @@
     "category": "OPS",
     "format": "Conférence (40-50min)",
     "level": "Débutant",
-    "language": "Français"
+    "language": "Français",
+    "pendingVideoUrl": "https://sessionize.com/hafsa-elmaizi/"
   },
   {
     "id": "b950634d-7e94-475b-a960-4a202abb93d4",
@@ -1962,7 +1968,8 @@
     "level": "Débutant",
     "language": "Français",
     "slidesUrl": "https://www.figma.com/design/k4XXp2dbF25UIQSnxuIAVq/2026---Touraine-Tech---2-approches-de-l-IA?node-id=92-1778&p=f&t=wpkPS2ZdVtRwbAP2-0",
-    "description": "Ce projet legacy. Vous savez, celui que personne ne veut toucher. Celui où chaque commit est une prière et où l'on vous dit : \"Surtout, ne casse rien, mais ajoute-moi cette feature pour demain.\"\n\nLe rêve ? Tout jeter et repartir de zéro.\n\nLa réalité ? On *doit* faire avec. Stabiliser, et vite.\n\nMais comment s'attaquer à une base de code tentaculaire sans y perdre sa santé mentale ? Et si l'IA, loin d'être un simple gadget, devenait votre co-pilote le plus précieux pour cette mission ?\n\nÀ travers ce Retour d'Expérience (REX) pragmatique, nous partageons notre journal de bord. Oubliez le \"hands-on\" théorique : ici, on vous montre les cicatrices et les victoires d'une aventure bien réelle pour :\n\n- **Plonger dans l'inconnu :** Cartographier et comprendre des pans entiers de code \"spaghetti\" grâce à l'IA.\n- **Éteindre les incendies :** Générer des tests et ajouter des garde-fous (sécurité, validation) pour stabiliser l'existant avant de le modifier.\n- **Dresser l'assistant :** Configurer et \"prompter\" notre IA pour qu'elle devienne une experte de *notre* code, pas juste un générateur de snippets.\n- **Construire l'avenir :** Démarrer un refactoring stratégique (extraire un service, moderniser une brique) en tandem avec l'IA, sans paralyser le produit.\n\nLoin du discours marketing, on vous montre comment garder la maîtrise, éviter les hallucinations de l'IA, et transformer une corvée en un défi technique stimulant.\n\n*Ce talk est animé par deux développeurs : le \"Prudent\" (qui craint l'effet \"boîte noire\") et \"l'Enthousiaste\" (prêt à tout automatiser). Une dynamique qui reflète les débats de votre propre équipe !*"
+    "description": "Ce projet legacy. Vous savez, celui que personne ne veut toucher. Celui où chaque commit est une prière et où l'on vous dit : \"Surtout, ne casse rien, mais ajoute-moi cette feature pour demain.\"\n\nLe rêve ? Tout jeter et repartir de zéro.\n\nLa réalité ? On *doit* faire avec. Stabiliser, et vite.\n\nMais comment s'attaquer à une base de code tentaculaire sans y perdre sa santé mentale ? Et si l'IA, loin d'être un simple gadget, devenait votre co-pilote le plus précieux pour cette mission ?\n\nÀ travers ce Retour d'Expérience (REX) pragmatique, nous partageons notre journal de bord. Oubliez le \"hands-on\" théorique : ici, on vous montre les cicatrices et les victoires d'une aventure bien réelle pour :\n\n- **Plonger dans l'inconnu :** Cartographier et comprendre des pans entiers de code \"spaghetti\" grâce à l'IA.\n- **Éteindre les incendies :** Générer des tests et ajouter des garde-fous (sécurité, validation) pour stabiliser l'existant avant de le modifier.\n- **Dresser l'assistant :** Configurer et \"prompter\" notre IA pour qu'elle devienne une experte de *notre* code, pas juste un générateur de snippets.\n- **Construire l'avenir :** Démarrer un refactoring stratégique (extraire un service, moderniser une brique) en tandem avec l'IA, sans paralyser le produit.\n\nLoin du discours marketing, on vous montre comment garder la maîtrise, éviter les hallucinations de l'IA, et transformer une corvée en un défi technique stimulant.\n\n*Ce talk est animé par deux développeurs : le \"Prudent\" (qui craint l'effet \"boîte noire\") et \"l'Enthousiaste\" (prêt à tout automatiser). Une dynamique qui reflète les débats de votre propre équipe !*",
+    "pendingVideoUrl": "https://techwork.events/sessions/cmn7ffegt01pj01prlzg1qeah/?from=live"
   },
   {
     "id": "d037652d-10e5-48d8-8475-6610dd9dbc84",
@@ -1997,7 +2004,8 @@
     "title": "Testing Domain Invariants with Property-Based Testing",
     "format": "Lab (2h)",
     "level": "Débutant",
-    "language": "English"
+    "language": "English",
+    "pendingVideoUrl": "https://2021.dddeurope.com/speakers/sepehr-namdar/"
   },
   {
     "id": "1662d235-1ca1-455a-b5a3-d783a7944d49",
