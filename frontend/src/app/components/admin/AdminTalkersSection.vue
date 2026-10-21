@@ -95,15 +95,18 @@ function onDeleteCity(city: string): void {
         <td class="py-2 pr-4 font-medium text-shodo-noir">{{ talker.firstname }} {{ talker.lastname }}</td>
         <td class="py-2 pr-4 text-shodo-taupe">{{ talker.company }}</td>
         <td class="py-2 pr-4">
-          <select
-            :value="drafts[talkerKey(talker)]"
-            class="w-36 rounded border border-shodo-marron/30 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-shodo-rose"
-            @change="onCityChange(talker, $event)"
-          >
-            <option value="">(aucune)</option>
-            <option v-for="city in optionsFor(talker)" :key="city" :value="city">{{ city }}</option>
-            <option :value="ADD_CITY_OPTION">Ajouter une ville...</option>
-          </select>
+          <div class="relative w-36">
+            <select
+              :value="drafts[talkerKey(talker)]"
+              class="w-full appearance-none rounded border border-shodo-marron/30 py-1 pr-6 pl-2 text-sm focus:outline-none focus:ring-2 focus:ring-shodo-rose"
+              @change="onCityChange(talker, $event)"
+            >
+              <option value="">(aucune)</option>
+              <option v-for="city in optionsFor(talker)" :key="city" :value="city">{{ city }}</option>
+              <option :value="ADD_CITY_OPTION">Ajouter une ville...</option>
+            </select>
+            <span class="pointer-events-none absolute inset-y-0 right-2 flex items-center text-shodo-marron/60">▾</span>
+          </div>
         </td>
         <td class="py-2 pr-4">
           <input

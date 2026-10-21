@@ -19,23 +19,29 @@ const city = defineModel<string>('city', { required: true })
     </div>
     <div>
       <div class="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-shodo-rose">Catégorie</div>
-      <select
-        v-model="category"
-        class="rounded-lg border border-shodo-marron/30 bg-white px-3 py-2 text-sm text-shodo-ink focus:outline-none focus:ring-2 focus:ring-shodo-rose"
-      >
-        <option value="">Toutes les catégories</option>
-        <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
-      </select>
+      <div class="relative">
+        <select
+          v-model="category"
+          class="appearance-none rounded-lg border border-shodo-marron/30 bg-white py-2 pr-8 pl-3 text-sm text-shodo-ink focus:outline-none focus:ring-2 focus:ring-shodo-rose"
+        >
+          <option value="">Toutes les catégories</option>
+          <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
+        </select>
+        <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-shodo-marron/60">▾</span>
+      </div>
     </div>
     <div>
       <div class="mb-1 text-[10px] font-extrabold uppercase tracking-widest text-shodo-rose">Ville</div>
-      <select
-        v-model="city"
-        class="rounded-lg border border-shodo-marron/30 bg-white px-3 py-2 text-sm text-shodo-ink focus:outline-none focus:ring-2 focus:ring-shodo-rose"
-      >
-        <option value="">Toutes les villes</option>
-        <option v-for="c in cities" :key="c" :value="c">{{ c }}</option>
-      </select>
+      <div class="relative">
+        <select
+          v-model="city"
+          class="appearance-none rounded-lg border border-shodo-marron/30 bg-white py-2 pr-8 pl-3 text-sm text-shodo-ink focus:outline-none focus:ring-2 focus:ring-shodo-rose"
+        >
+          <option value="">Toutes les villes</option>
+          <option v-for="c in cities" :key="c" :value="c">{{ c }}</option>
+        </select>
+        <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-shodo-marron/60">▾</span>
+      </div>
     </div>
   </div>
 </template>
