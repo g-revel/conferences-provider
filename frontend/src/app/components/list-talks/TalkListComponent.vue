@@ -3,7 +3,11 @@ import type { Talk } from '../../../domain/talks/Talk'
 import { getTalkCity } from '../../../domain/talks/filter/FilterTalksFunctions'
 
 defineProps<{ talks: Talk[] }>()
-const emit = defineEmits<{ select: [talk: Talk] }>()
+const emit = defineEmits<{
+  select: [talk: Talk]
+  filterSpeaker: [name: string]
+  filterCategory: [category: string]
+}>()
 
 // Le titre doit faire partie de la clé : un même speaker donne souvent plusieurs
 // talks différents à la même conférence (ex. Julien Topcu à Devoxx France), donc
@@ -12,10 +16,6 @@ const emit = defineEmits<{ select: [talk: Talk] }>()
 // même nœud DOM pour des talks différents.
 function talkKey(talk: Talk): string {
   return [talk.conference.name, talk.title, ...talk.speakers.map((s) => `${s.firstname}-${s.lastname}`)].join('-')
-}
-
-function speakerNames(talk: Talk): string {
-  return talk.speakers.map((s) => `${s.firstname} ${s.lastname}`).join(', ')
 }
 </script>
 
@@ -28,11 +28,13 @@ function speakerNames(talk: Talk): string {
       @click="emit('select', talk)"
     >
       <div class="flex flex-wrap gap-1">
-        <span
+        <button
           v-for="category in talk.categories"
           :key="category"
-          class="self-start rounded-full border border-shodo-rose px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-shodo-rose"
-        >{{ category }}</span>
+          type="button"
+          class="self-start rounded-full border border-shodo-rose px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-shodo-rose hover:bg-shodo-rose/10"
+          @click.stop="emit('filterCategory', category)"
+        >{{ category }}</button>
         <span
           v-if="getTalkCity(talk)"
           class="self-start rounded-full border border-shodo-marron/35 px-2 py-0.5 text-[10px] font-semibold text-shodo-marron"
@@ -41,7 +43,11 @@ function speakerNames(talk: Talk): string {
 
       <h2 v-if="talk.title" class="font-display font-extrabold tracking-tight text-shodo-noir">{{ talk.title }}</h2>
 
-      <p class="text-sm text-shodo-ink">{{ speakerNames(talk) }}</p>
+      <p class="text-sm text-shodo-ink">
+        <template v-for="(speaker, index) in talk.speakers" :key="`${speaker.firstname}-${speaker.lastname}`">
+          <button type="button" class="hover:underline" @click.stop="emit('filterSpeaker', `${speaker.firstname} ${speaker.lastname}`)">{{ speaker.firstname }} {{ speaker.lastname }}</button><span v-if="index < talk.speakers.length - 1">, </span>
+        </template>
+      </p>
 
       <div class="mt-auto flex items-center justify-between gap-2 pt-2 text-sm">
         <span class="min-w-0">

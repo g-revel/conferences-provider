@@ -55,6 +55,19 @@ async function handleLoginSubmit(password: string): Promise<void> {
     loginError.value = true
   }
 }
+
+// Cliquer un speaker ou une catégorie (depuis une carte ou la modale de détail)
+// applique ce filtre immédiatement — réutilise la recherche texte libre pour les
+// speakers (déjà indexée dessus) plutôt qu'un filtre dédié supplémentaire.
+function onFilterSpeaker(name: string): void {
+  searchTerm.value = name
+  selectedTalk.value = null
+}
+
+function onFilterCategory(cat: string): void {
+  category.value = cat
+  selectedTalk.value = null
+}
 </script>
 
 <template>
@@ -89,20 +102,37 @@ async function handleLoginSubmit(password: string): Promise<void> {
             :categories="categories"
             :cities="cities"
           />
-          <TalkListComponent :talks="currentMembersTalks" @select="selectedTalk = $event" />
+          <TalkListComponent
+            :talks="currentMembersTalks"
+            @select="selectedTalk = $event"
+            @filter-speaker="onFilterSpeaker"
+            @filter-category="onFilterCategory"
+          />
 
           <details v-if="formerMembersTalks.length > 0" class="mt-10">
             <summary class="cursor-pointer font-display text-sm font-extrabold uppercase tracking-widest text-shodo-taupe">
               Anciens membres de Shodo ({{ formerMembersTalks.length }})
             </summary>
-            <TalkListComponent class="mt-4" :talks="formerMembersTalks" @select="selectedTalk = $event" />
+            <TalkListComponent
+              class="mt-4"
+              :talks="formerMembersTalks"
+              @select="selectedTalk = $event"
+              @filter-speaker="onFilterSpeaker"
+              @filter-category="onFilterCategory"
+            />
           </details>
         </template>
       </div>
     </div>
 
     <AdminAccessButton @click="showLoginModal = true" />
-    <TalkDetailModal v-if="selectedTalk" :talk="selectedTalk" @close="selectedTalk = null" />
+    <TalkDetailModal
+      v-if="selectedTalk"
+      :talk="selectedTalk"
+      @close="selectedTalk = null"
+      @filter-speaker="onFilterSpeaker"
+      @filter-category="onFilterCategory"
+    />
   </template>
 
   <AdminLoginModal

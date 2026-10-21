@@ -81,4 +81,22 @@ describe('TalkDetailModal', () => {
 
     expect(wrapper.emitted('close')).toBeUndefined()
   })
+
+  it('emits filterSpeaker with the full name when a speaker is clicked', async () => {
+    const wrapper = mount(TalkDetailModal, { props: { talk: fullTalk } })
+
+    const speakerButton = wrapper.findAll('button').find((b) => b.text() === 'Julien Topcu')!
+    await speakerButton.trigger('click')
+
+    expect(wrapper.emitted('filterSpeaker')).toEqual([['Julien Topcu']])
+  })
+
+  it('emits filterCategory with the clicked category', async () => {
+    const wrapper = mount(TalkDetailModal, { props: { talk: fullTalk } })
+
+    const categoryButton = wrapper.findAll('button').find((b) => b.text() === 'IA')!
+    await categoryButton.trigger('click')
+
+    expect(wrapper.emitted('filterCategory')).toEqual([['IA']])
+  })
 })

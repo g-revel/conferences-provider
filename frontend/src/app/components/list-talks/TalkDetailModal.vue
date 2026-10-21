@@ -3,11 +3,11 @@ import type { Talk } from '../../../domain/talks/Talk'
 import { getTalkCity } from '../../../domain/talks/filter/FilterTalksFunctions'
 
 defineProps<{ talk: Talk }>()
-const emit = defineEmits<{ close: [] }>()
-
-function speakerNames(talk: Talk): string {
-  return talk.speakers.map((s) => `${s.firstname} ${s.lastname}`).join(', ')
-}
+const emit = defineEmits<{
+  close: []
+  filterSpeaker: [name: string]
+  filterCategory: [category: string]
+}>()
 </script>
 
 <template>
@@ -25,10 +25,20 @@ function speakerNames(talk: Talk): string {
         >✕</button>
       </div>
 
-      <p class="mt-1 text-sm text-shodo-ink">{{ speakerNames(talk) }}</p>
+      <p class="mt-1 text-sm text-shodo-ink">
+        <template v-for="(speaker, index) in talk.speakers" :key="`${speaker.firstname}-${speaker.lastname}`">
+          <button type="button" class="hover:underline" @click="emit('filterSpeaker', `${speaker.firstname} ${speaker.lastname}`)">{{ speaker.firstname }} {{ speaker.lastname }}</button><span v-if="index < talk.speakers.length - 1">, </span>
+        </template>
+      </p>
 
       <div class="mt-3 flex flex-wrap gap-2 text-xs">
-        <span v-for="category in talk.categories" :key="category" class="rounded-full border border-shodo-rose px-2 py-0.5 font-bold uppercase tracking-wide text-shodo-rose">{{ category }}</span>
+        <button
+          v-for="category in talk.categories"
+          :key="category"
+          type="button"
+          class="rounded-full border border-shodo-rose px-2 py-0.5 font-bold uppercase tracking-wide text-shodo-rose hover:bg-shodo-rose/10"
+          @click="emit('filterCategory', category)"
+        >{{ category }}</button>
         <span v-if="talk.format" class="rounded-full border border-shodo-marron/35 px-2 py-0.5 font-semibold text-shodo-marron">{{ talk.format }}</span>
         <span v-if="talk.level" class="rounded-full border border-shodo-marron/35 px-2 py-0.5 font-semibold text-shodo-marron">{{ talk.level }}</span>
         <span v-if="talk.language" class="rounded-full border border-shodo-marron/35 px-2 py-0.5 font-semibold text-shodo-marron">{{ talk.language }}</span>

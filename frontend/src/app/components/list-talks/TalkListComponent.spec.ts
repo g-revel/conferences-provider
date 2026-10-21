@@ -174,4 +174,24 @@ describe('TalkListComponent', () => {
 
     expect(wrapper.emitted('select')).toBeUndefined()
   })
+
+  it('should emit filterSpeaker with the full name when a speaker is clicked, without emitting select', async () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
+
+    const speakerButton = wrapper.findAll('button').find((b) => b.text() === 'Alice Martin')!
+    await speakerButton.trigger('click')
+
+    expect(wrapper.emitted('filterSpeaker')).toEqual([['Alice Martin']])
+    expect(wrapper.emitted('select')).toBeUndefined()
+  })
+
+  it('should emit filterCategory with the clicked category, without emitting select', async () => {
+    const wrapper = mount(TalkListComponent, { props: { talks: [talks[4]] } })
+
+    const categoryButton = wrapper.findAll('button').find((b) => b.text() === 'Sécurité')!
+    await categoryButton.trigger('click')
+
+    expect(wrapper.emitted('filterCategory')).toEqual([['Sécurité']])
+    expect(wrapper.emitted('select')).toBeUndefined()
+  })
 })
