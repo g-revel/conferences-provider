@@ -1,11 +1,13 @@
 import { FastifyInstance } from 'fastify'
 import { readJson, writeJson } from '../data/jsonStore.js'
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKERS_PATH, KNOWN_CITIES_PATH } from '../data/paths.js'
+import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKER_MEMBER_OVERRIDES_PATH, SPEAKERS_PATH, KNOWN_CITIES_PATH } from '../data/paths.js'
 import { Speak } from '../collects/get-speaks/speak.js'
 import { Speaker } from '../collects/get-all-speakers/speaker.js'
 import { SpeakerCityOverride } from '../collects/get-all-speakers/speakerCityOverride.js'
+import { SpeakerMemberOverride } from '../collects/get-all-speakers/speakerMemberOverride.js'
 import { applyCityOverrides } from '../collects/get-speaks/applyCityOverrides.js'
 import { applySpeakerActiveStatus } from '../collects/get-speaks/applySpeakerActiveStatus.js'
+import { applyMemberOverrides } from '../collects/get-speaks/applyMemberOverrides.js'
 import { extractCityFromCompany } from '../collects/get-all-speakers/extractCityFromCompany.js'
 import { isValidAdminPassword } from '../admin/adminAuth.js'
 import { normalizeForMatch } from '../string.functions.js'
@@ -48,7 +50,13 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
   app.get('/api/admin/talkers', async () => {
     const talks = await readJson<Speak[]>(TALKS_PATH, [])
     const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
+    const memberOverrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
+    const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
     const overrideByIdentity = new Map(overrides.map((o) => [speakerIdentity(o.firstname, o.lastname), o.city]))
+    const memberOverrideByIdentity = new Map(
+      memberOverrides.map((o) => [speakerIdentity(o.firstname, o.lastname), o.active]),
+    )
+    const activeByIdentity = new Map(speakers.map((s) => [speakerIdentity(s.firstname, s.lastname), s.active]))
 
     // La ville "effective" d'un talker, comme déjà affichée côté portail (voir
     // frontend/src/domain/speakers/SpeakerCity.ts) : l'override admin s'il existe
@@ -60,8 +68,14 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       const city = overrideByIdentity.has(identity)
         ? (overrideByIdentity.get(identity) ?? null)
         : extractCityFromCompany(speaker.company)
+      // Même logique pour `active` : l'override manuel gagne s'il existe, sinon la
+      // valeur dérivée de Slack (speakers.json), par défaut `true` si inconnue de
+      // speakers.json (ex. talk importé depuis Notion sans contrepartie Slack).
+      const active = memberOverrideByIdentity.has(identity)
+        ? (memberOverrideByIdentity.get(identity) as boolean)
+        : (activeByIdentity.get(identity) ?? true)
 
-      return { firstname: speaker.firstname, lastname: speaker.lastname, company: speaker.company, city }
+      return { firstname: speaker.firstname, lastname: speaker.lastname, company: speaker.company, city, active }
     })
   })
 
@@ -104,13 +118,32 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     return { firstname: body.firstname, lastname: body.lastname, city }
   })
 
+  // Override admin pour marquer manuellement qu'un membre n'appartient plus à
+  // Shodo (ou l'y restaurer) — indépendant du statut `deleted` Slack, voir
+  // applyMemberOverrides.ts.
+  app.put('/api/admin/talkers/active', async (request, reply) => {
+    const body = (request.body ?? {}) as { firstname?: unknown; lastname?: unknown; active?: unknown }
+    if (typeof body.firstname !== 'string' || typeof body.lastname !== 'string' || typeof body.active !== 'boolean') {
+      return reply.code(400).send({ error: 'firstname, lastname and active are required' })
+    }
+
+    const overrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
+    const identity = speakerIdentity(body.firstname, body.lastname)
+    const next = overrides.filter((o) => speakerIdentity(o.firstname, o.lastname) !== identity)
+    next.push({ firstname: body.firstname, lastname: body.lastname, active: body.active })
+    await writeJson(SPEAKER_MEMBER_OVERRIDES_PATH, next)
+
+    return { firstname: body.firstname, lastname: body.lastname, active: body.active }
+  })
+
   // Contrairement à GET /api/talks (public), inclut les talks sans titre et
   // supprimés — c'est la vue admin, pas le portail.
   app.get('/api/admin/talks', async () => {
     const talks = await readJson<Speak[]>(TALKS_PATH, [])
     const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
+    const memberOverrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
     const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
-    return applySpeakerActiveStatus(applyCityOverrides(talks, overrides), speakers)
+    return applyMemberOverrides(applySpeakerActiveStatus(applyCityOverrides(talks, overrides), speakers), memberOverrides)
   })
 
   app.delete('/api/admin/talks/:id', async (request, reply) => {

@@ -6,9 +6,10 @@ function speakerIdentity(firstname: string, lastname: string): string {
   return `${normalizeForMatch(firstname)}|${normalizeForMatch(lastname)}`;
 }
 
-// speakers.json est la source de vérité pour `active` (mergeSpeakers.ts le garde à
-// jour, additif, jamais de suppression) — contrairement à la ville, `active` n'a pas
-// besoin d'un fichier d'override séparé : rien n'est édité manuellement par-dessus.
+// speakers.json est la source de vérité pour `active` dérivé de Slack (mergeSpeakers.ts
+// le garde à jour, additif, jamais de suppression). Un admin peut cependant surcharger
+// cette valeur manuellement (ex. membre parti sans que son compte Slack soit désactivé) —
+// voir applyMemberOverrides.ts, appliqué après celui-ci pour gagner sur cette valeur.
 // Un speaker absent de speakers.json (talk importé depuis Notion sans contrepartie
 // Slack) reste `active` par défaut plutôt que d'être supposé parti.
 export function applySpeakerActiveStatus(speaks: Speak[], speakers: Speaker[]): Speak[] {

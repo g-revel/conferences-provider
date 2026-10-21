@@ -11,6 +11,9 @@ export const TALKS_PATH = path.join(dataDir, "talks.json");
 // Séparé de speakers.json (régénéré en entier par refresh:speakers) : un override
 // de ville saisi côté admin serait perdu au prochain refresh Slack s'il vivait là.
 export const SPEAKER_CITY_OVERRIDES_PATH = path.join(dataDir, "speaker-city-overrides.json");
+// Même raison que SPEAKER_CITY_OVERRIDES_PATH ci-dessus : séparé de speakers.json pour
+// qu'un "n'appartient plus à Shodo" saisi côté admin survive au prochain refresh Slack.
+export const SPEAKER_MEMBER_OVERRIDES_PATH = path.join(dataDir, "speaker-member-overrides.json");
 // Liste statique des villes proposées dans le sélecteur admin — volontairement
 // distincte des villes dérivées de `company` (SpeakerCity.ts côté frontend) :
 // une ville y entre une fois pour toutes via "Ajouter une ville...", jamais

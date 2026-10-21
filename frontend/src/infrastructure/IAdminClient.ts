@@ -5,6 +5,7 @@ export interface IAdminClient {
   login(password: string): Promise<boolean>
   getTalkers(password: string): Promise<Talker[]>
   setTalkerCity(password: string, firstname: string, lastname: string, city: string | null): Promise<void>
+  setTalkerActive(password: string, firstname: string, lastname: string, active: boolean): Promise<void>
   getCities(password: string): Promise<string[]>
   addCity(password: string, city: string): Promise<string[]>
   getAllTalks(password: string): Promise<Talk[]>

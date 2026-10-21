@@ -8,7 +8,7 @@ import type { IAdminClient } from '../../../infrastructure/IAdminClient'
 import type { Talker } from '../../../domain/admin/Talker'
 import type { Talk } from '../../../domain/talks/Talk'
 
-const talkers: Talker[] = [{ firstname: 'Julien', lastname: 'Topcu', company: 'Shodo', city: null }]
+const talkers: Talker[] = [{ firstname: 'Julien', lastname: 'Topcu', company: 'Shodo', city: null, active: true }]
 const activeTalk: Talk = {
   id: 'talk-1',
   conference: { name: 'BreizhCamp' },
@@ -43,6 +43,7 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     login: vi.fn(async () => true),
     getTalkers: vi.fn(async () => talkers),
     setTalkerCity: vi.fn(async () => {}),
+    setTalkerActive: vi.fn(async () => {}),
     getCities: vi.fn(async () => ['Lyon', 'Rennes']),
     addCity: vi.fn(async () => ['Bordeaux', 'Lyon', 'Rennes']),
     getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk]),
@@ -108,6 +109,18 @@ describe('AdminPanel', () => {
     await flushPromises()
 
     expect(client.setTalkerCity).toHaveBeenCalledWith('Shodo', 'Julien', 'Topcu', 'Lyon')
+    expect(client.getTalkers).toHaveBeenCalledTimes(2) // initial load + reload after save
+  })
+
+  it('calls setTalkerActive and reloads when the "a quitté Shodo" box is toggled', async () => {
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    await wrapper.find('input[type="checkbox"]').setValue(true)
+    await flushPromises()
+
+    expect(client.setTalkerActive).toHaveBeenCalledWith('Shodo', 'Julien', 'Topcu', false)
     expect(client.getTalkers).toHaveBeenCalledTimes(2) // initial load + reload after save
   })
 

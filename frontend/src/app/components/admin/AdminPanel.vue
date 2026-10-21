@@ -37,6 +37,11 @@ async function onUpdateCity(talker: Talker, city: string): Promise<void> {
   await reload()
 }
 
+async function onUpdateActive(talker: Talker, active: boolean): Promise<void> {
+  await client.setTalkerActive(props.password, talker.firstname, talker.lastname, active)
+  await reload()
+}
+
 async function onAddCity(city: string): Promise<void> {
   cities.value = await client.addCity(props.password, city)
 }
@@ -106,6 +111,7 @@ async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void>
         :cities="cities"
         @update-city="onUpdateCity"
         @add-city="onAddCity"
+        @update-active="onUpdateActive"
       />
 
       <AdminTalksSection v-else-if="tab === 'talks'" :talks="activeTalks" @delete="onDelete" @restore="onRestore" />

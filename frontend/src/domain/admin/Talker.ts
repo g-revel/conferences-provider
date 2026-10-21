@@ -3,4 +3,5 @@ export interface Talker {
   lastname: string
   company: string
   city: string | null
+  active: boolean
 }

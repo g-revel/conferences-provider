@@ -5,7 +5,11 @@ import type { Talker } from '../../../domain/admin/Talker'
 const ADD_CITY_OPTION = '__add_city__'
 
 const props = defineProps<{ talkers: Talker[]; cities: string[] }>()
-const emit = defineEmits<{ updateCity: [talker: Talker, city: string]; addCity: [city: string] }>()
+const emit = defineEmits<{
+  updateCity: [talker: Talker, city: string]
+  addCity: [city: string]
+  updateActive: [talker: Talker, active: boolean]
+}>()
 
 function talkerKey(talker: Talker): string {
   return `${talker.firstname}|${talker.lastname}`
@@ -58,6 +62,14 @@ function onCityChange(talker: Talker, event: Event): void {
     ;(event.target as HTMLSelectElement).value = drafts.value[talkerKey(talker)] ?? ''
   }
 }
+
+// Pas de brouillon ici : contrairement à la ville (texte libre + bouton "Ajouter"),
+// une case à cocher peut être persistée immédiatement au clic sans étape de validation.
+// La case affichée est "a quitté Shodo" (le sens le plus naturel pour un admin),
+// donc l'inverse de `active` côté donnée.
+function onActiveChange(talker: Talker, event: Event): void {
+  emit('updateActive', talker, !(event.target as HTMLInputElement).checked)
+}
 </script>
 
 <template>
@@ -67,6 +79,7 @@ function onCityChange(talker: Talker, event: Event): void {
         <th class="py-2 pr-4">Nom</th>
         <th class="py-2 pr-4">Société (Slack)</th>
         <th class="py-2 pr-4">Ville</th>
+        <th class="py-2 pr-4">A quitté Shodo</th>
         <th class="py-2"></th>
       </tr>
     </thead>
@@ -84,6 +97,14 @@ function onCityChange(talker: Talker, event: Event): void {
             <option v-for="city in optionsFor(talker)" :key="city" :value="city">{{ city }}</option>
             <option :value="ADD_CITY_OPTION">Ajouter une ville...</option>
           </select>
+        </td>
+        <td class="py-2 pr-4">
+          <input
+            type="checkbox"
+            :checked="!talker.active"
+            class="h-4 w-4 accent-shodo-rose"
+            @change="onActiveChange(talker, $event)"
+          />
         </td>
         <td class="py-2">
           <button

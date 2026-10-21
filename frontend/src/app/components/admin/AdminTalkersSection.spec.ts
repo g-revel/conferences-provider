@@ -5,8 +5,8 @@ import AdminTalkersSection from './AdminTalkersSection.vue'
 import type { Talker } from '../../../domain/admin/Talker'
 
 const talkers: Talker[] = [
-  { firstname: 'Julien', lastname: 'Topcu', company: 'Shodo', city: null },
-  { firstname: 'Manon', lastname: 'Carbonnel', company: 'Shodo Rennes', city: 'Rennes' },
+  { firstname: 'Julien', lastname: 'Topcu', company: 'Shodo', city: null, active: true },
+  { firstname: 'Manon', lastname: 'Carbonnel', company: 'Shodo Rennes', city: 'Rennes', active: false },
 ]
 const cities = ['Lyon', 'Rennes']
 
@@ -38,7 +38,9 @@ describe('AdminTalkersSection', () => {
   })
 
   it('keeps a legacy city not in the known list visible as an option', () => {
-    const withLegacyCity: Talker[] = [{ firstname: 'Bob', lastname: 'Dupont', company: 'Shodo', city: 'Marseille' }]
+    const withLegacyCity: Talker[] = [
+      { firstname: 'Bob', lastname: 'Dupont', company: 'Shodo', city: 'Marseille', active: true },
+    ]
     const wrapper = mount(AdminTalkersSection, { props: { talkers: withLegacyCity, cities } })
 
     const options = wrapper.find('select').findAll('option').map((o) => o.text())
@@ -72,5 +74,29 @@ describe('AdminTalkersSection', () => {
     await wrapper.findAll('select')[0].setValue('__add_city__')
 
     expect(wrapper.emitted('addCity')).toBeUndefined()
+  })
+
+  it('pre-checks the "a quitté Shodo" box for an inactive talker', () => {
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+
+    const checkboxes = wrapper.findAll('input[type="checkbox"]')
+    expect((checkboxes[0].element as HTMLInputElement).checked).toBe(false)
+    expect((checkboxes[1].element as HTMLInputElement).checked).toBe(true)
+  })
+
+  it('emits updateActive with active=false when the box is checked', async () => {
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+
+    await wrapper.findAll('input[type="checkbox"]')[0].setValue(true)
+
+    expect(wrapper.emitted('updateActive')).toEqual([[talkers[0], false]])
+  })
+
+  it('emits updateActive with active=true when the box is unchecked', async () => {
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+
+    await wrapper.findAll('input[type="checkbox"]')[1].setValue(false)
+
+    expect(wrapper.emitted('updateActive')).toEqual([[talkers[1], true]])
   })
 })

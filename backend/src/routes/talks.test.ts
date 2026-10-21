@@ -5,14 +5,22 @@ const { readJsonMock } = vi.hoisted(() => ({ readJsonMock: vi.fn() }));
 vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock }));
 
 import { buildApp } from "../app.js";
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH } from "../data/paths.js";
+import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKER_MEMBER_OVERRIDES_PATH, SPEAKERS_PATH } from "../data/paths.js";
 
-// readJson est appelé pour deux fichiers différents dans cette route (talks.json et
-// les overrides de ville) : on distingue par chemin plutôt qu'un mock global unique.
-function mockReadJson(talks: unknown[], overrides: unknown[] = []): void {
+// readJson est appelé pour plusieurs fichiers différents dans cette route (talks.json,
+// les overrides de ville/membre, speakers.json) : on distingue par chemin plutôt qu'un
+// mock global unique.
+function mockReadJson(
+  talks: unknown[],
+  overrides: unknown[] = [],
+  memberOverrides: unknown[] = [],
+  speakers: unknown[] = [],
+): void {
   readJsonMock.mockImplementation(async (path: string) => {
     if (path === TALKS_PATH) return talks;
     if (path === SPEAKER_CITY_OVERRIDES_PATH) return overrides;
+    if (path === SPEAKER_MEMBER_OVERRIDES_PATH) return memberOverrides;
+    if (path === SPEAKERS_PATH) return speakers;
     return [];
   });
 }
@@ -96,6 +104,21 @@ describe("GET /api/talks", () => {
     const response = await app.inject({ method: "GET", url: "/api/talks" });
 
     expect(response.json()[0].speakers[0].city).toBe("Rennes");
+  });
+
+  it("overlays an admin-set member override onto the matching speaker's active status", async () => {
+    const talk = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Intro TDD",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
+    };
+    mockReadJson([talk], [], [{ firstname: "Alice", lastname: "Martin", active: false }]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()[0].speakers[0].active).toBe(false);
   });
 
   it("never serves a talk without a videoUrl, even with a pending candidate", async () => {

@@ -8,13 +8,27 @@ const { readJsonMock, writeJsonMock } = vi.hoisted(() => ({
 vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock, writeJson: writeJsonMock }));
 
 import { buildApp } from "../app.js";
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, KNOWN_CITIES_PATH } from "../data/paths.js";
+import {
+  TALKS_PATH,
+  SPEAKER_CITY_OVERRIDES_PATH,
+  SPEAKER_MEMBER_OVERRIDES_PATH,
+  SPEAKERS_PATH,
+  KNOWN_CITIES_PATH,
+} from "../data/paths.js";
 
-function mockReadJson(talks: unknown[], overrides: unknown[] = [], cities: unknown[] = []): void {
+function mockReadJson(
+  talks: unknown[],
+  overrides: unknown[] = [],
+  cities: unknown[] = [],
+  speakers: unknown[] = [],
+  memberOverrides: unknown[] = [],
+): void {
   readJsonMock.mockImplementation(async (path: string) => {
     if (path === TALKS_PATH) return talks;
     if (path === SPEAKER_CITY_OVERRIDES_PATH) return overrides;
     if (path === KNOWN_CITIES_PATH) return cities;
+    if (path === SPEAKERS_PATH) return speakers;
+    if (path === SPEAKER_MEMBER_OVERRIDES_PATH) return memberOverrides;
     return [];
   });
 }
@@ -99,8 +113,8 @@ describe("GET /api/admin/talkers", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual([
-      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null },
-      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: "Rennes" },
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null, active: true },
+      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: "Rennes", active: true },
     ]);
   });
 
@@ -114,7 +128,9 @@ describe("GET /api/admin/talkers", () => {
       headers: { "x-admin-password": "Shodo" },
     });
 
-    expect(response.json()).toEqual([{ firstname: "Alice", lastname: "Martin", company: "Shodo", city: "Rennes" }]);
+    expect(response.json()).toEqual([
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: "Rennes", active: true },
+    ]);
   });
 
   it("falls back to the city derived from company when there is no override", async () => {
@@ -128,8 +144,8 @@ describe("GET /api/admin/talkers", () => {
     });
 
     expect(response.json()).toEqual([
-      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null },
-      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: "Rennes" },
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null, active: true },
+      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: "Rennes", active: true },
     ]);
   });
 
@@ -144,9 +160,95 @@ describe("GET /api/admin/talkers", () => {
     });
 
     expect(response.json()).toEqual([
-      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null },
-      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: null },
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null, active: true },
+      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: null, active: true },
     ]);
+  });
+
+  it("reflects the active status derived from speakers.json when there is no member override", async () => {
+    mockReadJson([talk1], [], [], [{ firstname: "Alice", lastname: "Martin", company: "Shodo", active: false }]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/admin/talkers",
+      headers: { "x-admin-password": "Shodo" },
+    });
+
+    expect(response.json()).toEqual([
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null, active: false },
+    ]);
+  });
+
+  it("a manual member override wins over the status derived from speakers.json", async () => {
+    mockReadJson(
+      [talk1],
+      [],
+      [],
+      [{ firstname: "Alice", lastname: "Martin", company: "Shodo", active: true }],
+      [{ firstname: "Alice", lastname: "Martin", active: false }],
+    );
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/admin/talkers",
+      headers: { "x-admin-password": "Shodo" },
+    });
+
+    expect(response.json()).toEqual([
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null, active: false },
+    ]);
+  });
+});
+
+describe("PUT /api/admin/talkers/active", () => {
+  it("persists a new member override marking someone as having left Shodo", async () => {
+    mockReadJson([talk1], [], [], []);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talkers/active",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { firstname: "Alice", lastname: "Martin", active: false },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(writeJsonMock).toHaveBeenCalledWith(
+      SPEAKER_MEMBER_OVERRIDES_PATH,
+      [{ firstname: "Alice", lastname: "Martin", active: false }],
+    );
+  });
+
+  it("replaces an existing override for the same person instead of duplicating it", async () => {
+    mockReadJson([talk1], [], [], [], [{ firstname: "Alice", lastname: "Martin", active: false }]);
+    const app = await buildApp();
+
+    await app.inject({
+      method: "PUT",
+      url: "/api/admin/talkers/active",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { firstname: "Alice", lastname: "Martin", active: true },
+    });
+
+    expect(writeJsonMock).toHaveBeenCalledWith(
+      SPEAKER_MEMBER_OVERRIDES_PATH,
+      [{ firstname: "Alice", lastname: "Martin", active: true }],
+    );
+  });
+
+  it("rejects a request missing firstname, lastname or a boolean active", async () => {
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talkers/active",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { firstname: "Alice", lastname: "Martin", active: "nope" },
+    });
+
+    expect(response.statusCode).toBe(400);
   });
 });
 

@@ -25,6 +25,14 @@ export class HttpAdminClient implements IAdminClient {
     })
   }
 
+  async setTalkerActive(password: string, firstname: string, lastname: string, active: boolean): Promise<void> {
+    await fetch('/api/admin/talkers/active', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ firstname, lastname, active }),
+    })
+  }
+
   async getCities(password: string): Promise<string[]> {
     const response = await fetch('/api/admin/cities', { headers: { 'x-admin-password': password } })
     return response.json()
