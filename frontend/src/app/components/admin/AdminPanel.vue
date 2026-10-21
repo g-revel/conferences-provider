@@ -50,6 +50,10 @@ async function onAddCity(city: string): Promise<void> {
   cities.value = await client.addCity(props.password, city)
 }
 
+async function onDeleteCity(city: string): Promise<void> {
+  cities.value = await client.deleteCity(props.password, city)
+}
+
 async function onDelete(talk: Talk): Promise<void> {
   if (!talk.id) return
   await client.deleteTalk(props.password, talk.id)
@@ -126,6 +130,7 @@ async function onSetYear(talk: Talk, year: number): Promise<void> {
         :cities="cities"
         @update-city="onUpdateCity"
         @add-city="onAddCity"
+        @delete-city="onDeleteCity"
         @update-active="onUpdateActive"
       />
 

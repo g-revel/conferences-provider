@@ -99,4 +99,32 @@ describe('AdminTalkersSection', () => {
 
     expect(wrapper.emitted('updateActive')).toEqual([[talkers[1], true]])
   })
+
+  it('lists every known city with a delete button', () => {
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+
+    expect(wrapper.text()).toContain('Villes connues')
+    expect(wrapper.text()).toContain('Lyon')
+    expect(wrapper.text()).toContain('Rennes')
+  })
+
+  it('emits deleteCity after confirming', async () => {
+    vi.stubGlobal('confirm', vi.fn(() => true))
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+
+    const deleteButton = wrapper.findAll('button').find((b) => b.attributes('aria-label') === 'Supprimer la ville Lyon')!
+    await deleteButton.trigger('click')
+
+    expect(wrapper.emitted('deleteCity')).toEqual([['Lyon']])
+  })
+
+  it('does not emit deleteCity when the confirmation is cancelled', async () => {
+    vi.stubGlobal('confirm', vi.fn(() => false))
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+
+    const deleteButton = wrapper.findAll('button').find((b) => b.attributes('aria-label') === 'Supprimer la ville Lyon')!
+    await deleteButton.trigger('click')
+
+    expect(wrapper.emitted('deleteCity')).toBeUndefined()
+  })
 })

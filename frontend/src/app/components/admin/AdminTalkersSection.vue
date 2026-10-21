@@ -8,6 +8,7 @@ const props = defineProps<{ talkers: Talker[]; cities: string[] }>()
 const emit = defineEmits<{
   updateCity: [talker: Talker, city: string]
   addCity: [city: string]
+  deleteCity: [city: string]
   updateActive: [talker: Talker, active: boolean]
 }>()
 
@@ -70,6 +71,12 @@ function onCityChange(talker: Talker, event: Event): void {
 function onActiveChange(talker: Talker, event: Event): void {
   emit('updateActive', talker, !(event.target as HTMLInputElement).checked)
 }
+
+function onDeleteCity(city: string): void {
+  if (confirm(`Supprimer la ville "${city}" de la liste ? (les talkers qui l'ont déjà ne sont pas affectés)`)) {
+    emit('deleteCity', city)
+  }
+}
 </script>
 
 <template>
@@ -115,4 +122,23 @@ function onActiveChange(talker: Talker, event: Event): void {
       </tr>
     </tbody>
   </table>
+
+  <div class="mt-6">
+    <h3 class="mb-2 text-xs font-semibold uppercase tracking-wide text-shodo-taupe">Villes connues</h3>
+    <ul class="flex flex-wrap gap-2">
+      <li
+        v-for="city in cities"
+        :key="city"
+        class="flex items-center gap-1 rounded-full border border-shodo-marron/30 py-0.5 pr-1 pl-2 text-xs"
+      >
+        {{ city }}
+        <button
+          class="rounded-full px-1 text-shodo-taupe hover:bg-red-50 hover:text-red-700"
+          :aria-label="`Supprimer la ville ${city}`"
+          @click="onDeleteCity(city)"
+        >✕</button>
+      </li>
+      <li v-if="cities.length === 0" class="text-xs text-gray-400">Aucune ville connue.</li>
+    </ul>
+  </div>
 </template>

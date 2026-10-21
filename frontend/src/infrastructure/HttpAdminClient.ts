@@ -47,6 +47,15 @@ export class HttpAdminClient implements IAdminClient {
     return response.json()
   }
 
+  async deleteCity(password: string, city: string): Promise<string[]> {
+    const response = await fetch('/api/admin/cities', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ city }),
+    })
+    return response.json()
+  }
+
   async getAllTalks(password: string): Promise<Talk[]> {
     const response = await fetch('/api/admin/talks', { headers: { 'x-admin-password': password } })
     return response.json()

@@ -523,6 +523,66 @@ describe("POST /api/admin/cities", () => {
   });
 });
 
+describe("DELETE /api/admin/cities", () => {
+  it("removes a city and persists the result", async () => {
+    mockReadJson([], [], ["Lille", "Pais"]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "DELETE",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { city: "Pais" },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual(["Lille"]);
+    expect(writeJsonMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille"]);
+  });
+
+  it("matches regardless of case or accents", async () => {
+    mockReadJson([], [], ["La Réunion"]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "DELETE",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { city: "la reunion" },
+    });
+
+    expect(response.json()).toEqual([]);
+  });
+
+  it("is a no-op when the city is not known", async () => {
+    mockReadJson([], [], ["Lille"]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "DELETE",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { city: "Bordeaux" },
+    });
+
+    expect(response.json()).toEqual(["Lille"]);
+  });
+
+  it("rejects an empty city", async () => {
+    mockReadJson([], [], []);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "DELETE",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { city: "" },
+    });
+
+    expect(response.statusCode).toBe(400);
+  });
+});
+
 describe("PUT /api/admin/talks/:id/year", () => {
   it("sets the year", async () => {
     mockReadJson([talk1]);

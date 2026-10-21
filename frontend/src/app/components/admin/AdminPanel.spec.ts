@@ -55,6 +55,7 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     setTalkerActive: vi.fn(async () => {}),
     getCities: vi.fn(async () => ['Lyon', 'Rennes']),
     addCity: vi.fn(async () => ['Bordeaux', 'Lyon', 'Rennes']),
+    deleteCity: vi.fn(async () => ['Rennes']),
     getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk, undatedTalk]),
     deleteTalk: vi.fn(async () => {}),
     restoreTalk: vi.fn(async () => {}),
@@ -144,6 +145,18 @@ describe('AdminPanel', () => {
     await flushPromises()
 
     expect(client.addCity).toHaveBeenCalledWith('Shodo', 'Bordeaux')
+  })
+
+  it('calls deleteCity and refreshes the known cities when one is removed', async () => {
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const deleteCityButton = wrapper.findAll('button').find((b) => b.attributes('aria-label') === 'Supprimer la ville Lyon')!
+    await deleteCityButton.trigger('click')
+    await flushPromises()
+
+    expect(client.deleteCity).toHaveBeenCalledWith('Shodo', 'Lyon')
   })
 
   it('calls deleteTalk when confirming deletion of an active talk', async () => {

@@ -102,6 +102,23 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     return [...next].sort((a, b) => a.localeCompare(b))
   })
 
+  // Corrige une ville mal saisie (typo) sans attendre une intervention manuelle
+  // sur les données — ne touche pas les overrides déjà assignés à cette valeur
+  // (un talker gardant une ville supprimée de la liste reste visible comme
+  // option "legacy" côté select, voir AdminTalkersSection.vue).
+  app.delete('/api/admin/cities', async (request, reply) => {
+    const body = (request.body ?? {}) as { city?: unknown }
+    if (typeof body.city !== 'string' || body.city.trim() === '') {
+      return reply.code(400).send({ error: 'city is required' })
+    }
+
+    const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
+    const next = cities.filter((c) => normalizeForMatch(c) !== normalizeForMatch(body.city as string))
+    await writeJson(KNOWN_CITIES_PATH, next)
+
+    return [...next].sort((a, b) => a.localeCompare(b))
+  })
+
   app.put('/api/admin/talkers/city', async (request, reply) => {
     const body = (request.body ?? {}) as { firstname?: unknown; lastname?: unknown; city?: unknown }
     if (typeof body.firstname !== 'string' || typeof body.lastname !== 'string') {

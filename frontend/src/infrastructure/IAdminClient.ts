@@ -8,6 +8,7 @@ export interface IAdminClient {
   setTalkerActive(password: string, firstname: string, lastname: string, active: boolean): Promise<void>
   getCities(password: string): Promise<string[]>
   addCity(password: string, city: string): Promise<string[]>
+  deleteCity(password: string, city: string): Promise<string[]>
   getAllTalks(password: string): Promise<Talk[]>
   deleteTalk(password: string, id: string): Promise<void>
   restoreTalk(password: string, id: string): Promise<void>
