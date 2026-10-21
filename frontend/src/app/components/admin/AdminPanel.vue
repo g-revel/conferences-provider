@@ -4,6 +4,7 @@ import { adminClientKey } from '../../injectionKeys'
 import AdminTalkersSection from './AdminTalkersSection.vue'
 import AdminTalksSection from './AdminTalksSection.vue'
 import AdminPendingValidationSection from './AdminPendingValidationSection.vue'
+import AdminUndatedSection from './AdminUndatedSection.vue'
 import type { Talker } from '../../../domain/admin/Talker'
 import type { Talk } from '../../../domain/talks/Talk'
 
@@ -14,7 +15,7 @@ const client = inject(adminClientKey)!
 const talkers = ref<Talker[]>([])
 const talks = ref<Talk[]>([])
 const cities = ref<string[]>([])
-const tab = ref<'talkers' | 'talks' | 'pending' | 'trash'>('talkers')
+const tab = ref<'talkers' | 'talks' | 'pending' | 'undated' | 'trash'>('talkers')
 
 const activeTalks = computed(() => talks.value.filter((t) => !t.deletedAt))
 const deletedTalks = computed(() => talks.value.filter((t) => t.deletedAt))
@@ -23,6 +24,9 @@ const deletedTalks = computed(() => talks.value.filter((t) => t.deletedAt))
 const pendingValidationTalks = computed(() =>
   activeTalks.value.filter((t) => t.title != null && t.videoUrl == null),
 )
+// Un talk sans année n'est pas servi côté public (voir backend/src/routes/talks.ts)
+// jusqu'à ce qu'un admin la renseigne ici.
+const undatedTalks = computed(() => activeTalks.value.filter((t) => t.title != null && t.year == null))
 
 async function reload(): Promise<void> {
   talkers.value = await client.getTalkers(props.password)
@@ -69,6 +73,12 @@ async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void>
   await client.setTalkShowWithoutLink(props.password, talk.id, show)
   await reload()
 }
+
+async function onSetYear(talk: Talk, year: number): Promise<void> {
+  if (!talk.id) return
+  await client.setTalkYear(props.password, talk.id, year)
+  await reload()
+}
 </script>
 
 <template>
@@ -100,6 +110,11 @@ async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void>
         >À valider ({{ pendingValidationTalks.length }})</button>
         <button
           class="px-1 pb-2 text-sm font-medium"
+          :class="tab === 'undated' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
+          @click="tab = 'undated'"
+        >Non datés ({{ undatedTalks.length }})</button>
+        <button
+          class="px-1 pb-2 text-sm font-medium"
           :class="tab === 'trash' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
           @click="tab = 'trash'"
         >Corbeille ({{ deletedTalks.length }})</button>
@@ -123,6 +138,8 @@ async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void>
         @toggle-show-without-link="onToggleShowWithoutLink"
         @delete="onDelete"
       />
+
+      <AdminUndatedSection v-else-if="tab === 'undated'" :talks="undatedTalks" @set-year="onSetYear" />
 
       <AdminTalksSection v-else :talks="deletedTalks" @delete="onDelete" @restore="onRestore" />
     </div>

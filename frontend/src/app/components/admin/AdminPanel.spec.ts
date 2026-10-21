@@ -15,6 +15,7 @@ const activeTalk: Talk = {
   speakers: [{ firstname: 'Alice', lastname: 'Martin', company: 'Shodo' }],
   title: 'Intro TDD',
   videoUrl: 'https://www.youtube.com/watch?v=abc123',
+  year: 2026,
 }
 const deletedTalk: Talk = {
   id: 'talk-2',
@@ -29,6 +30,14 @@ const pendingTalk: Talk = {
   speakers: [{ firstname: 'Carol', lastname: 'Lenoir', company: 'Shodo' }],
   title: 'Sans lien',
   pendingVideoUrl: 'https://www.youtube.com/watch?v=candidate',
+  year: 2026,
+}
+const undatedTalk: Talk = {
+  id: 'talk-4',
+  conference: { name: 'Sunny Tech' },
+  speakers: [{ firstname: 'Dan', lastname: 'Petit', company: 'Shodo' }],
+  title: 'Sans année',
+  videoUrl: 'https://www.youtube.com/watch?v=xyz789',
 }
 
 function mountPanel(client: IAdminClient) {
@@ -46,11 +55,12 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     setTalkerActive: vi.fn(async () => {}),
     getCities: vi.fn(async () => ['Lyon', 'Rennes']),
     addCity: vi.fn(async () => ['Bordeaux', 'Lyon', 'Rennes']),
-    getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk]),
+    getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk, undatedTalk]),
     deleteTalk: vi.fn(async () => {}),
     restoreTalk: vi.fn(async () => {}),
     setTalkVideoUrl: vi.fn(async () => {}),
     setTalkShowWithoutLink: vi.fn(async () => {}),
+    setTalkYear: vi.fn(async () => {}),
     ...overrides,
   }
 }
@@ -72,7 +82,7 @@ describe('AdminPanel', () => {
     const wrapper = mountPanel(fakeClient())
     await flushPromises()
 
-    expect(wrapper.text()).toContain('Talks (2)')
+    expect(wrapper.text()).toContain('Talks (3)')
     expect(wrapper.text()).toContain('Corbeille (1)')
   })
 
@@ -220,6 +230,35 @@ describe('AdminPanel', () => {
     await flushPromises()
 
     expect(client.setTalkShowWithoutLink).toHaveBeenCalledWith('Shodo', 'talk-3', true)
+  })
+
+  it('shows the undated count and lists talks without a year', async () => {
+    const wrapper = mountPanel(fakeClient())
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('Non datés (1)')
+
+    const undatedTabButton = wrapper.findAll('button').find((b) => b.text().includes('Non datés'))!
+    await undatedTabButton.trigger('click')
+
+    expect(wrapper.text()).toContain('Sans année')
+    expect(wrapper.text()).not.toContain('Intro TDD')
+  })
+
+  it('calls setTalkYear with the entered year when saving an undated talk', async () => {
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const undatedTabButton = wrapper.findAll('button').find((b) => b.text().includes('Non datés'))!
+    await undatedTabButton.trigger('click')
+
+    await wrapper.find('input').setValue('2025')
+    const saveButton = wrapper.findAll('button').find((b) => b.text() === 'Enregistrer')!
+    await saveButton.trigger('click')
+    await flushPromises()
+
+    expect(client.setTalkYear).toHaveBeenCalledWith('Shodo', 'talk-4', 2025)
   })
 
   it('emits close when "Retour au site" is clicked', async () => {
