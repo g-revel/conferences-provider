@@ -11,6 +11,7 @@ import {
   filterTalksBySearchTerm,
   filterTalksByCategory,
   filterTalksByCity,
+  filterTalksBySpeaker,
   filterCurrentMembersTalks,
   filterFormerMembersTalks,
   getAvailableCategories,
@@ -23,14 +24,20 @@ const { talks, isLoading, error } = useListTalks()
 const searchTerm = ref('')
 const category = ref('')
 const city = ref('')
+// Distinct de searchTerm : activé en cliquant un nom de speaker, affiché comme un
+// badge avec une croix de réinitialisation plutôt que dans la barre de recherche.
+const speakerFilter = ref('')
 const selectedTalk = ref<Talk | null>(null)
 
 const categories = computed(() => getAvailableCategories(talks.value))
 const cities = computed(() => getAvailableCities(talks.value))
 const filteredTalks = computed(() =>
-  filterTalksByCity(
-    filterTalksByCategory(filterTalksBySearchTerm(talks.value, searchTerm.value), category.value),
-    city.value,
+  filterTalksBySpeaker(
+    filterTalksByCity(
+      filterTalksByCategory(filterTalksBySearchTerm(talks.value, searchTerm.value), category.value),
+      city.value,
+    ),
+    speakerFilter.value,
   ),
 )
 // Un talk donné uniquement par des membres partis de Shodo s'affiche à part plutôt
@@ -57,10 +64,10 @@ async function handleLoginSubmit(password: string): Promise<void> {
 }
 
 // Cliquer un speaker ou une catégorie (depuis une carte ou la modale de détail)
-// applique ce filtre immédiatement — réutilise la recherche texte libre pour les
-// speakers (déjà indexée dessus) plutôt qu'un filtre dédié supplémentaire.
+// applique ce filtre immédiatement et ferme la modale (le talk affiché peut ne
+// plus correspondre au nouveau filtre).
 function onFilterSpeaker(name: string): void {
-  searchTerm.value = name
+  speakerFilter.value = name
   selectedTalk.value = null
 }
 
@@ -102,6 +109,19 @@ function onFilterCategory(cat: string): void {
             :categories="categories"
             :cities="cities"
           />
+
+          <div v-if="speakerFilter" class="mb-4 flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-shodo-rose/10 py-1 pr-1.5 pl-3 text-sm font-medium text-shodo-rose">
+              {{ speakerFilter }}
+              <button
+                type="button"
+                class="rounded-full p-0.5 hover:bg-shodo-rose/20"
+                aria-label="Retirer le filtre speaker"
+                @click="speakerFilter = ''"
+              >✕</button>
+            </span>
+          </div>
+
           <TalkListComponent
             :talks="currentMembersTalks"
             @select="selectedTalk = $event"

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import {
   filterTalksBySearchTerm,
   filterTalksByCategory,
+  filterTalksBySpeaker,
   getAvailableCategories,
   getTalkCity,
   getAvailableCities,
@@ -105,6 +106,29 @@ describe('filterTalksByCategory', () => {
     }
     expect(filterTalksByCategory([...talks, multiCategory], 'IA')).toEqual([multiCategory])
     expect(filterTalksByCategory([...talks, multiCategory], 'Domain-Driven Design')).toEqual([multiCategory])
+  })
+})
+
+describe('filterTalksBySpeaker', () => {
+  it('returns every talk when the speaker name is empty', () => {
+    expect(filterTalksBySpeaker(talks, '')).toEqual(talks)
+  })
+
+  it('returns only talks by the exact given speaker', () => {
+    expect(filterTalksBySpeaker(talks, 'Alice Martin')).toEqual([talks[0]])
+  })
+
+  it('matches a co-presented talk if any speaker matches', () => {
+    expect(filterTalksBySpeaker(talks, 'Carol Lenoir')).toEqual([talks[2]])
+  })
+
+  it('does not match on first or last name alone', () => {
+    // "Alice" seule ne doit pas matcher "Alice Carbonnel" en plus de "Alice Martin"
+    expect(filterTalksBySpeaker(talks, 'Alice')).toEqual([])
+  })
+
+  it('returns an empty array when no talk matches the speaker', () => {
+    expect(filterTalksBySpeaker(talks, 'Inconnu Unknown')).toEqual([])
   })
 })
 

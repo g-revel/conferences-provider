@@ -33,6 +33,15 @@ export function filterTalksByCategory(talks: Talk[], category: string): Talk[] {
   return talks.filter((talk) => talk.categories?.includes(category))
 }
 
+// Filtre dédié (distinct de la recherche texte libre) : activé en cliquant sur un
+// nom de speaker depuis une carte/la modale de détail, affiché comme un badge avec
+// une croix de réinitialisation plutôt que dans la barre de recherche.
+export function filterTalksBySpeaker(talks: Talk[], speakerName: string): Talk[] {
+  if (!speakerName) return talks
+
+  return talks.filter((talk) => talk.speakers.some((speaker) => `${speaker.firstname} ${speaker.lastname}` === speakerName))
+}
+
 // Dérivée des données elles-mêmes (pas d'enum séparée à maintenir) : une catégorie
 // ajoutée directement dans data/talks.json apparaît automatiquement dans le filtre.
 export function getAvailableCategories(talks: Talk[]): string[] {
