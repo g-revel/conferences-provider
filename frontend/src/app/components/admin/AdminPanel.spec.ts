@@ -155,6 +155,20 @@ describe('AdminPanel', () => {
     expect(client.setTalkVideoUrl).toHaveBeenCalledWith('Shodo', 'talk-3', 'https://www.youtube.com/watch?v=validated')
   })
 
+  it('calls deleteTalk when deleting a pending talk from the "À valider" tab', async () => {
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const pendingTabButton = wrapper.findAll('button').find((b) => b.text().includes('À valider'))!
+    await pendingTabButton.trigger('click')
+    const deleteButton = wrapper.findAll('button').find((b) => b.text() === 'Supprimer')!
+    await deleteButton.trigger('click')
+    await flushPromises()
+
+    expect(client.deleteTalk).toHaveBeenCalledWith('Shodo', 'talk-3')
+  })
+
   it('calls setTalkShowWithoutLink when the checkbox is toggled', async () => {
     const client = fakeClient()
     const wrapper = mountPanel(client)

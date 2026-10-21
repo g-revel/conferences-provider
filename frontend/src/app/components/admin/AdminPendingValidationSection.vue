@@ -6,6 +6,7 @@ const props = defineProps<{ talks: Talk[] }>()
 const emit = defineEmits<{
   validate: [talk: Talk, videoUrl: string]
   toggleShowWithoutLink: [talk: Talk, show: boolean]
+  delete: [talk: Talk]
 }>()
 
 // Un brouillon par talk, pré-rempli avec le lien candidat trouvé automatiquement
@@ -25,6 +26,10 @@ function onValidate(talk: Talk): void {
   const videoUrl = drafts[talk.id]?.trim()
   if (!videoUrl) return
   emit('validate', talk, videoUrl)
+}
+
+function onDelete(talk: Talk): void {
+  if (confirm(`Supprimer "${talk.title ?? '(sans titre)'}" ?`)) emit('delete', talk)
 }
 </script>
 
@@ -53,6 +58,10 @@ function onValidate(talk: Talk): void {
           class="shrink-0 rounded bg-shodo-rose/10 px-2 py-1 text-xs font-medium text-shodo-rose hover:bg-shodo-rose/20"
           @click="onValidate(talk)"
         >Valider</button>
+        <button
+          class="shrink-0 rounded bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100"
+          @click="onDelete(talk)"
+        >Supprimer</button>
 
         <label class="ml-auto flex shrink-0 items-center gap-1 text-xs text-shodo-taupe">
           <input

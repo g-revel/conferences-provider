@@ -104,6 +104,7 @@ async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void>
         :talks="pendingValidationTalks"
         @validate="onValidate"
         @toggle-show-without-link="onToggleShowWithoutLink"
+        @delete="onDelete"
       />
     </div>
   </div>

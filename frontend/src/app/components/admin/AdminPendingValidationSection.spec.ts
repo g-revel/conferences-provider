@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import AdminPendingValidationSection from './AdminPendingValidationSection.vue'
 import type { Talk } from '../../../domain/talks/Talk'
@@ -17,6 +17,10 @@ const withoutCandidate: Talk = {
   speakers: [{ firstname: 'Bob', lastname: 'Dupont', company: 'Shodo' }],
   title: 'Sans candidat',
 }
+
+afterEach(() => {
+  vi.unstubAllGlobals()
+})
 
 describe('AdminPendingValidationSection', () => {
   it('renders one item per talk with title, conference and speakers', () => {
@@ -70,6 +74,26 @@ describe('AdminPendingValidationSection', () => {
     await wrapper.find('input[type="checkbox"]').setValue(true)
 
     expect(wrapper.emitted('toggleShowWithoutLink')).toEqual([[withoutCandidate, true]])
+  })
+
+  it('emits delete after the user confirms', async () => {
+    vi.stubGlobal('confirm', vi.fn(() => true))
+    const wrapper = mount(AdminPendingValidationSection, { props: { talks: [withCandidate] } })
+
+    const deleteButton = wrapper.findAll('button').find((b) => b.text() === 'Supprimer')!
+    await deleteButton.trigger('click')
+
+    expect(wrapper.emitted('delete')).toEqual([[withCandidate]])
+  })
+
+  it('does not emit delete when the user cancels the confirmation', async () => {
+    vi.stubGlobal('confirm', vi.fn(() => false))
+    const wrapper = mount(AdminPendingValidationSection, { props: { talks: [withCandidate] } })
+
+    const deleteButton = wrapper.findAll('button').find((b) => b.text() === 'Supprimer')!
+    await deleteButton.trigger('click')
+
+    expect(wrapper.emitted('delete')).toBeUndefined()
   })
 
   it('shows a placeholder when there are no talks', () => {
