@@ -15,12 +15,19 @@ import { applySpeakerActiveStatus } from '../collects/get-speaks/applySpeakerAct
 // entrées incomplètes n'ont aucune valeur pour l'utilisateur du portail — un talk
 // sans titre ne doit jamais être servi. Pareil pour les talks supprimés côté admin
 // (deletedAt) : toujours dans le fichier (corbeille admin), jamais servis ici.
+//
+// Un talk sans videoUrl connu n'est pas servi non plus, sauf si un admin a coché
+// "montrer sans lien" (showWithoutLink) dans la file d'attente de validation —
+// un lien candidat trouvé automatiquement (pendingVideoUrl) ne suffit jamais à
+// lui seul : il doit être validé (promu en videoUrl) par un humain d'abord.
 export default fp(async function (app: FastifyInstance) {
   app.get('/api/talks', async () => {
     const talks = await readJson<Speak[]>(TALKS_PATH, [])
     const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
     const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
-    const visible = talks.filter((talk) => talk.title != null && talk.deletedAt == null)
+    const visible = talks.filter(
+      (talk) => talk.title != null && talk.deletedAt == null && (talk.videoUrl != null || talk.showWithoutLink === true),
+    )
     return applySpeakerActiveStatus(applyCityOverrides(visible, overrides), speakers)
   })
 }, {

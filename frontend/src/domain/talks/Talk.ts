@@ -15,4 +15,6 @@ export interface Talk {
   description?: string | null
   year?: number | null
   deletedAt?: string | null
+  pendingVideoUrl?: string | null
+  showWithoutLink?: boolean
 }

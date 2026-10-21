@@ -28,6 +28,7 @@ describe("GET /api/talks", () => {
         conference: { name: "BreizhCamp", url: "https://www.breizhcamp.org/programme" },
         speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
         title: "Intro TDD",
+        videoUrl: "https://www.youtube.com/watch?v=abc123",
       },
     ];
     mockReadJson(talks);
@@ -44,11 +45,13 @@ describe("GET /api/talks", () => {
       conference: { name: "BreizhCamp", url: "https://www.breizhcamp.org/programme" },
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
     };
     const untitled = {
       conference: { name: "MixIT", url: "https://mixitconf.org/schedule" },
       speakers: [{ firstname: "Bob", lastname: "Dupont", company: "Shodo" }],
       title: null,
+      videoUrl: "https://www.youtube.com/watch?v=def456",
     };
     mockReadJson([titled, untitled]);
 
@@ -63,11 +66,13 @@ describe("GET /api/talks", () => {
       conference: { name: "BreizhCamp" },
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
     };
     const deleted = {
       conference: { name: "MixIT" },
       speakers: [{ firstname: "Bob", lastname: "Dupont", company: "Shodo" }],
       title: "Supprimé",
+      videoUrl: "https://www.youtube.com/watch?v=def456",
       deletedAt: "2026-01-01T00:00:00.000Z",
     };
     mockReadJson([active, deleted]);
@@ -83,6 +88,7 @@ describe("GET /api/talks", () => {
       conference: { name: "BreizhCamp" },
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
     };
     mockReadJson([talk], [{ firstname: "Alice", lastname: "Martin", city: "Rennes" }]);
 
@@ -90,5 +96,35 @@ describe("GET /api/talks", () => {
     const response = await app.inject({ method: "GET", url: "/api/talks" });
 
     expect(response.json()[0].speakers[0].city).toBe("Rennes");
+  });
+
+  it("never serves a talk without a videoUrl, even with a pending candidate", async () => {
+    const pending = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Intro TDD",
+      pendingVideoUrl: "https://www.youtube.com/watch?v=candidate",
+    };
+    mockReadJson([pending]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([]);
+  });
+
+  it("serves a talk without a videoUrl when showWithoutLink is true", async () => {
+    const shown = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Intro TDD",
+      showWithoutLink: true,
+    };
+    mockReadJson([shown]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([shown]);
   });
 });

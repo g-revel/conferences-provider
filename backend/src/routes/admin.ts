@@ -103,4 +103,41 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     await writeJson(TALKS_PATH, talks)
     return talks[index]
   })
+
+  // Valide un lien (candidat proposé automatiquement ou saisi à la main par
+  // l'admin) : devient le videoUrl public du talk. `pendingVideoUrl` est purgé —
+  // une fois validé, le candidat n'a plus de raison d'être affiché à part.
+  app.put('/api/admin/talks/:id/video-url', async (request, reply) => {
+    const { id } = request.params as { id: string }
+    const body = (request.body ?? {}) as { videoUrl?: unknown }
+    if (typeof body.videoUrl !== 'string' || body.videoUrl.trim() === '') {
+      return reply.code(400).send({ error: 'videoUrl is required' })
+    }
+
+    const talks = await readJson<Speak[]>(TALKS_PATH, [])
+    const index = talks.findIndex((t) => t.id === id)
+    if (index === -1) return reply.code(404).send({ error: 'not found' })
+
+    talks[index] = { ...talks[index], videoUrl: body.videoUrl.trim(), pendingVideoUrl: null }
+    await writeJson(TALKS_PATH, talks)
+    return talks[index]
+  })
+
+  // Override admin pour un talk sans lien connu : l'afficher quand même côté
+  // public plutôt que d'attendre un lien qui n'existera peut-être jamais.
+  app.put('/api/admin/talks/:id/show-without-link', async (request, reply) => {
+    const { id } = request.params as { id: string }
+    const body = (request.body ?? {}) as { showWithoutLink?: unknown }
+    if (typeof body.showWithoutLink !== 'boolean') {
+      return reply.code(400).send({ error: 'showWithoutLink must be a boolean' })
+    }
+
+    const talks = await readJson<Speak[]>(TALKS_PATH, [])
+    const index = talks.findIndex((t) => t.id === id)
+    if (index === -1) return reply.code(404).send({ error: 'not found' })
+
+    talks[index] = { ...talks[index], showWithoutLink: body.showWithoutLink }
+    await writeJson(TALKS_PATH, talks)
+    return talks[index]
+  })
 }

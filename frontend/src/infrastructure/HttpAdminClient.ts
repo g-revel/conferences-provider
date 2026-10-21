@@ -43,4 +43,20 @@ export class HttpAdminClient implements IAdminClient {
       headers: { 'x-admin-password': password },
     })
   }
+
+  async setTalkVideoUrl(password: string, id: string, videoUrl: string): Promise<void> {
+    await fetch(`/api/admin/talks/${encodeURIComponent(id)}/video-url`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ videoUrl }),
+    })
+  }
+
+  async setTalkShowWithoutLink(password: string, id: string, showWithoutLink: boolean): Promise<void> {
+    await fetch(`/api/admin/talks/${encodeURIComponent(id)}/show-without-link`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ showWithoutLink }),
+    })
+  }
 }

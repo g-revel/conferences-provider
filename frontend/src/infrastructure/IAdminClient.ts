@@ -8,4 +8,6 @@ export interface IAdminClient {
   getAllTalks(password: string): Promise<Talk[]>
   deleteTalk(password: string, id: string): Promise<void>
   restoreTalk(password: string, id: string): Promise<void>
+  setTalkVideoUrl(password: string, id: string, videoUrl: string): Promise<void>
+  setTalkShowWithoutLink(password: string, id: string, showWithoutLink: boolean): Promise<void>
 }

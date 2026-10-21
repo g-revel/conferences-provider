@@ -246,3 +246,81 @@ describe("POST /api/admin/talks/:id/restore", () => {
     expect(response.json().deletedAt).toBeNull();
   });
 });
+
+describe("PUT /api/admin/talks/:id/video-url", () => {
+  it("sets videoUrl and clears pendingVideoUrl", async () => {
+    const pending = { ...talk1, pendingVideoUrl: "https://www.youtube.com/watch?v=candidate" };
+    mockReadJson([pending]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/video-url",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { videoUrl: "https://www.youtube.com/watch?v=validated" },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json().videoUrl).toBe("https://www.youtube.com/watch?v=validated");
+    expect(response.json().pendingVideoUrl).toBeNull();
+  });
+
+  it("rejects an empty videoUrl", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/video-url",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { videoUrl: "" },
+    });
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  it("returns 404 for an unknown id", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/unknown/video-url",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { videoUrl: "https://www.youtube.com/watch?v=validated" },
+    });
+
+    expect(response.statusCode).toBe(404);
+  });
+});
+
+describe("PUT /api/admin/talks/:id/show-without-link", () => {
+  it("sets showWithoutLink", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/show-without-link",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { showWithoutLink: true },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json().showWithoutLink).toBe(true);
+  });
+
+  it("rejects a non-boolean value", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/show-without-link",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { showWithoutLink: "yes" },
+    });
+
+    expect(response.statusCode).toBe(400);
+  });
+});

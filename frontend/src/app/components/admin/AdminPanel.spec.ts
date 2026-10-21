@@ -14,6 +14,7 @@ const activeTalk: Talk = {
   conference: { name: 'BreizhCamp' },
   speakers: [{ firstname: 'Alice', lastname: 'Martin', company: 'Shodo' }],
   title: 'Intro TDD',
+  videoUrl: 'https://www.youtube.com/watch?v=abc123',
 }
 const deletedTalk: Talk = {
   id: 'talk-2',
@@ -21,6 +22,13 @@ const deletedTalk: Talk = {
   speakers: [{ firstname: 'Bob', lastname: 'Dupont', company: 'Shodo' }],
   title: 'Supprimé',
   deletedAt: '2026-01-01T00:00:00.000Z',
+}
+const pendingTalk: Talk = {
+  id: 'talk-3',
+  conference: { name: 'DevFest' },
+  speakers: [{ firstname: 'Carol', lastname: 'Lenoir', company: 'Shodo' }],
+  title: 'Sans lien',
+  pendingVideoUrl: 'https://www.youtube.com/watch?v=candidate',
 }
 
 function mountPanel(client: IAdminClient) {
@@ -35,9 +43,11 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     login: vi.fn(async () => true),
     getTalkers: vi.fn(async () => talkers),
     setTalkerCity: vi.fn(async () => {}),
-    getAllTalks: vi.fn(async () => [activeTalk, deletedTalk]),
+    getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk]),
     deleteTalk: vi.fn(async () => {}),
     restoreTalk: vi.fn(async () => {}),
+    setTalkVideoUrl: vi.fn(async () => {}),
+    setTalkShowWithoutLink: vi.fn(async () => {}),
     ...overrides,
   }
 }
@@ -59,7 +69,7 @@ describe('AdminPanel', () => {
     const wrapper = mountPanel(fakeClient())
     await flushPromises()
 
-    expect(wrapper.text()).toContain('Talks (1)')
+    expect(wrapper.text()).toContain('Talks (2)')
     expect(wrapper.text()).toContain('Corbeille (1)')
   })
 
@@ -114,6 +124,50 @@ describe('AdminPanel', () => {
     await flushPromises()
 
     expect(client.restoreTalk).toHaveBeenCalledWith('Shodo', 'talk-2')
+  })
+
+  it('shows the pending-validation count and lists talks without a videoUrl', async () => {
+    const wrapper = mountPanel(fakeClient())
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('À valider (1)')
+
+    const pendingTabButton = wrapper.findAll('button').find((b) => b.text().includes('À valider'))!
+    await pendingTabButton.trigger('click')
+
+    expect(wrapper.text()).toContain('Sans lien')
+    expect(wrapper.text()).not.toContain('Intro TDD')
+  })
+
+  it('calls setTalkVideoUrl with the edited draft when validating a pending talk', async () => {
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const pendingTabButton = wrapper.findAll('button').find((b) => b.text().includes('À valider'))!
+    await pendingTabButton.trigger('click')
+
+    await wrapper.find('input[type="text"]').setValue('https://www.youtube.com/watch?v=validated')
+    const validateButton = wrapper.findAll('button').find((b) => b.text() === 'Valider')!
+    await validateButton.trigger('click')
+    await flushPromises()
+
+    expect(client.setTalkVideoUrl).toHaveBeenCalledWith('Shodo', 'talk-3', 'https://www.youtube.com/watch?v=validated')
+  })
+
+  it('calls setTalkShowWithoutLink when the checkbox is toggled', async () => {
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const pendingTabButton = wrapper.findAll('button').find((b) => b.text().includes('À valider'))!
+    await pendingTabButton.trigger('click')
+
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    await checkbox.setValue(true)
+    await flushPromises()
+
+    expect(client.setTalkShowWithoutLink).toHaveBeenCalledWith('Shodo', 'talk-3', true)
   })
 
   it('emits close when "Retour au site" is clicked', async () => {

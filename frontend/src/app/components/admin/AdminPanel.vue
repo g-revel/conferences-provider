@@ -3,6 +3,7 @@ import { ref, computed, onMounted, inject } from 'vue'
 import { adminClientKey } from '../../injectionKeys'
 import AdminTalkersSection from './AdminTalkersSection.vue'
 import AdminTalksSection from './AdminTalksSection.vue'
+import AdminPendingValidationSection from './AdminPendingValidationSection.vue'
 import type { Talker } from '../../../domain/admin/Talker'
 import type { Talk } from '../../../domain/talks/Talk'
 
@@ -12,10 +13,15 @@ const emit = defineEmits<{ close: [] }>()
 const client = inject(adminClientKey)!
 const talkers = ref<Talker[]>([])
 const talks = ref<Talk[]>([])
-const tab = ref<'talkers' | 'talks'>('talkers')
+const tab = ref<'talkers' | 'talks' | 'pending'>('talkers')
 
 const activeTalks = computed(() => talks.value.filter((t) => !t.deletedAt))
 const deletedTalks = computed(() => talks.value.filter((t) => t.deletedAt))
+// Un talk sans titre n'a pas de valeur à valider (repère interne du pipeline, voir
+// backend/CLAUDE.md) ; un talk supprimé n'a pas sa place dans la file de validation.
+const pendingValidationTalks = computed(() =>
+  activeTalks.value.filter((t) => t.title != null && t.videoUrl == null),
+)
 
 async function reload(): Promise<void> {
   talkers.value = await client.getTalkers(props.password)
@@ -38,6 +44,18 @@ async function onDelete(talk: Talk): Promise<void> {
 async function onRestore(talk: Talk): Promise<void> {
   if (!talk.id) return
   await client.restoreTalk(props.password, talk.id)
+  await reload()
+}
+
+async function onValidate(talk: Talk, videoUrl: string): Promise<void> {
+  if (!talk.id) return
+  await client.setTalkVideoUrl(props.password, talk.id, videoUrl)
+  await reload()
+}
+
+async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void> {
+  if (!talk.id) return
+  await client.setTalkShowWithoutLink(props.password, talk.id, show)
   await reload()
 }
 </script>
@@ -64,17 +82,29 @@ async function onRestore(talk: Talk): Promise<void> {
           :class="tab === 'talks' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
           @click="tab = 'talks'"
         >Talks ({{ activeTalks.length }}) · Corbeille ({{ deletedTalks.length }})</button>
+        <button
+          class="px-1 pb-2 text-sm font-medium"
+          :class="tab === 'pending' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
+          @click="tab = 'pending'"
+        >À valider ({{ pendingValidationTalks.length }})</button>
       </div>
 
       <AdminTalkersSection v-if="tab === 'talkers'" :talkers="talkers" @update-city="onUpdateCity" />
 
-      <div v-else>
+      <div v-else-if="tab === 'talks'">
         <h2 class="mb-2 text-sm font-semibold text-shodo-ink">Talks actifs</h2>
         <AdminTalksSection :talks="activeTalks" @delete="onDelete" @restore="onRestore" />
 
         <h2 class="mt-8 mb-2 text-sm font-semibold text-shodo-ink">Corbeille</h2>
         <AdminTalksSection :talks="deletedTalks" @delete="onDelete" @restore="onRestore" />
       </div>
+
+      <AdminPendingValidationSection
+        v-else
+        :talks="pendingValidationTalks"
+        @validate="onValidate"
+        @toggle-show-without-link="onToggleShowWithoutLink"
+      />
     </div>
   </div>
 </template>

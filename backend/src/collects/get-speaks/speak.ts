@@ -15,4 +15,9 @@ export interface Speak {
   description?: string | null;
   year?: number | null;
   deletedAt?: string | null;
+  // Lien candidat trouvé automatiquement (recherche web) mais pas encore validé par
+  // un admin — jamais exposé comme `videoUrl` tant qu'il n'a pas été confirmé.
+  pendingVideoUrl?: string | null;
+  // Override admin : afficher ce talk publiquement même sans videoUrl connu.
+  showWithoutLink?: boolean;
 }
