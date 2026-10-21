@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { readJson, writeJson } from '../data/jsonStore.js'
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKERS_PATH } from '../data/paths.js'
+import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKERS_PATH, KNOWN_CITIES_PATH } from '../data/paths.js'
 import { Speak } from '../collects/get-speaks/speak.js'
 import { Speaker } from '../collects/get-all-speakers/speaker.js'
 import { SpeakerCityOverride } from '../collects/get-all-speakers/speakerCityOverride.js'
@@ -55,6 +55,29 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       company: speaker.company,
       city: overrideByIdentity.get(speakerIdentity(speaker.firstname, speaker.lastname)) ?? null,
     }))
+  })
+
+  // Liste statique (pas dérivée de `company`) des villes proposables dans le
+  // sélecteur admin — git-trackée dans data/known-cities.json, pérenne et
+  // partagée par tous les admins dès qu'une ville y est ajoutée.
+  app.get('/api/admin/cities', async () => {
+    const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
+    return [...cities].sort((a, b) => a.localeCompare(b))
+  })
+
+  app.post('/api/admin/cities', async (request, reply) => {
+    const body = (request.body ?? {}) as { city?: unknown }
+    if (typeof body.city !== 'string' || body.city.trim() === '') {
+      return reply.code(400).send({ error: 'city is required' })
+    }
+    const city = body.city.trim()
+
+    const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
+    const alreadyKnown = cities.some((c) => normalizeForMatch(c) === normalizeForMatch(city))
+    const next = alreadyKnown ? cities : [...cities, city]
+    if (!alreadyKnown) await writeJson(KNOWN_CITIES_PATH, next)
+
+    return [...next].sort((a, b) => a.localeCompare(b))
   })
 
   app.put('/api/admin/talkers/city', async (request, reply) => {

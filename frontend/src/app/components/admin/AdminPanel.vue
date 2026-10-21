@@ -13,6 +13,7 @@ const emit = defineEmits<{ close: [] }>()
 const client = inject(adminClientKey)!
 const talkers = ref<Talker[]>([])
 const talks = ref<Talk[]>([])
+const cities = ref<string[]>([])
 const tab = ref<'talkers' | 'talks' | 'pending' | 'trash'>('talkers')
 
 const activeTalks = computed(() => talks.value.filter((t) => !t.deletedAt))
@@ -26,6 +27,7 @@ const pendingValidationTalks = computed(() =>
 async function reload(): Promise<void> {
   talkers.value = await client.getTalkers(props.password)
   talks.value = await client.getAllTalks(props.password)
+  cities.value = await client.getCities(props.password)
 }
 
 onMounted(reload)
@@ -33,6 +35,10 @@ onMounted(reload)
 async function onUpdateCity(talker: Talker, city: string): Promise<void> {
   await client.setTalkerCity(props.password, talker.firstname, talker.lastname, city.trim() || null)
   await reload()
+}
+
+async function onAddCity(city: string): Promise<void> {
+  cities.value = await client.addCity(props.password, city)
 }
 
 async function onDelete(talk: Talk): Promise<void> {
@@ -94,7 +100,13 @@ async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void>
         >Corbeille ({{ deletedTalks.length }})</button>
       </div>
 
-      <AdminTalkersSection v-if="tab === 'talkers'" :talkers="talkers" @update-city="onUpdateCity" />
+      <AdminTalkersSection
+        v-if="tab === 'talkers'"
+        :talkers="talkers"
+        :cities="cities"
+        @update-city="onUpdateCity"
+        @add-city="onAddCity"
+      />
 
       <AdminTalksSection v-else-if="tab === 'talks'" :talks="activeTalks" @delete="onDelete" @restore="onRestore" />
 

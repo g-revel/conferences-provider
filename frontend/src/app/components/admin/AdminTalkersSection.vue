@@ -2,8 +2,10 @@
 import { ref, watch } from 'vue'
 import type { Talker } from '../../../domain/admin/Talker'
 
-const props = defineProps<{ talkers: Talker[] }>()
-const emit = defineEmits<{ updateCity: [talker: Talker, city: string] }>()
+const ADD_CITY_OPTION = '__add_city__'
+
+const props = defineProps<{ talkers: Talker[]; cities: string[] }>()
+const emit = defineEmits<{ updateCity: [talker: Talker, city: string]; addCity: [city: string] }>()
 
 function talkerKey(talker: Talker): string {
   return `${talker.firstname}|${talker.lastname}`
@@ -28,6 +30,34 @@ watch(
 function save(talker: Talker): void {
   emit('updateCity', talker, drafts.value[talkerKey(talker)] ?? '')
 }
+
+// Garde visible une valeur déjà enregistrée qui ne serait pas (ou plus) dans la
+// liste statique des villes connues, plutôt que de la faire disparaître du select.
+function optionsFor(talker: Talker): string[] {
+  const draft = drafts.value[talkerKey(talker)]
+  return draft && !props.cities.includes(draft) ? [...props.cities, draft].sort() : props.cities
+}
+
+// `:value` (pas v-model) : si l'admin annule le prompt, le select doit revenir à
+// la valeur réelle du brouillon plutôt que de rester bloqué sur l'option "Ajouter".
+function onCityChange(talker: Talker, event: Event): void {
+  const value = (event.target as HTMLSelectElement).value
+  if (value !== ADD_CITY_OPTION) {
+    drafts.value[talkerKey(talker)] = value
+    return
+  }
+  const name = prompt('Nom de la nouvelle ville :')?.trim()
+  if (name) {
+    emit('addCity', name)
+    drafts.value[talkerKey(talker)] = name
+  } else {
+    // Annulé : le brouillon n'a pas changé, mais le <select> natif a déjà pris la
+    // valeur sentinelle au moment du `change` — le remettre explicitement plutôt
+    // que de compter sur un re-rendu Vue qui ne se produira pas (rien n'a changé
+    // du point de vue de la réactivité).
+    ;(event.target as HTMLSelectElement).value = drafts.value[talkerKey(talker)] ?? ''
+  }
+}
 </script>
 
 <template>
@@ -45,12 +75,15 @@ function save(talker: Talker): void {
         <td class="py-2 pr-4 font-medium text-shodo-noir">{{ talker.firstname }} {{ talker.lastname }}</td>
         <td class="py-2 pr-4 text-shodo-taupe">{{ talker.company }}</td>
         <td class="py-2 pr-4">
-          <input
-            v-model="drafts[talkerKey(talker)]"
-            type="text"
-            placeholder="(aucune)"
-            class="w-32 rounded border border-shodo-marron/30 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-shodo-rose"
-          />
+          <select
+            :value="drafts[talkerKey(talker)]"
+            class="w-36 rounded border border-shodo-marron/30 px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-shodo-rose"
+            @change="onCityChange(talker, $event)"
+          >
+            <option value="">(aucune)</option>
+            <option v-for="city in optionsFor(talker)" :key="city" :value="city">{{ city }}</option>
+            <option :value="ADD_CITY_OPTION">Ajouter une ville...</option>
+          </select>
         </td>
         <td class="py-2">
           <button

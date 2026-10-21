@@ -43,6 +43,8 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     login: vi.fn(async () => true),
     getTalkers: vi.fn(async () => talkers),
     setTalkerCity: vi.fn(async () => {}),
+    getCities: vi.fn(async () => ['Lyon', 'Rennes']),
+    addCity: vi.fn(async () => ['Bordeaux', 'Lyon', 'Rennes']),
     getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk]),
     deleteTalk: vi.fn(async () => {}),
     restoreTalk: vi.fn(async () => {}),
@@ -100,13 +102,25 @@ describe('AdminPanel', () => {
     const wrapper = mountPanel(client)
     await flushPromises()
 
-    await wrapper.find('input').setValue('Paris')
+    await wrapper.find('select').setValue('Lyon')
     const saveButton = wrapper.findAll('button').find((b) => b.text() === 'Enregistrer')!
     await saveButton.trigger('click')
     await flushPromises()
 
-    expect(client.setTalkerCity).toHaveBeenCalledWith('Shodo', 'Julien', 'Topcu', 'Paris')
+    expect(client.setTalkerCity).toHaveBeenCalledWith('Shodo', 'Julien', 'Topcu', 'Lyon')
     expect(client.getTalkers).toHaveBeenCalledTimes(2) // initial load + reload after save
+  })
+
+  it('calls addCity and refreshes the known cities when a new one is added', async () => {
+    vi.stubGlobal('prompt', vi.fn(() => 'Bordeaux'))
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    await wrapper.find('select').setValue('__add_city__')
+    await flushPromises()
+
+    expect(client.addCity).toHaveBeenCalledWith('Shodo', 'Bordeaux')
   })
 
   it('calls deleteTalk when confirming deletion of an active talk', async () => {

@@ -8,12 +8,13 @@ const { readJsonMock, writeJsonMock } = vi.hoisted(() => ({
 vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock, writeJson: writeJsonMock }));
 
 import { buildApp } from "../app.js";
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH } from "../data/paths.js";
+import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, KNOWN_CITIES_PATH } from "../data/paths.js";
 
-function mockReadJson(talks: unknown[], overrides: unknown[] = []): void {
+function mockReadJson(talks: unknown[], overrides: unknown[] = [], cities: unknown[] = []): void {
   readJsonMock.mockImplementation(async (path: string) => {
     if (path === TALKS_PATH) return talks;
     if (path === SPEAKER_CITY_OVERRIDES_PATH) return overrides;
+    if (path === KNOWN_CITIES_PATH) return cities;
     return [];
   });
 }
@@ -319,6 +320,69 @@ describe("PUT /api/admin/talks/:id/show-without-link", () => {
       url: "/api/admin/talks/talk-1/show-without-link",
       headers: { "x-admin-password": "Shodo" },
       payload: { showWithoutLink: "yes" },
+    });
+
+    expect(response.statusCode).toBe(400);
+  });
+});
+
+describe("GET /api/admin/cities", () => {
+  it("returns the known cities, sorted", async () => {
+    mockReadJson([], [], ["Nantes", "Lille"]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual(["Lille", "Nantes"]);
+  });
+});
+
+describe("POST /api/admin/cities", () => {
+  it("adds a new city and persists it", async () => {
+    mockReadJson([], [], ["Lille"]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { city: "Bordeaux" },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual(["Bordeaux", "Lille"]);
+    expect(writeJsonMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille", "Bordeaux"]);
+  });
+
+  it("does not duplicate a city that already exists, regardless of case or accents", async () => {
+    mockReadJson([], [], ["Reunion"]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { city: "réunion" },
+    });
+
+    expect(response.json()).toEqual(["Reunion"]);
+    expect(writeJsonMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects an empty city", async () => {
+    mockReadJson([], [], []);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "POST",
+      url: "/api/admin/cities",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { city: "  " },
     });
 
     expect(response.statusCode).toBe(400);
