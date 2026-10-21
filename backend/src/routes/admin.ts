@@ -6,6 +6,7 @@ import { Speaker } from '../collects/get-all-speakers/speaker.js'
 import { SpeakerCityOverride } from '../collects/get-all-speakers/speakerCityOverride.js'
 import { applyCityOverrides } from '../collects/get-speaks/applyCityOverrides.js'
 import { applySpeakerActiveStatus } from '../collects/get-speaks/applySpeakerActiveStatus.js'
+import { extractCityFromCompany } from '../collects/get-all-speakers/extractCityFromCompany.js'
 import { isValidAdminPassword } from '../admin/adminAuth.js'
 import { normalizeForMatch } from '../string.functions.js'
 
@@ -49,12 +50,19 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
     const overrideByIdentity = new Map(overrides.map((o) => [speakerIdentity(o.firstname, o.lastname), o.city]))
 
-    return uniqueTalkers(talks).map((speaker) => ({
-      firstname: speaker.firstname,
-      lastname: speaker.lastname,
-      company: speaker.company,
-      city: overrideByIdentity.get(speakerIdentity(speaker.firstname, speaker.lastname)) ?? null,
-    }))
+    // La ville "effective" d'un talker, comme déjà affichée côté portail (voir
+    // frontend/src/domain/speakers/SpeakerCity.ts) : l'override admin s'il existe
+    // (y compris explicitement `null`, pour forcer "(aucune)" malgré une ville
+    // dérivable), sinon celle dérivée de `company`. `has()` et pas juste `??` :
+    // un override à `null` ne doit pas retomber sur la dérivation automatique.
+    return uniqueTalkers(talks).map((speaker) => {
+      const identity = speakerIdentity(speaker.firstname, speaker.lastname)
+      const city = overrideByIdentity.has(identity)
+        ? (overrideByIdentity.get(identity) ?? null)
+        : extractCityFromCompany(speaker.company)
+
+      return { firstname: speaker.firstname, lastname: speaker.lastname, company: speaker.company, city }
+    })
   })
 
   // Liste statique (pas dérivée de `company`) des villes proposables dans le

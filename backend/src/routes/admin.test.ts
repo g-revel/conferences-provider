@@ -100,7 +100,7 @@ describe("GET /api/admin/talkers", () => {
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual([
       { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null },
-      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: null },
+      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: "Rennes" },
     ]);
   });
 
@@ -115,6 +115,38 @@ describe("GET /api/admin/talkers", () => {
     });
 
     expect(response.json()).toEqual([{ firstname: "Alice", lastname: "Martin", company: "Shodo", city: "Rennes" }]);
+  });
+
+  it("falls back to the city derived from company when there is no override", async () => {
+    mockReadJson([talk2], []);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/admin/talkers",
+      headers: { "x-admin-password": "Shodo" },
+    });
+
+    expect(response.json()).toEqual([
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null },
+      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: "Rennes" },
+    ]);
+  });
+
+  it("an override explicitly set to null wins over the derived city (forces \"(aucune)\")", async () => {
+    mockReadJson([talk2], [{ firstname: "Bob", lastname: "Dupont", city: null }]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/admin/talkers",
+      headers: { "x-admin-password": "Shodo" },
+    });
+
+    expect(response.json()).toEqual([
+      { firstname: "Alice", lastname: "Martin", company: "Shodo", city: null },
+      { firstname: "Bob", lastname: "Dupont", company: "Shodo Rennes", city: null },
+    ]);
   });
 });
 
