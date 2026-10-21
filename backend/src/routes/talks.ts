@@ -22,15 +22,30 @@ import { applyMemberOverrides } from '../collects/get-speaks/applyMemberOverride
 // "montrer sans lien" (showWithoutLink) dans la file d'attente de validation —
 // un lien candidat trouvé automatiquement (pendingVideoUrl) ne suffit jamais à
 // lui seul : il doit être validé (promu en videoUrl) par un humain d'abord.
+//
+// Un talk sans année connue (`year` absent) ou daté de 2024 ou avant n'est pas
+// servi non plus — demandé explicitement, pour ne montrer que les talks récents.
+// Jamais supprimé pour autant : reste dans talks.json, resservira plus tard (ex.
+// un admin lui assigne une année depuis l'onglet "Non datés"). Les talks servis
+// sont triés du plus récent au plus ancien.
+const MIN_VISIBLE_YEAR = 2025
+
 export default fp(async function (app: FastifyInstance) {
   app.get('/api/talks', async () => {
     const talks = await readJson<Speak[]>(TALKS_PATH, [])
     const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
     const memberOverrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
     const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
-    const visible = talks.filter(
-      (talk) => talk.title != null && talk.deletedAt == null && (talk.videoUrl != null || talk.showWithoutLink === true),
-    )
+    const visible = talks
+      .filter(
+        (talk) =>
+          talk.title != null &&
+          talk.deletedAt == null &&
+          (talk.videoUrl != null || talk.showWithoutLink === true) &&
+          talk.year != null &&
+          talk.year >= MIN_VISIBLE_YEAR,
+      )
+      .sort((a, b) => b.year! - a.year!)
     return applyMemberOverrides(applySpeakerActiveStatus(applyCityOverrides(visible, overrides), speakers), memberOverrides)
   })
 }, {

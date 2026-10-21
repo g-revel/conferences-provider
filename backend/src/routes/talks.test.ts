@@ -37,6 +37,7 @@ describe("GET /api/talks", () => {
         speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
         title: "Intro TDD",
         videoUrl: "https://www.youtube.com/watch?v=abc123",
+        year: 2026,
       },
     ];
     mockReadJson(talks);
@@ -54,12 +55,14 @@ describe("GET /api/talks", () => {
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
       videoUrl: "https://www.youtube.com/watch?v=abc123",
+      year: 2026,
     };
     const untitled = {
       conference: { name: "MixIT", url: "https://mixitconf.org/schedule" },
       speakers: [{ firstname: "Bob", lastname: "Dupont", company: "Shodo" }],
       title: null,
       videoUrl: "https://www.youtube.com/watch?v=def456",
+      year: 2026,
     };
     mockReadJson([titled, untitled]);
 
@@ -75,12 +78,14 @@ describe("GET /api/talks", () => {
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
       videoUrl: "https://www.youtube.com/watch?v=abc123",
+      year: 2026,
     };
     const deleted = {
       conference: { name: "MixIT" },
       speakers: [{ firstname: "Bob", lastname: "Dupont", company: "Shodo" }],
       title: "Supprimé",
       videoUrl: "https://www.youtube.com/watch?v=def456",
+      year: 2026,
       deletedAt: "2026-01-01T00:00:00.000Z",
     };
     mockReadJson([active, deleted]);
@@ -97,6 +102,7 @@ describe("GET /api/talks", () => {
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
       videoUrl: "https://www.youtube.com/watch?v=abc123",
+      year: 2026,
     };
     mockReadJson([talk], [{ firstname: "Alice", lastname: "Martin", city: "Rennes" }]);
 
@@ -127,6 +133,7 @@ describe("GET /api/talks", () => {
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
       pendingVideoUrl: "https://www.youtube.com/watch?v=candidate",
+      year: 2026,
     };
     mockReadJson([pending]);
 
@@ -142,6 +149,7 @@ describe("GET /api/talks", () => {
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
       showWithoutLink: true,
+      year: 2026,
     };
     mockReadJson([shown]);
 
@@ -149,5 +157,66 @@ describe("GET /api/talks", () => {
     const response = await app.inject({ method: "GET", url: "/api/talks" });
 
     expect(response.json()).toEqual([shown]);
+  });
+
+  it("never serves a talk with no known year", async () => {
+    const undated = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Intro TDD",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
+    };
+    mockReadJson([undated]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([]);
+  });
+
+  it("never serves a talk dated 2024 or earlier", async () => {
+    const old = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Vieux talk",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
+      year: 2024,
+    };
+    mockReadJson([old]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([]);
+  });
+
+  it("sorts the served talks by year, most recent first", async () => {
+    const y2025 = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Talk 2025",
+      videoUrl: "https://www.youtube.com/watch?v=aaa",
+      year: 2025,
+    };
+    const y2027 = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Talk 2027",
+      videoUrl: "https://www.youtube.com/watch?v=bbb",
+      year: 2027,
+    };
+    const y2026 = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Talk 2026",
+      videoUrl: "https://www.youtube.com/watch?v=ccc",
+      year: 2026,
+    };
+    mockReadJson([y2025, y2027, y2026]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json().map((t: { title: string }) => t.title)).toEqual(["Talk 2027", "Talk 2026", "Talk 2025"]);
   });
 });

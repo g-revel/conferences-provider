@@ -204,4 +204,22 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     await writeJson(TALKS_PATH, talks)
     return talks[index]
   })
+
+  // Un talk sans année connue n'est pas servi côté public (voir talks.ts) —
+  // cette route permet à un admin de la renseigner depuis l'onglet "Non datés".
+  app.put('/api/admin/talks/:id/year', async (request, reply) => {
+    const { id } = request.params as { id: string }
+    const body = (request.body ?? {}) as { year?: unknown }
+    if (typeof body.year !== 'number' || !Number.isInteger(body.year) || body.year < 1900 || body.year > 2100) {
+      return reply.code(400).send({ error: 'year must be a valid integer year' })
+    }
+
+    const talks = await readJson<Speak[]>(TALKS_PATH, [])
+    const index = talks.findIndex((t) => t.id === id)
+    if (index === -1) return reply.code(404).send({ error: 'not found' })
+
+    talks[index] = { ...talks[index], year: body.year }
+    await writeJson(TALKS_PATH, talks)
+    return talks[index]
+  })
 }

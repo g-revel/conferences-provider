@@ -522,3 +522,62 @@ describe("POST /api/admin/cities", () => {
     expect(response.statusCode).toBe(400);
   });
 });
+
+describe("PUT /api/admin/talks/:id/year", () => {
+  it("sets the year", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/year",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { year: 2025 },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json().year).toBe(2025);
+  });
+
+  it("rejects a non-integer year", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/year",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { year: 2025.5 },
+    });
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  it("rejects a year out of range", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/year",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { year: 1500 },
+    });
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  it("returns 404 for an unknown id", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/unknown/year",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { year: 2025 },
+    });
+
+    expect(response.statusCode).toBe(404);
+  });
+});
