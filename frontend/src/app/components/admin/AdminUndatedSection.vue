@@ -32,6 +32,14 @@ function onSave(talk: Talk): void {
         <p class="text-shodo-taupe">{{ talk.conference.name }} — {{ speakerNames(talk) }}</p>
       </div>
 
+      <a
+        v-if="talk.videoUrl"
+        :href="talk.videoUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs text-shodo-rose hover:underline"
+      >🔗 Voir le talk (pour retrouver la date)</a>
+
       <div class="flex items-center gap-2">
         <input
           v-if="talk.id"

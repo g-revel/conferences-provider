@@ -39,6 +39,12 @@ const undatedTalk: Talk = {
   title: 'Sans année',
   videoUrl: 'https://www.youtube.com/watch?v=xyz789',
 }
+const undatedWithoutLinkTalk: Talk = {
+  id: 'talk-5',
+  conference: { name: 'Touraine Tech' },
+  speakers: [{ firstname: 'Eve', lastname: 'Durand', company: 'Shodo' }],
+  title: 'Sans lien ni année',
+}
 
 function mountPanel(client: IAdminClient) {
   return mount(AdminPanel, {
@@ -256,6 +262,25 @@ describe('AdminPanel', () => {
 
     expect(wrapper.text()).toContain('Sans année')
     expect(wrapper.text()).not.toContain('Intro TDD')
+  })
+
+  it('keeps an undated talk without a link only in "À valider", not in "Non datés"', async () => {
+    const client = fakeClient({
+      getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk, undatedTalk, undatedWithoutLinkTalk]),
+    })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('À valider (2)')
+    expect(wrapper.text()).toContain('Non datés (1)')
+
+    const undatedTabButton = wrapper.findAll('button').find((b) => b.text().includes('Non datés'))!
+    await undatedTabButton.trigger('click')
+    expect(wrapper.text()).not.toContain('Sans lien ni année')
+
+    const pendingTabButton = wrapper.findAll('button').find((b) => b.text().includes('À valider'))!
+    await pendingTabButton.trigger('click')
+    expect(wrapper.text()).toContain('Sans lien ni année')
   })
 
   it('calls setTalkYear with the entered year when saving an undated talk', async () => {

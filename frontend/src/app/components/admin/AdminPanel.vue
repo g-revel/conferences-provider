@@ -25,8 +25,12 @@ const pendingValidationTalks = computed(() =>
   activeTalks.value.filter((t) => t.title != null && t.videoUrl == null),
 )
 // Un talk sans année n'est pas servi côté public (voir backend/src/routes/talks.ts)
-// jusqu'à ce qu'un admin la renseigne ici.
-const undatedTalks = computed(() => activeTalks.value.filter((t) => t.title != null && t.year == null))
+// jusqu'à ce qu'un admin la renseigne ici. Nécessite un lien : sans lien, l'admin
+// n'a aucun moyen de retrouver la date du talk pour la renseigner — ce talk reste
+// uniquement dans "À valider" tant qu'il n'a pas de lien.
+const undatedTalks = computed(() =>
+  activeTalks.value.filter((t) => t.title != null && t.year == null && t.videoUrl != null),
+)
 
 async function reload(): Promise<void> {
   talkers.value = await client.getTalkers(props.password)

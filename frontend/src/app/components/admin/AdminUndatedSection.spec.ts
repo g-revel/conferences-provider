@@ -9,6 +9,7 @@ const talk: Talk = {
   conference: { name: 'BreizhCamp' },
   speakers: [{ firstname: 'Alice', lastname: 'Martin', company: 'Shodo' }],
   title: 'Intro TDD',
+  videoUrl: 'https://www.youtube.com/watch?v=abc123',
 }
 
 describe('AdminUndatedSection', () => {
@@ -44,6 +45,21 @@ describe('AdminUndatedSection', () => {
     await wrapper.find('button').trigger('click')
 
     expect(wrapper.emitted('setYear')).toBeUndefined()
+  })
+
+  it('renders a clickable link to the talk so the admin can look up its date', () => {
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+
+    const link = wrapper.find('a')
+    expect(link.exists()).toBe(true)
+    expect(link.attributes('href')).toBe('https://www.youtube.com/watch?v=abc123')
+  })
+
+  it('does not render a link when the talk has none', () => {
+    const withoutLink: Talk = { ...talk, videoUrl: undefined }
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [withoutLink] } })
+
+    expect(wrapper.find('a').exists()).toBe(false)
   })
 
   it('shows a placeholder when there are no talks', () => {
