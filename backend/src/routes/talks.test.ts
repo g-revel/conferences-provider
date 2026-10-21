@@ -118,6 +118,7 @@ describe("GET /api/talks", () => {
       speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
       title: "Intro TDD",
       videoUrl: "https://www.youtube.com/watch?v=abc123",
+      year: 2026,
     };
     mockReadJson([talk], [], [{ firstname: "Alice", lastname: "Martin", active: false }]);
 
