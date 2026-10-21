@@ -17,13 +17,13 @@ const talks: Talk[] = [
     conference: { name: 'BreizhCamp' },
     speakers: [{ firstname: 'Alice', lastname: 'Martin', company: 'Shodo' }],
     title: 'Intro TDD',
-    category: 'Architecture & Craft',
+    categories: ['Architecture & Craft'],
   },
   {
     conference: { name: 'MixIT' },
     speakers: [{ firstname: 'Bob', lastname: 'Dupont', company: 'Shodo' }],
     title: 'Sécuriser son API',
-    category: 'Sécurité',
+    categories: ['Sécurité'],
   },
   {
     conference: { name: 'DevFest' },
@@ -32,7 +32,7 @@ const talks: Talk[] = [
       { firstname: 'Carol', lastname: 'Lenoir', company: 'Shodo' },
     ],
     title: 'Talk co-animé',
-    category: 'Architecture & Craft',
+    categories: ['Architecture & Craft'],
   },
   {
     conference: { name: 'Paris Web', url: 'https://paris-web.fr' },
@@ -93,7 +93,18 @@ describe('filterTalksByCategory', () => {
   })
 
   it('returns an empty array when no talk matches the category', () => {
-    expect(filterTalksByCategory(talks, 'IA & Data')).toEqual([])
+    expect(filterTalksByCategory(talks, 'Inconnue')).toEqual([])
+  })
+
+  it('matches a talk that has several categories, not just a single one', () => {
+    const multiCategory: Talk = {
+      conference: { name: 'DevFest' },
+      speakers: [{ firstname: 'Dan', lastname: 'Petit', company: 'Shodo' }],
+      title: 'DDD et IA',
+      categories: ['Domain-Driven Design', 'IA'],
+    }
+    expect(filterTalksByCategory([...talks, multiCategory], 'IA')).toEqual([multiCategory])
+    expect(filterTalksByCategory([...talks, multiCategory], 'Domain-Driven Design')).toEqual([multiCategory])
   })
 })
 
@@ -105,6 +116,21 @@ describe('getAvailableCategories', () => {
   it('ignores talks without a category', () => {
     const withoutCategory: Talk = { conference: { name: 'X' }, speakers: [], title: 'Y' }
     expect(getAvailableCategories([...talks, withoutCategory])).toEqual(['Architecture & Craft', 'Sécurité'])
+  })
+
+  it('includes every category of a talk that has several, without duplicates', () => {
+    const multiCategory: Talk = {
+      conference: { name: 'DevFest' },
+      speakers: [],
+      title: 'DDD et IA',
+      categories: ['Domain-Driven Design', 'IA', 'Sécurité'],
+    }
+    expect(getAvailableCategories([...talks, multiCategory])).toEqual([
+      'Architecture & Craft',
+      'Domain-Driven Design',
+      'IA',
+      'Sécurité',
+    ])
   })
 
   it('returns an empty array when there are no talks', () => {

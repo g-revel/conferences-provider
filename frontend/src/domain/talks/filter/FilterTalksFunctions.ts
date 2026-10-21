@@ -8,7 +8,7 @@ function searchableFields(talk: Talk): string[] {
   return [
     talk.title,
     talk.conference.name,
-    talk.category,
+    ...(talk.categories ?? []),
     talk.format,
     talk.level,
     talk.language,
@@ -24,16 +24,19 @@ export function filterTalksBySearchTerm(talks: Talk[], term: string): Talk[] {
   return talks.filter((talk) => searchableFields(talk).some((field) => field.toLowerCase().includes(normalized)))
 }
 
+// Un talk peut avoir plusieurs catégories (ex. un talk DDD qui mentionne aussi
+// l'IA) : filtrer sur l'une d'elles ne doit pas exclure les autres catégories
+// du talk, juste vérifier qu'elle en fait partie.
 export function filterTalksByCategory(talks: Talk[], category: string): Talk[] {
   if (!category) return talks
 
-  return talks.filter((talk) => talk.category === category)
+  return talks.filter((talk) => talk.categories?.includes(category))
 }
 
 // Dérivée des données elles-mêmes (pas d'enum séparée à maintenir) : une catégorie
 // ajoutée directement dans data/talks.json apparaît automatiquement dans le filtre.
 export function getAvailableCategories(talks: Talk[]): string[] {
-  const categories = new Set(talks.map((talk) => talk.category).filter((category): category is string => !!category))
+  const categories = new Set(talks.flatMap((talk) => talk.categories ?? []))
   return [...categories].sort((a, b) => a.localeCompare(b))
 }
 

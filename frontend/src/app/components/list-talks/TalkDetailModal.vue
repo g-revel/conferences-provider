@@ -28,7 +28,7 @@ function speakerNames(talk: Talk): string {
       <p class="mt-1 text-sm text-shodo-ink">{{ speakerNames(talk) }}</p>
 
       <div class="mt-3 flex flex-wrap gap-2 text-xs">
-        <span v-if="talk.category" class="rounded-full border border-shodo-rose px-2 py-0.5 font-bold uppercase tracking-wide text-shodo-rose">{{ talk.category }}</span>
+        <span v-for="category in talk.categories" :key="category" class="rounded-full border border-shodo-rose px-2 py-0.5 font-bold uppercase tracking-wide text-shodo-rose">{{ category }}</span>
         <span v-if="talk.format" class="rounded-full border border-shodo-marron/35 px-2 py-0.5 font-semibold text-shodo-marron">{{ talk.format }}</span>
         <span v-if="talk.level" class="rounded-full border border-shodo-marron/35 px-2 py-0.5 font-semibold text-shodo-marron">{{ talk.level }}</span>
         <span v-if="talk.language" class="rounded-full border border-shodo-marron/35 px-2 py-0.5 font-semibold text-shodo-marron">{{ talk.language }}</span>

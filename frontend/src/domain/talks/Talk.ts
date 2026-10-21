@@ -7,7 +7,7 @@ export interface Talk {
   speakers: Speaker[]
   title?: string | null
   videoUrl?: string | null
-  category?: string | null
+  categories?: string[]
   format?: string | null
   level?: string | null
   language?: string | null

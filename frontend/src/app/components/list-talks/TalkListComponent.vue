@@ -29,9 +29,10 @@ function speakerNames(talk: Talk): string {
     >
       <div class="flex flex-wrap gap-1">
         <span
-          v-if="talk.category"
+          v-for="category in talk.categories"
+          :key="category"
           class="self-start rounded-full border border-shodo-rose px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-shodo-rose"
-        >{{ talk.category }}</span>
+        >{{ category }}</span>
         <span
           v-if="getTalkCity(talk)"
           class="self-start rounded-full border border-shodo-marron/35 px-2 py-0.5 text-[10px] font-semibold text-shodo-marron"

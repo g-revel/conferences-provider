@@ -9,7 +9,7 @@ const fullTalk: Talk = {
   speakers: [{ firstname: 'Julien', lastname: 'Topcu', company: 'Shodo' }],
   title: 'Le pattern Hive',
   videoUrl: 'https://www.youtube.com/watch?v=abc123',
-  category: 'Architecture & Craft',
+  categories: ['Architecture & Craft', 'IA'],
   format: 'Conférence (40-50min)',
   level: 'Intermédiaire',
   language: 'Français',
@@ -24,6 +24,7 @@ describe('TalkDetailModal', () => {
     expect(wrapper.text()).toContain('Le pattern Hive')
     expect(wrapper.text()).toContain('Julien Topcu')
     expect(wrapper.text()).toContain('Architecture & Craft')
+    expect(wrapper.text()).toContain('IA')
     expect(wrapper.text()).toContain('Conférence (40-50min)')
     expect(wrapper.text()).toContain('Intermédiaire')
     expect(wrapper.text()).toContain('Français')

@@ -33,7 +33,7 @@ const talks: Talk[] = [
     conference: { name: 'Sunny Tech', url: null },
     speakers: [{ firstname: 'Finn', lastname: 'Roche', company: 'Shodo' }],
     title: 'Talk catégorisé',
-    category: 'Sécurité',
+    categories: ['Sécurité'],
   },
   {
     conference: { name: 'Paris Web' },
@@ -105,6 +105,14 @@ describe('TalkListComponent', () => {
     const wrapper = mount(TalkListComponent, { props: { talks: [talks[0]] } })
 
     expect(wrapper.text()).not.toContain('Sécurité')
+  })
+
+  it('should display one badge per category when a talk has several', () => {
+    const multiCategory: Talk = { ...talks[4], categories: ['Sécurité', 'IA'] }
+    const wrapper = mount(TalkListComponent, { props: { talks: [multiCategory] } })
+
+    expect(wrapper.text()).toContain('Sécurité')
+    expect(wrapper.text()).toContain('IA')
   })
 
   it("should display the speaker's city badge (not the conference location)", () => {
