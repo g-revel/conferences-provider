@@ -26,6 +26,10 @@ describe('extractCityFromCompany', () => {
   it('returns null for a company not starting with Shodo', () => {
     expect(extractCityFromCompany('Autre Entreprise')).toBeNull()
   })
+
+  it('normalizes "Reunion" (from the Slack email domain) to the canonical "La Réunion"', () => {
+    expect(extractCityFromCompany('Shodo Reunion')).toBe('La Réunion')
+  })
 })
 
 describe('speakerCity', () => {

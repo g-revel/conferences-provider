@@ -7,6 +7,12 @@ import type { Speaker } from './Speaker'
 // le champ profil personnalisé existe dans le workspace mais n'est rempli par personne.
 const NON_CITY_COMPANY_SUFFIXES = new Set(['studio', 'boost', 'apps'])
 
+// Le suffixe brut ne correspond pas toujours exactement au nom canonique de la
+// ville (backend/data/known-cities.json) — ex. domaine email "shodo-reunion.io"
+// donne "Reunion" (sans accent, sans article), alors que la ville connue est
+// "La Réunion".
+const CITY_ALIASES: Record<string, string> = { Reunion: 'La Réunion' }
+
 export function extractCityFromCompany(company: string): string | null {
   const parts = company.trim().split(/\s+/)
   if (parts.length < 2 || parts[0].toLowerCase() !== 'shodo') return null
@@ -14,7 +20,7 @@ export function extractCityFromCompany(company: string): string | null {
   const suffix = parts.slice(1).join(' ')
   if (NON_CITY_COMPANY_SUFFIXES.has(suffix.toLowerCase())) return null
 
-  return suffix
+  return CITY_ALIASES[suffix] ?? suffix
 }
 
 // `speaker.city`, quand défini, vient d'un override saisi côté admin (voir

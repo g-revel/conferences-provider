@@ -19,6 +19,10 @@ describe("extractCityFromCompany", () => {
   });
 
   it("keeps a multi-word suffix as-is", () => {
-    expect(extractCityFromCompany("Shodo La Reunion")).toBe("La Reunion");
+    expect(extractCityFromCompany("Shodo Grand Est")).toBe("Grand Est");
+  });
+
+  it('normalizes "Reunion" (from the Slack email domain) to the canonical "La Réunion"', () => {
+    expect(extractCityFromCompany("Shodo Reunion")).toBe("La Réunion");
   });
 });
