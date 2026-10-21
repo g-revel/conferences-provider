@@ -191,6 +191,45 @@ describe("GET /api/talks", () => {
     expect(response.json()).toEqual([]);
   });
 
+  it("serves a talk without a year when showWithoutYear is true", async () => {
+    const shown = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Intro TDD",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
+      showWithoutYear: true,
+    };
+    mockReadJson([shown]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([shown]);
+  });
+
+  it("sorts a shown-without-year talk after all dated talks", async () => {
+    const dated = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Talk 2025",
+      videoUrl: "https://www.youtube.com/watch?v=aaa",
+      year: 2025,
+    };
+    const undatedButShown = {
+      conference: { name: "BreizhCamp" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Talk sans date",
+      videoUrl: "https://www.youtube.com/watch?v=bbb",
+      showWithoutYear: true,
+    };
+    mockReadJson([undatedButShown, dated]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json().map((t: { title: string }) => t.title)).toEqual(["Talk 2025", "Talk sans date"]);
+  });
+
   it("sorts the served talks by year, most recent first", async () => {
     const y2025 = {
       conference: { name: "BreizhCamp" },

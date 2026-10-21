@@ -3,7 +3,10 @@ import { reactive } from 'vue'
 import type { Talk } from '../../../domain/talks/Talk'
 
 const props = defineProps<{ talks: Talk[] }>()
-const emit = defineEmits<{ setYear: [talk: Talk, year: number] }>()
+const emit = defineEmits<{
+  setYear: [talk: Talk, year: number]
+  toggleShowWithoutYear: [talk: Talk, show: boolean]
+}>()
 
 // Brouillon par talk, vide tant que l'admin n'a pas saisi d'année (ces talks
 // n'en ont par définition aucune — voir backend/src/routes/talks.ts).
@@ -52,6 +55,15 @@ function onSave(talk: Talk): void {
           class="shrink-0 rounded bg-shodo-rose/10 px-2 py-1 text-xs font-medium text-shodo-rose hover:bg-shodo-rose/20"
           @click="onSave(talk)"
         >Enregistrer</button>
+
+        <label class="ml-auto flex shrink-0 items-center gap-1 text-xs text-shodo-taupe">
+          <input
+            type="checkbox"
+            :checked="talk.showWithoutYear === true"
+            @change="emit('toggleShowWithoutYear', talk, ($event.target as HTMLInputElement).checked)"
+          />
+          Montrer le talk sans date
+        </label>
       </div>
     </li>
     <li v-if="talks.length === 0" class="py-4 text-sm text-gray-400">Aucun talk sans année.</li>

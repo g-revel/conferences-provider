@@ -641,3 +641,48 @@ describe("PUT /api/admin/talks/:id/year", () => {
     expect(response.statusCode).toBe(404);
   });
 });
+
+describe("PUT /api/admin/talks/:id/show-without-year", () => {
+  it("sets showWithoutYear", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/show-without-year",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { showWithoutYear: true },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json().showWithoutYear).toBe(true);
+  });
+
+  it("rejects a non-boolean value", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/show-without-year",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { showWithoutYear: "yes" },
+    });
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  it("returns 404 for an unknown id", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/unknown/show-without-year",
+      headers: { "x-admin-password": "Shodo" },
+      payload: { showWithoutYear: true },
+    });
+
+    expect(response.statusCode).toBe(404);
+  });
+});

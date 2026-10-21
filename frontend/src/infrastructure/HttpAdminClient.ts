@@ -98,4 +98,12 @@ export class HttpAdminClient implements IAdminClient {
       body: JSON.stringify({ year }),
     })
   }
+
+  async setTalkShowWithoutYear(password: string, id: string, showWithoutYear: boolean): Promise<void> {
+    await fetch(`/api/admin/talks/${encodeURIComponent(id)}/show-without-year`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ showWithoutYear }),
+    })
+  }
 }

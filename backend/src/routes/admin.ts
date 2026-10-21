@@ -239,4 +239,23 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     await writeJson(TALKS_PATH, talks)
     return talks[index]
   })
+
+  // Override admin pour un talk sans année connue : l'afficher quand même côté
+  // public (après tous les talks datés, voir talks.ts) plutôt que d'attendre une
+  // date qu'on ne retrouvera peut-être jamais.
+  app.put('/api/admin/talks/:id/show-without-year', async (request, reply) => {
+    const { id } = request.params as { id: string }
+    const body = (request.body ?? {}) as { showWithoutYear?: unknown }
+    if (typeof body.showWithoutYear !== 'boolean') {
+      return reply.code(400).send({ error: 'showWithoutYear must be a boolean' })
+    }
+
+    const talks = await readJson<Speak[]>(TALKS_PATH, [])
+    const index = talks.findIndex((t) => t.id === id)
+    if (index === -1) return reply.code(404).send({ error: 'not found' })
+
+    talks[index] = { ...talks[index], showWithoutYear: body.showWithoutYear }
+    await writeJson(TALKS_PATH, talks)
+    return talks[index]
+  })
 }

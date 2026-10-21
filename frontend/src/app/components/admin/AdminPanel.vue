@@ -87,6 +87,12 @@ async function onSetYear(talk: Talk, year: number): Promise<void> {
   await client.setTalkYear(props.password, talk.id, year)
   await reload()
 }
+
+async function onToggleShowWithoutYear(talk: Talk, show: boolean): Promise<void> {
+  if (!talk.id) return
+  await client.setTalkShowWithoutYear(props.password, talk.id, show)
+  await reload()
+}
 </script>
 
 <template>
@@ -148,7 +154,12 @@ async function onSetYear(talk: Talk, year: number): Promise<void> {
         @delete="onDelete"
       />
 
-      <AdminUndatedSection v-else-if="tab === 'undated'" :talks="undatedTalks" @set-year="onSetYear" />
+      <AdminUndatedSection
+        v-else-if="tab === 'undated'"
+        :talks="undatedTalks"
+        @set-year="onSetYear"
+        @toggle-show-without-year="onToggleShowWithoutYear"
+      />
 
       <AdminTalksSection v-else :talks="deletedTalks" @delete="onDelete" @restore="onRestore" />
     </div>

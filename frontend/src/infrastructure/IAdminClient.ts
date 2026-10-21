@@ -15,4 +15,5 @@ export interface IAdminClient {
   setTalkVideoUrl(password: string, id: string, videoUrl: string): Promise<void>
   setTalkShowWithoutLink(password: string, id: string, showWithoutLink: boolean): Promise<void>
   setTalkYear(password: string, id: string, year: number): Promise<void>
+  setTalkShowWithoutYear(password: string, id: string, showWithoutYear: boolean): Promise<void>
 }

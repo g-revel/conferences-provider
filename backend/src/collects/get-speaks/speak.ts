@@ -23,4 +23,7 @@ export interface Speak {
   pendingVideoUrl?: string | null;
   // Override admin : afficher ce talk publiquement même sans videoUrl connu.
   showWithoutLink?: boolean;
+  // Override admin : afficher ce talk publiquement même sans année connue (il
+  // apparaît alors après tous les talks datés, voir src/routes/talks.ts).
+  showWithoutYear?: boolean;
 }

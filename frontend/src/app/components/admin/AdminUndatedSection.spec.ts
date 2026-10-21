@@ -62,6 +62,21 @@ describe('AdminUndatedSection', () => {
     expect(wrapper.find('a').exists()).toBe(false)
   })
 
+  it('emits toggleShowWithoutYear when the checkbox changes', async () => {
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+
+    await wrapper.find('input[type="checkbox"]').setValue(true)
+
+    expect(wrapper.emitted('toggleShowWithoutYear')).toEqual([[talk, true]])
+  })
+
+  it('pre-checks the box when showWithoutYear is already true', () => {
+    const shown: Talk = { ...talk, showWithoutYear: true }
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [shown] } })
+
+    expect((wrapper.find('input[type="checkbox"]').element as HTMLInputElement).checked).toBe(true)
+  })
+
   it('shows a placeholder when there are no talks', () => {
     const wrapper = mount(AdminUndatedSection, { props: { talks: [] } })
 

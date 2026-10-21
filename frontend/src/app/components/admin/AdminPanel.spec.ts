@@ -68,6 +68,7 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     setTalkVideoUrl: vi.fn(async () => {}),
     setTalkShowWithoutLink: vi.fn(async () => {}),
     setTalkYear: vi.fn(async () => {}),
+    setTalkShowWithoutYear: vi.fn(async () => {}),
     ...overrides,
   }
 }
@@ -297,6 +298,21 @@ describe('AdminPanel', () => {
     await flushPromises()
 
     expect(client.setTalkYear).toHaveBeenCalledWith('Shodo', 'talk-4', 2025)
+  })
+
+  it('calls setTalkShowWithoutYear when the checkbox is toggled in "Non datés"', async () => {
+    const client = fakeClient()
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const undatedTabButton = wrapper.findAll('button').find((b) => b.text().includes('Non datés'))!
+    await undatedTabButton.trigger('click')
+
+    const checkbox = wrapper.find('input[type="checkbox"]')
+    await checkbox.setValue(true)
+    await flushPromises()
+
+    expect(client.setTalkShowWithoutYear).toHaveBeenCalledWith('Shodo', 'talk-4', true)
   })
 
   it('emits close when "Retour au site" is clicked', async () => {
