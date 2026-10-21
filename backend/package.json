@@ -15,7 +15,8 @@
     "refresh:events:heavy": "tsx scripts/refresh-events-heavy.ts",
     "refresh:videos": "tsx scripts/refresh-videos.ts",
     "refresh:speakers:youtube": "tsx scripts/refresh-speakers-youtube.ts",
-    "refresh:years": "tsx scripts/refresh-years.ts"
+    "refresh:years": "tsx scripts/refresh-years.ts",
+    "categorize:talks": "tsx scripts/categorize-talks.ts"
   },
   "engines": {
     "node": ">=22.19.0"

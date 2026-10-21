@@ -7,7 +7,10 @@ export interface Speak {
   speakers: Speaker[];
   title?: string | null;
   videoUrl?: string | null;
-  category?: string | null;
+  // Un talk peut couvrir plusieurs thèmes (ex. une conférence DDD qui mentionne
+  // aussi l'IA en passant) — pas une catégorie unique. Texte libre comme avant,
+  // pas une enum séparée à maintenir.
+  categories?: string[];
   format?: string | null;
   level?: string | null;
   language?: string | null;
