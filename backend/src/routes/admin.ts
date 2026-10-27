@@ -258,4 +258,19 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     await writeJson(TALKS_PATH, talks)
     return talks[index]
   })
+
+  // Confirme qu'un talk importé depuis Notion à un état autre que "Construit"
+  // (voir scripts/import-notion-export.ts) peut rejoindre le flux normal —
+  // toujours soumis ensuite aux gates lien/année comme n'importe quel talk.
+  app.put('/api/admin/talks/:id/validate-draft', async (request, reply) => {
+    const { id } = request.params as { id: string }
+
+    const talks = await readJson<Speak[]>(TALKS_PATH, [])
+    const index = talks.findIndex((t) => t.id === id)
+    if (index === -1) return reply.code(404).send({ error: 'not found' })
+
+    talks[index] = { ...talks[index], validated: true }
+    await writeJson(TALKS_PATH, talks)
+    return talks[index]
+  })
 }

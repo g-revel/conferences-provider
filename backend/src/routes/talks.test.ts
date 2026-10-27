@@ -207,6 +207,41 @@ describe("GET /api/talks", () => {
     expect(response.json()).toEqual([shown]);
   });
 
+  it("never serves a talk with an unvalidated Notion draft status", async () => {
+    const draft = {
+      conference: { name: "Conférence non précisée" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Idée de talk",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
+      year: 2026,
+      status: "Idée",
+    };
+    mockReadJson([draft]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([]);
+  });
+
+  it("serves a draft talk once an admin has validated it", async () => {
+    const validated = {
+      conference: { name: "Conférence non précisée" },
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo" }],
+      title: "Idée de talk",
+      videoUrl: "https://www.youtube.com/watch?v=abc123",
+      year: 2026,
+      status: "Idée",
+      validated: true,
+    };
+    mockReadJson([validated]);
+
+    const app = await buildApp();
+    const response = await app.inject({ method: "GET", url: "/api/talks" });
+
+    expect(response.json()).toEqual([validated]);
+  });
+
   it("sorts a shown-without-year talk after all dated talks", async () => {
     const dated = {
       conference: { name: "BreizhCamp" },

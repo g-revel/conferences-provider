@@ -30,6 +30,12 @@ import { applyMemberOverrides } from '../collects/get-speaks/applyMemberOverride
 // décroissante, les non-datés n'ont pas de position naturelle dans ce tri).
 // Jamais supprimé pour autant : reste dans talks.json, resservira plus tard (ex.
 // un admin lui assigne une année depuis l'onglet "Non datés").
+//
+// Un talk importé depuis Notion avec un `status` ("Idée", "Scopé", "En
+// construction" — tout sauf "Construit") n'est pas encore un vrai talk prêt à
+// être montré : il reste invisible tant qu'un admin ne l'a pas validé
+// (`validated: true`) depuis l'onglet portant le nom de son état, quels que
+// soient par ailleurs son lien/son année.
 const MIN_VISIBLE_YEAR = 2025
 
 export default fp(async function (app: FastifyInstance) {
@@ -43,6 +49,7 @@ export default fp(async function (app: FastifyInstance) {
         (talk) =>
           talk.title != null &&
           talk.deletedAt == null &&
+          (talk.status == null || talk.validated === true) &&
           (talk.videoUrl != null || talk.showWithoutLink === true) &&
           ((talk.year != null && talk.year >= MIN_VISIBLE_YEAR) || talk.showWithoutYear === true),
       )

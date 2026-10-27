@@ -686,3 +686,34 @@ describe("PUT /api/admin/talks/:id/show-without-year", () => {
     expect(response.statusCode).toBe(404);
   });
 });
+
+describe("PUT /api/admin/talks/:id/validate-draft", () => {
+  it("sets validated to true", async () => {
+    const draft = { ...talk1, status: "Idée" };
+    mockReadJson([draft]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/talk-1/validate-draft",
+      headers: { "x-admin-password": "Shodo" },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json().validated).toBe(true);
+    expect(response.json().status).toBe("Idée");
+  });
+
+  it("returns 404 for an unknown id", async () => {
+    mockReadJson([talk1]);
+    const app = await buildApp();
+
+    const response = await app.inject({
+      method: "PUT",
+      url: "/api/admin/talks/unknown/validate-draft",
+      headers: { "x-admin-password": "Shodo" },
+    });
+
+    expect(response.statusCode).toBe(404);
+  });
+});

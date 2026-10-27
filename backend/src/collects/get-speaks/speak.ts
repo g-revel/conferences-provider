@@ -26,4 +26,13 @@ export interface Speak {
   // Override admin : afficher ce talk publiquement même sans année connue (il
   // apparaît alors après tous les talks datés, voir src/routes/talks.ts).
   showWithoutYear?: boolean;
+  // État Notion ("Idée", "Scopé", "En construction") pour un talk importé qui n'est
+  // pas encore "Construit" — absent pour un talk normal. Tant qu'un admin ne l'a
+  // pas validé (voir `validated` ci-dessous), ce talk reste invisible du portail
+  // quels que soient par ailleurs son lien/son année, et n'apparaît que dans
+  // l'onglet admin portant ce nom (import-notion-export.ts).
+  status?: string;
+  // Override admin : confirme qu'un talk à l'état Notion non-"Construit" peut
+  // rejoindre le flux normal (toujours soumis ensuite aux gates lien/année).
+  validated?: boolean;
 }
