@@ -64,7 +64,10 @@
     "year": 2026,
     "categories": [
       "Culture & Inclusion"
-    ]
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français"
   },
   {
     "id": "fb0e00e1-13ab-41c0-b3c8-621355feda94",
@@ -424,7 +427,10 @@
     "year": 2026,
     "categories": [
       "Architecture & Craft"
-    ]
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Avancé",
+    "language": "Français"
   },
   {
     "id": "4dfa2230-2e28-40c0-aa7a-b40709da36a4",
@@ -2364,7 +2370,12 @@
     ],
     "title": "Getting started with Domain Driven Design without fighting the wrong battles",
     "videoUrl": "https://www.youtube.com/watch?v=I7DawnCS4PQ",
-    "categories": []
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français"
   },
   {
     "id": "85284157-2762-4bb2-ae7e-90d99a1b0eed",
@@ -2456,7 +2467,13 @@
     ],
     "title": "Heuristique de tension de modèle",
     "videoUrl": "https://www.youtube.com/watch?v=EZTl9FH5AFQ",
-    "categories": []
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Avancé",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/model-tension-heuristics-preventing-accidental-design-debt?token=mFfelQ52"
   },
   {
     "id": "10aa7c45-ee30-40f7-ba65-10b45c167290",
@@ -2524,7 +2541,13 @@
     ],
     "title": "Getting started with Domain Driven Design without fighting the wrong battles",
     "videoUrl": "https://www.youtube.com/watch?v=w91JHUyRGRc",
-    "categories": []
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "English",
+    "description": "Domain Driven Design is in every mouth. Ultimate silver bullet, buzzword machine, it’s starting to sound like a must do for every start-ups. But how do you get started to generate value quickly?\n\nWhat if the answer wasn’t the aggregates, value-objects, domain events and other popular tactical patterns, but rather in understanding the domain? That would be convenient, as DDD offers tools allowing us to grasp the domain and modelize it correctly.\n\nLet us discover together the strategic patterns - the most important part of Domain Driven Design - that will offer the best returns on investment. This will help you adopt this philosophy smoothly, far from the hype and technical difficulties.\n\n### **Message pour le comité de sélection**"
   },
   {
     "id": "28ee20c6-ad7b-4ea5-9e1f-d7f29b22ec4a",
@@ -2564,7 +2587,14 @@
     ],
     "title": "Model Mitosis : ne plus se tromper entre les microservices et le monolithe",
     "videoUrl": "https://www.youtube.com/watch?v=HNQJW5iMZgQ",
-    "categories": []
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": "https://slides.com/julientopcu/model-mitosis-ne-plus-se-tromper-entre-les-microservices-et-le-monolithe",
+    "description": "Tout comme le développement doit être itératif, le design du logiciel doit changer lorsque le contexte et notre compréhension du problème évoluent. Au fur et à mesure qu'un logiciel se développe pour résoudre plus de problèmes, il devient moins souple dans sa capacité à évoluer. Des tensions apparaissent au sein du modèle métier du logiciel qui peine à rester cohérent.\n\nFinalement, il atteint une masse critique et devient un monolithe de code en spaghetti...Comment pouvons nous déterminer quand il est temps de modulariser notre logiciel ? Comment prendre la décision de le scinder en plusieurs modules ou services ? Comment gérer la différenciation progressive de nos modèles métiers tout en évitant les couplages inutiles ? Il n'est pas facile de découper son logiciel en deux car déterminer les bonnes frontières peut s'avérer être compliqué.\n\nDécouvrez avec nous le Model Mitosis, une approche dynamique utilisée pour diviser un modèle métier en plusieurs modèles qui seront façonnés et découplés de manière itérative. Gagnez en flexibilité afin de mieux déterminer quand diviser votre logiciel en plusieurs services tout en évitant de payer les coût d'échelle des microservices ou bien de devenir un monolithe distribué.\n\n## Message aux organisateurs\n\nSlides: [https://slides.com/julientopcu/model-mitosis-ne-plus-se-tromper-entre-les-microservices-et-le-monolithe](https://slides.com/julientopcu/model-mitosis-ne-plus-se-tromper-entre-les-microservices-et-le-monolithe) \n\nVideo: [https://youtu.be/HNQJW5iMZgQ?si=duhGUfhIuFF63Zmx](https://youtu.be/HNQJW5iMZgQ?si=duhGUfhIuFF63Zmx)\n\nRepository: [https://gitlab.com/beyondxscratch/model-mitosis](https://gitlab.com/beyondxscratch/model-mitosis)\n\nLa tendance des microservices a poussé de nombreuses personnes à diviser trop rapidement leurs logiciels en plusieurs services, créant ainsi des monolithes distribués. Après une décennie de microservices en production, l'industrie prend du recul et se rend compte qu'un découpage trop précoce engendrera des coûts d'échelle importants.\n\nD'autre part, sous-découper le logiciel en empilant les évolutions sans stratégie de modularisation finira par créer un couplage entre toutes les fonctionnalités du logiciel, transformant le système en un monolithe legacy.\n\nMême si ces problèmes semblent différents, ils sont les deux faces d'une même médaille : le modèle métier doit diriger la stratégies de découpage de nos logiciels.\n\nIl est assez compliqué de trouver un pattern qui aide les gens à scinder un modèle in situ alors qu'ils doivent assurer la stabilité et l'évolution de l'application en même temps. On manque cruellement d'heuristiques dans l'industrie nous permettant de mieux prendre la décision d'introduire un nouveau modèle métier dans leur application ainsi que de patterns permettant de déterminer les frontières à l'intérieur de notre système.\n\nAux premiers stades du découpage en plusieurs modules/services, la complexité n'est généralement pas suffisante pour tracer des frontières claires entre ces modules/services sans qu'ils ne se chevauchement.\n\nJulien a rencontré ce problème en production alors qu'il leader le système de réservation de trains d'Expedia en 2016 et Josian travaille sur ces problèmes depuis 2021 chez EDF.\n\nAprès plusieurs années d'expérimentation, nous avons trouvé un pattern dynamique permettant de se scinder progressivement un logiciel tout en limitant le couplage entre les modèles métiers émergents. En combinant les patterns de stratégique du Domain-Driven Design, nous avons inventé le Model Mitosis (comme analogie d'une mitose cellulaire).\n\nIl est mis en œuvre en 4 étapes :\n\n- étape 1 : le modèle du système grossi, le besoin d'un nouveau modèle métier émerge\n- étape 2 : les modèles sont scindés tout en partageant certains concepts dans un Shared-Kernel. Mais Il y a quelques règles à respecter afin de le garder sous contrôle.\n- étape 3 : au fur et à mesure que les modèles se séparent et se spécialisent, leurs frontières deviennent plus claires et le Shared-Kernel se réduit au minimum (comme un strangler fig pattern).\n- étape 4 : deux modèles isolés l'un de l'autre, éventuellement avec un anti-corruption layer\n\nCette présentation est un livecode, avec un storytelling et une esthétique inspirés de la série le Mandalorien.\n\nAvec l'essor récent de l'I.A., nous avons décidé d'entamer la réflexion sur ce que pourrait être notre relation avec celles-ci dans le futur en filigrane du talk. Avec l'aide de plusieurs IA, comme MidJourney 5 et ChatGTP, nous avons créé des illustrations pour notre intro et un faux assistant de vocal et d'écriture de code, pour illustrer cette réflexion.\n\nNous aurons besoin de son tout au long de la présentation. Pour notre intro qui est un film qui se lancera automatiquement lorsque vous allez sur la deuxième slides si vous voulez la voir (il faut attendre un peu sur la slide). Et aussi pour notre droïde Chat3PO qui va parler et coder tout au long du talk ;)"
   },
   {
     "id": "94dbaf60-e948-4d85-b551-4d5a4a75e626",
@@ -3112,5 +3142,744 @@
     ],
     "title": null,
     "categories": []
+  },
+  {
+    "id": "72bf8f17-3666-477b-913c-3657a6629965",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Practical Domain-Driven Design",
+    "videoUrl": null,
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "English",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "4e727808-070e-45f1-87ef-dbfe03ca91fd",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "\"J’ai quasi fini\" – pourquoi on livre toujours à la bourre ?",
+    "videoUrl": null,
+    "categories": [
+      "Excellence Opérationnelle"
+    ],
+    "format": "Tool In Action (25-30 min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "e072ec84-122d-412f-91b1-3ab0ca8f28ef",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "Je le mets où, mon try-catch ?",
+    "videoUrl": null,
+    "categories": [
+      "Craft"
+    ],
+    "format": "Quickie (15-20min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": "Vous vous êtes déjà demandé que faire de cette erreur qui est parfois `throw` en prod, sans prévenir ? Ou au contraire, votre codebase a fini par ressembler à du Java, à force de créer des sous-classes de `Error` pour chaque cas qui pourrait se produire dans votre logique métier ?\n\nCritiquer la manière dont une codebase JS/TS gère (ou pas) ses erreurs, c'est facile. Par contre, c'est pas évident de décrire de manière claire et précise comment on souhaite s'y prendre...\n\nDans ce talk, nous allons comparer différents types d'erreurs qui peuvent survenir lors de l'exécution de code JS (ex: liées à l'environnement, au métier, ou à des erreurs de code), puis nous orienter, pour chaque cas, vers différentes manières de générer, capturer et rapporter (ou pas) ces erreurs. (ex: console, outils de monitoring, affichage à l’utilisateur...)\n\n### Autre\n\nIl faudra me prévenir en avance pour me laisser le temps de préparer le contenu.\n\n## Notes\n\n![Untitled](Je%20le%20mets%20o%C3%B9,%20mon%20try-catch/Untitled.png)\n\nInspiration: [**Les différents types d’erreurs** qui peuvent se produire, et comment les gérer ? (~2h)](https://app.notion.com/p/Les-diff-rents-types-d-erreurs-qui-peuvent-se-produire-et-comment-les-g-rer-2h-f917df6f6aa7480fb253d3bce873a1c5?pvs=21)",
+    "status": "Idée"
+  },
+  {
+    "id": "01169cdc-f638-4141-a0a9-40f0d56f3590",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "\"ATDD Outside-In en End-to-End\" d'une app web NodeJS – quoi / pour quoi / comment ?",
+    "videoUrl": null,
+    "categories": [
+      "Craft"
+    ],
+    "format": "Quickie (15-20min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "d0436a8d-f15a-4044-ac65-4e988ff836a2",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "\"We're almost done\" – why software is never shipped on time?",
+    "videoUrl": null,
+    "categories": [
+      "Excellence Opérationnelle"
+    ],
+    "format": "Tool In Action (25-30 min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "b4f4dc6c-cd92-4e62-82e1-8dca16068663",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "Outside-In ATDD of a NodeJS web app – what / why / how ?",
+    "videoUrl": null,
+    "categories": [
+      "Craft"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": null,
+    "description": "Imagine a full-stack web app where you can be confident, within seconds, that every improvement you just integrated works as expected. 🤩\n\nThat's essentially what \"craft\" developers promise by practicing (A)TDD (Test-Driven Development). But, in reality, are end-to-end tests (with Cypress, Playwright, etc.) fast and robust enough to smoothly iterate on feature development?\n\nAfter defining what we mean by \"ATDD,\" \"outside-in,\" and \"end-to-end,\" we will present ways to test the \"signup\" flow of a real Node.js web application in just a few seconds.\n\n### **Message pour le comité de sélection**\n\n1. context: presentation of a real node.js app, of the part to be tested: the \"signup\" flow, and of the current (problematic) tests for that feature\n2. objective: add a new step to that flow, and see if it works as expected, within seconds\n3. definition of \"ATDD\", \"outside-in\" and \"end-to-end\" + rationale for adopting these practices\n4. challenge A: make tests run automatically when we change the code => setup cypress\n5. challenge B: a clean state for each test run => from resetting db state to isolating runs\n6. challenge C: speed up test execution => tweaks and optimizations against bottlenecks\n\nI intend to show code + test runs for each step.\n\n## Bio\n\nBased in Paris, France, Adrien Joly started as a Software engineer in 2006. With more than 12 years of experience working with early-stage and mature start-up companies, he has become an expert on helping teams craft successful products, by finding the right compromise between development velocity and software sustainability. In March, 2020, he joined the consulting agency SHODO to grow with a community of like-minded professionals and continuously develop his skills as a Technical Coach.",
+    "status": "Idée"
+  },
+  {
+    "id": "acb93b70-88c4-4e0e-a6dd-4ee3c9f9fc6e",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "Coincé•e depuis 2 jours ? La méthode scientifique à la rescousse !",
+    "videoUrl": null,
+    "categories": [
+      "Craft"
+    ],
+    "format": "Quickie (15-20min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": "Être dev, c’est alterner sans arrêt entre des moments d’euphorie et d’extrême frustration. Cette alternance est rythmée par les problèmes auxquels ont est confrontés.\n\nComment se fait il que certains problèmes se règlent comme par magie en 2 minutes chrono, alors que d’autres peuvent prendre des semaines ? Et pourquoi réalisons-nous parfois (après avoir réglé un problème) qu’on aurait pu trouver la solution beaucoup plus rapidement ?\n\nPour bien corriger un problème, nous allons voir qu’il est utile de prendre le temps de bien le décrire. Puis de procéder comme un scientifique: en (in)validant des hypothèses ! Puis nous verrons en quoi TDD et la technique du « Mikado » peuvent aider dans les situations les plus déroutantes.",
+    "status": "Idée"
+  },
+  {
+    "id": "6dcdd22f-a174-4308-801c-72ffaa0bed9a",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "ChatGPT, écris moi une pull request !",
+    "videoUrl": null,
+    "categories": [
+      "Autre"
+    ],
+    "format": "Quickie (15-20min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": "Certain-e-s pensent que les IAs ont fait tellement de progrès qu'elles risquent de nous mettre au chômage.\n\nMais qu'en est-il en réalité ? De quoi ChatGPT, GitHub Copilot et consorts sont-ils vraiment capables, au juste ? Et en quoi peuvent-ils nous aider ?\n\nDans ce talk, nous allons expérimenter ensemble l'usage d'une IA pour réaliser différents types de tâches listées dans un projet open-source codé en JavaScript, et voir s'il faut ou pas s'attendre à voir des noms de robots apparaitre dans les listes de contributeurs.\n\n### Autre\n\nIl faudra me prévenir en avance pour me laisser le temps de préparer le contenu.\n\n### Notes\n\n![Untitled](ChatGPT,%20%C3%A9cris%20moi%20une%20pull%20request%20!/Untitled.png)\n\n- [Phind](https://www.phind.com/?utm_source=tldrnewsletter) is an AI search engine designed for developers. It answers questions with detailed explanations and relevant code snippets from the web. Phind generates answers based on information from multiple sources. Users can adjust the expertness level or how concise answers are.\n- [Amazon CodeWhisperer](https://aws.amazon.com/fr/blogs/aws/amazon-codewhisperer-free-for-individual-use-is-now-generally-available/?utm_source=tldrnewsletter) is now available for general use. It includes a tier that's free to use for all developers. CodeWhisperer allows developers to write code quickly without needing to break their flow by leaving the IDE to research something. It can help with creating routine code, working with unfamiliar APIs, and other common coding scenarios. CodeWhisperer works with many languages and many IDEs. GIF demos are available in the article.\n- Exemple pratique d’aide de ChatGPT pour écrire du code de side project sur lequel l’auteur ne se serait pas lancé sinon:\n\n[AI-enhanced development makes me more ambitious with my projects](https://simonwillison.net/2023/Mar/27/ai-enhanced-development/?ck_subscriber_id=1747050734)\n\n- Article de Martin Fowler:\n\n[An example of LLM prompting for programming](https://martinfowler.com/articles/2023-chatgpt-xu-hao.html?utm_source=tldrnewsletter)",
+    "status": "Idée"
+  },
+  {
+    "id": "b75528ea-d249-4645-8e0e-82a83d0c2e64",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "\"Big Ball of Mud\", comment le reconnaitre et restructurer le graphe de dépendances entre modules",
+    "videoUrl": null,
+    "categories": [
+      "Legacy Remediation"
+    ],
+    "format": "Quickie (15-20min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": "On se contente souvent d'employer les expressions \"legacy\" ou \"dette technique\" pour qualifier une codebase mal structurée, alors que ce manque de structure (aussi appelé \"Big Ball of Mud\", ou parfois \"Code Spaghetti\") est un type de problème tout particulier, et qui mérite donc une attention particulière.\n\nComment visualiser le graphe de dépendances de nos modules JS/TS ? Comment y reconnaitre les patterns problématiques ? Par exemple, les [dépendances circulaires](https://github.com/parisjs/talks/issues/170), mais pas seulement ! Et surtout, comment remédier à ces problèmes de structure ?\n\nDans ce talk, nous allons répondre à toutes ces questions. De manière pratique: en explorant ensemble une codebase open source, puis en proposant des stratégies de remédiation.\n\n### Lien vers vos slides\n\nPas de slides pour l'instant, mais je compte m'inspirer de ce talk: [\"Improving Legacy\" by Carola Lilienthal (@Cairolali) - YouTube](https://www.youtube.com/watch?v=icDjN3yv4C4)\n\n### Autre\n\nIl faudra me prévenir en avance pour me laisser le temps de préparer le contenu.\n\n### Notes\n\n![Untitled](Big%20Ball%20of%20Mud%20,%20comment%20le%20reconnaitre%20et%20restru/Untitled.png)",
+    "status": "Idée"
+  },
+  {
+    "id": "b25d0848-aafc-497b-88db-41e91a538a7a",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Adrien",
+        "lastname": "Joly",
+        "company": "Shodo",
+        "active": false
+      }
+    ],
+    "title": "Visualizing and untangling a \"Big Ball of Mud”",
+    "videoUrl": null,
+    "categories": [
+      "Legacy Remediation"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": null,
+    "description": "When developers complain about the messiness of a codebase they're asked to maintain, chances are that they are dealing with a \"Big Ball of Mud\" or \"Spaghetti code\". This means that the codebase has grown into an uneven or chaotic structure of modules. This happens naturally on long-lasting codebases in which developers had to integrate evolutions quickly, and lacked time, skills and/or alignment with stakeholders.\n\nHow to visualize the structure (or lack thereof) of a codebase? How to detect problematic patterns? (E.g. circular dependencies, to name one of those) And how to fix these structural issues?\n\nIn this talk, we'll find answers to these questions by exploring an open source codebase and proposing possible remediation strategies.\n\n### **Message pour le comité de sélection**",
+    "status": "Idée"
+  },
+  {
+    "id": "a4fcd287-682c-465d-8f8c-b0e4c6936c6a",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Josian",
+        "lastname": "Chevalier",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Le Domain-Driven Design pragmatique par la pratique",
+    "videoUrl": null,
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": "Le Domain-Driven Design cela ne fonctionne pas pour vous car il amènerait trop d'efforts inutiles ? \n\nTrop complexe à mettre en œuvre et à maintenir ?\n\nTrop de questions sur comment l'implémenter avec la question-type : est-ce qui un agrégat ou non ?\n\nLe concept de bounded-context est quelque chose de flou, qu'est-ce que cela a à voir avec l'architecture de mon logiciel ?\nUn EventStorming c'est beau, mais on en fait quoi ensuite ?\n\nOn entend dire que les patterns stratégiques sont les plus importants, mais comment cela est-il censé m'aider à écrire du code ?\n\nEt si nous essayions une approche pratique de Domain-Driven Design pour nous concentrer sur la résolution de nos problèmes au lieu d'en créer de nouveaux ?\n\n## Message aux organisateurs\n\nEn tant que développeurs ou développeuses, nous sommes naturellement attirés par les patterns tactiques dédiés à l'écriture de code. En se lançant dans le DDD, on a donc tendance à se retrouver vite submergé par les détails d'implémentation de ces patterns (Agrégats, Entité Value Objects...). On finit alors par se retrouver écrasé sous une montagne de complexité induite par la volonté d'implémenter ces patterns de la \"BONNE\" manière.\n\nEn réalité on perd totalement de vue ce qui est vraiment important : comprendre le problème et exprimer un modèle qui le représente.\n\nEn tant que coachs techniques, nous avons remarqué que les personnes qui échouent avec le Domain-Driven Design le font généralement parce qu'elles abordent les mauvaises questions et se noient.\n\nL'objectif de ce live coding est de désacraliser l'implémentation des patterns tactiques avec une approche pragmatique. Nous voulons montrer comment ils peuvent bénéficier de la conception stratégique, pour éviter de rester bloqué en raison d'un manque de compréhension du problème.\n\nCe live coding abordera les points suivants :\n\n- Implémenter le DDD n'est pas aussi complexe et laborieux que les gens peuvent l'imaginer\n- La primitive obsession est généralement due à un manque d'analyse du domaine.\n- L'éviter en rendant explicites les concepts du domaine et l'encapsulation : Value Objects minimalistes\n- Les modèles tactiques ne doivent pas devenir un framework interne : ne passez pas plus de temps à comprendre comment représenter les entités qu'à coder les concepts\n- Investir des efforts dans la compréhension du domaine permet de gagner du temps lors de l'implémentation\n- Les développeurs et développeuses se posent souvent les mauvaises questions, telles que \"est-ce un agrégat ou non ?\", \"appartient-il au domaine ?\"… ce qui est symptomatique d'un manque de compréhension du métier\n- Les débats ne convergent jamais parce que les gens n'ont pas de moyen concret d'expliciter leur compréhension implicite\n- Un eventstorming centré sur une problématique ou une user story peut être rapidement mené et aidera à identifier les concepts du domaine et leurs relations afin de clarifier ce qui doit être codé et comment\n- Comment faire le pont entre le design stratégique et la tactique (le code)\n- Comment implémenter ce que nous identifions lors de l'EventStorming\n- Comment les relations Conformist, Shared Kernel, Anti-corruption Layer d'un Context Map peuvent aider à choisir ce qu'il faut partager ou non, quand être isolé ou non. Et comment implémenter tout cela.\n\nNote: ce talk est un sujet inédit",
+    "status": "Scopé"
+  },
+  {
+    "id": "ecfa71f1-566a-4f91-8c90-f9654a3409c7",
+    "conference": {
+      "name": "BreizhCamp 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Fabien",
+        "lastname": "Hiegel",
+        "company": "Shodo Nantes",
+        "active": true
+      }
+    ],
+    "title": "Le pouvoir des Bonnes Pratiques : Jouer la stratégie gagnante dans votre contexte mouvementé",
+    "videoUrl": null,
+    "categories": [
+      "Autre"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "En construction"
+  },
+  {
+    "id": "843dcb65-903f-48c3-a96e-ff1a4c112fae",
+    "conference": {
+      "name": "BreizhCamp 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Guillaume",
+        "lastname": "Yan",
+        "company": "Shodo Rennes",
+        "active": true
+      }
+    ],
+    "title": "🍃 Spring Data JDBC : Retour d'expérience sur une alternative à JPA",
+    "videoUrl": null,
+    "categories": [],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "246c7202-02d6-4476-bd5d-673a23ecdb69",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [],
+    "title": "Make",
+    "videoUrl": null,
+    "categories": [],
+    "format": null,
+    "level": null,
+    "language": null,
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "1e7be2c0-eb20-43aa-9959-a976d7a5b8df",
+    "conference": {
+      "name": "NewCrafts 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Arnaud",
+        "lastname": "Thiefaine",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Christian",
+        "lastname": "Finel",
+        "company": "Shodo Boost",
+        "active": true
+      }
+    ],
+    "title": "🎢 From Dread to Thrill: Welcome to Legacy World",
+    "videoUrl": null,
+    "categories": [
+      "Legacy Remediation"
+    ],
+    "format": null,
+    "level": null,
+    "language": null,
+    "slidesUrl": null,
+    "description": "(long abstract)\n\nLegacy code isn’t just pain and suffering. With the right mindset and tools, it can be a source of hope, energy — and even fun. But only if you accept two things: you won’t have time to ride all the attractions, and sometimes you'll have to board the roller coaster without being 100% sure the safety bar is locked.\n\nThis talk takes you on a tour of a fictional theme park: **Legacy World**, where each attraction represents a typical legacy code scenario. Along the way, we’ll explore:\n\n- **Scoping** your intervention: how to not get lost in the park\n- **Concrete techniques**, like golden master testing, surgical refactoring, seams, and the sandwich pattern\n- **Methods**: when to brute-force, when to operate with precision, when to experiment, and when to stop\n- **Mindset shifts**: letting go, owning responsibility, and developing situational awareness\n- **Modern concerns**, like how to use AI tools without losing control (or accountability)\n\nUsing a selection of known kata, we’ll explore a range of real-world legacy refactoring scenarios, illustrating that there *is* structure in the chaos — if you know where to look.\n\n🎢 *Buckle up … or not ? And don’t forget your tests !*\n\n### Learning outcomes\n\n- Reframe your perspective on legacy code: from burden to playground.\n- Learn to choose and combine different approaches: brute-force, surgical, exploratory…\n- Understand the importance of scoping, temporary scaffolding, and situational awareness.\n- Gain concrete techniques for safe(ish) legacy refactoring.\n- Reflect on our relationship with AI tools, and how to stay accountable in uncertain environments.\n\n# Chris ideas\n\n## Long abstract\n\nLegacy code is often seen as punishment. But what if we changed the perspective? Imagine a theme park: the haunted house of first contact, the roller coasters of refactoring, the queues full of golden masters... \n\nIt’s all about point of view. An entangled over coupled code can be either be seen as a disaster or an opportunity to learn and try new designs. But how to start on this ?\n\n- Read code efficiently\n- Scope you intervention - you cannot ride all the attractions ;)\n- Select the approach, precise surgery or demolition - aka normal or skip the the line ticket ?\n- Riding the haunted house with AI\n    - Livecoding mixing old school approach and AI usage 20min max\n\nThis talk takes you on a ride through concrete, fun techniques to turn legacy code into a playground — as long as you're ready to let go a little.\n\n## Annexe pour nous seulement\n\n- Read code efficiently -\n    - technique de breadcrumbing pour pas se perdre, par commentaire/annotation/attribut\n- Scope your intervention\n    - Legacy un monde d’opportunité, on va avoir envie de faire toutes les attractions, mais on pas le temps\n    - Déterminer un périmètre, et se fixer des limite en mettant de coté son ego\n- Select the approach\n    - Matrice typologie de code (algo/tuyauterie/autre ?) et solution\n        - Peut-être façon graphe radar ?\n- Riding the haunted house with AI\n    - Démo utilisation d’une méthode\n    - Utilisation d’un agent IA pour gratter du temps sur des taches répétitives\n\nInconnu : la durée de tout ça ;). Ca va être chaud en 45 min.",
+    "status": "Idée"
+  },
+  {
+    "id": "0545023c-74b2-471e-9390-dd0dd2d0b4d4",
+    "conference": {
+      "name": "NewCrafts 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Arnaud",
+        "lastname": "Thiefaine",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Working on Legacy Code the Domain-Driven Way",
+    "videoUrl": null,
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": null,
+    "level": null,
+    "language": "English",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "07373c24-52ae-4ee6-b1c1-212005138f6d",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Modeling Socio-Technical tensions using Context Maps",
+    "videoUrl": null,
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "53342269-a353-4dde-b331-b5d2fcb87584",
+    "conference": {
+      "name": "PlatformCon 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Guillaume",
+        "lastname": "Albini",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Laurent",
+        "lastname": "Archimède",
+        "company": "Shodops",
+        "active": true
+      }
+    ],
+    "title": "Parcours guidé dans la jungle des métriques du Platform Engineering.",
+    "videoUrl": null,
+    "categories": [
+      "Platform Engineering"
+    ],
+    "format": "Quickie (15-20min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "fcbcd812-c329-4816-9bc3-de94758dd72f",
+    "conference": {
+      "name": "Nantes Craft 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Arnaud",
+        "lastname": "Thiefaine",
+        "company": "Shodo",
+        "active": true
+      },
+      {
+        "firstname": "Christian",
+        "lastname": "Finel",
+        "company": "Shodo Boost",
+        "active": true
+      }
+    ],
+    "title": "Beyond Gilded Rose : le refactoring n'est qu'une étape…",
+    "videoUrl": null,
+    "categories": [
+      "Legacy Remediation"
+    ],
+    "format": "Lab (2h)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "En construction"
+  },
+  {
+    "id": "5b20ae81-0d88-4533-b03e-ca46fd3fc6d5",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Blueprinting Domain-Driven Web APIs with EventStorming",
+    "videoUrl": null,
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "c84af235-a3f0-4fda-965f-c5ee31d6d686",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Bounded-Context Clustering",
+    "videoUrl": null,
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "d135f58b-d2e7-497a-b620-97523759ce80",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Pourquoi les transformations échouent?",
+    "videoUrl": null,
+    "categories": [],
+    "format": "Conférence (40-50min)",
+    "level": null,
+    "language": null,
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "74246eeb-6c0a-4f06-b437-06f2c0602734",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Model Expressions: An Overlooked Aspect of Domain-Driven Design?",
+    "videoUrl": null,
+    "categories": [
+      "Domain-Driven Design"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "English",
+    "slidesUrl": "https://slides.com/julientopcu/model-expressions-an-overlooked-aspect-of-domain-driven-design",
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "d66a714c-fb88-43ee-9947-d5d1b1844250",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Julien",
+        "lastname": "Topcu",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Qu’est-ce que la socio-technique?",
+    "videoUrl": null,
+    "categories": [],
+    "format": null,
+    "level": null,
+    "language": null,
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "e4ef253f-5022-4a5e-a11e-fc4fe8792b95",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Guibert",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Arrêter de coder sur des malentendus : clarifier le comportement du logiciel avec le BDD",
+    "videoUrl": null,
+    "categories": [
+      "Craft"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "2eb10ce3-90df-4713-9cfc-7b82bae29813",
+    "conference": {
+      "name": "BreizhCamp 2025"
+    },
+    "speakers": [
+      {
+        "firstname": "Loic",
+        "lastname": "Truchot",
+        "company": "Shodo Rennes",
+        "active": true
+      }
+    ],
+    "title": "Microgpt : on partage la pilule rouge ?",
+    "videoUrl": null,
+    "categories": [
+      "AI"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Intermédiaire",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Scopé"
+  },
+  {
+    "id": "8faca6ba-3467-455a-bfc5-b92ced2428dd",
+    "conference": {
+      "name": "Conférence non précisée"
+    },
+    "speakers": [
+      {
+        "firstname": "Emmanuelle",
+        "lastname": "Aboaf",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Peut-on vraiment piloter l’accessibilité avec le context engineering ?",
+    "videoUrl": null,
+    "categories": [
+      "AI"
+    ],
+    "format": "Conférence (40-50min), Tool In Action (25-30 min)",
+    "level": "Débutant",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "e9abff21-dc82-4a4b-b1ad-64df9a449086",
+    "conference": {
+      "name": "Dev with AI"
+    },
+    "speakers": [
+      {
+        "firstname": "Thomas",
+        "lastname": "Pierrain",
+        "company": "Shodo",
+        "active": true
+      }
+    ],
+    "title": "Kenjaku, votre second cerveau open source",
+    "videoUrl": null,
+    "categories": [
+      "AI"
+    ],
+    "format": "Conférence (40-50min), Quickie (15-20min)",
+    "level": "Avancé",
+    "language": "Français",
+    "slidesUrl": null,
+    "description": null,
+    "status": "Idée"
+  },
+  {
+    "id": "c5feb22e-ccfa-4833-b567-179b0058db52",
+    "conference": {
+      "name": "Oredev"
+    },
+    "speakers": [
+      {
+        "firstname": "Mohamed",
+        "lastname": "Ait Abderrahman",
+        "company": "Shodo"
+      }
+    ],
+    "title": "Building a Brainstorming Agent: A Practical Tour of LangChain4j for Production",
+    "videoUrl": null,
+    "categories": [
+      "AI"
+    ],
+    "format": "Conférence (40-50min)",
+    "level": "Débutant",
+    "language": "English",
+    "slidesUrl": null,
+    "description": null,
+    "status": "En construction"
   }
 ]
