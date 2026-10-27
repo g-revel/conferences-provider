@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { readJson, writeJson } from '../data/jsonStore.js'
+import { readJson, writeJsonPersisted } from '../data/jsonStore.js'
 import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKER_MEMBER_OVERRIDES_PATH, SPEAKERS_PATH, KNOWN_CITIES_PATH } from '../data/paths.js'
 import { Speak } from '../collects/get-speaks/speak.js'
 import { Speaker } from '../collects/get-all-speakers/speaker.js'
@@ -97,7 +97,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
     const alreadyKnown = cities.some((c) => normalizeForMatch(c) === normalizeForMatch(city))
     const next = alreadyKnown ? cities : [...cities, city]
-    if (!alreadyKnown) await writeJson(KNOWN_CITIES_PATH, next)
+    if (!alreadyKnown) await writeJsonPersisted(KNOWN_CITIES_PATH, next, `Ajoute la ville "${city}" (admin)`)
 
     return [...next].sort((a, b) => a.localeCompare(b))
   })
@@ -114,7 +114,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
 
     const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
     const next = cities.filter((c) => normalizeForMatch(c) !== normalizeForMatch(body.city as string))
-    await writeJson(KNOWN_CITIES_PATH, next)
+    await writeJsonPersisted(KNOWN_CITIES_PATH, next, `Retire la ville "${body.city}" (admin)`)
 
     return [...next].sort((a, b) => a.localeCompare(b))
   })
@@ -130,7 +130,11 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     const identity = speakerIdentity(body.firstname, body.lastname)
     const next = overrides.filter((o) => speakerIdentity(o.firstname, o.lastname) !== identity)
     next.push({ firstname: body.firstname, lastname: body.lastname, city })
-    await writeJson(SPEAKER_CITY_OVERRIDES_PATH, next)
+    await writeJsonPersisted(
+      SPEAKER_CITY_OVERRIDES_PATH,
+      next,
+      `Définit la ville de ${body.firstname} ${body.lastname} (admin)`,
+    )
 
     return { firstname: body.firstname, lastname: body.lastname, city }
   })
@@ -148,7 +152,11 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     const identity = speakerIdentity(body.firstname, body.lastname)
     const next = overrides.filter((o) => speakerIdentity(o.firstname, o.lastname) !== identity)
     next.push({ firstname: body.firstname, lastname: body.lastname, active: body.active })
-    await writeJson(SPEAKER_MEMBER_OVERRIDES_PATH, next)
+    await writeJsonPersisted(
+      SPEAKER_MEMBER_OVERRIDES_PATH,
+      next,
+      `Marque ${body.firstname} ${body.lastname} comme ${body.active ? 'actif' : "ayant quitté Shodo"} (admin)`,
+    )
 
     return { firstname: body.firstname, lastname: body.lastname, active: body.active }
   })
@@ -170,7 +178,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     if (index === -1) return reply.code(404).send({ error: 'not found' })
 
     talks[index] = { ...talks[index], deletedAt: new Date().toISOString() }
-    await writeJson(TALKS_PATH, talks)
+    await writeJsonPersisted(TALKS_PATH, talks, `Supprime le talk "${talks[index].title ?? id}" (admin)`)
     return talks[index]
   })
 
@@ -181,7 +189,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     if (index === -1) return reply.code(404).send({ error: 'not found' })
 
     talks[index] = { ...talks[index], deletedAt: null }
-    await writeJson(TALKS_PATH, talks)
+    await writeJsonPersisted(TALKS_PATH, talks, `Restaure le talk "${talks[index].title ?? id}" (admin)`)
     return talks[index]
   })
 
@@ -200,7 +208,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     if (index === -1) return reply.code(404).send({ error: 'not found' })
 
     talks[index] = { ...talks[index], videoUrl: body.videoUrl.trim(), pendingVideoUrl: null }
-    await writeJson(TALKS_PATH, talks)
+    await writeJsonPersisted(TALKS_PATH, talks, `Valide le lien du talk "${talks[index].title ?? id}" (admin)`)
     return talks[index]
   })
 
@@ -218,7 +226,11 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     if (index === -1) return reply.code(404).send({ error: 'not found' })
 
     talks[index] = { ...talks[index], showWithoutLink: body.showWithoutLink }
-    await writeJson(TALKS_PATH, talks)
+    await writeJsonPersisted(
+      TALKS_PATH,
+      talks,
+      `Bascule "afficher sans lien" sur "${talks[index].title ?? id}" à ${body.showWithoutLink} (admin)`,
+    )
     return talks[index]
   })
 
@@ -236,7 +248,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     if (index === -1) return reply.code(404).send({ error: 'not found' })
 
     talks[index] = { ...talks[index], year: body.year }
-    await writeJson(TALKS_PATH, talks)
+    await writeJsonPersisted(TALKS_PATH, talks, `Définit l'année de "${talks[index].title ?? id}" à ${body.year} (admin)`)
     return talks[index]
   })
 
@@ -255,7 +267,11 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     if (index === -1) return reply.code(404).send({ error: 'not found' })
 
     talks[index] = { ...talks[index], showWithoutYear: body.showWithoutYear }
-    await writeJson(TALKS_PATH, talks)
+    await writeJsonPersisted(
+      TALKS_PATH,
+      talks,
+      `Bascule "afficher sans année" sur "${talks[index].title ?? id}" à ${body.showWithoutYear} (admin)`,
+    )
     return talks[index]
   })
 
@@ -270,7 +286,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     if (index === -1) return reply.code(404).send({ error: 'not found' })
 
     talks[index] = { ...talks[index], validated: true }
-    await writeJson(TALKS_PATH, talks)
+    await writeJsonPersisted(TALKS_PATH, talks, `Valide le talk brouillon "${talks[index].title ?? id}" (admin)`)
     return talks[index]
   })
 }

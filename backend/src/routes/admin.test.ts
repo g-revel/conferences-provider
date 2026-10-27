@@ -1,11 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-const { readJsonMock, writeJsonMock } = vi.hoisted(() => ({
+const { readJsonMock, writeJsonPersistedMock } = vi.hoisted(() => ({
   readJsonMock: vi.fn(),
-  writeJsonMock: vi.fn(),
+  writeJsonPersistedMock: vi.fn(),
 }));
 
-vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock, writeJson: writeJsonMock }));
+vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock, writeJsonPersisted: writeJsonPersistedMock }));
 
 import { buildApp } from "../app.js";
 import {
@@ -35,7 +35,7 @@ function mockReadJson(
 
 beforeEach(() => {
   readJsonMock.mockReset();
-  writeJsonMock.mockReset();
+  writeJsonPersistedMock.mockReset();
 });
 
 const talk1 = {
@@ -215,9 +215,10 @@ describe("PUT /api/admin/talkers/active", () => {
     });
 
     expect(response.statusCode).toBe(200);
-    expect(writeJsonMock).toHaveBeenCalledWith(
+    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
       SPEAKER_MEMBER_OVERRIDES_PATH,
       [{ firstname: "Alice", lastname: "Martin", active: false }],
+      expect.any(String),
     );
   });
 
@@ -232,9 +233,10 @@ describe("PUT /api/admin/talkers/active", () => {
       payload: { firstname: "Alice", lastname: "Martin", active: true },
     });
 
-    expect(writeJsonMock).toHaveBeenCalledWith(
+    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
       SPEAKER_MEMBER_OVERRIDES_PATH,
       [{ firstname: "Alice", lastname: "Martin", active: true }],
+      expect.any(String),
     );
   });
 
@@ -265,9 +267,10 @@ describe("PUT /api/admin/talkers/city", () => {
     });
 
     expect(response.statusCode).toBe(200);
-    expect(writeJsonMock).toHaveBeenCalledWith(
+    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
       SPEAKER_CITY_OVERRIDES_PATH,
       [{ firstname: "Alice", lastname: "Martin", city: "Rennes" }],
+      expect.any(String),
     );
   });
 
@@ -282,9 +285,10 @@ describe("PUT /api/admin/talkers/city", () => {
       payload: { firstname: "Alice", lastname: "Martin", city: "Rennes" },
     });
 
-    expect(writeJsonMock).toHaveBeenCalledWith(
+    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
       SPEAKER_CITY_OVERRIDES_PATH,
       [{ firstname: "Alice", lastname: "Martin", city: "Rennes" }],
+      expect.any(String),
     );
   });
 
@@ -345,9 +349,10 @@ describe("DELETE /api/admin/talks/:id", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json().deletedAt).not.toBeNull();
-    expect(writeJsonMock).toHaveBeenCalledWith(
+    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
       TALKS_PATH,
       [expect.objectContaining({ id: "talk-1", deletedAt: expect.any(String) })],
+      expect.any(String),
     );
   });
 
@@ -490,7 +495,7 @@ describe("POST /api/admin/cities", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual(["Bordeaux", "Lille"]);
-    expect(writeJsonMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille", "Bordeaux"]);
+    expect(writeJsonPersistedMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille", "Bordeaux"], expect.any(String));
   });
 
   it("does not duplicate a city that already exists, regardless of case or accents", async () => {
@@ -505,7 +510,7 @@ describe("POST /api/admin/cities", () => {
     });
 
     expect(response.json()).toEqual(["Reunion"]);
-    expect(writeJsonMock).not.toHaveBeenCalled();
+    expect(writeJsonPersistedMock).not.toHaveBeenCalled();
   });
 
   it("rejects an empty city", async () => {
@@ -537,7 +542,7 @@ describe("DELETE /api/admin/cities", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual(["Lille"]);
-    expect(writeJsonMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille"]);
+    expect(writeJsonPersistedMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille"], expect.any(String));
   });
 
   it("matches regardless of case or accents", async () => {

@@ -11,6 +11,15 @@ services:
         value: info
       - key: NODE_VERSION
         value: 22.19.0
+      # Sans ça, les écritures admin (show-without-link, suppression, etc.) sont
+      # perdues au prochain déploiement/réveil du conteneur (disque éphémère sur
+      # le plan free) : voir backend/CLAUDE.md "Persistance des écritures admin".
+      # À renseigner manuellement dans le dashboard Render (sync: false = pas de
+      # valeur en dur ici, ce sont des secrets).
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_REPO
+        sync: false
 
   - type: web
     name: conferences-provider-frontend

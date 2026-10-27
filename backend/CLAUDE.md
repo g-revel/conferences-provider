@@ -52,6 +52,14 @@ Routes `/api/admin/*` : liste des talkers (ville éditable), liste de tous les t
 
 **`Speak.id`** (UUID, `crypto.randomUUID()`) identifie chaque talk pour cibler suppression/restauration — assigné une seule fois, dans le mapping final de `mergeSpeaks.ts` (`id: speak.id ?? crypto.randomUUID()`), pour couvrir tous les points d'entrée du pipeline (scraping, YouTube, import Notion) sans avoir à toucher chaque collect individuellement.
 
+### Persistance des écritures admin entre deux déploiements (`src/data/githubSync.ts`)
+
+⚠️ Le backend tourne sur Render en plan gratuit (`render.yaml`), **sans disque persistant** : le conteneur est entièrement recréé depuis le code source à chaque déploiement, et même à chaque réveil après une mise en veille d'inactivité. Un `writeFile()` seul sur `data/*.json` ne survit à aucun des deux — observé concrètement : des talks marqués "afficher sans lien" côté admin redevenaient invisibles après un déploiement.
+
+Toute route admin qui écrit dans `data/` doit donc utiliser `writeJsonPersisted(path, value, commitMessage)` (`src/data/jsonStore.ts`) plutôt que `writeJson` : en plus de l'écriture locale (identique à `writeJson`), elle commit directement le fichier modifié sur GitHub via l'API Contents (`commitJsonToGitHub`, `src/data/githubSync.ts`) — le prochain déploiement repart alors du code source **avec** la modification, puisqu'elle est désormais dans le repo. Variables d'env requises pour que ça fonctionne en prod : `GITHUB_TOKEN` (PAT avec droit d'écriture sur le repo), `GITHUB_REPO` (`owner/repo`), `GITHUB_BRANCH` (défaut `main`) — absentes en dev local/CI, `commitJsonToGitHub` est alors un no-op silencieux et seule l'écriture locale a lieu, comme avant l'ajout de cette fonction.
+
+Volontairement **pas** branché sur `writeJson` lui-même : les scripts de pipeline (`scripts/refresh-*.ts`, `scripts/import-notion-export.ts`, `scripts/categorize-talks.ts`) l'utilisent aussi, et sont exécutés + committés manuellement par un humain qui relit le diff — les faire pousser un commit à chaque run si un `GITHUB_TOKEN` traîne dans l'environnement local serait un piège, pas un gain.
+
 ## Pipeline de découverte des talks
 
 Le but du projet : pour chaque événement connu (ex. "BreizhCamp"), retrouver la page de l'édition en cours, en extraire les speakers, et croiser avec les membres Shodo (Slack) pour lister tous les talks donnés par des membres Shodo. Le résultat alimente le portail frontend (lien cliquable vers chaque conférence).
