@@ -45,6 +45,23 @@ const undatedWithoutLinkTalk: Talk = {
   speakers: [{ firstname: 'Eve', lastname: 'Durand', company: 'Shodo' }],
   title: 'Sans lien ni année',
 }
+const draftTalk: Talk = {
+  id: 'talk-6',
+  conference: { name: 'Conférence non précisée' },
+  speakers: [{ firstname: 'Frank', lastname: 'Dubois', company: 'Shodo' }],
+  title: 'Idée de talk',
+  status: 'Idée',
+}
+const validatedDraftTalk: Talk = {
+  id: 'talk-7',
+  conference: { name: 'BreizhCamp' },
+  speakers: [{ firstname: 'Gina', lastname: 'Roux', company: 'Shodo' }],
+  title: 'Idée déjà validée',
+  videoUrl: 'https://www.youtube.com/watch?v=validated-draft',
+  year: 2026,
+  status: 'Idée',
+  validated: true,
+}
 
 function mountPanel(client: IAdminClient) {
   return mount(AdminPanel, {
@@ -69,6 +86,7 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     setTalkShowWithoutLink: vi.fn(async () => {}),
     setTalkYear: vi.fn(async () => {}),
     setTalkShowWithoutYear: vi.fn(async () => {}),
+    validateDraftTalk: vi.fn(async () => {}),
     ...overrides,
   }
 }
@@ -344,5 +362,72 @@ describe('AdminPanel', () => {
     await closeButton.trigger('click')
 
     expect(wrapper.emitted('close')).toHaveLength(1)
+  })
+
+  it('shows a tab named after the draft status and lists its talks', async () => {
+    const client = fakeClient({ getAllTalks: vi.fn(async () => [activeTalk, draftTalk]) })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('Idée (1)')
+
+    const draftTabButton = wrapper.findAll('button').find((b) => b.text() === 'Idée (1)')!
+    await draftTabButton.trigger('click')
+
+    expect(wrapper.text()).toContain('Idée de talk')
+    expect(wrapper.text()).not.toContain('Intro TDD')
+  })
+
+  it('does not count an active talk as draft toward its own Talks/trash tabs', async () => {
+    const client = fakeClient({ getAllTalks: vi.fn(async () => [activeTalk, draftTalk]) })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('Talks (2)')
+  })
+
+  it('excludes an unvalidated draft talk from "À valider" and "Non datés"', async () => {
+    const client = fakeClient({ getAllTalks: vi.fn(async () => [draftTalk]) })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('À valider (0)')
+    expect(wrapper.text()).toContain('Non datés (0)')
+  })
+
+  it('does not show a status tab for a talk whose draft status has already been validated', async () => {
+    const client = fakeClient({ getAllTalks: vi.fn(async () => [validatedDraftTalk] ) })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    expect(wrapper.text()).not.toContain('Idée (')
+  })
+
+  it('calls validateDraftTalk when validating a talk from its status tab', async () => {
+    const client = fakeClient({ getAllTalks: vi.fn(async () => [draftTalk]) })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const draftTabButton = wrapper.findAll('button').find((b) => b.text() === 'Idée (1)')!
+    await draftTabButton.trigger('click')
+    const validateButton = wrapper.findAll('button').find((b) => b.text() === 'Valider')!
+    await validateButton.trigger('click')
+    await flushPromises()
+
+    expect(client.validateDraftTalk).toHaveBeenCalledWith('Shodo', 'talk-6')
+  })
+
+  it('calls deleteTalk when deleting a talk from its draft status tab', async () => {
+    const client = fakeClient({ getAllTalks: vi.fn(async () => [draftTalk]) })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const draftTabButton = wrapper.findAll('button').find((b) => b.text() === 'Idée (1)')!
+    await draftTabButton.trigger('click')
+    const deleteButton = wrapper.findAll('button').find((b) => b.text() === 'Supprimer')!
+    await deleteButton.trigger('click')
+    await flushPromises()
+
+    expect(client.deleteTalk).toHaveBeenCalledWith('Shodo', 'talk-6')
   })
 })

@@ -18,4 +18,6 @@ export interface Talk {
   pendingVideoUrl?: string | null
   showWithoutLink?: boolean
   showWithoutYear?: boolean
+  status?: string | null
+  validated?: boolean
 }

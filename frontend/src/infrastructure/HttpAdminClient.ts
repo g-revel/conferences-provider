@@ -106,4 +106,11 @@ export class HttpAdminClient implements IAdminClient {
       body: JSON.stringify({ showWithoutYear }),
     })
   }
+
+  async validateDraftTalk(password: string, id: string): Promise<void> {
+    await fetch(`/api/admin/talks/${encodeURIComponent(id)}/validate-draft`, {
+      method: 'PUT',
+      headers: { 'x-admin-password': password },
+    })
+  }
 }
