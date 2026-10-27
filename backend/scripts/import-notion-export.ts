@@ -6,6 +6,7 @@ import { Speaker } from "../src/collects/get-all-speakers/speaker.js";
 import { readJson, writeJson } from "../src/data/jsonStore.js";
 import { TALKS_PATH, SPEAKERS_PATH } from "../src/data/paths.js";
 import { normalizeForMatch, toPascalCase } from "../src/string.functions.js";
+import { normalizeCategory } from "../src/collects/get-speaks/categoryRenames.js";
 
 // Lignes à ignorer purement et simplement : un "Abandonné" ou "Archivé" n'a aucune
 // valeur à faire apparaître quelque part dans l'admin (contrairement à "Idée"/
@@ -193,7 +194,7 @@ async function main(): Promise<void> {
       .map((s) => s.trim())
       .filter(Boolean)
       .map((s) => parseSpeaker(s, knownSpeakers));
-    const categories = row["Thême"]?.trim() ? [row["Thême"].trim()] : [];
+    const categories = row["Thême"]?.trim() ? [normalizeCategory(row["Thême"].trim())] : [];
     const format = row.Formats?.trim() || null;
     const level = row.Niveau?.trim() || null;
     const language = row.Langue?.trim() || null;

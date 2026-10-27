@@ -2588,7 +2588,8 @@
     "title": "Model Mitosis : ne plus se tromper entre les microservices et le monolithe",
     "videoUrl": "https://www.youtube.com/watch?v=HNQJW5iMZgQ",
     "categories": [
-      "Domain-Driven Design"
+      "Domain-Driven Design",
+      "IA"
     ],
     "format": "Conférence (40-50min)",
     "level": "Intermédiaire",
@@ -3340,7 +3341,8 @@
     "title": "ChatGPT, écris moi une pull request !",
     "videoUrl": null,
     "categories": [
-      "Autre"
+      "Autre",
+      "IA"
     ],
     "format": "Quickie (15-20min)",
     "level": "Débutant",
@@ -3516,7 +3518,8 @@
     "title": "🎢 From Dread to Thrill: Welcome to Legacy World",
     "videoUrl": null,
     "categories": [
-      "Legacy Remediation"
+      "Legacy Remediation",
+      "IA"
     ],
     "format": null,
     "level": null,
@@ -3799,7 +3802,7 @@
     "title": "Microgpt : on partage la pilule rouge ?",
     "videoUrl": null,
     "categories": [
-      "AI"
+      "IA"
     ],
     "format": "Conférence (40-50min)",
     "level": "Intermédiaire",
@@ -3824,7 +3827,7 @@
     "title": "Peut-on vraiment piloter l’accessibilité avec le context engineering ?",
     "videoUrl": null,
     "categories": [
-      "AI"
+      "IA"
     ],
     "format": "Conférence (40-50min), Tool In Action (25-30 min)",
     "level": "Débutant",
@@ -3849,7 +3852,7 @@
     "title": "Kenjaku, votre second cerveau open source",
     "videoUrl": null,
     "categories": [
-      "AI"
+      "IA"
     ],
     "format": "Conférence (40-50min), Quickie (15-20min)",
     "level": "Avancé",
@@ -3873,7 +3876,7 @@
     "title": "Building a Brainstorming Agent: A Practical Tour of LangChain4j for Production",
     "videoUrl": null,
     "categories": [
-      "AI"
+      "IA"
     ],
     "format": "Conférence (40-50min)",
     "level": "Débutant",

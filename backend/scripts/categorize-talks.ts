@@ -1,18 +1,18 @@
 import { Speak } from "../src/collects/get-speaks/speak.js";
 import { mentionsAI } from "../src/collects/get-speaks/mentionsAI.js";
+import { normalizeCategory } from "../src/collects/get-speaks/categoryRenames.js";
 import { readJson, writeJson } from "../src/data/jsonStore.js";
 import { TALKS_PATH } from "../src/data/paths.js";
 
-// "AI" et "IA & Data" désignaient le même thème sous deux noms différents —
-// une seule catégorie "IA" désormais. Idempotent : un talk déjà migré vers
-// `categories` (plus de `category`) et déjà taggé "IA" si pertinent n'est pas
-// retouché par un re-run.
-const CATEGORY_RENAMES: Record<string, string> = { AI: "IA", "IA & Data": "IA" };
-
+// Idempotent : un talk déjà migré vers `categories` (plus de `category`) et déjà
+// taggé "IA" si pertinent n'est pas retouché par un re-run. On renormalise quand
+// même les `categories` déjà présentes (pas seulement l'ancien `category` singulier)
+// pour rattraper une entrée "AI" introduite entre-temps par une autre source
+// (ex. import Notion) sans attendre une migration `category` -> `categories`.
 function migrateCategory(talk: Speak & { category?: string | null }): string[] {
-  if (talk.categories) return talk.categories;
+  if (talk.categories) return [...new Set(talk.categories.map(normalizeCategory))];
   if (!talk.category) return [];
-  return [CATEGORY_RENAMES[talk.category] ?? talk.category];
+  return [normalizeCategory(talk.category)];
 }
 
 async function main(): Promise<void> {
