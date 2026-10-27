@@ -151,6 +151,7 @@ async function onToggleShowWithoutYear(talk: Talk, show: boolean): Promise<void>
         :talks="pendingValidationTalks"
         @validate="onValidate"
         @toggle-show-without-link="onToggleShowWithoutLink"
+        @toggle-show-without-year="onToggleShowWithoutYear"
         @delete="onDelete"
       />
 

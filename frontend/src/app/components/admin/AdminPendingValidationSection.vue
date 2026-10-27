@@ -6,6 +6,7 @@ const props = defineProps<{ talks: Talk[] }>()
 const emit = defineEmits<{
   validate: [talk: Talk, videoUrl: string]
   toggleShowWithoutLink: [talk: Talk, show: boolean]
+  toggleShowWithoutYear: [talk: Talk, show: boolean]
   delete: [talk: Talk]
 }>()
 
@@ -63,14 +64,30 @@ function onDelete(talk: Talk): void {
           @click="onDelete(talk)"
         >Supprimer</button>
 
-        <label class="ml-auto flex shrink-0 items-center gap-1 text-xs text-shodo-taupe">
-          <input
-            type="checkbox"
-            :checked="talk.showWithoutLink === true"
-            @change="emit('toggleShowWithoutLink', talk, ($event.target as HTMLInputElement).checked)"
-          />
-          Montrer le talk sans lien
-        </label>
+        <div class="ml-auto flex shrink-0 items-center gap-3">
+          <label class="flex items-center gap-1 text-xs text-shodo-taupe">
+            <input
+              type="checkbox"
+              :checked="talk.showWithoutLink === true"
+              @change="emit('toggleShowWithoutLink', talk, ($event.target as HTMLInputElement).checked)"
+            />
+            Montrer le talk sans lien
+          </label>
+
+          <!-- Un talk sans lien n'apparaît pas dans "Non datés" (qui exige un lien
+          pour y retrouver la date) — s'il manque aussi l'année, c'est ici l'unique
+          endroit pour le marquer "à montrer quand même", sinon "montrer sans lien"
+          seul ne suffirait pas à le rendre visible (voir src/routes/talks.ts : les
+          deux conditions, lien et année, sont requises indépendamment). -->
+          <label v-if="talk.year == null" class="flex items-center gap-1 text-xs text-shodo-taupe">
+            <input
+              type="checkbox"
+              :checked="talk.showWithoutYear === true"
+              @change="emit('toggleShowWithoutYear', talk, ($event.target as HTMLInputElement).checked)"
+            />
+            Montrer le talk sans date
+          </label>
+        </div>
       </div>
     </li>
     <li v-if="talks.length === 0" class="py-4 text-sm text-gray-400">Aucun talk en attente de validation.</li>

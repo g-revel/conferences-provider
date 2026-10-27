@@ -284,6 +284,27 @@ describe('AdminPanel', () => {
     expect(wrapper.text()).toContain('Sans lien ni année')
   })
 
+  it('calls setTalkShowWithoutYear from "À valider" for a talk missing both link and year', async () => {
+    const client = fakeClient({
+      getAllTalks: vi.fn(async () => [activeTalk, deletedTalk, pendingTalk, undatedTalk, undatedWithoutLinkTalk]),
+    })
+    const wrapper = mountPanel(client)
+    await flushPromises()
+
+    const pendingTabButton = wrapper.findAll('button').find((b) => b.text().includes('À valider'))!
+    await pendingTabButton.trigger('click')
+
+    // pendingTalk (talk-3, a une année) n'affiche qu'une case "sans lien" ;
+    // undatedWithoutLinkTalk (talk-5, sans année) affiche "sans lien" puis "sans
+    // date" — la 3e case au total est donc sa case "sans date".
+    const checkboxes = wrapper.findAll('input[type="checkbox"]')
+    expect(checkboxes).toHaveLength(3)
+    await checkboxes[2].setValue(true)
+    await flushPromises()
+
+    expect(client.setTalkShowWithoutYear).toHaveBeenCalledWith('Shodo', 'talk-5', true)
+  })
+
   it('calls setTalkYear with the entered year when saving an undated talk', async () => {
     const client = fakeClient()
     const wrapper = mountPanel(client)

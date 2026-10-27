@@ -76,6 +76,24 @@ describe('AdminPendingValidationSection', () => {
     expect(wrapper.emitted('toggleShowWithoutLink')).toEqual([[withoutCandidate, true]])
   })
 
+  it('shows a "sans date" checkbox for a talk without a year and emits toggleShowWithoutYear', async () => {
+    const wrapper = mount(AdminPendingValidationSection, { props: { talks: [withoutCandidate] } })
+
+    const checkboxes = wrapper.findAll('input[type="checkbox"]')
+    expect(checkboxes).toHaveLength(2)
+
+    await checkboxes[1].setValue(true)
+
+    expect(wrapper.emitted('toggleShowWithoutYear')).toEqual([[withoutCandidate, true]])
+  })
+
+  it('does not show a "sans date" checkbox for a talk that already has a year', () => {
+    const dated: Talk = { ...withoutCandidate, year: 2025 }
+    const wrapper = mount(AdminPendingValidationSection, { props: { talks: [dated] } })
+
+    expect(wrapper.findAll('input[type="checkbox"]')).toHaveLength(1)
+  })
+
   it('emits delete after the user confirms', async () => {
     vi.stubGlobal('confirm', vi.fn(() => true))
     const wrapper = mount(AdminPendingValidationSection, { props: { talks: [withCandidate] } })
