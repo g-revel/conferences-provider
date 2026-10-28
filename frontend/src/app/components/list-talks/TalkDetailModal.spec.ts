@@ -31,13 +31,27 @@ describe('TalkDetailModal', () => {
     expect(wrapper.text()).toContain('Une description détaillée du talk.')
   })
 
-  it('renders links to the conference, the video and the slides', () => {
+  it('renders links to the conference and the slides', () => {
     const wrapper = mount(TalkDetailModal, { props: { talk: fullTalk } })
 
     const hrefs = wrapper.findAll('a').map((a) => a.attributes('href'))
     expect(hrefs).toContain('https://mixitconf.org/2025')
-    expect(hrefs).toContain('https://www.youtube.com/watch?v=abc123')
     expect(hrefs).toContain('https://slides.com/julientopcu/hive')
+  })
+
+  it('embeds a YouTube player instead of a raw link when the video is on YouTube', () => {
+    const wrapper = mount(TalkDetailModal, { props: { talk: fullTalk } })
+
+    expect(wrapper.find('a[href="https://www.youtube.com/watch?v=abc123"]').exists()).toBe(false)
+    expect(wrapper.find('iframe').attributes('src')).toBe('https://www.youtube.com/embed/abc123')
+  })
+
+  it('falls back to a raw link when the video is not on YouTube', () => {
+    const talkWithNonYoutubeVideo: Talk = { ...fullTalk, videoUrl: 'https://vimeo.com/123456' }
+    const wrapper = mount(TalkDetailModal, { props: { talk: talkWithNonYoutubeVideo } })
+
+    expect(wrapper.find('iframe').exists()).toBe(false)
+    expect(wrapper.find('a[href="https://vimeo.com/123456"]').exists()).toBe(true)
   })
 
   it("displays the speaker's city when determinable", () => {

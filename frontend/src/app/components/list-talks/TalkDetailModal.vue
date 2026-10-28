@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { Talk } from '../../../domain/talks/Talk'
 import { getTalkCity } from '../../../domain/talks/filter/FilterTalksFunctions'
+import { getYoutubeEmbedUrl } from '../../../domain/talks/youtube'
 
-defineProps<{ talk: Talk }>()
+const props = defineProps<{ talk: Talk }>()
 const emit = defineEmits<{
   close: []
   filterSpeaker: [name: string]
   filterCategory: [category: string]
 }>()
+
+const embedUrl = computed(() => getYoutubeEmbedUrl(props.talk.videoUrl))
 </script>
 
 <template>
@@ -59,7 +63,7 @@ const emit = defineEmits<{
         </span>
 
         <a
-          v-if="talk.videoUrl"
+          v-if="talk.videoUrl && !embedUrl"
           :href="talk.videoUrl"
           target="_blank"
           rel="noopener noreferrer"
@@ -74,6 +78,15 @@ const emit = defineEmits<{
           class="text-shodo-taupe hover:underline"
         >📑 Slides</a>
       </div>
+
+      <iframe
+        v-if="embedUrl"
+        class="mt-4 aspect-video w-full rounded-lg"
+        :src="embedUrl"
+        title="Lecteur vidéo du talk"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
 
       <p v-if="talk.description" class="mt-4 whitespace-pre-line text-sm leading-relaxed text-shodo-ink">{{ talk.description }}</p>
     </div>
