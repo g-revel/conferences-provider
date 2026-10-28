@@ -135,7 +135,8 @@
     "categories": [
       "IA"
     ],
-    "showWithoutLink": true
+    "showWithoutLink": true,
+    "showWithoutYear": true
   },
   {
     "id": "d631e237-ba1b-44e6-85ed-2d6d9309d9bd",
