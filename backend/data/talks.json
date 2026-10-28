@@ -2189,7 +2189,9 @@
     "pendingVideoUrl": "https://techwork.events/sessions/cmn7ffegt01pj01prlzg1qeah/?from=live",
     "categories": [
       "IA"
-    ]
+    ],
+    "showWithoutLink": true,
+    "showWithoutYear": true
   },
   {
     "id": "d037652d-10e5-48d8-8475-6610dd9dbc84",
