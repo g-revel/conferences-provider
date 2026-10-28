@@ -42,6 +42,71 @@ async function findFiles(dir: string, matches: (name: string) => boolean): Promi
   return results;
 }
 
+interface MdHeader {
+  depth: number;
+  text: string;
+  // Index de la ligne juste après le titre, où commence le corps de la section.
+  bodyStartLine: number;
+}
+
+function parseMdHeaders(lines: string[]): MdHeader[] {
+  const headers: MdHeader[] = [];
+  lines.forEach((line, i) => {
+    const match = line.match(/^(#{1,6})\s+(.*)$/);
+    if (match) headers.push({ depth: match[1].length, text: match[2].trim(), bodyStartLine: i + 1 });
+  });
+  return headers;
+}
+
+// Le corps d'une section s'arrête au prochain titre de profondeur ÉGALE OU
+// INFÉRIEURE (un sous-titre plus profond reste inclus dans le corps) — pas
+// simplement "au prochain titre, quel qu'il soit", sous peine de couper une
+// section en plein milieu si elle contient elle-même des sous-sections.
+function mdSectionBody(lines: string[], headers: MdHeader[], index: number): string {
+  const header = headers[index];
+  let end = lines.length;
+  for (let j = index + 1; j < headers.length; j++) {
+    if (headers[j].depth <= header.depth) {
+      end = headers[j].bodyStartLine - 1;
+      break;
+    }
+  }
+  return lines.slice(header.bodyStartLine, end).join("\n").trim();
+}
+
+// Un intitulé de section "Description"/"Abstract" varie en casse, accents, gras
+// markdown ("**Abstract**") et qualificatif entre parenthèses ("Abstract (version
+// longue)") selon le talk — tout ça doit matcher le même thème.
+function normalizeHeaderText(text: string): string {
+  return normalizeForMatch(text.replace(/\*\*/g, "")).replace(/\s*\([^)]*\)\s*$/, "");
+}
+
+// Chaque page Notion a sa propre structure de titres (observé : "# Description",
+// "## Description", "### Description", "# Abstract", "# Abstract (version
+// courte/longue)", parfois aucun des deux si le talk n'est encore qu'une ébauche)
+// — pas de marqueur fixe unique possible. On retient la section "Description"/
+// "Abstract" la plus primaire (profondeur la plus faible : un "# Abstract" de
+// premier niveau prime sur un "## Description" imbriqué sous une tout autre
+// section, ex. une "Alternative version" destinée à un autre public) ; à
+// profondeur égale (ex. versions courte/longue), la plus longue est la plus
+// complète. Exclut volontairement "Message pour le comité de sélection" : ce
+// texte s'adresse aux organisateurs, pas au public du portail.
+function extractDescription(content: string): string | null {
+  const lines = content.split("\n");
+  const headers = parseMdHeaders(lines);
+
+  const candidates = headers
+    .map((header, index) => ({ header, body: mdSectionBody(lines, headers, index) }))
+    .filter(({ header, body }) => {
+      const normalized = normalizeHeaderText(header.text);
+      return (normalized === "description" || normalized.startsWith("abstract")) && body.length > 0;
+    });
+  if (candidates.length === 0) return null;
+
+  candidates.sort((a, b) => a.header.depth - b.header.depth || b.body.length - a.body.length);
+  return candidates[0].body;
+}
+
 // Le nom de fichier Notion tronque le titre et ajoute un hash — peu fiable pour
 // retrouver la bonne page. La 1ère ligne du fichier ("# Titre") reprend elle le
 // titre complet, exactement comme la colonne "Titre" du CSV.
@@ -53,10 +118,7 @@ async function loadDescriptionsByTitle(mdFiles: string[]): Promise<Map<string, s
     const title = firstLine.replace(/^#\s*/, "").trim();
     if (!title) continue;
 
-    const marker = "## Description";
-    const index = content.indexOf(marker);
-    if (index === -1) continue;
-    const description = content.slice(index + marker.length).trim();
+    const description = extractDescription(content);
     if (description) byTitle.set(normalizeTitleForDedup(title), description);
   }
   return byTitle;

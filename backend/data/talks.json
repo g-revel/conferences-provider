@@ -67,7 +67,8 @@
     ],
     "format": "Conférence (40-50min)",
     "level": "Débutant",
-    "language": "Français"
+    "language": "Français",
+    "description": "En tant qu’actrices et acteurs de la Tech, nous nous pensons souvent comme des ingénieurs et ingénieures : rationnels, méthodiques, cherchant à améliorer nos produits et nos pratiques par l’intelligence collective. Nous parlons d’expérimentation, d’itération, de rigueur… bref, d’ingénierie.\n\nPourtant, quand on observe nos échanges sur les réseaux sociaux ou dans nos réunions, on découvre un tout autre monde. D’un côté, un influenceur proclame que “tester est une perte de temps”. De l’autre, une experte affirme que le TDD est la clé de la robustesse logicielle. Un Scrum Master défend la vélocité en story points pendant qu’une développeuse revendique le noEstimates. Et au centre, les commentateurs tranchent : “tout le monde a raison, du moment que ça vous apporte de la valeur”.\n\nEt si, au fond, notre univers technique ressemblait plus à une pop culture qu’à une science appliquée ?\n\nEt si, derrière nos débats passionnés, se cachait une croyance partagée : celle que nos opinions valent des vérités ?\n\nDans cette conférence, nous verrons comment nos comportements, nos biais et nos figures d’autorité ont transformé la Tech en un espace de croyances, parfois éloigné de sa nature d’ingénierie. Nous explorerons comment retrouver une posture plus critique et plus rigoureuse :\n\n- distinguer opinion, intuition et preuve scientifique\n- reconnaître nos défauts de posture en tant qu'observateurs / observatrices mais aussi bien en tant qu'expertes et experts (dualité anti-intellectualisme et gatekeeping) et comment réformer notre posture intellectuelle.\n- renouer avec l’esprit de la méthode scientifique, comme l’agilité l’avait initialement envisagé ;\n- sortir du relativisme confortable sans tomber dans le dogmatisme.\n\nUne invitation à réconcilier curiosité, esprit critique et humanité dans un métier qui n’a jamais été aussi \"culturel\" qu’aujourd’hui."
   },
   {
     "id": "fb0e00e1-13ab-41c0-b3c8-621355feda94",
@@ -432,7 +433,8 @@
     ],
     "format": "Conférence (40-50min)",
     "level": "Avancé",
-    "language": "Français"
+    "language": "Français",
+    "description": "Dans nos métiers, la dette technique est sans doute la chose la plus frustrante, éprouvante et coriace contre laquelle nous devons lutter. Bien sûr, il existe des bonnes pratiques : refactoriser, viser la simplicité avec KISS, éviter de trop anticiper avec YAGNI afin de limiter cette dette au maximum. Et pourtant, on n’y vient jamais vraiment à bout. Pire encore, elle continue de s’accumuler même lorsque nous les appliquons, comme une fatalité.\n\nEt si ces mêmes bonnes pratiques ne faisaient parfois qu’empirer le problème au lieu de le résoudre ? La dette technique peut n’être que la partie visible de quelque chose de plus profond : la dette de design accidentelle. Un problème bien plus complexe, donnant lieu à des logiciels spaghettis et à des microservices en « monolithe distribué », dont nous sommes souvent à l’origine sans même nous en rendre compte.\n\nDans cette conférence, nous explorerons les mécanismes de la dette de design et ses impacts, conséquents sur notre architecture, nos processus, notre organisation, et même notre business. À travers des exemples concrets, nous verrons comment la détecter, analyser sa profondeur et agir avant qu’elle ne s’ancre durablement."
   },
   {
     "id": "4dfa2230-2e28-40c0-aa7a-b40709da36a4",
@@ -1155,7 +1157,8 @@
     "year": 2023,
     "categories": [
       "Legacy Remediation"
-    ]
+    ],
+    "description": "Somewhere, deeply hidden in an old codebase, a module has become so buggy and nasty that no developer dares making any change to it. Actually, developers want to get rid of it, but a big part of the codebase is indirectly relying on it...\n\nCan this story resolve to a happy ending? How to prevent the situation from getting worse, while developers keep adding features in the codebase?\n\nWhat if AST (Abstract Syntax Tree) traversal was the key? Let's see how it can help us keep an eye on these dependencies, and prune them one by one, until the module is gone for good! 😌"
   },
   {
     "id": "8db91371-7760-468e-903b-766853ad529a",
@@ -1230,7 +1233,8 @@
     "year": 2022,
     "categories": [
       "Excellence Opérationnelle"
-    ]
+    ],
+    "description": "Rien de pire que d'être interrompu quand on est focus sur le développement d'une fonctionnalité complexe ou d'un correctif de bug bien velu... 😩\n\nMais en vrai, pourquoi a t-on besoin d'une concentration si profonde, pendant autant de temps ? Et notre travail ne cause t-il pas également des interruptions aux autres développeurs ?\n\nÉtudions ensemble d'où viennent vraiment nos frustrations de développeurs. Et comment la collaboration synchrone sur certaines tâches peut améliorer notre quotidien, tout en rassurant nos managers !\n\ncf\n\n- meetup: ~~https://www.meetup.com/fr-FR/humantalks-paris/events/289452512/~~ —> décalé au 13/12: [https://www.meetup.com/fr-FR/humantalks-paris/events/290174828/](https://www.meetup.com/fr-FR/humantalks-paris/events/290174828/)\n- accepted proposal: [https://gospeak.io/u/talks/coder-seule--velocite-optimale-/proposals/humantalks-paris](https://gospeak.io/u/talks/coder-seule--velocite-optimale-/proposals/humantalks-paris)\n- draft: [[Abstract] Idée de talk sur le mob/pair programming - HackMD](https://hackmd.io/nO1r2iPpRl26Vc-Riv_GNg)\n- slides: [https://docs.google.com/presentation/d/1GXerr8gctcschmjjLmogmWS_cYnbwRMFlijx_JcqoSw/edit?usp=sharing](https://docs.google.com/presentation/d/1GXerr8gctcschmjjLmogmWS_cYnbwRMFlijx_JcqoSw/edit?usp=sharing)"
   },
   {
     "id": "1beb6f68-183b-4022-b9ce-146983df5673",
@@ -1253,7 +1257,8 @@
     "year": 2023,
     "categories": [
       "Legacy Remediation"
-    ]
+    ],
+    "description": "Tu travailles sur une codebase sur laquelle chaque modification risque de faire tomber la prod sans prévenir ? La stack et les dépendances sont plus vieilles que toi ? Certains fichiers sont évités comme la peste par toute l’équipe ? Il s’agit probablement de ce qu’on appelle du “code hérité”. (code “legacy”, en anglais)\n\nDans un tel contexte, il est tentant de tout réécrire, pour repartir sur des bases saines. Mais peut-être que tu ne sais pas trop par où commencer, ou pire: personne d’autre que toi ne veut se lancer dans une refonte…\n\nEn s’appuyant sur une expérience de projet réussie, nous allons voir ensemble les clés pour remédier à cette situation pénible pour les dévs et risquée pour l’entreprise."
   },
   {
     "id": "316370cb-433d-4b96-91f9-65dc8023ca32",
@@ -1281,7 +1286,8 @@
     "year": 2023,
     "categories": [
       "Domain-Driven Design"
-    ]
+    ],
+    "description": "Just as development should be iterative, software design should change when the context and our understanding of the problem evolve. As a software grows to solve more problems, it becomes less supple in its ability to evolve. Tensions arise within the business model of the software that struggles to stay coherent.\n\nEventually it reaches a critical mass and becomes a monolith of spaghetti code.\nHow do we know when it’s time to modularize our software? How do we carry on the decision to split it into several modules or services? How can we handle the progressive differentiation of our business models while avoiding unnecessary coupling? It’s not as easy as a clean axe cut in the middle, finding the right boundaries can be tricky. \n\nWe would like to introduce the Model Mitosis, a dynamic approach used to split a business model into multiple ones that will get shaped and decoupled iteratively. Gain flexibility to choose better when to split into multiple services, and avoid paying the scale cost of microservices or becoming a distributed monolith."
   },
   {
     "id": "ad60de9e-d271-44bd-8a75-5ea734590d58",
@@ -1304,7 +1310,8 @@
     "year": 2022,
     "categories": [
       "Domain-Driven Design"
-    ]
+    ],
+    "description": "Waterfall, Agile, Lean, Kanban... On a beau passer d'un type de workflow à l'autre, le constat reste souvent le même: nos équipes de développement finissent par passer plus de temps à corriger des bugs qu'à faire évoluer le produit...\n\nMais d'où viennent les bugs et les régressions ? Pourquoi les équipes de développement n'arrivent-elles pas à livrer du premier coup les fonctionnalités qui sont attendues d'elles ?\n\nEn retraçant les échecs et réussites vécues au sein d'une startup Parisienne, nous allons considérer une manière différente d'aligner Produit et Tech, sur le long terme: le Domain Driven Design (DDD), et partager quelques conseils pratiques faciliter son adoption au sein de votre équipe."
   },
   {
     "id": "cc574de8-c515-4598-8db3-9c6219bca3ff",
@@ -1327,7 +1334,8 @@
     "year": 2023,
     "categories": [
       "Legacy Remediation"
-    ]
+    ],
+    "description": "Il était une fois une fonction illisible et buggée. Toute l’équipe souhaitait sa disparition. Mais personne ne voulait se lancer dans ce chantier, car cette fonction était appelée un peu partout dans le code…\n\nCette histoire peut-elle connaitre une fin heureuse ? Comment éviter que la situation n’empire au fur et à mesure que les développeurs ajoutent de nouvelles fonctionnalités ?\n\nEt si l’AST (Abstract Syntax Tree) était la clé ? Voyons ensemble comment l’employer pour cartographier et suivre l’usage de cette fonction dépréciée. Pour que les jours de cette fonction puissent enfin être comptés. 😌"
   },
   {
     "id": "ec51a6f4-792a-4633-b73f-d322902571b7",
@@ -1544,7 +1552,8 @@
     "year": 2023,
     "categories": [
       "Domain-Driven Design"
-    ]
+    ],
+    "description": "Your users are still struggling to retrieve the information they need, despite you have done everything to model your domain and ease the user experience?\n\nAlthough you follow best practices, did you ever noticed that the software often deviates from the product design, the technical vision and sometimes the software quality is even below expectations?\n\nWhat if we told you that all of this is linked ? There is a force that has an important influence on your product, your user experience, the quality of your software and your architecture !\n\nDuring this talk, come and discover the Conway's Law that has a magical power over what you build, whatever your job profile is. We will see the impacts of this law on the different aspects of the software based on scientific studies and feedbacks from the field collected over the years."
   },
   {
     "id": "ec3a49c7-d334-4f91-b824-1ade9bf4117e",
@@ -1649,7 +1658,8 @@
     "year": 2024,
     "categories": [
       "Craft"
-    ]
+    ],
+    "description": "There always comes a point where software becomes so complex and old that it becomes unmaintainable. Updating the technical stack without breaking everything becomes impossible, implementing new features takes longer, and the technical debt is so overwhelming that refactoring becomes exorbitant.\n\nWhat if we told you that all of this is more of a practice problem than a software aging problem?\n\nCome and discover through hands-on experience in this 100% live coding session how Hexagonal Architecture can tackle software complexity, making it possible for you to be adaptable and sustainable while helping you manage your technical debt more effectively."
   },
   {
     "id": "e78873b8-bde2-4331-b475-49051521aa1e",
@@ -1672,7 +1682,8 @@
     "year": 2022,
     "categories": [
       "Sécurité"
-    ]
+    ],
+    "description": "It is very difficult today to deploy an application on the web without dealing with OAuth2.Designed to better protect users, this authorization delegation protocol has become a standard in the industry.\n\nHowever, haven't you cried trying to understand the concepts of OAuth2? Let's be honest, this is quite easy to get lost between the different roles and the multitude of flows of this protocol.And its complexity has discouraged more than one! However we can't deliver without it, so we try to setup some OAuth flow and usually... this is really painful.\n\nBut don't worry, whether you have a tech profile or not, this talk will help you to finally understand the intricacies of OAuth simply, including the new version 2.1, using analogies from everyday life!"
   },
   {
     "id": "02bb67b3-6339-4880-9511-c4327a474c1b",
@@ -1979,7 +1990,8 @@
     "language": "English",
     "categories": [
       "Craft"
-    ]
+    ],
+    "description": "When teams are struggling with their codebase but the pressure to deliver remains strong, taking time and effort for everyday code cleaning can feel like a luxury: something nice to have, but hard to defend.\n\nBut what if cleaning up your code wasn’t a detour, but your best investment?\n\nInspired by Kent Beck’s *Tidy First?*, this talk explores how tiny, intentional improvements can help teams move faster, by making the code more pleasant, unlocking more design options, and supporting long-term flexibility. \n\nThrough actionable patterns illustrated in a live-coded example, we’ll connect daily practices to deeper questions of structure, cost, and sustainable software design.\n\nNo need to have read *Tidy First?* first. Join in and leave with a new craft perspective that helps teams reduce risk and align technical decisions with business goals."
   },
   {
     "id": "d1a4b932-a425-4051-ac05-d7c8f1edf7b4",
@@ -2024,7 +2036,8 @@
     "language": "Français",
     "categories": [
       "Craft"
-    ]
+    ],
+    "description": "On a longtemps été des développeurs fullstack qui ne faisait que du back (et qui détestait le CSS).\n\nPar cette méconnaissance du front, on a pu créer des soupes de div pour essayer de placer correctement un élément, ne pas écrire de tests unitaires et préférer des tests e2e lents (et flaky).\n\nSi vous êtes dans ce cas, le front devient vite une application sur laquelle on redoute d’intervenir. Le code est de plus en plus compliqué à maintenir et peut devenir un goulot d’étranglement pour la livraison de valeur.\n\nDans nos expériences récentes, nous nous sommes re-intéressés au front en y appliquant les mêmes réflexions qu’au back (comment bien tester, comment faciliter les développements).\n\nNous vous dévoilerons lors d’un live-coding sur un front en React, comment utiliser correctement les différents niveaux de test, tester unitairement ses composants et supprimer les freins à l’écriture des tests."
   },
   {
     "id": "ef9f77c5-4f0b-47d0-bd86-96d55614790e",
@@ -2070,7 +2083,8 @@
     "language": "Français",
     "categories": [
       "Craft"
-    ]
+    ],
+    "description": "Depuis l’école jusqu’au monde de l’entreprise, nous avons trop souvent tendance à écrire du code procédural. Nous nous satisfaisons d’un découpage de ces procédures sous forme d’objets. Il en résulte un amas d’instructions, de changement d’état et de structures de données qui devient trop compliqué à maintenir.\n\nLa promesse de l’approche orientée objet était pourtant d’augmenter la lisibilité et de faciliter la compréhension en modélisant plus facilement des structures complexes. Alors, qu’est-ce qui a mal tourné ?\n\nRemettez en question ce que vous savez des bonnes pratiques pour réfléchir différemment. Fini les méthodes static, les variables nullables, découvrez la magie de l’encapsulation, utilisez la richesse de vos propres mots dans votre code, … Nous partirons d’une codebase existante et y appliquerons ces principes pour la rendre plus lisible et maintenable grâce à des objets élégants.\n\nCes principes sont fortement inspirés du livre “Elegant Objects” de Yegor Bugayenko.\nPrévoyez un ordinateur avec votre IDE préféré, git et un environnement en Java 21+"
   },
   {
     "id": "451ff881-9836-4c66-adcf-1969dd9ab502",
@@ -2123,7 +2137,8 @@
     "year": 2025,
     "categories": [
       "Domain-Driven Design"
-    ]
+    ],
+    "description": "After a decade, the industry has realized that poorly designed microservices can easily turn into a distributed monolith, even more problematic than the spaghetti monolith they aimed to address. To tackle this issue, the concept of a modular monolith is emerging as an alternative approach.\n\nHowever, the challenge still lies in effectively splitting it without falling into the pitfall of tightly coupled modules. If this step is not managed carefully, it may later become impossible to split the monolith into separate services when it becomes necessary.\n\nThe Hive pattern helps you build  a microservices-ready modular monolith, by leveraging multiple hexagonal architectures and vertical slicing, each module is loosely coupled and ready to be extracted as a separate service.\n\nDuring this live coding session, we will begin with a legacy spaghetti monolith and migrate it step-by-step to a Hived modular monolith, wrapping up with a demonstration of extracting a module and transforming it into a separate micro-service."
   },
   {
     "id": "386fcec0-f1f8-45f8-b391-f57593e5e939",
@@ -2276,7 +2291,8 @@
     "language": "Français",
     "categories": [
       "IA"
-    ]
+    ],
+    "description": "Écrire du code coûte de moins en moins cher, et des équipes entières y arrivent aujourd'hui pour de bon avec l’IA. Pendant quelques semaines, c'est une très bonne nouvelle. Puis quelque chose d'étrange se produit : rien ne casse bruyamment, tout devrait aller plus vite, et pourtant **les problèmes s'accumulent à des endroits où personne ne regardait jusqu'alors**. Ils ne sont pas dans le code, ils sont tout autour.\n\nDans ce talk, je viens vous raconter ce qui arrive après, tel que je le vis depuis fin mars chez mon client, une scale-up française passée au développement agentique en quelques jours. Ce qui se met à coincer, ce qu'on débloque à son tour, ce qui résiste, et le piège discret dans lequel on tombe toutes et tous, moi compris. Des choses vécues et chiffrées, quelques cicatrices, les parades qu'on explore en ce moment même, et les questions que je n'ai pas encore tranchées. **Que vous soyez dev, PM, manager, commercial·e ou expert·e métier, ou utilisateur·rice de l'IA, ce talk vous concerne aussi.**\n\n---"
   },
   {
     "id": "4957bc03-8e6c-48d3-84e3-d17485c9071d",
@@ -2298,7 +2314,8 @@
     "year": 2024,
     "categories": [
       "Domain-Driven Design"
-    ]
+    ],
+    "description": "Faire du DDD quand tout va trop vite, c’est possible ? Le contexte de startup pousse très souvent les gens du produit à chercher en permanence à avoir de l’impact, et de l’impact à court terme. Mais si on se limite au court terme, on va très rapidement se retrouver incapable d’avancer. Tout simplement. A force de prendre des raccourcis, de contracter de la dette technique et encore pire: de la dette fonctionnelle… on se retrouve bloqué dans des ornières aux pires moments. \n\nAlors comment survivre dans ce contexte et éviter la banqueroute liée à cette dette fonctionnelle qui ne fait que s’accumuler à cette cadence élevée ? Comment concilier cette urgence et la volonté de bien faire ? Comment garder une code base cohérente avec nos usages et notre domaine, tout en gardant une cadence acceptable pour le produit ? \n\nDans ce talk basé sur des cas réels et applicables dans des contextes hors start-up, nous verrons quelques solutions concrètes à ce problème mêlant DDD stratégique, architecture et design. Nous verrons aussi quelques patterns à la mode à absolument éviter en chemin et pourquoi… avant finalement de voir comment on peut tacler la cause originelle de cette tension Produit/Tech."
   },
   {
     "id": "44476eca-bc20-4eea-9260-ad3e9427fc9c",
@@ -2377,7 +2394,8 @@
     ],
     "format": "Conférence (40-50min)",
     "level": "Débutant",
-    "language": "Français"
+    "language": "Français",
+    "description": "Le Domain Driven Design est sur toutes les lèvres. Silver bullet ultime, distributeur à buzzwords, à croire que si à ta troisième levée de fonds tu ne fais pas du DDD, t’as raté ta start up. Mais par quoi commencer pour en tirer de la valeur rapidement ?\n\nEt si la réponse n’était pas dans ses agrégats, value-objects, domain events et autres patterns tactiques populaires mais plutôt dans compréhension du métier ? Cela tombe bien car le DDD offre des outils qui permettent de s’approprier le métier afin de le modéliser correctement.\n\nDécouvrons ensemble les patterns stratégiques - la partie la plus importante du Domain-Driven Design - qui vous offriront de meilleurs retours sur investissement. Cela vous permettra d’adopter en douceur cette philosophie, loin de la hype et des difficultés techniques."
   },
   {
     "id": "85284157-2762-4bb2-ae7e-90d99a1b0eed",
@@ -2475,7 +2493,8 @@
     "format": "Conférence (40-50min)",
     "level": "Avancé",
     "language": "English",
-    "slidesUrl": "https://slides.com/julientopcu/model-tension-heuristics-preventing-accidental-design-debt?token=mFfelQ52"
+    "slidesUrl": "https://slides.com/julientopcu/model-tension-heuristics-preventing-accidental-design-debt?token=mFfelQ52",
+    "description": "”All models are wrong, but some are useful.” This insight from George Box has become a cornerstone of software modeling. While exploration and experimentation are essential for shaping models, it is often challenging to know when a model is wrong or, worse, when an existing model has become obsolete and is no longer as useful.\n\nAs a result, unsuitable models may be still used for a long time, leading to different issues not always identified as forms of design debt. These include the spork effect (intrinsic coupling), model fragmentation (extrinsic coupling), and model sclerosis, which ultimately contribute to entropy or the \"Big Ball of Mud\" phenomenon. These problems arise from undetected and unresolved model tensions.\n\nIn this talk, we will explore what model tensions are, the complications they cause and why they occur. We will also present a set of heuristics to identify and address different kind of model tensions."
   },
   {
     "id": "10aa7c45-ee30-40f7-ba65-10b45c167290",
@@ -3174,7 +3193,7 @@
     "level": "Débutant",
     "language": "English",
     "slidesUrl": null,
-    "description": null,
+    "description": "Domain-Driven Design doesn’t work for you because it causes too much overhead? It’s too complex to implement and maintain? Too much questions about what should be an aggregate or not ? The concept of bounded-context is somehow fuzzy, what does it have to do with the architecture of my software ?\n\nThey say strategic design is the most important but how is this supposed to help me write code?\n\nWhat if we tried a practical approach of Domain-Driven Design to focus on solving the problem instead of creating new ones?\n\nIn this live-coding, we will implement features in a pragmatic and seamless way. By bridging the strategic patterns with the tactical ones,  let’s unlock together the full power of Domain-Driven Design.",
     "status": "Scopé"
   },
   {
@@ -3199,7 +3218,7 @@
     "level": "Intermédiaire",
     "language": "Français",
     "slidesUrl": null,
-    "description": null,
+    "description": "Prenons un peu de recul sur la manière dont les équipes \"produit\" et \"tech\" collaborent sur le développement de fonctionnalités, pour mieux comprendre d'où les retards viennent, et réfléchir aux changements qu'elles pourraient adopter pour livrer des améliorations avec plus de régularité, qualité et maintenabilité à long terme.",
     "status": "Idée"
   },
   {
@@ -3249,7 +3268,7 @@
     "level": "Intermédiaire",
     "language": "Français",
     "slidesUrl": null,
-    "description": null,
+    "description": "Imaginez une app web full-stack dans laquelle vous avez la garantie, en quelques secondes, que chaque amélioration que vous venez d'intégrer fonctionne comme prévu. 🤩\n\nC'est grosso modo ce que vous promettent les devs \"craft\" en faisant du (A)TDD. Mais, en vrai, est-ce que les tests end-to-end (avec Cypress, Playwright, etc...) sont suffisamment rapides et robustes pour itérer de manière fluide sur le développement de fonctionnalités ?\n\nAprès avoir défini ce qu'on veut dire par \"ATDD\", \"outside-in\" et \"end-to-end\", nous allons voir ensemble quelques astuces pratiques pour que le parcours de \"signup\" d'une vraie application web Node.js soit testé en quelques secondes.",
     "status": "Idée"
   },
   {
@@ -3274,7 +3293,7 @@
     "level": "Intermédiaire",
     "language": "English",
     "slidesUrl": null,
-    "description": null,
+    "description": "Are your product features released on time? Are they working 100% as expected from day one? In my experience, it's rarely the case. Either the release is late, or new features come with with bugs that ruin the user experience. Or worse: functional regressions. This situation create tensions between the \"product team\" and the \"sofware development team\".\n\nWhat are we doing wrong? As developers often say: it's complicated. But, fortunately, people who worked with several product teams, in several companies found common pitfalls and recipes that work!\n\nIn this talk, let's take a step back on how product and software development people usually collaborate in start-up companies, where problems come from, and which changes they can adopt towards shipping features with more regularity, quality and long-term maintainability.",
     "status": "Idée"
   },
   {
@@ -3456,7 +3475,7 @@
     "level": "Débutant",
     "language": "Français",
     "slidesUrl": null,
-    "description": null,
+    "description": "Combien de fois avez-vous assisté à une réunion technique qui a dérapé à cause de désaccords sur les pratiques à adopter ? C'est précisément ce qui s'est produit lors de notre dernier atelier collaboratif de conception logicielle\n\nLa réunion avait pourtant bien commencé. Tous et toutes semblaient alignés sur la vision et la direction du projet, mais rapidement, les passions se sont déchaînées. Des injonctions désordonnées et plus ou moins sensées, se sont multipliées : \"*Il faut coder en TDD !*\", \"*Nous devons livrer en prod cachée !*\" ou encore \"*Le COBOL est un langage d'avenir !*\".\n\nNous voulons toutes et tous faire avancer le projet en valorisant les pratiques que nous savons pertinentes, mais les consensus sont difficiles à trouver et souvent, les discussions n'aboutissons qu'à de la frustration.\n\nEt si, au lieu d’appliquer des pratiques par habitude ou par contrainte, nous choisissions celles qui ont vraiment du sens pour nous ?\n\nEt que ce sont ces \"pratiques\" qui nous tiennent tant à cœur ? Pourquoi existe-t-il des \"bonnes pratiques' et d'autres pratiques ? Comment faisons nous pour les catégoriser ainsi ?\n\nDans cette présentation, nous répondrons à ces questions en apportant un regard objectif sur les pratiques, afin de vous donner les moyens de les valoriser auprès de vos collègues et de votre hiérarchie. Puis nous découvrirons des outils méthodologiques et visuels permettant de cataloguer et catégoriser vos pratiques, ainsi que des astuces pour embarquer votre équipe à les appliquer et suivre leur adoption dans votre contexte.",
     "status": "En construction"
   },
   {
@@ -3552,7 +3571,7 @@
     "level": null,
     "language": "English",
     "slidesUrl": null,
-    "description": null,
+    "description": "Code is not just about making things work. It's about making them make sense.\n\nYet too often, as we fight against technical debt and legacy systems, we lose sight of the domain meaning behind what we build. \n\nDomain-Driven Design (DDD) offers ways to reconnect with the heart of our systems,  but it is often perceived as something that happens only in big meetings or architectural diagrams.\n\nWhat if DDD was also about making the domain shine through the code?\n\nThrough a legacy example, we'll explore how everyday clean code and refactoring habits, combined with a domain-driven perspective, can spark deeper domain understanding, and transform tangled code into a clearer, more expressive system.\n\nYou don't need to be a DDD expert to start making your code tell better domain stories. You just need the right lens, and a few simple practices to begin with.",
     "status": "Scopé"
   },
   {
@@ -3577,7 +3596,7 @@
     "level": "Intermédiaire",
     "language": "English",
     "slidesUrl": null,
-    "description": null,
+    "description": "Have you ever noticed a small change requested by a consumer unexpectedly causing major impacts on your model? Have you ever felt more dependent on an external team than you anticipated, without fully understanding why? Or perhaps you’ve already discovered that your model was being contaminated by another bounded context even though you were following best practices.\n\nThese symptoms are not mysterious. They often arise from shifts in the socio technical system that go unnoticed or are underestimated, changes that create tensions and lead to unexpected consequences. Spotting these tensions early becomes essential so that you can address them before they crystallized.\n\nFortunately, a powerful yet often underrated Domain Driven Design tool, the Context Map, combined with a heuristic based approach, can help uncover these socio technical tensions. By applying heuristics such as effort misalignment, Conway’s law, relationships orthogonality, and chain of contaminations, you can learn to identify and anticipate the effects that emerge as your socio technical system evolves.",
     "status": "Scopé"
   },
   {
@@ -3664,7 +3683,7 @@
     "level": "Intermédiaire",
     "language": "English",
     "slidesUrl": null,
-    "description": null,
+    "description": "Have you ever shaped a powerful domain model, only to see most of its meaning disappear when exposing it as a REST API? Have you tried introducing HATEOAS, yet still found it difficult to map aggregates and entities to REST resources and express your business workflow through hypermedia while respecting REST constraints?\n\nWhat if the EventStorming you ran for your domain could also guide the structure of your Web API?\n\nIn this talk, we will explore how Process Modelling can be extended to design domain-driven REST APIs. You’ll learn how to shape the representation of your resources using Domain-Driven Design’s tactical hierarchy, structure endpoints around your domain services, map your business workflows in your API using hypermedia, and handle functional error cases effectively.",
     "status": "Scopé"
   },
   {
@@ -3737,7 +3756,7 @@
     "level": "Intermédiaire",
     "language": "English",
     "slidesUrl": "https://slides.com/julientopcu/model-expressions-an-overlooked-aspect-of-domain-driven-design",
-    "description": null,
+    "description": "If you have ever noticed your front-end, back-end, and database each speaking a slightly different version of the business, you have already come across one of those gaps that quietly slip into our systems. These mismatches create inconsistencies that slow teams down and make even small changes feel heavier than they should.\n\nBehind this sits a simple reality: every layer of the socio-technical system ends up expressing the domain model in its own way. These are the model expressions. When they drift apart, pick up constraints from one another, or assume responsibilities they were never meant to hold, the bounded context starts losing cohesion and essential business behaviors become harder to preserve. That is when familiar symptoms show up: layers influencing each other in odd ways, rules applied inconsistently, or business intent fading as it passes through the system.\n\nIn this talk, you will get a clear picture of what these model expressions are and how they relate to a bounded-context. We will explore how to shape a strategy that guides the way they interact so the system stays coherent over time. Through concrete examples of model-expression challenges, we will see how model tensions help spot design smells that erode the integrity of a bounded context.\n\n## Alternative abstract (less DDD jargon)\n\n**Title:** Functional Drift: When Front-End, Back-End, Database Disagree on What the Same Feature Does\n\nIf you have ever noticed that your front-end, back-end, and database don't quite agree on which rules the same feature must follow, you have already come across one of those gaps that quietly slip into our systems. These mismatches create inconsistencies that slow teams down and make even small changes feel heavier than they should.\n\nBehind this sits a simple reality: every layer of the system ends up expressing, in its own way, how we model the business logic. These are the model expressions. When they drift apart, pick up constraints from one another, or assume responsibilities they were never meant to hold, the system starts losing its coherence and essential business behaviors become harder to preserve. That is when familiar symptoms show up: layers influencing each other in odd ways, rules applied inconsistently, or business intent fading as it passes through the system.\n\nIn this talk, we will get a clear picture of what these model expressions are and how they relate to each other. We will explore how to shape a strategy that guides the way they interact so the system stays coherent over time. Through concrete examples of model-expression challenges, we will see how the tensions between them help spot design smells that erode the business rules they share.\n\n## Alternative abstract (FR)\n\n**Titre :** Dérive fonctionnelle : quand front, back et base de données se contredisent sur une fonctionnalité\n\nSi vous avez déjà remarqué que votre front-end, votre back-end et votre base de données ne s'accordent pas tout à fait sur les règles que doit suivre une même fonctionnalité, vous avez déjà croisé l'un de ces problèmes qui s'immiscent dans nos systèmes sans qu'on s'en aperçoive. Ces décalages créent des incohérences qui ralentissent les équipes et rendent pénible le moindre changement.\n\nDerrière tout cela se trouve une réalité simple : chaque couche du système finit par exprimer, à sa manière, la façon dont nous modélisons la logique métier. Ce sont les expressions de modèle. Lorsqu'elles dérivent chacune de leur côté, héritent de contraintes les unes des autres ou endossent des responsabilités qui n'auraient jamais dû leur revenir, le système commence à perdre sa cohérence et il devient de plus en plus difficile de garantir les comportements métier. C'est alors qu'apparaissent les symptômes classiques : des couches qui s'influencent de manière étrange, des règles appliquées de façon incohérente, ou une intention métier qui s'estompe à mesure qu'elle traverse le système.\n\nDans ce talk, nous découvrirons ce que sont ces expressions de modèle et comment elles s'articulent entre elles. Nous explorerons comment élaborer une stratégie d'interaction entre ces expressions, pour que le système reste cohérent dans la durée. À travers des exemples concrets de défis liés aux expressions de modèle, nous verrons comment les tensions entre elles aident à repérer les design smells qui érodent les règles métier qu'elles partagent.\n\n## Alternative outline (FR, 50 min)\n\n### Introduction (2 min)\n\n### Problématique (5 min)\n\n### Qu'est-ce qu'une expression de modèle ? (6 min)\n\n- User stories, maquettes, code front-end et code back-end peuvent tous être des expressions différentes d'un même modèle.\n- Une expression de modèle, c'est la manière dont une partie du système exprime le modèle pour répondre à une préoccupation précise.\n- Le modèle en lui-même est intangible et n'existe jamais physiquement. Nous n'avons jamais affaire qu'à ses expressions.\n- Deux familles d'expressions de modèle :\n    - Côté social : l'organisation et la structure de communication ; les spécifications (BDD compris) ; les ateliers d'exploration du métier (EventStorming, Domain Storytelling) ; la documentation ; le support et l'observabilité (bug tracker, métriques, dashboards) ; l'image mentale que chacun se fait du métier.\n    - Côté technique : l'architecture (chaque niveau du modèle C4 est une expression différente du même modèle) ; la logique métier ; la persistance (SQL…) ; les API et les messages (REST, GraphQL…) ; l'interface utilisateur (front-end, mobile…) ; les modèles de données.\n\n### Comment les expressions de modèle forment un tout (10 min)\n\n- Un même modèle s'exprime à travers de nombreuses couches : le contrôleur, la logique métier, la base de données, mais aussi l'organisation des équipes et l'architecture. Il peut aussi se décliner sur plusieurs cibles de déploiement (front-end, mobile, back-end).\n- Les expressions d'un même modèle sont liées : elles doivent garder la même structure.\n- Pour rester valide, chaque expression doit conserver les règles et les relations entre les concepts métier.\n- Certaines expressions dupliquent des responsabilités ou les délèguent à une autre : le contrôle d'accès, les règles métier (une contrainte d'unicité en base, une validation complète uniquement côté back-end) ou la logique métier. Sur ce dernier point, le théorème CAP peut s'appliquer.\n- Ensemble, ces expressions forment une partie cohérente du système, ce que le Domain-Driven Design appelle un bounded context. Cet ensemble ne tient que si les expressions restent cohérentes entre elles.\n- Démonstration : une règle métier structurante qui change se répercute de la même façon sur une user story, un front-end et un back-end.\n\n### Les défis liés aux expressions de modèle (17 min)\n\n- Contamination croisée : une expression hérite des contraintes d'une autre. Quand la contrainte s'est assez propagée, elle finit par les façonner toutes.\n    - Les contraintes d'une base SQL normalisée qui s'infiltrent dans la logique métier.\n    - La structure de communication d'une organisation qui déteint sur l'architecture (loi de Conway).\n- Perméabilité : traiter une préoccupation dans la mauvaise expression brise leur cohérence, et le système n'est plus toujours valide.\n    - Un contrôle d'accès dans le front-end, qu'on peut contourner.\n    - De la logique métier dupliquée dans le front-end, si bien qu'une même fonctionnalité se comporte différemment.\n    - Des identifiants auto-incrémentés par la base utilisés à la place des identifiants métier, qui cassent des règles d'unicité essentielles.\n- Impedance mismatch : quand une expression ne peut pas conserver les règles ou les relations entre concepts métier, il faut un code de traduction lourd. Arrive un moment où l'écart n'est plus contourné, et une fonctionnalité cesse de faire ce que le métier attend.\n    - Une interface utilisateur qui manipule des dates locales, obligeant la base de données à les convertir en UTC.\n- Partie séparée ou simple couche ? Tantôt une partie séparée du système est traitée comme une simple couche, tantôt une simple couche est traitée comme une partie séparée. Dans les deux cas, l'erreur crée des tensions dans le modèle.\n    - Un front-end traité comme séparé de son back-end : modèle fragmenté, fuites de logique métier, découpages non voulus, données incohérentes.\n    - Des front-ends riches (PWA, SPA) traités comme de simples couches du back-end : des big balls of mud distribuées.\n    - Un Backend for Frontend (BFF) comme signe d'une partie séparée cachée.\n- Des modèles prêts à l'emploi au mauvais endroit : des modèles génériques sont réutilisés partout, même là où ils ne conviennent pas.\n    - Côté social : modèle Spotify, Team Topologies, SAFe, Scrum. Côté technique : patterns tactiques, CRUD, CQRS, LLM, FC/IS.\n    - REST est un modèle CRUD adapté aux API, mais pas toujours à la logique métier, qu'il peut vider de tout comportement.\n\n### Préserver la cohérence des expressions de modèle (7 min)\n\n- Cartographier les expressions de modèle, et s'appuyer sur des heuristiques pour savoir si chacune est une partie séparée ou une couche.\n- Protéger une expression d'une autre avec une couche de traduction, comme le font déjà les adapters de l'architecture hexagonale (contrôleur <> logique métier <> persistance).\n- Définir une stratégie : choisir comment les expressions s'intègrent (traduire, se conformer ou partager un noyau commun) selon la façon dont vous gérez la dette de conception.\n- Se servir des tensions de modèle pour repérer les design smells.\n\n### Conclusion (3 min)\n\n## Alternative outline (less DDD jargon, 50 min)\n\n### Intro (2 min)\n\n### Problem statement (5 min)\n\n### What is a model expression? (6 min)\n\n- User stories, mock-ups, front-end code and back-end code can all be different expressions of the same model.\n- A model expression is the way one part of the system expresses the model to solve a specific concern.\n- The model itself is intangible and never exists physically. We only ever deal with its expressions.\n- Two families of model expressions:\n    - **Social side**: organization and communication structure; specifications (including BDD); workshops to explore the business (EventStorming, Domain Storytelling); documentation; support and observability (bug tracker, metrics, dashboards); the mental picture people have of the business.\n    - **Technical side**: architecture (each level of the C4 model is a different expression of the same model); business logic; persistence (SQL…); APIs and messages (REST, GraphQL…); user interface (front-end, mobile…); data models.\n\n### How model expressions belong together (10 min)\n\n- One model is expressed across many layers: controller, business logic, database, but also team organization and architecture. It can also be expressed across deployment targets (front-end, mobile, back-end).\n- Expressions of the same model are linked: they must keep the same structure.\n- To stay valid, each expression must keep the rules and relationships between business concepts.\n- Some expressions repeat or hand over responsibilities to another one: access control, business rules (a uniqueness check in the database, full validation only in the back-end), or business logic. On this last point, the CAP theorem can apply.\n- Together, these expressions form one coherent part of the system, what Domain-Driven Design calls a bounded context. It only holds if the expressions stay coherent with each other.\n- **Demonstration:** changing one structuring business rule impacts a user story, a front-end and a back-end in the same way.\n\n### Model expression challenges (17 min)\n\n- **Cross-contamination:** an expression inherits constraints from another one. Once the constraint has leaked far enough, it shapes all of them.\n    - Constraints of a normalized SQL database leaking into the business logic.\n    - The communication structure of an organization leaking into the architecture (Conway's Law).\n- **Permeability:** solving a concern in the wrong expression breaks their coherence, and the system is no longer always valid.\n    - Access control in the front-end that can be bypassed.\n    - Business logic duplicated in the front-end, so the same feature behaves differently.\n    - Database auto-increment IDs used instead of business IDs, breaking essential uniqueness rules.\n- **Impedance mismatch:** when an expression cannot keep the rules or relationships of business concepts, heavy translation code is needed. At some point, the gap is no longer worked around, and a feature stops doing what the business expects.\n    - A user interface using local date-time, forcing the database to convert dates to UTC.\n- **Separate part or just a layer?** Sometimes a separate part of the system is treated as a simple layer, and sometimes a simple layer is treated as a separate part. Both mistakes create tension in the model.\n    - A front-end treated as separate from its back-end: fragmented model, business logic leaks, unwanted splits, inconsistent data.\n    - Rich front-ends (PWA, SPA) treated as simple layers of the back-end: distributed big balls of mud.\n    - A Backend for Frontend (BFF) as a sign of a hidden separate part.\n- **Ready-made models in the wrong place:** generic models get reused everywhere, even where they do not fit.\n    - Social side: Spotify model, Team Topologies, SAFe, Scrum. Technical side: tactical patterns, CRUD, CQRS, LLMs, FC/IS.\n    - REST is a CRUD model that fits APIs, but not always business logic, which it can leave empty of behavior.\n\n### Keeping model expressions coherent (7 min)\n\n- Map the model expressions, and use heuristics to tell whether each one is a separate part or a layer.\n- Protect one expression from another with a translation layer, as hexagonal architecture adapters already do (controller <> business logic <> persistence).\n- Define a strategy: choose how expressions integrate (translate, conform, or share a common core) depending on how you manage design debt.\n- Use model tensions to spot design smells.\n\n### Conclusion (3 min)",
     "status": "Scopé"
   },
   {
@@ -3785,7 +3804,7 @@
     "level": "Débutant",
     "language": "Français",
     "slidesUrl": null,
-    "description": null,
+    "description": "Vous estimez des user stories sans être certain de ce qui doit réellement être produit ? Certaines fonctionnalités font le yoyo entre “à développer” et “à déployer”, et la valeur métier attendue reste parfois floue. Souvent, chacun pense avoir compris… mais pas la même chose.\n\nCes situations sont souvent le symptôme d’un problème plus profond : une compréhension incomplète du **c**omportement attendu du logiciel. Le besoin est évoqué, mais rarement formalisé de manière partagée et vérifiable par toute l’équipe. Le Behavior-Driven Development (BDD) propose justement des outils pour rendre ce comportement explicite et partagé.\n\nÀ travers l’example mapping, l’expression du comportement en langage métier et des tests d’acceptation, nous verrons comment construire une compréhension commune et durable. Nous explorerons comment ces pratiques s’articulent avec une stratégie de tests et soutiennent l’implémentation par petits incréments. L’objectif : reprendre le contrôle sur ce que fait réellement le logiciel et livrer avec plus de confiance.\n\n---",
     "status": "Scopé"
   },
   {
@@ -3810,7 +3829,7 @@
     "level": "Intermédiaire",
     "language": "Français",
     "slidesUrl": null,
-    "description": null,
+    "description": "Generative Pre-trained Transformer, GPT.\n3 lettres et une architecture simple qui a changé le monde, comme le vol d'un papillon déclenche un ouragan.\n\nPourtant, la majorité d'entre nous n’ont pas eu l’occasion de soulever le capot et se contentent de vivre dans la Matrice.\nSi même nous les devs, on ne comprend pas comment ça marche, qui le pourra ?\n\nmicrogpt d'Andrej Karpathy, c'est 200 lignes de Python pour un  modèle GPT minimaliste mais complet, idéal pour comprendre la révolution IA.\n\nJe vous propose de les réimplémenter en TypeScript, notre lingua franca, en détaillant chaque fonction de l'algo sur lequel repose Gemini, ChatGPT ou même Claude.\n\n[https://karpathy.github.io/2026/02/12/microgpt/](https://karpathy.github.io/2026/02/12/microgpt/)",
     "status": "Scopé"
   },
   {
@@ -3860,7 +3879,7 @@
     "level": "Avancé",
     "language": "Français",
     "slidesUrl": null,
-    "description": null,
+    "description": "Slack, Notion, mails, transcripts de meeting... plus le monde s'accélère et plus le signal se noie dans le bruit. Rester à jour devient un second métier à plein temps. Pour survivre à mon quotidien très dense, je me suis construit un second cerveau. Puis, comme ça marchait bien pour moi, j'en ai fait un produit open source pour aider mes collègues et mes proches : Kenjaku.\n\nLa plupart des seconds cerveaux qu'on voit passer sont des démos qui impressionnent cinq minutes mais ne tiennent pas la route au bout de quelques semaines. Kenjaku est l'inverse : un wiki LLM à la Karpathy, renforcé là où ça compte par du vrai logiciel battle-testé. Le tout éprouvé depuis des mois sur des usages réels, pour plus de robustesse et une affordance plus directe. Des réponses tirées de vos propres infos, notes, transcripts de meeting, grâce à une recherche sémantique qui utilise une solution de RAG/embeddings locale et embarquée : jamais inventées, toujours sourcées et datées. Rien à sauvegarder, rien à entretenir, rien à perdre. Et surtout, utilisable par des non-techs : on demande, il s'occupe du reste (synchronisation, vérifications, etc.).\n\nDans ce talk, je vous raconte le pourquoi (la galère qu'il résout), le quoi (ce que c'est, et ce que ce n'est pas), et j'ouvrirai surtout le capot sur le comment : comment on dompte le non-déterminisme de l'IA, avec quelle architecture, et une qualité mesurée plutôt qu'affirmée.\n\nVous repartirez avec un modèle mental clair de ce qu'est un vrai second cerveau, des patterns\nréutilisables dans vos propres projets IA, et de quoi générer le vôtre le soir même, en une seule\nphrase collée dans Claude en guise de procédure d'installation.",
     "status": "Idée",
     "validated": true,
     "showWithoutLink": true,
