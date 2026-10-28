@@ -134,7 +134,8 @@
     "title": "Orchestrez vos agents IA pour organiser un dîner presque parfait",
     "categories": [
       "IA"
-    ]
+    ],
+    "showWithoutLink": true
   },
   {
     "id": "d631e237-ba1b-44e6-85ed-2d6d9309d9bd",
@@ -3859,7 +3860,10 @@
     "language": "Français",
     "slidesUrl": null,
     "description": null,
-    "status": "Idée"
+    "status": "Idée",
+    "validated": true,
+    "showWithoutLink": true,
+    "showWithoutYear": true
   },
   {
     "id": "c5feb22e-ccfa-4833-b567-179b0058db52",
