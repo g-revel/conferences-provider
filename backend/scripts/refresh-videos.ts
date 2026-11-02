@@ -1,10 +1,8 @@
-import { Speak } from "../src/collects/get-speaks/speak.js";
 import { findTalkVideo } from "../src/collects/find-talk-video/findTalkVideo.js";
-import { readJson, writeJson } from "../src/data/jsonStore.js";
-import { TALKS_PATH } from "../src/data/paths.js";
+import { readTalks, writeTalks } from "../src/data/talksStore.js";
 
 async function main(): Promise<void> {
-  const talks = await readJson<Speak[]>(TALKS_PATH, []);
+  const talks = await readTalks();
   const talksToSearch = talks.filter((talk) => talk.videoUrl == null && talk.title != null);
   console.log(`${talksToSearch.length}/${talks.length} talk(s) sans lien vidéo (et avec un titre connu).`);
 
@@ -27,7 +25,7 @@ async function main(): Promise<void> {
     }
   }
 
-  await writeJson(TALKS_PATH, updated);
+  await writeTalks(updated);
   console.log(`${found} lien(s) vidéo ajouté(s).`);
 }
 
