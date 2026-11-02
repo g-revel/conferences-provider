@@ -4,6 +4,12 @@ export const conferences = pgTable("conferences", {
   name: text("name").primaryKey(),
   url: text("url"),
   pastEditionUrls: text("past_edition_urls").array().notNull().default([]),
+  // true seulement pour les conférences d'events.json (liste curatée du pipeline de
+  // découverte) ; false pour une conférence créée défensivement par talksStore.ts
+  // (talk Notion/YouTube référençant une conférence hors seed list) — getConferences()
+  // doit continuer à ne lire QUE le seed list curaté, pas les ~48 conférences
+  // ad-hoc qui n'existent que comme cible de FK pour talks.conference_name.
+  isSeed: boolean("is_seed").notNull().default(false),
 });
 
 export const speakers = pgTable(
