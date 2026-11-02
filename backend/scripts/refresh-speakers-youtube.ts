@@ -1,11 +1,11 @@
 import { Conference } from "../src/collects/get-conferences/conference.js";
-import { Speaker } from "../src/collects/get-all-speakers/speaker.js";
 import { Speak } from "../src/collects/get-speaks/speak.js";
 import { findSpeakerTalksOnYoutube } from "../src/collects/find-speaker-talks-on-youtube/findSpeakerTalksOnYoutube.js";
 import { groupCoPresentedTalks } from "../src/collects/extract-speaks/groupCoPresentedTalks.js";
 import { mergeSpeaks } from "../src/collects/get-speaks/mergeSpeaks.js";
-import { readJson, writeJson } from "../src/data/jsonStore.js";
-import { EVENTS_PATH, SPEAKERS_PATH, TALKS_PATH } from "../src/data/paths.js";
+import { readConferences } from "../src/data/conferencesStore.js";
+import { readSpeakers } from "../src/data/speakersStore.js";
+import { readTalks, writeTalks } from "../src/data/talksStore.js";
 import { normalizeForMatch } from "../src/string.functions.js";
 
 // Le nom de conférence déduit par le LLM depuis un titre/une chaîne YouTube peut
@@ -20,9 +20,9 @@ function canonicalizeConferenceName(name: string, knownEvents: Conference[]): st
 }
 
 async function main(): Promise<void> {
-  const events = await readJson<Conference[]>(EVENTS_PATH, []);
-  const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, []);
-  const existingTalks = await readJson<Speak[]>(TALKS_PATH, []);
+  const events = await readConferences();
+  const speakers = await readSpeakers();
+  const existingTalks = await readTalks();
   const knownVideoUrls = new Set(existingTalks.map((talk) => talk.videoUrl).filter((url): url is string => !!url));
 
   // Un membre parti (active: false) n'est volontairement pas cherché ici : on ne
@@ -56,7 +56,7 @@ async function main(): Promise<void> {
   }
 
   const merged = mergeSpeaks(existingTalks, groupCoPresentedTalks(found));
-  await writeJson(TALKS_PATH, merged);
+  await writeTalks(merged);
   console.log(`${merged.length} talks connus (${found.length} nouveau(x) trouvé(s) cette fois).`);
 }
 
