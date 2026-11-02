@@ -73,6 +73,21 @@ export async function writeTalks(values: Speak[]): Promise<void> {
       const id = talk.id ?? crypto.randomUUID();
       const normalizedTitle = talk.title != null ? normalizeForMatch(talk.title) : null;
 
+      // Plus de la moitié des talks réels référencent une conférence absente de
+      // events.json (liste statique du pipeline de découverte, pas une
+      // énumération exhaustive — imports Notion, découvertes YouTube, conférences
+      // ponctuelles jamais ajoutées au seed) : upsert défensif, DO NOTHING comme
+      // pour les speakers — conferencesStore.writeConferences() (piloté par
+      // refresh:events:heavy) reste l'unique propriétaire de url/pastEditionUrls.
+      await tx
+        .insert(conferences)
+        .values({
+          name: talk.conference.name,
+          url: talk.conference.url ?? null,
+          pastEditionUrls: talk.conference.pastEditionUrls ?? [],
+        })
+        .onConflictDoNothing({ target: conferences.name });
+
       await tx
         .insert(talks)
         .values({
