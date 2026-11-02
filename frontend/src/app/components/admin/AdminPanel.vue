@@ -17,6 +17,19 @@ const talkers = ref<Talker[]>([])
 const talks = ref<Talk[]>([])
 const cities = ref<string[]>([])
 const tab = ref<string>('talkers')
+// Chaque écriture admin va jusqu'à Postgres (Neon) avant de rafraîchir la liste —
+// visible humainement (observé : ~1-3s), sans ce flag le bouton ne donne aucun
+// retour visuel entre le clic et le rafraîchissement, ce qui se lit comme "cassé".
+const isPending = ref(false)
+
+async function withPending(action: () => Promise<void>): Promise<void> {
+  isPending.value = true
+  try {
+    await action()
+  } finally {
+    isPending.value = false
+  }
+}
 
 const activeTalks = computed(() => talks.value.filter((t) => !t.deletedAt))
 const deletedTalks = computed(() => talks.value.filter((t) => t.deletedAt))
@@ -57,68 +70,99 @@ async function reload(): Promise<void> {
 onMounted(reload)
 
 async function onUpdateCity(talker: Talker, city: string): Promise<void> {
-  await client.setTalkerCity(props.password, talker.firstname, talker.lastname, city.trim() || null)
-  await reload()
+  await withPending(async () => {
+    await client.setTalkerCity(props.password, talker.firstname, talker.lastname, city.trim() || null)
+    await reload()
+  })
 }
 
 async function onUpdateActive(talker: Talker, active: boolean): Promise<void> {
-  await client.setTalkerActive(props.password, talker.firstname, talker.lastname, active)
-  await reload()
+  await withPending(async () => {
+    await client.setTalkerActive(props.password, talker.firstname, talker.lastname, active)
+    await reload()
+  })
 }
 
 async function onAddCity(city: string): Promise<void> {
-  cities.value = await client.addCity(props.password, city)
+  await withPending(async () => {
+    cities.value = await client.addCity(props.password, city)
+  })
 }
 
 async function onDeleteCity(city: string): Promise<void> {
-  cities.value = await client.deleteCity(props.password, city)
+  await withPending(async () => {
+    cities.value = await client.deleteCity(props.password, city)
+  })
 }
 
 async function onDelete(talk: Talk): Promise<void> {
   if (!talk.id) return
-  await client.deleteTalk(props.password, talk.id)
-  await reload()
+  await withPending(async () => {
+    await client.deleteTalk(props.password, talk.id!)
+    await reload()
+  })
 }
 
 async function onRestore(talk: Talk): Promise<void> {
   if (!talk.id) return
-  await client.restoreTalk(props.password, talk.id)
-  await reload()
+  await withPending(async () => {
+    await client.restoreTalk(props.password, talk.id!)
+    await reload()
+  })
 }
 
 async function onValidate(talk: Talk, videoUrl: string): Promise<void> {
   if (!talk.id) return
-  await client.setTalkVideoUrl(props.password, talk.id, videoUrl)
-  await reload()
+  await withPending(async () => {
+    await client.setTalkVideoUrl(props.password, talk.id!, videoUrl)
+    await reload()
+  })
 }
 
 async function onToggleShowWithoutLink(talk: Talk, show: boolean): Promise<void> {
   if (!talk.id) return
-  await client.setTalkShowWithoutLink(props.password, talk.id, show)
-  await reload()
+  await withPending(async () => {
+    await client.setTalkShowWithoutLink(props.password, talk.id!, show)
+    await reload()
+  })
 }
 
 async function onSetYear(talk: Talk, year: number): Promise<void> {
   if (!talk.id) return
-  await client.setTalkYear(props.password, talk.id, year)
-  await reload()
+  await withPending(async () => {
+    await client.setTalkYear(props.password, talk.id!, year)
+    await reload()
+  })
 }
 
 async function onToggleShowWithoutYear(talk: Talk, show: boolean): Promise<void> {
   if (!talk.id) return
-  await client.setTalkShowWithoutYear(props.password, talk.id, show)
-  await reload()
+  await withPending(async () => {
+    await client.setTalkShowWithoutYear(props.password, talk.id!, show)
+    await reload()
+  })
 }
 
 async function onValidateDraft(talk: Talk): Promise<void> {
   if (!talk.id) return
-  await client.validateDraftTalk(props.password, talk.id)
-  await reload()
+  await withPending(async () => {
+    await client.validateDraftTalk(props.password, talk.id!)
+    await reload()
+  })
 }
 </script>
 
 <template>
   <div class="min-h-screen bg-shodo-creme font-sans">
+    <div
+      v-if="isPending"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/10"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div class="h-8 w-8 animate-spin rounded-full border-4 border-shodo-creme-watermark border-t-shodo-rose"></div>
+    </div>
+
     <div class="w-full px-4 py-10 md:px-8">
       <div class="mb-6 flex items-center justify-between">
         <h1 class="font-display text-2xl font-extrabold text-shodo-noir">Admin</h1>
