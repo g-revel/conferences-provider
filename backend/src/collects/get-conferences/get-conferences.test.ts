@@ -1,18 +1,18 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-const { readJsonMock } = vi.hoisted(() => ({ readJsonMock: vi.fn() }));
+const { readConferencesMock } = vi.hoisted(() => ({ readConferencesMock: vi.fn() }));
 
-vi.mock("../../data/jsonStore.js", () => ({ readJson: readJsonMock }));
+vi.mock("../../data/conferencesStore.js", () => ({ readConferences: readConferencesMock }));
 
 import { getConferences } from "./get-conferences.js";
 
 beforeEach(() => {
-  readJsonMock.mockReset();
+  readConferencesMock.mockReset();
 });
 
 describe("getConferences", () => {
   it("returns the conferences read from the static store", async () => {
-    readJsonMock.mockResolvedValue([{ name: "Devoxx France", url: null }]);
+    readConferencesMock.mockResolvedValue([{ name: "Devoxx France", url: null }]);
 
     const conferences = await getConferences();
 
@@ -20,7 +20,7 @@ describe("getConferences", () => {
   });
 
   it("falls back to an empty list when the store is empty", async () => {
-    readJsonMock.mockResolvedValue([]);
+    readConferencesMock.mockResolvedValue([]);
 
     const conferences = await getConferences();
 

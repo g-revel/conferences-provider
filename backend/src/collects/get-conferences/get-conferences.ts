@@ -1,7 +1,6 @@
 import { Conference } from "./conference.js";
-import { readJson } from "../../data/jsonStore.js";
-import { EVENTS_PATH } from "../../data/paths.js";
+import { readConferences } from "../../data/conferencesStore.js";
 
 export async function getConferences(): Promise<Conference[]> {
-  return readJson<Conference[]>(EVENTS_PATH, []);
+  return readConferences();
 }
