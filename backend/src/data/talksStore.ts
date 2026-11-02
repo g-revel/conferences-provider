@@ -4,19 +4,18 @@ import { conferences, speakers, talkSpeakers, talks } from "./schema.js";
 import { Speak } from "../collects/get-speaks/speak.js";
 import { normalizeForMatch } from "../string.functions.js";
 
+type TalkJoinRow = {
+  talk: typeof talks.$inferSelect;
+  conference: typeof conferences.$inferSelect;
+  speaker: typeof speakers.$inferSelect | null;
+};
+
 // Jointure normalisée (décidé) : chaque speaker embarqué reflète ses infos
 // ACTUELLES (company/city/active), pas une copie figée au moment de
 // l'extraction comme dans talks.json — tout comme `conference` reflète l'URL
 // actuelle de la conférence plutôt qu'une copie, puisque `talks.conference_name`
 // est une FK, pas un snapshot.
-export async function readTalks(): Promise<Speak[]> {
-  const rows = await db
-    .select({ talk: talks, conference: conferences, speaker: speakers })
-    .from(talks)
-    .innerJoin(conferences, eq(conferences.name, talks.conferenceName))
-    .leftJoin(talkSpeakers, eq(talkSpeakers.talkId, talks.id))
-    .leftJoin(speakers, eq(speakers.id, talkSpeakers.speakerId));
-
+function groupRowsIntoTalks(rows: TalkJoinRow[]): Speak[] {
   const byId = new Map<string, Speak>();
   for (const row of rows) {
     let speak = byId.get(row.talk.id);
@@ -58,6 +57,32 @@ export async function readTalks(): Promise<Speak[]> {
     }
   }
   return [...byId.values()];
+}
+
+export async function readTalks(): Promise<Speak[]> {
+  const rows = await db
+    .select({ talk: talks, conference: conferences, speaker: speakers })
+    .from(talks)
+    .innerJoin(conferences, eq(conferences.name, talks.conferenceName))
+    .leftJoin(talkSpeakers, eq(talkSpeakers.talkId, talks.id))
+    .leftJoin(speakers, eq(speakers.id, talkSpeakers.speakerId));
+
+  return groupRowsIntoTalks(rows);
+}
+
+// Évite de faire porter la jointure complète (178 talks x speakers) aux routes
+// admin qui n'ont besoin que d'UN talk pour le muter — observé en pratique :
+// ~1.3s pour la jointure complète contre quelques ms pour une lookup par PK.
+export async function readTalkById(id: string): Promise<Speak | null> {
+  const rows = await db
+    .select({ talk: talks, conference: conferences, speaker: speakers })
+    .from(talks)
+    .innerJoin(conferences, eq(conferences.name, talks.conferenceName))
+    .leftJoin(talkSpeakers, eq(talkSpeakers.talkId, talks.id))
+    .leftJoin(speakers, eq(speakers.id, talkSpeakers.speakerId))
+    .where(eq(talks.id, id));
+
+  return groupRowsIntoTalks(rows)[0] ?? null;
 }
 
 // Upsert par `id` (déjà assigné une seule fois par mergeSpeaks.ts côté appelant) ;

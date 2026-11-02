@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 const {
   readTalksMock,
+  readTalkByIdMock,
   writeTalksMock,
   readSpeakerCityOverridesMock,
   writeSpeakerCityOverridesMock,
@@ -11,6 +12,7 @@ const {
   writeKnownCitiesMock,
 } = vi.hoisted(() => ({
   readTalksMock: vi.fn(),
+  readTalkByIdMock: vi.fn(),
   writeTalksMock: vi.fn(),
   readSpeakerCityOverridesMock: vi.fn(),
   writeSpeakerCityOverridesMock: vi.fn(),
@@ -20,7 +22,11 @@ const {
   writeKnownCitiesMock: vi.fn(),
 }));
 
-vi.mock("../data/talksStore.js", () => ({ readTalks: readTalksMock, writeTalks: writeTalksMock }));
+vi.mock("../data/talksStore.js", () => ({
+  readTalks: readTalksMock,
+  readTalkById: readTalkByIdMock,
+  writeTalks: writeTalksMock,
+}));
 vi.mock("../data/speakerCityOverridesStore.js", () => ({
   readSpeakerCityOverrides: readSpeakerCityOverridesMock,
   writeSpeakerCityOverrides: writeSpeakerCityOverridesMock,
@@ -43,6 +49,9 @@ function mockReadJson(
   memberOverrides: unknown[] = [],
 ): void {
   readTalksMock.mockResolvedValue(talks);
+  readTalkByIdMock.mockImplementation(
+    async (id: string) => (talks as { id?: string }[]).find((t) => t.id === id) ?? null,
+  );
   readSpeakerCityOverridesMock.mockResolvedValue(cityOverrides);
   readKnownCitiesMock.mockResolvedValue(cities);
   readSpeakerMemberOverridesMock.mockResolvedValue(memberOverrides);
@@ -50,6 +59,7 @@ function mockReadJson(
 
 beforeEach(() => {
   readTalksMock.mockReset();
+  readTalkByIdMock.mockReset();
   writeTalksMock.mockReset();
   readSpeakerCityOverridesMock.mockReset();
   writeSpeakerCityOverridesMock.mockReset();

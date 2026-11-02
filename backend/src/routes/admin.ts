@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { readTalks, writeTalks } from '../data/talksStore.js'
+import { readTalks, readTalkById, writeTalks } from '../data/talksStore.js'
 import { readSpeakerCityOverrides, writeSpeakerCityOverrides } from '../data/speakerCityOverridesStore.js'
 import { readSpeakerMemberOverrides, writeSpeakerMemberOverrides } from '../data/speakerMemberOverridesStore.js'
 import { readKnownCities, writeKnownCities } from '../data/knownCitiesStore.js'
@@ -162,8 +162,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
 
   app.delete('/api/admin/talks/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
-    const talks = await readTalks()
-    const talk = talks.find((t) => t.id === id)
+    const talk = await readTalkById(id)
     if (!talk) return reply.code(404).send({ error: 'not found' })
 
     const updated = { ...talk, deletedAt: new Date().toISOString() }
@@ -173,8 +172,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
 
   app.post('/api/admin/talks/:id/restore', async (request, reply) => {
     const { id } = request.params as { id: string }
-    const talks = await readTalks()
-    const talk = talks.find((t) => t.id === id)
+    const talk = await readTalkById(id)
     if (!talk) return reply.code(404).send({ error: 'not found' })
 
     const updated = { ...talk, deletedAt: null }
@@ -192,8 +190,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'videoUrl is required' })
     }
 
-    const talks = await readTalks()
-    const talk = talks.find((t) => t.id === id)
+    const talk = await readTalkById(id)
     if (!talk) return reply.code(404).send({ error: 'not found' })
 
     const updated = { ...talk, videoUrl: body.videoUrl.trim(), pendingVideoUrl: null }
@@ -210,8 +207,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'showWithoutLink must be a boolean' })
     }
 
-    const talks = await readTalks()
-    const talk = talks.find((t) => t.id === id)
+    const talk = await readTalkById(id)
     if (!talk) return reply.code(404).send({ error: 'not found' })
 
     const updated = { ...talk, showWithoutLink: body.showWithoutLink }
@@ -228,8 +224,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'year must be a valid integer year' })
     }
 
-    const talks = await readTalks()
-    const talk = talks.find((t) => t.id === id)
+    const talk = await readTalkById(id)
     if (!talk) return reply.code(404).send({ error: 'not found' })
 
     const updated = { ...talk, year: body.year }
@@ -247,8 +242,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'showWithoutYear must be a boolean' })
     }
 
-    const talks = await readTalks()
-    const talk = talks.find((t) => t.id === id)
+    const talk = await readTalkById(id)
     if (!talk) return reply.code(404).send({ error: 'not found' })
 
     const updated = { ...talk, showWithoutYear: body.showWithoutYear }
@@ -262,8 +256,7 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
   app.put('/api/admin/talks/:id/validate-draft', async (request, reply) => {
     const { id } = request.params as { id: string }
 
-    const talks = await readTalks()
-    const talk = talks.find((t) => t.id === id)
+    const talk = await readTalkById(id)
     if (!talk) return reply.code(404).send({ error: 'not found' })
 
     const updated = { ...talk, validated: true }
