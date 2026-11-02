@@ -12,7 +12,6 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate-db.ts",
     "db:studio": "drizzle-kit studio",
-    "migrate:to-postgres": "tsx scripts/migrate-json-to-postgres.ts",
     "eval": "promptfoo eval --config tests/evals/get-all-speakers.yaml --max-concurrency 1",
     "refresh:speakers": "tsx scripts/refresh-speakers.ts",
     "refresh:events:light": "tsx scripts/refresh-events-light.ts",
