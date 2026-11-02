@@ -86,7 +86,7 @@ function onFilterCategory(cat: string): void {
         <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-6 md:px-8">
           <img src="/shodo-logo.svg" alt="Shodo" class="h-9 w-9 rounded-md" />
           <h1 class="font-display text-2xl font-black uppercase tracking-tight sm:text-3xl">
-            Talks <span class="text-shodo-rose">Shodo</span>
+            <span class="text-shodo-rose">Sho</span>Talks
           </h1>
         </div>
       </header>
