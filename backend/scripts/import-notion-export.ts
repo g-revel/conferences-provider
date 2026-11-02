@@ -3,8 +3,8 @@ import path from "node:path";
 import { parse } from "csv-parse/sync";
 import { Speak } from "../src/collects/get-speaks/speak.js";
 import { Speaker } from "../src/collects/get-all-speakers/speaker.js";
-import { readJson, writeJson } from "../src/data/jsonStore.js";
-import { TALKS_PATH, SPEAKERS_PATH } from "../src/data/paths.js";
+import { readTalks, writeTalks } from "../src/data/talksStore.js";
+import { readSpeakers } from "../src/data/speakersStore.js";
 import { normalizeForMatch, toPascalCase } from "../src/string.functions.js";
 import { normalizeCategory } from "../src/collects/get-speaks/categoryRenames.js";
 
@@ -212,8 +212,8 @@ async function main(): Promise<void> {
   const rows = parse(csvContent, { columns: true, skip_empty_lines: true }) as NotionRow[];
   const descriptionsByTitle = await loadDescriptionsByTitle(mdFiles);
 
-  const talks = await readJson<Speak[]>(TALKS_PATH, []);
-  const knownSpeakers = await readJson<Speaker[]>(SPEAKERS_PATH, []);
+  const talks = await readTalks();
+  const knownSpeakers = await readSpeakers();
   const lookup = buildLookup(talks);
   const result = [...talks];
 
@@ -312,7 +312,7 @@ async function main(): Promise<void> {
     }
   }
 
-  await writeJson(TALKS_PATH, result);
+  await writeTalks(result);
 
   console.log(`${rows.length} ligne(s) lues dans l'export Notion.`);
   console.log(`${inserted} nouveau(x) talk(s) ajouté(s), dont :`);
