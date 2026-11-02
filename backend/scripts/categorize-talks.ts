@@ -1,8 +1,7 @@
 import { Speak } from "../src/collects/get-speaks/speak.js";
 import { mentionsAI } from "../src/collects/get-speaks/mentionsAI.js";
 import { normalizeCategory } from "../src/collects/get-speaks/categoryRenames.js";
-import { readJson, writeJson } from "../src/data/jsonStore.js";
-import { TALKS_PATH } from "../src/data/paths.js";
+import { readTalks, writeTalks } from "../src/data/talksStore.js";
 
 // Idempotent : un talk déjà migré vers `categories` (plus de `category`) et déjà
 // taggé "IA" si pertinent n'est pas retouché par un re-run. On renormalise quand
@@ -16,7 +15,7 @@ function migrateCategory(talk: Speak & { category?: string | null }): string[] {
 }
 
 async function main(): Promise<void> {
-  const talks = await readJson<(Speak & { category?: string | null })[]>(TALKS_PATH, []);
+  const talks = (await readTalks()) as (Speak & { category?: string | null })[];
 
   let migrated = 0;
   let aiFlagged = 0;
@@ -33,7 +32,7 @@ async function main(): Promise<void> {
     return { ...rest, categories };
   });
 
-  await writeJson(TALKS_PATH, result);
+  await writeTalks(result);
   console.log(`${migrated} talk(s) migré(s) de \`category\` (string) vers \`categories\` (array).`);
   console.log(`${aiFlagged} talk(s) supplémentaire(s) taggé(s) "IA" (détection de mots-clés).`);
 }
