@@ -24,7 +24,7 @@ afterEach(() => {
 
 describe('AdminTalksSection', () => {
   it('renders one item per talk with title, conference and speakers', () => {
-    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk] } })
+    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Intro TDD')
     expect(wrapper.text()).toContain('BreizhCamp')
@@ -32,14 +32,14 @@ describe('AdminTalksSection', () => {
   })
 
   it('shows a Supprimer button for an active talk, not Restaurer', () => {
-    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk] } })
+    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Supprimer')
     expect(wrapper.text()).not.toContain('Restaurer')
   })
 
   it('shows a Restaurer button for a deleted talk, not Supprimer', () => {
-    const wrapper = mount(AdminTalksSection, { props: { talks: [deletedTalk] } })
+    const wrapper = mount(AdminTalksSection, { props: { talks: [deletedTalk], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Restaurer')
     expect(wrapper.text()).not.toContain('Supprimer')
@@ -47,7 +47,7 @@ describe('AdminTalksSection', () => {
 
   it('emits delete after the user confirms', async () => {
     vi.stubGlobal('confirm', vi.fn(() => true))
-    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk] } })
+    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk], pendingKeys: new Set<string>() } })
 
     await wrapper.find('button').trigger('click')
 
@@ -56,7 +56,7 @@ describe('AdminTalksSection', () => {
 
   it('does not emit delete when the user cancels the confirmation', async () => {
     vi.stubGlobal('confirm', vi.fn(() => false))
-    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk] } })
+    const wrapper = mount(AdminTalksSection, { props: { talks: [activeTalk], pendingKeys: new Set<string>() } })
 
     await wrapper.find('button').trigger('click')
 
@@ -64,7 +64,7 @@ describe('AdminTalksSection', () => {
   })
 
   it('emits restore when the restore button is clicked', async () => {
-    const wrapper = mount(AdminTalksSection, { props: { talks: [deletedTalk] } })
+    const wrapper = mount(AdminTalksSection, { props: { talks: [deletedTalk], pendingKeys: new Set<string>() } })
 
     await wrapper.find('button').trigger('click')
 
@@ -72,7 +72,7 @@ describe('AdminTalksSection', () => {
   })
 
   it('shows a placeholder when there are no talks', () => {
-    const wrapper = mount(AdminTalksSection, { props: { talks: [] } })
+    const wrapper = mount(AdminTalksSection, { props: { talks: [], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Aucun talk')
   })

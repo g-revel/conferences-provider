@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Talk } from '../../../domain/talks/Talk'
 
-defineProps<{ talks: Talk[] }>()
+defineProps<{ talks: Talk[]; pendingKeys: Set<string> }>()
 const emit = defineEmits<{ delete: [talk: Talk]; restore: [talk: Talk] }>()
 
 function speakerNames(talk: Talk): string {
@@ -22,14 +22,16 @@ function confirmDelete(talk: Talk): void {
       </div>
       <button
         v-if="!talk.deletedAt"
-        class="shrink-0 rounded bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100"
+        class="shrink-0 rounded bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 disabled:opacity-50"
+        :disabled="pendingKeys.has(`delete:${talk.id}`)"
         @click="confirmDelete(talk)"
-      >Supprimer</button>
+      ><span v-if="pendingKeys.has(`delete:${talk.id}`)" class="mr-1 inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent align-[-2px]"></span>Supprimer</button>
       <button
         v-else
-        class="shrink-0 rounded bg-green-50 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-100"
+        class="shrink-0 rounded bg-green-50 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-100 disabled:opacity-50"
+        :disabled="pendingKeys.has(`restore:${talk.id}`)"
         @click="emit('restore', talk)"
-      >Restaurer</button>
+      ><span v-if="pendingKeys.has(`restore:${talk.id}`)" class="mr-1 inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent align-[-2px]"></span>Restaurer</button>
     </li>
     <li v-if="talks.length === 0" class="py-4 text-sm text-gray-400">Aucun talk.</li>
   </ul>

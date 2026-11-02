@@ -18,7 +18,7 @@ afterEach(() => {
 
 describe('AdminDraftStatusSection', () => {
   it('renders one item per talk with title, conference and speakers', () => {
-    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk] } })
+    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Idée de talk')
     expect(wrapper.text()).toContain('Conférence non précisée')
@@ -26,7 +26,7 @@ describe('AdminDraftStatusSection', () => {
   })
 
   it('emits validate when the Valider button is clicked', async () => {
-    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk] } })
+    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk], pendingKeys: new Set<string>() } })
 
     const validateButton = wrapper.findAll('button').find((b) => b.text() === 'Valider')!
     await validateButton.trigger('click')
@@ -36,7 +36,7 @@ describe('AdminDraftStatusSection', () => {
 
   it('emits delete after the user confirms', async () => {
     vi.stubGlobal('confirm', vi.fn(() => true))
-    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk] } })
+    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk], pendingKeys: new Set<string>() } })
 
     const deleteButton = wrapper.findAll('button').find((b) => b.text() === 'Supprimer')!
     await deleteButton.trigger('click')
@@ -46,7 +46,7 @@ describe('AdminDraftStatusSection', () => {
 
   it('does not emit delete when the user cancels the confirmation', async () => {
     vi.stubGlobal('confirm', vi.fn(() => false))
-    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk] } })
+    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [draftTalk], pendingKeys: new Set<string>() } })
 
     const deleteButton = wrapper.findAll('button').find((b) => b.text() === 'Supprimer')!
     await deleteButton.trigger('click')
@@ -55,7 +55,7 @@ describe('AdminDraftStatusSection', () => {
   })
 
   it('shows a placeholder when there are no talks', () => {
-    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [] } })
+    const wrapper = mount(AdminDraftStatusSection, { props: { talks: [], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Aucun talk dans cet état')
   })

@@ -16,7 +16,7 @@ afterEach(() => {
 
 describe('AdminTalkersSection', () => {
   it('renders one row per talker with their name and company', () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     expect(wrapper.findAll('tbody tr')).toHaveLength(2)
     expect(wrapper.text()).toContain('Julien Topcu')
@@ -24,14 +24,14 @@ describe('AdminTalkersSection', () => {
   })
 
   it('lists every known city as an option, plus "(aucune)" and "Ajouter une ville..."', () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     const options = wrapper.findAll('select')[0].findAll('option').map((o) => o.text())
     expect(options).toEqual(['(aucune)', 'Lyon', 'Rennes', 'Ajouter une ville...'])
   })
 
   it("pre-selects the talker's current city", () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     const select = wrapper.findAll('select')[1].element as HTMLSelectElement
     expect(select.value).toBe('Rennes')
@@ -41,14 +41,14 @@ describe('AdminTalkersSection', () => {
     const withLegacyCity: Talker[] = [
       { firstname: 'Bob', lastname: 'Dupont', company: 'Shodo', city: 'Marseille', active: true },
     ]
-    const wrapper = mount(AdminTalkersSection, { props: { talkers: withLegacyCity, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers: withLegacyCity, cities, pendingKeys: new Set<string>() } })
 
     const options = wrapper.find('select').findAll('option').map((o) => o.text())
     expect(options).toContain('Marseille')
   })
 
   it('emits updateCity with the selected city when Enregistrer is clicked', async () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     await wrapper.findAll('select')[0].setValue('Lyon')
     await wrapper.findAll('button')[0].trigger('click')
@@ -58,7 +58,7 @@ describe('AdminTalkersSection', () => {
 
   it('emits addCity and selects the new city when "Ajouter une ville..." is used and confirmed', async () => {
     vi.stubGlobal('prompt', vi.fn(() => 'Bordeaux'))
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     await wrapper.findAll('select')[0].setValue('__add_city__')
 
@@ -69,7 +69,7 @@ describe('AdminTalkersSection', () => {
 
   it('does not emit addCity when the prompt is cancelled', async () => {
     vi.stubGlobal('prompt', vi.fn(() => null))
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     await wrapper.findAll('select')[0].setValue('__add_city__')
 
@@ -77,7 +77,7 @@ describe('AdminTalkersSection', () => {
   })
 
   it('pre-checks the "a quitté Shodo" box for an inactive talker', () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     const checkboxes = wrapper.findAll('input[type="checkbox"]')
     expect((checkboxes[0].element as HTMLInputElement).checked).toBe(false)
@@ -85,7 +85,7 @@ describe('AdminTalkersSection', () => {
   })
 
   it('emits updateActive with active=false when the box is checked', async () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     await wrapper.findAll('input[type="checkbox"]')[0].setValue(true)
 
@@ -93,7 +93,7 @@ describe('AdminTalkersSection', () => {
   })
 
   it('emits updateActive with active=true when the box is unchecked', async () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     await wrapper.findAll('input[type="checkbox"]')[1].setValue(false)
 
@@ -101,7 +101,7 @@ describe('AdminTalkersSection', () => {
   })
 
   it('lists every known city with a delete button', () => {
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Villes connues')
     expect(wrapper.text()).toContain('Lyon')
@@ -110,7 +110,7 @@ describe('AdminTalkersSection', () => {
 
   it('emits deleteCity after confirming', async () => {
     vi.stubGlobal('confirm', vi.fn(() => true))
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     const deleteButton = wrapper.findAll('button').find((b) => b.attributes('aria-label') === 'Supprimer la ville Lyon')!
     await deleteButton.trigger('click')
@@ -120,7 +120,7 @@ describe('AdminTalkersSection', () => {
 
   it('does not emit deleteCity when the confirmation is cancelled', async () => {
     vi.stubGlobal('confirm', vi.fn(() => false))
-    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities } })
+    const wrapper = mount(AdminTalkersSection, { props: { talkers, cities, pendingKeys: new Set<string>() } })
 
     const deleteButton = wrapper.findAll('button').find((b) => b.attributes('aria-label') === 'Supprimer la ville Lyon')!
     await deleteButton.trigger('click')

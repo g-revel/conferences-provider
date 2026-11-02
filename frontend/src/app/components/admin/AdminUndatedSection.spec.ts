@@ -14,7 +14,7 @@ const talk: Talk = {
 
 describe('AdminUndatedSection', () => {
   it('renders one item per talk with title, conference and speakers', () => {
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Intro TDD')
     expect(wrapper.text()).toContain('BreizhCamp')
@@ -22,7 +22,7 @@ describe('AdminUndatedSection', () => {
   })
 
   it('emits setYear with the entered year when Enregistrer is clicked', async () => {
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk], pendingKeys: new Set<string>() } })
 
     await wrapper.find('input').setValue('2025')
     await wrapper.find('button').trigger('click')
@@ -31,7 +31,7 @@ describe('AdminUndatedSection', () => {
   })
 
   it('does not emit setYear when the input is empty', async () => {
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk], pendingKeys: new Set<string>() } })
 
     await wrapper.find('button').trigger('click')
 
@@ -39,7 +39,7 @@ describe('AdminUndatedSection', () => {
   })
 
   it('does not emit setYear for a non-integer or out-of-range value', async () => {
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk], pendingKeys: new Set<string>() } })
 
     await wrapper.find('input').setValue('18')
     await wrapper.find('button').trigger('click')
@@ -48,7 +48,7 @@ describe('AdminUndatedSection', () => {
   })
 
   it('renders a clickable link to the talk so the admin can look up its date', () => {
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk], pendingKeys: new Set<string>() } })
 
     const link = wrapper.find('a')
     expect(link.exists()).toBe(true)
@@ -57,13 +57,13 @@ describe('AdminUndatedSection', () => {
 
   it('does not render a link when the talk has none', () => {
     const withoutLink: Talk = { ...talk, videoUrl: undefined }
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [withoutLink] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [withoutLink], pendingKeys: new Set<string>() } })
 
     expect(wrapper.find('a').exists()).toBe(false)
   })
 
   it('emits toggleShowWithoutYear when the checkbox changes', async () => {
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [talk], pendingKeys: new Set<string>() } })
 
     await wrapper.find('input[type="checkbox"]').setValue(true)
 
@@ -72,13 +72,13 @@ describe('AdminUndatedSection', () => {
 
   it('pre-checks the box when showWithoutYear is already true', () => {
     const shown: Talk = { ...talk, showWithoutYear: true }
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [shown] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [shown], pendingKeys: new Set<string>() } })
 
     expect((wrapper.find('input[type="checkbox"]').element as HTMLInputElement).checked).toBe(true)
   })
 
   it('shows a placeholder when there are no talks', () => {
-    const wrapper = mount(AdminUndatedSection, { props: { talks: [] } })
+    const wrapper = mount(AdminUndatedSection, { props: { talks: [], pendingKeys: new Set<string>() } })
 
     expect(wrapper.text()).toContain('Aucun talk sans année')
   })

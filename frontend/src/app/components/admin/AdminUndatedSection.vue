@@ -2,7 +2,7 @@
 import { reactive } from 'vue'
 import type { Talk } from '../../../domain/talks/Talk'
 
-const props = defineProps<{ talks: Talk[] }>()
+const props = defineProps<{ talks: Talk[]; pendingKeys: Set<string> }>()
 const emit = defineEmits<{
   setYear: [talk: Talk, year: number]
   toggleShowWithoutYear: [talk: Talk, show: boolean]
@@ -52,17 +52,20 @@ function onSave(talk: Talk): void {
           class="w-32 rounded border border-shodo-marron/30 px-2 py-1 text-sm"
         />
         <button
-          class="shrink-0 rounded bg-shodo-rose/10 px-2 py-1 text-xs font-medium text-shodo-rose hover:bg-shodo-rose/20"
+          class="shrink-0 rounded bg-shodo-rose/10 px-2 py-1 text-xs font-medium text-shodo-rose hover:bg-shodo-rose/20 disabled:opacity-50"
+          :disabled="pendingKeys.has(`set-year:${talk.id}`)"
           @click="onSave(talk)"
-        >Enregistrer</button>
+        ><span v-if="pendingKeys.has(`set-year:${talk.id}`)" class="mr-1 inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent align-[-2px]"></span>Enregistrer</button>
 
         <label class="ml-auto flex shrink-0 items-center gap-1 text-xs text-shodo-taupe">
           <input
             type="checkbox"
             :checked="talk.showWithoutYear === true"
+            :disabled="pendingKeys.has(`show-without-year:${talk.id}`)"
             @change="emit('toggleShowWithoutYear', talk, ($event.target as HTMLInputElement).checked)"
           />
           Montrer le talk sans date
+          <span v-if="pendingKeys.has(`show-without-year:${talk.id}`)" class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
         </label>
       </div>
     </li>

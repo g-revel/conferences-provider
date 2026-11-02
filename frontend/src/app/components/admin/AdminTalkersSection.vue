@@ -4,7 +4,7 @@ import type { Talker } from '../../../domain/admin/Talker'
 
 const ADD_CITY_OPTION = '__add_city__'
 
-const props = defineProps<{ talkers: Talker[]; cities: string[] }>()
+const props = defineProps<{ talkers: Talker[]; cities: string[]; pendingKeys: Set<string> }>()
 const emit = defineEmits<{
   updateCity: [talker: Talker, city: string]
   addCity: [city: string]
@@ -109,18 +109,23 @@ function onDeleteCity(city: string): void {
           </div>
         </td>
         <td class="py-2 pr-4">
-          <input
-            type="checkbox"
-            :checked="!talker.active"
-            class="h-4 w-4 accent-shodo-rose"
-            @change="onActiveChange(talker, $event)"
-          />
+          <span class="inline-flex items-center gap-1.5">
+            <input
+              type="checkbox"
+              :checked="!talker.active"
+              class="h-4 w-4 accent-shodo-rose"
+              :disabled="pendingKeys.has(`update-active:${talkerKey(talker)}`)"
+              @change="onActiveChange(talker, $event)"
+            />
+            <span v-if="pendingKeys.has(`update-active:${talkerKey(talker)}`)" class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent text-shodo-taupe"></span>
+          </span>
         </td>
         <td class="py-2">
           <button
-            class="rounded bg-shodo-rose px-2 py-1 text-xs font-medium text-white hover:opacity-90"
+            class="rounded bg-shodo-rose px-2 py-1 text-xs font-medium text-white hover:opacity-90 disabled:opacity-50"
+            :disabled="pendingKeys.has(`update-city:${talkerKey(talker)}`)"
             @click="save(talker)"
-          >Enregistrer</button>
+          ><span v-if="pendingKeys.has(`update-city:${talkerKey(talker)}`)" class="mr-1 inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent align-[-2px]"></span>Enregistrer</button>
         </td>
       </tr>
     </tbody>
@@ -136,10 +141,11 @@ function onDeleteCity(city: string): void {
       >
         {{ city }}
         <button
-          class="rounded-full px-1 text-shodo-taupe hover:bg-red-50 hover:text-red-700"
+          class="rounded-full px-1 text-shodo-taupe hover:bg-red-50 hover:text-red-700 disabled:opacity-50"
           :aria-label="`Supprimer la ville ${city}`"
+          :disabled="pendingKeys.has(`delete-city:${city}`)"
           @click="onDeleteCity(city)"
-        >✕</button>
+        ><span v-if="pendingKeys.has(`delete-city:${city}`)" class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent align-[-1px]"></span><template v-else>✕</template></button>
       </li>
       <li v-if="cities.length === 0" class="text-xs text-gray-400">Aucune ville connue.</li>
     </ul>

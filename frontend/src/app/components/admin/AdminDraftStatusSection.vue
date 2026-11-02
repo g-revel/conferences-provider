@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Talk } from '../../../domain/talks/Talk'
 
-defineProps<{ talks: Talk[] }>()
+defineProps<{ talks: Talk[]; pendingKeys: Set<string> }>()
 const emit = defineEmits<{ validate: [talk: Talk]; delete: [talk: Talk] }>()
 
 function speakerNames(talk: Talk): string {
@@ -22,13 +22,15 @@ function confirmDelete(talk: Talk): void {
       </div>
       <div class="flex shrink-0 gap-2">
         <button
-          class="rounded bg-green-50 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-100"
+          class="rounded bg-green-50 px-2 py-1 text-xs font-medium text-green-700 hover:bg-green-100 disabled:opacity-50"
+          :disabled="pendingKeys.has(`validate-draft:${talk.id}`)"
           @click="emit('validate', talk)"
-        >Valider</button>
+        ><span v-if="pendingKeys.has(`validate-draft:${talk.id}`)" class="mr-1 inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent align-[-2px]"></span>Valider</button>
         <button
-          class="rounded bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100"
+          class="rounded bg-red-50 px-2 py-1 text-xs font-medium text-red-700 hover:bg-red-100 disabled:opacity-50"
+          :disabled="pendingKeys.has(`delete:${talk.id}`)"
           @click="confirmDelete(talk)"
-        >Supprimer</button>
+        ><span v-if="pendingKeys.has(`delete:${talk.id}`)" class="mr-1 inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent align-[-2px]"></span>Supprimer</button>
       </div>
     </li>
     <li v-if="talks.length === 0" class="py-4 text-sm text-gray-400">Aucun talk dans cet état.</li>
