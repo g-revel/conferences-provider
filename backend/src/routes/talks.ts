@@ -1,13 +1,9 @@
 import fp from 'fastify-plugin'
 import { FastifyInstance } from 'fastify'
-import { readJson } from '../data/jsonStore.js'
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKER_MEMBER_OVERRIDES_PATH, SPEAKERS_PATH } from '../data/paths.js'
-import { Speak } from '../collects/get-speaks/speak.js'
-import { Speaker } from '../collects/get-all-speakers/speaker.js'
-import { SpeakerCityOverride } from '../collects/get-all-speakers/speakerCityOverride.js'
-import { SpeakerMemberOverride } from '../collects/get-all-speakers/speakerMemberOverride.js'
+import { readTalks } from '../data/talksStore.js'
+import { readSpeakerCityOverrides } from '../data/speakerCityOverridesStore.js'
+import { readSpeakerMemberOverrides } from '../data/speakerMemberOverridesStore.js'
 import { applyCityOverrides } from '../collects/get-speaks/applyCityOverrides.js'
-import { applySpeakerActiveStatus } from '../collects/get-speaks/applySpeakerActiveStatus.js'
 import { applyMemberOverrides } from '../collects/get-speaks/applyMemberOverrides.js'
 
 // data/talks.json garde volontairement des entrées sans titre (title: null) : elles
@@ -40,10 +36,9 @@ const MIN_VISIBLE_YEAR = 2025
 
 export default fp(async function (app: FastifyInstance) {
   app.get('/api/talks', async () => {
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
-    const memberOverrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
-    const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
+    const talks = await readTalks()
+    const overrides = await readSpeakerCityOverrides()
+    const memberOverrides = await readSpeakerMemberOverrides()
     const visible = talks
       .filter(
         (talk) =>
@@ -54,7 +49,10 @@ export default fp(async function (app: FastifyInstance) {
           ((talk.year != null && talk.year >= MIN_VISIBLE_YEAR) || talk.showWithoutYear === true),
       )
       .sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity))
-    return applyMemberOverrides(applySpeakerActiveStatus(applyCityOverrides(visible, overrides), speakers), memberOverrides)
+    // Le statut `active` de chaque speaker vient déjà à jour de readTalks() (jointure
+    // normalisée sur `speakers`, voir talksStore.ts) — plus besoin d'un
+    // applySpeakerActiveStatus() séparé comme à l'époque du snapshot JSON.
+    return applyMemberOverrides(applyCityOverrides(visible, overrides), memberOverrides)
   })
 }, {
   name: 'talks-route',

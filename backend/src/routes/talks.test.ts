@@ -1,32 +1,29 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-const { readJsonMock } = vi.hoisted(() => ({ readJsonMock: vi.fn() }));
+const { readTalksMock, readSpeakerCityOverridesMock, readSpeakerMemberOverridesMock } = vi.hoisted(() => ({
+  readTalksMock: vi.fn(),
+  readSpeakerCityOverridesMock: vi.fn(),
+  readSpeakerMemberOverridesMock: vi.fn(),
+}));
 
-vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock }));
+vi.mock("../data/talksStore.js", () => ({ readTalks: readTalksMock }));
+vi.mock("../data/speakerCityOverridesStore.js", () => ({ readSpeakerCityOverrides: readSpeakerCityOverridesMock }));
+vi.mock("../data/speakerMemberOverridesStore.js", () => ({
+  readSpeakerMemberOverrides: readSpeakerMemberOverridesMock,
+}));
 
 import { buildApp } from "../app.js";
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKER_MEMBER_OVERRIDES_PATH, SPEAKERS_PATH } from "../data/paths.js";
 
-// readJson est appelé pour plusieurs fichiers différents dans cette route (talks.json,
-// les overrides de ville/membre, speakers.json) : on distingue par chemin plutôt qu'un
-// mock global unique.
-function mockReadJson(
-  talks: unknown[],
-  overrides: unknown[] = [],
-  memberOverrides: unknown[] = [],
-  speakers: unknown[] = [],
-): void {
-  readJsonMock.mockImplementation(async (path: string) => {
-    if (path === TALKS_PATH) return talks;
-    if (path === SPEAKER_CITY_OVERRIDES_PATH) return overrides;
-    if (path === SPEAKER_MEMBER_OVERRIDES_PATH) return memberOverrides;
-    if (path === SPEAKERS_PATH) return speakers;
-    return [];
-  });
+function mockReadJson(talks: unknown[], overrides: unknown[] = [], memberOverrides: unknown[] = []): void {
+  readTalksMock.mockResolvedValue(talks);
+  readSpeakerCityOverridesMock.mockResolvedValue(overrides);
+  readSpeakerMemberOverridesMock.mockResolvedValue(memberOverrides);
 }
 
 beforeEach(() => {
-  readJsonMock.mockReset();
+  readTalksMock.mockReset();
+  readSpeakerCityOverridesMock.mockReset();
+  readSpeakerMemberOverridesMock.mockReset();
 });
 
 describe("GET /api/talks", () => {
