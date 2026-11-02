@@ -1,12 +1,11 @@
 import { FastifyInstance } from 'fastify'
-import { readJson, writeJsonPersisted } from '../data/jsonStore.js'
-import { TALKS_PATH, SPEAKER_CITY_OVERRIDES_PATH, SPEAKER_MEMBER_OVERRIDES_PATH, SPEAKERS_PATH, KNOWN_CITIES_PATH } from '../data/paths.js'
+import { readTalks, writeTalks } from '../data/talksStore.js'
+import { readSpeakerCityOverrides, writeSpeakerCityOverrides } from '../data/speakerCityOverridesStore.js'
+import { readSpeakerMemberOverrides, writeSpeakerMemberOverrides } from '../data/speakerMemberOverridesStore.js'
+import { readKnownCities, writeKnownCities } from '../data/knownCitiesStore.js'
 import { Speak } from '../collects/get-speaks/speak.js'
 import { Speaker } from '../collects/get-all-speakers/speaker.js'
-import { SpeakerCityOverride } from '../collects/get-all-speakers/speakerCityOverride.js'
-import { SpeakerMemberOverride } from '../collects/get-all-speakers/speakerMemberOverride.js'
 import { applyCityOverrides } from '../collects/get-speaks/applyCityOverrides.js'
-import { applySpeakerActiveStatus } from '../collects/get-speaks/applySpeakerActiveStatus.js'
 import { applyMemberOverrides } from '../collects/get-speaks/applyMemberOverrides.js'
 import { extractCityFromCompany } from '../collects/get-all-speakers/extractCityFromCompany.js'
 import { isValidAdminPassword } from '../admin/adminAuth.js'
@@ -48,15 +47,13 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
   })
 
   app.get('/api/admin/talkers', async () => {
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
-    const memberOverrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
-    const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
+    const talks = await readTalks()
+    const overrides = await readSpeakerCityOverrides()
+    const memberOverrides = await readSpeakerMemberOverrides()
     const overrideByIdentity = new Map(overrides.map((o) => [speakerIdentity(o.firstname, o.lastname), o.city]))
     const memberOverrideByIdentity = new Map(
       memberOverrides.map((o) => [speakerIdentity(o.firstname, o.lastname), o.active]),
     )
-    const activeByIdentity = new Map(speakers.map((s) => [speakerIdentity(s.firstname, s.lastname), s.active]))
 
     // La ville "effective" d'un talker, comme déjà affichée côté portail (voir
     // frontend/src/domain/speakers/SpeakerCity.ts) : l'override admin s'il existe
@@ -69,21 +66,22 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
         ? (overrideByIdentity.get(identity) ?? null)
         : extractCityFromCompany(speaker.company)
       // Même logique pour `active` : l'override manuel gagne s'il existe, sinon la
-      // valeur dérivée de Slack (speakers.json), par défaut `true` si inconnue de
-      // speakers.json (ex. talk importé depuis Notion sans contrepartie Slack).
+      // valeur déjà à jour sur `speaker.active` (readTalks() la reflète en direct
+      // depuis la table speakers, voir talksStore.ts), par défaut `true` si inconnue
+      // (ex. talk importé depuis Notion sans contrepartie Slack).
       const active = memberOverrideByIdentity.has(identity)
         ? (memberOverrideByIdentity.get(identity) as boolean)
-        : (activeByIdentity.get(identity) ?? true)
+        : (speaker.active ?? true)
 
       return { firstname: speaker.firstname, lastname: speaker.lastname, company: speaker.company, city, active }
     })
   })
 
   // Liste statique (pas dérivée de `company`) des villes proposables dans le
-  // sélecteur admin — git-trackée dans data/known-cities.json, pérenne et
-  // partagée par tous les admins dès qu'une ville y est ajoutée.
+  // sélecteur admin — en base, pérenne et partagée par tous les admins dès
+  // qu'une ville y est ajoutée.
   app.get('/api/admin/cities', async () => {
-    const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
+    const cities = await readKnownCities()
     return [...cities].sort((a, b) => a.localeCompare(b))
   })
 
@@ -94,10 +92,10 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     }
     const city = body.city.trim()
 
-    const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
+    const cities = await readKnownCities()
     const alreadyKnown = cities.some((c) => normalizeForMatch(c) === normalizeForMatch(city))
     const next = alreadyKnown ? cities : [...cities, city]
-    if (!alreadyKnown) await writeJsonPersisted(KNOWN_CITIES_PATH, next, `Ajoute la ville "${city}" (admin)`)
+    if (!alreadyKnown) await writeKnownCities(next)
 
     return [...next].sort((a, b) => a.localeCompare(b))
   })
@@ -112,9 +110,9 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'city is required' })
     }
 
-    const cities = await readJson<string[]>(KNOWN_CITIES_PATH, [])
+    const cities = await readKnownCities()
     const next = cities.filter((c) => normalizeForMatch(c) !== normalizeForMatch(body.city as string))
-    await writeJsonPersisted(KNOWN_CITIES_PATH, next, `Retire la ville "${body.city}" (admin)`)
+    await writeKnownCities(next)
 
     return [...next].sort((a, b) => a.localeCompare(b))
   })
@@ -126,15 +124,11 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
     }
     const city = typeof body.city === 'string' && body.city.trim() !== '' ? body.city.trim() : null
 
-    const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
+    const overrides = await readSpeakerCityOverrides()
     const identity = speakerIdentity(body.firstname, body.lastname)
     const next = overrides.filter((o) => speakerIdentity(o.firstname, o.lastname) !== identity)
     next.push({ firstname: body.firstname, lastname: body.lastname, city })
-    await writeJsonPersisted(
-      SPEAKER_CITY_OVERRIDES_PATH,
-      next,
-      `Définit la ville de ${body.firstname} ${body.lastname} (admin)`,
-    )
+    await writeSpeakerCityOverrides(next)
 
     return { firstname: body.firstname, lastname: body.lastname, city }
   })
@@ -148,15 +142,11 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'firstname, lastname and active are required' })
     }
 
-    const overrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
+    const overrides = await readSpeakerMemberOverrides()
     const identity = speakerIdentity(body.firstname, body.lastname)
     const next = overrides.filter((o) => speakerIdentity(o.firstname, o.lastname) !== identity)
     next.push({ firstname: body.firstname, lastname: body.lastname, active: body.active })
-    await writeJsonPersisted(
-      SPEAKER_MEMBER_OVERRIDES_PATH,
-      next,
-      `Marque ${body.firstname} ${body.lastname} comme ${body.active ? 'actif' : "ayant quitté Shodo"} (admin)`,
-    )
+    await writeSpeakerMemberOverrides(next)
 
     return { firstname: body.firstname, lastname: body.lastname, active: body.active }
   })
@@ -164,33 +154,32 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
   // Contrairement à GET /api/talks (public), inclut les talks sans titre et
   // supprimés — c'est la vue admin, pas le portail.
   app.get('/api/admin/talks', async () => {
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const overrides = await readJson<SpeakerCityOverride[]>(SPEAKER_CITY_OVERRIDES_PATH, [])
-    const memberOverrides = await readJson<SpeakerMemberOverride[]>(SPEAKER_MEMBER_OVERRIDES_PATH, [])
-    const speakers = await readJson<Speaker[]>(SPEAKERS_PATH, [])
-    return applyMemberOverrides(applySpeakerActiveStatus(applyCityOverrides(talks, overrides), speakers), memberOverrides)
+    const talks = await readTalks()
+    const overrides = await readSpeakerCityOverrides()
+    const memberOverrides = await readSpeakerMemberOverrides()
+    return applyMemberOverrides(applyCityOverrides(talks, overrides), memberOverrides)
   })
 
   app.delete('/api/admin/talks/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const index = talks.findIndex((t) => t.id === id)
-    if (index === -1) return reply.code(404).send({ error: 'not found' })
+    const talks = await readTalks()
+    const talk = talks.find((t) => t.id === id)
+    if (!talk) return reply.code(404).send({ error: 'not found' })
 
-    talks[index] = { ...talks[index], deletedAt: new Date().toISOString() }
-    await writeJsonPersisted(TALKS_PATH, talks, `Supprime le talk "${talks[index].title ?? id}" (admin)`)
-    return talks[index]
+    const updated = { ...talk, deletedAt: new Date().toISOString() }
+    await writeTalks([updated])
+    return updated
   })
 
   app.post('/api/admin/talks/:id/restore', async (request, reply) => {
     const { id } = request.params as { id: string }
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const index = talks.findIndex((t) => t.id === id)
-    if (index === -1) return reply.code(404).send({ error: 'not found' })
+    const talks = await readTalks()
+    const talk = talks.find((t) => t.id === id)
+    if (!talk) return reply.code(404).send({ error: 'not found' })
 
-    talks[index] = { ...talks[index], deletedAt: null }
-    await writeJsonPersisted(TALKS_PATH, talks, `Restaure le talk "${talks[index].title ?? id}" (admin)`)
-    return talks[index]
+    const updated = { ...talk, deletedAt: null }
+    await writeTalks([updated])
+    return updated
   })
 
   // Valide un lien (candidat proposé automatiquement ou saisi à la main par
@@ -203,13 +192,13 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'videoUrl is required' })
     }
 
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const index = talks.findIndex((t) => t.id === id)
-    if (index === -1) return reply.code(404).send({ error: 'not found' })
+    const talks = await readTalks()
+    const talk = talks.find((t) => t.id === id)
+    if (!talk) return reply.code(404).send({ error: 'not found' })
 
-    talks[index] = { ...talks[index], videoUrl: body.videoUrl.trim(), pendingVideoUrl: null }
-    await writeJsonPersisted(TALKS_PATH, talks, `Valide le lien du talk "${talks[index].title ?? id}" (admin)`)
-    return talks[index]
+    const updated = { ...talk, videoUrl: body.videoUrl.trim(), pendingVideoUrl: null }
+    await writeTalks([updated])
+    return updated
   })
 
   // Override admin pour un talk sans lien connu : l'afficher quand même côté
@@ -221,17 +210,13 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'showWithoutLink must be a boolean' })
     }
 
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const index = talks.findIndex((t) => t.id === id)
-    if (index === -1) return reply.code(404).send({ error: 'not found' })
+    const talks = await readTalks()
+    const talk = talks.find((t) => t.id === id)
+    if (!talk) return reply.code(404).send({ error: 'not found' })
 
-    talks[index] = { ...talks[index], showWithoutLink: body.showWithoutLink }
-    await writeJsonPersisted(
-      TALKS_PATH,
-      talks,
-      `Bascule "afficher sans lien" sur "${talks[index].title ?? id}" à ${body.showWithoutLink} (admin)`,
-    )
-    return talks[index]
+    const updated = { ...talk, showWithoutLink: body.showWithoutLink }
+    await writeTalks([updated])
+    return updated
   })
 
   // Un talk sans année connue n'est pas servi côté public (voir talks.ts) —
@@ -243,13 +228,13 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'year must be a valid integer year' })
     }
 
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const index = talks.findIndex((t) => t.id === id)
-    if (index === -1) return reply.code(404).send({ error: 'not found' })
+    const talks = await readTalks()
+    const talk = talks.find((t) => t.id === id)
+    if (!talk) return reply.code(404).send({ error: 'not found' })
 
-    talks[index] = { ...talks[index], year: body.year }
-    await writeJsonPersisted(TALKS_PATH, talks, `Définit l'année de "${talks[index].title ?? id}" à ${body.year} (admin)`)
-    return talks[index]
+    const updated = { ...talk, year: body.year }
+    await writeTalks([updated])
+    return updated
   })
 
   // Override admin pour un talk sans année connue : l'afficher quand même côté
@@ -262,17 +247,13 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'showWithoutYear must be a boolean' })
     }
 
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const index = talks.findIndex((t) => t.id === id)
-    if (index === -1) return reply.code(404).send({ error: 'not found' })
+    const talks = await readTalks()
+    const talk = talks.find((t) => t.id === id)
+    if (!talk) return reply.code(404).send({ error: 'not found' })
 
-    talks[index] = { ...talks[index], showWithoutYear: body.showWithoutYear }
-    await writeJsonPersisted(
-      TALKS_PATH,
-      talks,
-      `Bascule "afficher sans année" sur "${talks[index].title ?? id}" à ${body.showWithoutYear} (admin)`,
-    )
-    return talks[index]
+    const updated = { ...talk, showWithoutYear: body.showWithoutYear }
+    await writeTalks([updated])
+    return updated
   })
 
   // Confirme qu'un talk importé depuis Notion à un état autre que "Construit"
@@ -281,12 +262,12 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
   app.put('/api/admin/talks/:id/validate-draft', async (request, reply) => {
     const { id } = request.params as { id: string }
 
-    const talks = await readJson<Speak[]>(TALKS_PATH, [])
-    const index = talks.findIndex((t) => t.id === id)
-    if (index === -1) return reply.code(404).send({ error: 'not found' })
+    const talks = await readTalks()
+    const talk = talks.find((t) => t.id === id)
+    if (!talk) return reply.code(404).send({ error: 'not found' })
 
-    talks[index] = { ...talks[index], validated: true }
-    await writeJsonPersisted(TALKS_PATH, talks, `Valide le talk brouillon "${talks[index].title ?? id}" (admin)`)
-    return talks[index]
+    const updated = { ...talk, validated: true }
+    await writeTalks([updated])
+    return updated
   })
 }

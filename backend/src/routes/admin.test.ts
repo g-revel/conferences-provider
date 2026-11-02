@@ -1,41 +1,62 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
-const { readJsonMock, writeJsonPersistedMock } = vi.hoisted(() => ({
-  readJsonMock: vi.fn(),
-  writeJsonPersistedMock: vi.fn(),
+const {
+  readTalksMock,
+  writeTalksMock,
+  readSpeakerCityOverridesMock,
+  writeSpeakerCityOverridesMock,
+  readSpeakerMemberOverridesMock,
+  writeSpeakerMemberOverridesMock,
+  readKnownCitiesMock,
+  writeKnownCitiesMock,
+} = vi.hoisted(() => ({
+  readTalksMock: vi.fn(),
+  writeTalksMock: vi.fn(),
+  readSpeakerCityOverridesMock: vi.fn(),
+  writeSpeakerCityOverridesMock: vi.fn(),
+  readSpeakerMemberOverridesMock: vi.fn(),
+  writeSpeakerMemberOverridesMock: vi.fn(),
+  readKnownCitiesMock: vi.fn(),
+  writeKnownCitiesMock: vi.fn(),
 }));
 
-vi.mock("../data/jsonStore.js", () => ({ readJson: readJsonMock, writeJsonPersisted: writeJsonPersistedMock }));
+vi.mock("../data/talksStore.js", () => ({ readTalks: readTalksMock, writeTalks: writeTalksMock }));
+vi.mock("../data/speakerCityOverridesStore.js", () => ({
+  readSpeakerCityOverrides: readSpeakerCityOverridesMock,
+  writeSpeakerCityOverrides: writeSpeakerCityOverridesMock,
+}));
+vi.mock("../data/speakerMemberOverridesStore.js", () => ({
+  readSpeakerMemberOverrides: readSpeakerMemberOverridesMock,
+  writeSpeakerMemberOverrides: writeSpeakerMemberOverridesMock,
+}));
+vi.mock("../data/knownCitiesStore.js", () => ({
+  readKnownCities: readKnownCitiesMock,
+  writeKnownCities: writeKnownCitiesMock,
+}));
 
 import { buildApp } from "../app.js";
-import {
-  TALKS_PATH,
-  SPEAKER_CITY_OVERRIDES_PATH,
-  SPEAKER_MEMBER_OVERRIDES_PATH,
-  SPEAKERS_PATH,
-  KNOWN_CITIES_PATH,
-} from "../data/paths.js";
 
 function mockReadJson(
   talks: unknown[],
-  overrides: unknown[] = [],
+  cityOverrides: unknown[] = [],
   cities: unknown[] = [],
-  speakers: unknown[] = [],
   memberOverrides: unknown[] = [],
 ): void {
-  readJsonMock.mockImplementation(async (path: string) => {
-    if (path === TALKS_PATH) return talks;
-    if (path === SPEAKER_CITY_OVERRIDES_PATH) return overrides;
-    if (path === KNOWN_CITIES_PATH) return cities;
-    if (path === SPEAKERS_PATH) return speakers;
-    if (path === SPEAKER_MEMBER_OVERRIDES_PATH) return memberOverrides;
-    return [];
-  });
+  readTalksMock.mockResolvedValue(talks);
+  readSpeakerCityOverridesMock.mockResolvedValue(cityOverrides);
+  readKnownCitiesMock.mockResolvedValue(cities);
+  readSpeakerMemberOverridesMock.mockResolvedValue(memberOverrides);
 }
 
 beforeEach(() => {
-  readJsonMock.mockReset();
-  writeJsonPersistedMock.mockReset();
+  readTalksMock.mockReset();
+  writeTalksMock.mockReset();
+  readSpeakerCityOverridesMock.mockReset();
+  writeSpeakerCityOverridesMock.mockReset();
+  readSpeakerMemberOverridesMock.mockReset();
+  writeSpeakerMemberOverridesMock.mockReset();
+  readKnownCitiesMock.mockReset();
+  writeKnownCitiesMock.mockReset();
 });
 
 const talk1 = {
@@ -165,8 +186,12 @@ describe("GET /api/admin/talkers", () => {
     ]);
   });
 
-  it("reflects the active status derived from speakers.json when there is no member override", async () => {
-    mockReadJson([talk1], [], [], [{ firstname: "Alice", lastname: "Martin", company: "Shodo", active: false }]);
+  it("reflects the active status already carried by the speaker when there is no member override", async () => {
+    const talkWithInactiveSpeaker = {
+      ...talk1,
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo", active: false }],
+    };
+    mockReadJson([talkWithInactiveSpeaker]);
     const app = await buildApp();
 
     const response = await app.inject({
@@ -180,14 +205,12 @@ describe("GET /api/admin/talkers", () => {
     ]);
   });
 
-  it("a manual member override wins over the status derived from speakers.json", async () => {
-    mockReadJson(
-      [talk1],
-      [],
-      [],
-      [{ firstname: "Alice", lastname: "Martin", company: "Shodo", active: true }],
-      [{ firstname: "Alice", lastname: "Martin", active: false }],
-    );
+  it("a manual member override wins over the speaker's already-current active status", async () => {
+    const talkWithActiveSpeaker = {
+      ...talk1,
+      speakers: [{ firstname: "Alice", lastname: "Martin", company: "Shodo", active: true }],
+    };
+    mockReadJson([talkWithActiveSpeaker], [], [], [{ firstname: "Alice", lastname: "Martin", active: false }]);
     const app = await buildApp();
 
     const response = await app.inject({
@@ -204,7 +227,7 @@ describe("GET /api/admin/talkers", () => {
 
 describe("PUT /api/admin/talkers/active", () => {
   it("persists a new member override marking someone as having left Shodo", async () => {
-    mockReadJson([talk1], [], [], []);
+    mockReadJson([talk1]);
     const app = await buildApp();
 
     const response = await app.inject({
@@ -215,15 +238,13 @@ describe("PUT /api/admin/talkers/active", () => {
     });
 
     expect(response.statusCode).toBe(200);
-    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
-      SPEAKER_MEMBER_OVERRIDES_PATH,
-      [{ firstname: "Alice", lastname: "Martin", active: false }],
-      expect.any(String),
-    );
+    expect(writeSpeakerMemberOverridesMock).toHaveBeenCalledWith([
+      { firstname: "Alice", lastname: "Martin", active: false },
+    ]);
   });
 
   it("replaces an existing override for the same person instead of duplicating it", async () => {
-    mockReadJson([talk1], [], [], [], [{ firstname: "Alice", lastname: "Martin", active: false }]);
+    mockReadJson([talk1], [], [], [{ firstname: "Alice", lastname: "Martin", active: false }]);
     const app = await buildApp();
 
     await app.inject({
@@ -233,11 +254,9 @@ describe("PUT /api/admin/talkers/active", () => {
       payload: { firstname: "Alice", lastname: "Martin", active: true },
     });
 
-    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
-      SPEAKER_MEMBER_OVERRIDES_PATH,
-      [{ firstname: "Alice", lastname: "Martin", active: true }],
-      expect.any(String),
-    );
+    expect(writeSpeakerMemberOverridesMock).toHaveBeenCalledWith([
+      { firstname: "Alice", lastname: "Martin", active: true },
+    ]);
   });
 
   it("rejects a request missing firstname, lastname or a boolean active", async () => {
@@ -267,11 +286,9 @@ describe("PUT /api/admin/talkers/city", () => {
     });
 
     expect(response.statusCode).toBe(200);
-    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
-      SPEAKER_CITY_OVERRIDES_PATH,
-      [{ firstname: "Alice", lastname: "Martin", city: "Rennes" }],
-      expect.any(String),
-    );
+    expect(writeSpeakerCityOverridesMock).toHaveBeenCalledWith([
+      { firstname: "Alice", lastname: "Martin", city: "Rennes" },
+    ]);
   });
 
   it("replaces an existing override for the same person instead of duplicating it", async () => {
@@ -285,11 +302,9 @@ describe("PUT /api/admin/talkers/city", () => {
       payload: { firstname: "Alice", lastname: "Martin", city: "Rennes" },
     });
 
-    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
-      SPEAKER_CITY_OVERRIDES_PATH,
-      [{ firstname: "Alice", lastname: "Martin", city: "Rennes" }],
-      expect.any(String),
-    );
+    expect(writeSpeakerCityOverridesMock).toHaveBeenCalledWith([
+      { firstname: "Alice", lastname: "Martin", city: "Rennes" },
+    ]);
   });
 
   it("clears an override when city is empty", async () => {
@@ -349,11 +364,9 @@ describe("DELETE /api/admin/talks/:id", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json().deletedAt).not.toBeNull();
-    expect(writeJsonPersistedMock).toHaveBeenCalledWith(
-      TALKS_PATH,
-      [expect.objectContaining({ id: "talk-1", deletedAt: expect.any(String) })],
-      expect.any(String),
-    );
+    expect(writeTalksMock).toHaveBeenCalledWith([
+      expect.objectContaining({ id: "talk-1", deletedAt: expect.any(String) }),
+    ]);
   });
 
   it("returns 404 for an unknown id", async () => {
@@ -495,7 +508,7 @@ describe("POST /api/admin/cities", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual(["Bordeaux", "Lille"]);
-    expect(writeJsonPersistedMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille", "Bordeaux"], expect.any(String));
+    expect(writeKnownCitiesMock).toHaveBeenCalledWith(["Lille", "Bordeaux"]);
   });
 
   it("does not duplicate a city that already exists, regardless of case or accents", async () => {
@@ -510,7 +523,7 @@ describe("POST /api/admin/cities", () => {
     });
 
     expect(response.json()).toEqual(["Reunion"]);
-    expect(writeJsonPersistedMock).not.toHaveBeenCalled();
+    expect(writeKnownCitiesMock).not.toHaveBeenCalled();
   });
 
   it("rejects an empty city", async () => {
@@ -542,7 +555,7 @@ describe("DELETE /api/admin/cities", () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual(["Lille"]);
-    expect(writeJsonPersistedMock).toHaveBeenCalledWith(KNOWN_CITIES_PATH, ["Lille"], expect.any(String));
+    expect(writeKnownCitiesMock).toHaveBeenCalledWith(["Lille"]);
   });
 
   it("matches regardless of case or accents", async () => {
