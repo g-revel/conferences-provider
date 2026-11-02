@@ -94,7 +94,7 @@ function onFilterCategory(cat: string): void {
       <div class="mx-auto w-full max-w-6xl px-4 py-10 md:px-8">
         <div v-if="isLoading" class="flex flex-col items-center gap-3 py-20 text-shodo-taupe">
           <div class="h-8 w-8 animate-spin rounded-full border-4 border-shodo-creme-watermark border-t-shodo-rose"></div>
-          <p class="text-sm">Chargement des talks… le service peut mettre jusqu'à 50 secondes à se réveiller après une période d'inactivité.</p>
+          <p class="text-sm">Chargement des talks…</p>
         </div>
 
         <div v-else-if="error" class="py-20 text-center text-sm font-medium text-shodo-rose">
