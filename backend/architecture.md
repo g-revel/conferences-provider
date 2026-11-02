@@ -55,11 +55,12 @@ await app.register(providersRoute)
 
 ### Variables d'environnement
 
-| Variable    | Défaut      | Description                                      |
-|-------------|-------------|--------------------------------------------------|
-| `PORT`      | `3000`      | Port d'écoute                                    |
-| `HOST`      | `0.0.0.0`   | Interface d'écoute                               |
-| `LOG_LEVEL` | `info`      | Niveau de log Fastify (fatal/error/warn/info/debug/trace/silent) |
+| Variable       | Défaut      | Description                                      |
+|----------------|-------------|--------------------------------------------------|
+| `PORT`         | `3000`      | Port d'écoute                                    |
+| `HOST`         | `0.0.0.0`   | Interface d'écoute                               |
+| `LOG_LEVEL`    | `info`      | Niveau de log Fastify (fatal/error/warn/info/debug/trace/silent) |
+| `DATABASE_URL` | —           | Connexion Postgres (Neon), poolée (hostname en `-pooler`) — requise pour l'app et pour `drizzle-kit` (`db:generate`/`db:migrate`/`db:studio`) |
 
 Copier `.env.example` en `.env` pour le développement local.
 

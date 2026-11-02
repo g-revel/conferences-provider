@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Monorepo with two independent npm projects, no shared root `package.json`:
 
-- `backend/` — Fastify + TypeScript REST API + a manually-run data pipeline that discovers conference talks given by Shodo members (static seed list of events → find each edition's URL via web search → fetch + local-LLM extraction of speaker mentions → cross-reference with a Slack-derived speaker cache), persisted as JSON files and served over HTTP.
+- `backend/` — Fastify + TypeScript REST API + a manually-run data pipeline that discovers conference talks given by Shodo members (static seed list of events → find each edition's URL via web search → fetch + local-LLM extraction of speaker mentions → cross-reference with a Slack-derived speaker cache), persisted in Postgres (Neon) and served over HTTP.
 - `frontend/` — Vue 3 + TypeScript + Vite SPA that displays the data.
 
 Read `backend/CLAUDE.md` and `backend/architecture.md` before working in `backend/` — they contain detailed, backend-specific conventions (ESM import rules, collect patterns, test mocking patterns, evals) that are not repeated here.
@@ -30,9 +30,9 @@ Run a single backend test file: `npx vitest run src/string.functions.test.ts`.
 Data pipeline (manual, no CI automation — see `backend/CLAUDE.md` for the full design):
 
 ```bash
-npm run refresh:speakers      # Slack -> data/speakers.json
+npm run refresh:speakers      # Slack -> speakers table
 npm run refresh:events:heavy  # SearXNG (self-hosted, `cd backend/searxng && docker compose up -d`) -> finds each event's current-edition URL
-npm run refresh:events:light  # fetch + local Ollama extraction -> data/talks.json
+npm run refresh:events:light  # fetch + local Ollama extraction -> talks table
 ```
 
 ### Frontend (`frontend/`)
@@ -51,15 +51,15 @@ There is no `test` npm script yet, but Vitest + `@vue/test-utils` + happy-dom ar
 
 Fastify app factory split from the entrypoint: `buildApp()` in `src/app.ts` builds and configures the Fastify instance (plugins + routes) without binding a port; `src/index.ts` calls `buildApp()` then `app.listen()`. This lets tests call `buildApp()` + `app.inject()` without opening a socket. `process.env` must only be read in `src/index.ts` and `src/app.ts`.
 
-State is persisted as JSON in `backend/data/` (`events.json`, `speakers.json`, `talks.json`), read/written via `src/data/jsonStore.ts` + `src/data/paths.ts`. Every refresh is additive (merge by identity key, never delete) — see `mergeSpeakers.ts`, `mergeSpeaks.ts`, `updateEventUrls.ts`.
+State is persisted in Postgres (Neon), read/written via `src/data/<x>Store.ts` modules (`conferencesStore.ts`, `speakersStore.ts`, `talksStore.ts`, `speakerCityOverridesStore.ts`, `speakerMemberOverridesStore.ts`, `knownCitiesStore.ts`), schema in `src/data/schema.ts` (Drizzle). Every refresh is additive (merge by identity key, never delete) — see `mergeSpeakers.ts`, `mergeSpeaks.ts`, `updateEventUrls.ts`.
 
 Data collection lives in `src/collects/<name>/`, one folder per concern:
-- `get-conferences/` — reads the static seed list of known events from `data/events.json`, no LLM.
+- `get-conferences/` — reads the curated seed list of known events (`conferencesStore.readConferences()`, scoped to `is_seed = true`), no LLM.
 - `get-all-speakers/` — Slack `users.list()` lookup, no LLM; pure, deterministic transform/filter pipeline afterward (this is the part that's unit-tested).
 - `find-conference-editions/` — heavy run: a self-hosted SearXNG instance (Docker, `backend/searxng/`) finds each event's current-edition URL. Brave Search was used initially but dropped its free no-card tier on 2026-02-12; SearXNG keeps the "free and local" approach consistent with Ollama.
 - `extract-speaks/` — light run: fetches a known event URL and uses a local Ollama model to find which known Shodo speakers are mentioned on the page (extraction from provided text, not recall — a small local model is reliable here, unlike generating the conference list from the model's own knowledge, which was tried and abandoned). `Speak.speakers` is an array, not a singular — a talk co-presented by two known speakers is one entry, not two duplicates (`groupCoPresentedTalks.ts`).
 
-`GET /api/talks` (`src/routes/talks.ts`) serves `data/talks.json` to the frontend.
+`GET /api/talks` (`src/routes/talks.ts`) serves talks from Postgres to the frontend.
 
 See `backend/CLAUDE.md` for the full collect pattern, the Ollama/undici setup, and the Vitest mocking convention for Slack I/O.
 
