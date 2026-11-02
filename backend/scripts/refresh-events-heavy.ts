@@ -1,11 +1,9 @@
-import { Conference } from "../src/collects/get-conferences/conference.js";
 import { findConferenceEditionUrls } from "../src/collects/find-conference-editions/find-conference-editions.js";
 import { updateEventUrls } from "../src/collects/find-conference-editions/updateEventUrls.js";
-import { readJson, writeJson } from "../src/data/jsonStore.js";
-import { EVENTS_PATH } from "../src/data/paths.js";
+import { readConferences, writeConferences } from "../src/data/conferencesStore.js";
 
 async function main(): Promise<void> {
-  const events = await readJson<Conference[]>(EVENTS_PATH, []);
+  const events = await readConferences();
   console.log(`Recherche des éditions (courante + jusqu'à 4 ans en arrière) pour ${events.length} événement(s).`);
 
   const foundEditionsByName = new Map<string, string[]>();
@@ -25,7 +23,7 @@ async function main(): Promise<void> {
   }
 
   const updated = updateEventUrls(events, foundEditionsByName);
-  await writeJson(EVENTS_PATH, updated);
+  await writeConferences(updated);
   console.log(`${foundEditionsByName.size} événement(s) mis à jour.`);
 }
 
