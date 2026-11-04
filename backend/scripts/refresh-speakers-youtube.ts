@@ -1,23 +1,11 @@
-import { Conference } from "../src/collects/get-conferences/conference.js";
 import { Speak } from "../src/collects/get-speaks/speak.js";
 import { findSpeakerTalksOnYoutube } from "../src/collects/find-speaker-talks-on-youtube/findSpeakerTalksOnYoutube.js";
 import { groupCoPresentedTalks } from "../src/collects/extract-speaks/groupCoPresentedTalks.js";
 import { mergeSpeaks } from "../src/collects/get-speaks/mergeSpeaks.js";
+import { canonicalizeConferenceName } from "../src/collects/get-conferences/canonicalizeConferenceName.js";
 import { readConferences } from "../src/data/conferencesStore.js";
 import { readSpeakers } from "../src/data/speakersStore.js";
 import { readTalks, writeTalks } from "../src/data/talksStore.js";
-import { normalizeForMatch } from "../src/string.functions.js";
-
-// Le nom de conférence déduit par le LLM depuis un titre/une chaîne YouTube peut
-// différer légèrement de notre orthographe canonique (ex. "MiXiT" vs "MixIT") —
-// sans ça, mergeSpeaks ne dédupliquerait pas un talk déjà connu via le scraping
-// de site. Limite résiduelle assumée : un talk retrouvé sous un nom de conférence
-// totalement absent de events.json (ex. "NewCrafts 2025") ne peut pas être
-// canonicalisé de cette façon.
-function canonicalizeConferenceName(name: string, knownEvents: Conference[]): string {
-  const match = knownEvents.find((event) => normalizeForMatch(event.name) === normalizeForMatch(name));
-  return match ? match.name : name;
-}
 
 async function main(): Promise<void> {
   const events = await readConferences();
