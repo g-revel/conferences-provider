@@ -9,6 +9,7 @@
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "setup:local-search": "bash scripts/setup-local-search.sh",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate-db.ts",
     "db:studio": "drizzle-kit studio",

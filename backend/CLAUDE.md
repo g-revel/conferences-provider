@@ -20,7 +20,7 @@ npm run refresh:videos             # SearXNG (youtube) -> videoUrl sur les talks
 npm run refresh:speakers:youtube   # SearXNG (youtube) + Ollama -> nouveaux talks pour tous les speakers actifs (active !== false)
 ```
 
-Accès admin (routes `/api/admin/*`, bouton en haut à droite du frontend) : mot de passe `Shodo` par défaut, override via la variable d'env `ADMIN_PASSWORD`.
+Accès admin (routes `/api/admin/*`, bouton en haut à droite du frontend) : mot de passe `Shodo` par défaut, override via la variable d'env `ADMIN_PASSWORD`. L'onglet "Rechercher" de l'admin (découverte ciblée de nouveaux talks, un talker ou un événement) nécessite SearXNG + Ollama en local — voir `SETUP.md` pour l'installation (`npm run setup:local-search`).
 
 ## Conventions
 
@@ -51,6 +51,8 @@ Routes `/api/admin/*` : liste des talkers (ville éditable), liste de tous les t
 **"A quitté Shodo" édité côté admin** : même pattern, table `speaker_member_overrides` (`speakerMemberOverridesStore.ts`), pour permettre à un admin de marquer manuellement qu'un membre n'appartient plus à Shodo indépendamment du statut `deleted` de son compte Slack (ou l'inverse). `applyMemberOverrides()` (`src/collects/get-speaks/applyMemberOverrides.ts`) surcharge `Speak.speakers[].active` — `talksStore.readTalks()` reflète déjà en direct le statut `active` courant de la table `speakers` via sa jointure (plus besoin d'`applySpeakerActiveStatus()` séparé depuis la migration Postgres), et l'override manuel gagne s'il existe. `PUT /api/admin/talkers/active` persiste l'override ; `GET /api/admin/talkers` expose la valeur `active` effective (override s'il existe, sinon celle déjà portée par le speaker, par défaut `true`). Les talks d'un ancien membre ne sont jamais supprimés ni cachés côté data — `GET /api/talks` les sert toujours, c'est le frontend (`isFormerMembersTalk`/`filterFormerMembersTalks`, `frontend/src/domain/talks/filter/FilterTalksFunctions.ts`) qui les relègue dans une section "Anciens membres" séparée de la liste principale, uniquement quand **tous** les speakers d'un talk sont inactifs (un talk co-animé avec un membre encore actif reste dans la liste principale).
 
 **`Speak.id`** (UUID, `crypto.randomUUID()`) identifie chaque talk pour cibler suppression/restauration — assigné une seule fois, dans le mapping final de `mergeSpeaks.ts` (`id: speak.id ?? crypto.randomUUID()`), pour couvrir tous les points d'entrée du pipeline (scraping, YouTube, import Notion) sans avoir à toucher chaque collect individuellement.
+
+**Onglet "Rechercher" (`src/routes/adminSearch.ts`)** : recherche ciblée (un talker ou un événement, jamais globale) déclenchable depuis l'admin, qui réutilise `findSpeakerTalksOnYoutube`/`extractSpeaksFromConference` sans nouvelle logique d'extraction. Enregistré via `app.register(adminSearchRoutes)` **depuis l'intérieur** d'`adminRoutes` (pas depuis `app.ts`) pour hériter du hook d'auth par encapsulation Fastify. Les résultats ne sont jamais auto-persistés — `POST /api/admin/search/accept` est une étape explicite séparée par candidat, via `mergeSpeaks` (même dédup que les scripts batch). **Ne fonctionne qu'en local** : SearXNG/Ollama ne sont pas accessibles depuis le backend déployé sur Render — voir `SETUP.md` pour l'installation (`npm run setup:local-search`, une commande qui installe Docker/Ollama et démarre les deux services).
 
 ### Persistance (Postgres / Neon)
 
