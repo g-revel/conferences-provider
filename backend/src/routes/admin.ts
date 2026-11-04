@@ -10,6 +10,7 @@ import { applyMemberOverrides } from '../collects/get-speaks/applyMemberOverride
 import { extractCityFromCompany } from '../collects/get-all-speakers/extractCityFromCompany.js'
 import { isValidAdminPassword } from '../admin/adminAuth.js'
 import { normalizeForMatch } from '../string.functions.js'
+import adminSearchRoutes from './adminSearch.js'
 
 function speakerIdentity(firstname: string, lastname: string): string {
   return `${normalizeForMatch(firstname)}|${normalizeForMatch(lastname)}`
@@ -39,6 +40,10 @@ export default async function adminRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(401).send({ error: 'unauthorized' })
     }
   })
+
+  // Enregistré ici (pas dans app.ts) pour hériter du hook preHandler ci-dessus par
+  // encapsulation Fastify, sans dupliquer la vérification du mot de passe.
+  await app.register(adminSearchRoutes)
 
   app.post('/api/admin/login', async (request, reply) => {
     const { password } = (request.body ?? {}) as { password?: unknown }
