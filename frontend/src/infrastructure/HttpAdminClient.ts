@@ -1,6 +1,7 @@
-import type { IAdminClient } from './IAdminClient'
+import type { IAdminClient, SearchStatus } from './IAdminClient'
 import type { Talker } from '../domain/admin/Talker'
 import type { Talk } from '../domain/talks/Talk'
+import type { Conference } from '../domain/conferences/Conference'
 
 export class HttpAdminClient implements IAdminClient {
   async login(password: string): Promise<boolean> {
@@ -111,6 +112,44 @@ export class HttpAdminClient implements IAdminClient {
     await fetch(`/api/admin/talks/${encodeURIComponent(id)}/validate-draft`, {
       method: 'PUT',
       headers: { 'x-admin-password': password },
+    })
+  }
+
+  async getSearchStatus(password: string): Promise<SearchStatus> {
+    const response = await fetch('/api/admin/search/status', { headers: { 'x-admin-password': password } })
+    return response.json()
+  }
+
+  async getSearchConferences(password: string): Promise<Conference[]> {
+    const response = await fetch('/api/admin/search/conferences', { headers: { 'x-admin-password': password } })
+    return response.json()
+  }
+
+  async searchTalker(password: string, firstname: string, lastname: string): Promise<Talk[]> {
+    const response = await fetch('/api/admin/search/talker', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ firstname, lastname }),
+    })
+    if (!response.ok) throw new Error(((await response.json().catch(() => ({}))) as { error?: string }).error ?? 'Recherche échouée')
+    return response.json()
+  }
+
+  async searchEvent(password: string, conferenceName: string): Promise<Talk[]> {
+    const response = await fetch('/api/admin/search/event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ conferenceName }),
+    })
+    if (!response.ok) throw new Error(((await response.json().catch(() => ({}))) as { error?: string }).error ?? 'Recherche échouée')
+    return response.json()
+  }
+
+  async acceptSearchResult(password: string, talk: Talk): Promise<void> {
+    await fetch('/api/admin/search/accept', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
+      body: JSON.stringify({ talk }),
     })
   }
 }

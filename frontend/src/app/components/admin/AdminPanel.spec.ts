@@ -87,6 +87,11 @@ function fakeClient(overrides: Partial<IAdminClient> = {}): IAdminClient {
     setTalkYear: vi.fn(async () => {}),
     setTalkShowWithoutYear: vi.fn(async () => {}),
     validateDraftTalk: vi.fn(async () => {}),
+    getSearchStatus: vi.fn(async () => ({ searxng: true, ollama: true })),
+    getSearchConferences: vi.fn(async () => []),
+    searchTalker: vi.fn(async () => []),
+    searchEvent: vi.fn(async () => []),
+    acceptSearchResult: vi.fn(async () => {}),
     ...overrides,
   }
 }

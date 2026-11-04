@@ -1,5 +1,11 @@
 import type { Talker } from '../domain/admin/Talker'
 import type { Talk } from '../domain/talks/Talk'
+import type { Conference } from '../domain/conferences/Conference'
+
+export interface SearchStatus {
+  searxng: boolean
+  ollama: boolean
+}
 
 export interface IAdminClient {
   login(password: string): Promise<boolean>
@@ -17,4 +23,9 @@ export interface IAdminClient {
   setTalkYear(password: string, id: string, year: number): Promise<void>
   setTalkShowWithoutYear(password: string, id: string, showWithoutYear: boolean): Promise<void>
   validateDraftTalk(password: string, id: string): Promise<void>
+  getSearchStatus(password: string): Promise<SearchStatus>
+  getSearchConferences(password: string): Promise<Conference[]>
+  searchTalker(password: string, firstname: string, lastname: string): Promise<Talk[]>
+  searchEvent(password: string, conferenceName: string): Promise<Talk[]>
+  acceptSearchResult(password: string, talk: Talk): Promise<void>
 }
