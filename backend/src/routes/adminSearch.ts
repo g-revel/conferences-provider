@@ -44,7 +44,10 @@ function isNewCandidate(candidate: Speak, known: { titleKeys: Set<string>; video
 
 async function pingUrl(url: string): Promise<boolean> {
   try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(2000) })
+    // 2s se révèle parfois trop court sur le tout premier appel à SearXNG après une
+    // période d'inactivité (moteurs internes pas encore "chauds") — observé en
+    // pratique, faux négatif gênant pour un simple ping de disponibilité.
+    const response = await fetch(url, { signal: AbortSignal.timeout(5000) })
     return response.ok
   } catch {
     return false

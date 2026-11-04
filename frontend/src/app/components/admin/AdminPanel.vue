@@ -6,6 +6,7 @@ import AdminTalksSection from './AdminTalksSection.vue'
 import AdminPendingValidationSection from './AdminPendingValidationSection.vue'
 import AdminUndatedSection from './AdminUndatedSection.vue'
 import AdminDraftStatusSection from './AdminDraftStatusSection.vue'
+import AdminSearchSection from './AdminSearchSection.vue'
 import type { Talker } from '../../../domain/admin/Talker'
 import type { Talk } from '../../../domain/talks/Talk'
 
@@ -191,6 +192,11 @@ async function onValidateDraft(talk: Talk): Promise<void> {
           @click="tab = 'trash'"
         >Corbeille ({{ deletedTalks.length }})</button>
         <button
+          class="px-1 pb-2 text-sm font-medium"
+          :class="tab === 'search' ? 'border-b-2 border-shodo-rose text-shodo-rose' : 'text-shodo-taupe'"
+          @click="tab = 'search'"
+        >Rechercher</button>
+        <button
           v-for="status in Object.keys(draftTalksByStatus)"
           :key="status"
           class="px-1 pb-2 text-sm font-medium"
@@ -242,6 +248,13 @@ async function onValidateDraft(talk: Talk): Promise<void> {
         :pending-keys="pendingKeys"
         @delete="onDelete"
         @restore="onRestore"
+      />
+
+      <AdminSearchSection
+        v-else-if="tab === 'search'"
+        :talkers="talkers"
+        :password="password"
+        @accepted="reload"
       />
 
       <AdminDraftStatusSection
