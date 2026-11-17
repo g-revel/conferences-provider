@@ -1,0 +1,21 @@
+# Équivalent GitLab CI de .github/workflows/evals.yml (conservé pour l'instant,
+# tant que GitHub reste utilisé en parallèle). Nécessite une variable CI/CD
+# SLACK_TOKEN (Settings > CI/CD > Variables, "Protect variable" décoché si la
+# pipeline doit aussi tourner sur des branches non protégées) — appelle la
+# vraie API Slack, voir backend/CLAUDE.md.
+evals:
+  image: node:22
+  stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  cache:
+    key:
+      files:
+        - backend/package-lock.json
+    paths:
+      - backend/node_modules/
+  script:
+    - cd backend
+    - npm install
+    - npm run eval
